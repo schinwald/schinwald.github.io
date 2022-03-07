@@ -1,0 +1,16 @@
+.shadow {
+    &.shadow--box {
+        box-shadow: 
+            0 0.2rem 0.2rem var(--color-accent-shadow);
+    }
+
+    &.shadow--text {
+        text-shadow: 
+            0 0.2rem 0.2rem var(--color-accent-shadow);
+    }
+
+    &.shadow--filter {
+        filter: 
+            drop-shadow(0 0.2rem 0.2rem var(--color-accent-shadow));
+    }
+}

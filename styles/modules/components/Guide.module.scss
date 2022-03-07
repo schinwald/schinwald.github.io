@@ -1,0 +1,9 @@
+.guide {
+    cursor: pointer;
+    
+    .icon {
+        &::before {
+            font-size: 1.5em;
+        }
+    }
+}

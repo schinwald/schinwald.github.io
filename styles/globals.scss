@@ -1,0 +1,184 @@
+:root {
+  --layer-background: 0;
+  --layer-foreground: 1;
+  --layer-size: 2;
+
+  --color-dark-primary-tinted: #38445e;
+  --color-dark-primary-toned: #202c42;
+  --color-dark-primary-shaded: #0b1220;;
+  --color-dark-secondary-tinted: #ffc266;
+  --color-dark-secondary-toned: #fcaf3e;
+  --color-dark-secondary-shaded: #ff9900;
+  --color-dark-contrast-tinted: #ffffff;
+  --color-dark-contrast-toned: #ffffff;
+  --color-dark-contrast-shaded: #ffffff;
+
+  --color-light-primary-tinted: #e8322c;
+  --color-light-primary-toned: #1d2d4d;
+  --color-light-primary-shaded: #ffffff;
+  --color-light-secondary-tinted: #ffc266;
+  --color-light-secondary-toned: #fcaf3e;
+  --color-light-secondary-shaded: cyan;
+  --color-light-contrast-tinted: #ffffff;
+  --color-light-contrast-toned: #ffffff;
+  --color-light-contrast-shaded: #141a26;
+
+  --color-accent-highlight: #ffffff30;
+  --color-accent-shadow: #00000070;
+
+  --color-status-danger: #e32727;
+  
+  --font-family-icons-free: 'Font Awesome 5 Free';
+  --font-family-icons-brands: 'Font Awesome 5 Brands';
+  --font-family-h1: 'Anton', sans-serif;
+  --font-family-h2: 'Roboto Condensed', sans-serif;
+  --font-family-h3: 'Roboto Condensed', sans-serif;
+  --font-family-default: 'Roboto Condensed', sans-serif;
+  
+  --font-size-h1: 1rem;
+  --font-size-h2: 1rem;
+  --font-size-h3: 1rem;
+  --font-size-default: 1rem;
+
+  --font-size-h1-phone: clamp(1rem, 10vmin, 3rem);
+  --font-size-h2-phone: clamp(0.6rem, 9vmin - 0.5rem, 1.8rem);
+  --font-size-h3-phone: clamp(0.6rem, 8vmin - 0.5rem, 1.5rem);
+  --font-size-default-phone: clamp(0.6rem, 4vmin - 0.25rem, 1.3rem);
+
+  --font-size-h1-tablet: clamp(1rem, 10vmin, 3rem);
+  --font-size-h2-tablet: clamp(0.6rem, 5vmin - 0.5rem, 1.8rem);
+  --font-size-h3-tablet: clamp(0.6rem, 8vmin - 0.5rem, 1.5rem);
+  --font-size-default-tablet: clamp(0.6rem, 3.4vmin - 0.5rem, 1.3rem);
+  
+  --font-size-h1-desktop: clamp(1rem, 10vmin, 3rem);
+  --font-size-h2-desktop: clamp(1rem, 10vmin, 3rem);
+  --font-size-h3-desktop: clamp(1rem, 10vmin, 3rem);
+  --font-size-default-desktop: clamp(1rem, 10vmin, 3rem);
+}
+
+@mixin theme($type) {
+  @if ($type == 'light') {
+    --color-primary-tinted: var(--color-light-primary-tinted);
+    --color-primary-toned: var(--color-light-primary-toned);
+    --color-primary-shaded: var(--color-light-primary-shaded);
+    --color-secondary-tinted: var(--color-light-secondary-tinted);
+    --color-secondary-toned: var(--color-light-secondary-toned);
+    --color-secondary-shaded: var(--color-light-secondary-shaded);
+    --color-contrast-tinted: var(--color-light-contrast-tinted);
+    --color-contrast-toned: var(--color-light-contrast-toned);
+    --color-contrast-shaded: var(--color-light-contrast-shaded);
+    --color-accent: var(--color-accent-shadow);
+} @else if ($type == 'dark') {
+    --color-primary-tinted: var(--color-dark-primary-tinted);
+    --color-primary-toned: var(--color-dark-primary-toned);
+    --color-primary-shaded: var(--color-dark-primary-shaded);
+    --color-secondary-tinted: var(--color-dark-secondary-tinted);
+    --color-secondary-toned: var(--color-dark-secondary-toned);
+    --color-secondary-shaded: var(--color-dark-secondary-shaded);
+    --color-contrast-tinted: var(--color-dark-contrast-tinted);
+    --color-contrast-toned: var(--color-dark-contrast-toned);
+    --color-contrast-shaded: var(--color-dark-contrast-shaded);
+    --color-accent: var(--color-accent-highlight);
+  }
+}
+
+.theme {
+  &.theme--light {
+    @include theme('light');
+  }
+
+  &.theme--dark {
+    @include theme('dark');
+  }
+}
+
+html {
+
+}
+
+body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: background-color 0.2s;
+}
+
+h1 {
+  font-family: var(--font-family-h1);
+  font-weight: 400;
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  font-family: var(--font-family-h2);
+  font-weight: 700;
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-family: var(--font-family-h3);
+  font-weight: 400;
+  font-size: var(--font-size-h3);
+}
+
+h6 {
+  font-family: var(--font-family-default);
+  font-weight: 700;
+  font-size: var(--font-size-default);
+}
+
+p, a, ul, button, input, textarea {
+  font-family: var(--font-family-default);
+  font-weight: 300;
+  font-size: var(--font-size-default);
+}
+
+p {
+  opacity: 0.8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    cursor: default;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+input, textarea {
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+figure {
+  position: relative;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
+
+iframe {
+  border: none;
+}

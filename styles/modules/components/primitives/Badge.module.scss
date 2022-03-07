@@ -1,0 +1,21 @@
+.badge {
+    background-color: var(--color-primary-shaded);
+    color: var(--color-contrast-shaded);
+    padding: 0.6ch 1.2ch;
+    border-radius: 100px;
+    font-size: calc(var(--font-size-default) / 1.2);
+    text-transform: capitalize;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: all 0.2s;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    :nth-child(n + 3) {
+        border-left: 1px solid var(--color-contrast-shaded);
+        padding-left: 1ch;
+        margin-left: 1ch;
+    }
+}

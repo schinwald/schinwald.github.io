@@ -1,0 +1,29 @@
+.terminal {
+  --terminal-padding: 0.8em;
+  --terminal-border-radius: 0.5em;
+  --terminal-header-height: calc(var(--font-size-h3) + 2 * var(--terminal-padding));
+  --terminal-body-height: calc(100% - var(--terminal-header-height));
+
+  color: white;
+  width: 100%;
+  border-radius: var(--terminal-border-radius);
+  overflow: hidden;
+  .terminal__header {
+    background-color: black;
+    height: var(--terminal-header-height);
+    padding: var(--terminal-padding);
+  }
+  .terminal__body {
+    background-color: black;
+    height: var(--terminal-body-height);
+    padding: var(--terminal-padding);
+    overflow: auto;
+    
+    li {
+      margin-left: 1em;
+      &::marker {
+        content: ">  ";
+      }
+    }
+  }
+}

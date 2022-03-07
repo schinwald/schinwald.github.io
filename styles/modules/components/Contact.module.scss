@@ -1,0 +1,23 @@
+.contact {
+    display: grid;
+    grid-template-areas:
+        'title title'
+        'description description'
+        'first last'
+        'email email'
+        'subject subject'
+        'message message'
+        'send send';
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto;
+    gap: 1em;
+
+    .title { grid-area: title; }
+    .description { grid-area: description; }
+    .first { grid-area: first; }
+    .last { grid-area: last; }
+    .email { grid-area: email; }
+    .subject { grid-area: subject; }
+    .message { grid-area: message; }
+    .send { grid-area: send; }
+}

@@ -1,0 +1,16 @@
+.list {
+    display: flex;
+    list-style-type: none;
+    gap: 0 2ch;
+
+    &.list--direction-horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+    }
+
+    &.list--direction-vertical {
+        flex-direction: column;
+    }
+}

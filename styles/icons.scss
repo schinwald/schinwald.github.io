@@ -1,0 +1,183 @@
+.icon {
+    --margin: 0.2em;
+    position: relative;
+    &::before {
+        position: absolute;
+    }
+    // position
+    &.icon--position-center {
+        display: block;
+        &::before {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    &.icon--position-up {
+        margin-top: calc(1em + var(--margin));
+        &::before {
+            bottom: 100%;
+            margin-bottom: var(--margin);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    &.icon--position-right {
+        margin-right: calc(1em + var(--margin));
+        &::before {
+            left: 100%;
+            margin-left: var(--margin);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    &.icon--position-down {
+        margin-bottom: calc(1em + var(--margin));
+        &::before {
+            top: 100%;
+            margin-top: var(--margin);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    &.icon--position-left {
+        margin-left: calc(1em + var(--margin));
+        &::before {
+            right: 100%;
+            margin-right: var(--margin);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    // brands
+    &.icon--github::before {
+        content: "\f09b";
+        font-family: var(--font-family-icons-brands);
+        font-weight: 400;
+    }
+    &.icon--linkedin::before {
+        content: "\f08c";
+        font-family: var(--font-family-icons-brands);
+        font-weight: 400;
+    }
+    &.icon--twitter::before {
+        content: "\f099";
+        font-family: var(--font-family-icons-brands);
+        font-weight: 400;
+    }
+    // free
+    &.icon--chevrons-down::before {
+        content: "\f103";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--chevron-right::before {
+        content: "\f054";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--caret-left::before {
+        content: "\f0d9";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--caret-right::before {
+        content: "\f0da";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--hashtag::before {
+        content: "\23";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--envelope::before {
+        content: "\f0e0";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--reading::before {
+        content: "\f02d";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--writing::before {
+        content: "\f044";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;        
+    }
+    &.icon--link::before {
+        content: "\f08e";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;        
+    }
+    &.icon--eye::before {
+        content: "\f06e";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--star::before {
+        content: "\f005";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--code-fork::before {
+        content: "\e13b";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--code-commit::before {
+        content: "\f386";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--scale::before {
+        content: "\f24e";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--download::before {
+        content: "\f019";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    &.icon--light::before {
+        content: "\f185";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+        color: var(--color-secondary-toned);
+    }
+    &.icon--dark::before {
+        content: "\f186";
+        font-family: var(--font-family-icons-free);
+        font-weight: 900;
+    }
+    // animation
+    &.icon--bobbing-down::before {
+        animation: bobbing-down 0.7s ease-in-out infinite;
+    }
+    &.icon--spinning-forward::before {
+        animation: spinning-forward 1s ease-out forwards;
+    }
+}
+   
+@keyframes bobbing-down {
+    0% {
+        transform: translate(-50%, 0) scale(110%, 90%);
+    }
+    40% {
+        transform: translate(-50%, 0.4em) scale(90%, 110%);
+    }
+}
+
+@keyframes spinning-forward {
+    from {
+        transform: scale(0) rotateZ(0deg);
+    }
+    80% {
+        transform: scale(100%) rotateZ(1100deg);
+    }
+    to {
+        transform: scale(100%) rotateZ(1080deg);
+    }
+}

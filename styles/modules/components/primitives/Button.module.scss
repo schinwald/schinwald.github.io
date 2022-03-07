@@ -1,0 +1,22 @@
+.button {
+    position: relative;
+    color: black;
+    background-color: var(--color-secondary-toned);
+    padding: 0.3em 1em;
+    border-radius: 0.2em;
+    font-weight: 400;
+    transition: all 0.05s;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: 0.2rem solid var(--color-secondary-tinted);
+        outline-offset: 0.2rem;
+    }
+
+    &:active {
+        transform: scale(90%);
+    }
+}
