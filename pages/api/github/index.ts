@@ -1,38 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { StatusCodes } from 'http-status-codes'
 import { Octokit } from 'octokit'
-import { JSONParser } from 'formidable/parsers';
+import { GitHubData } from '@utils/types'
 
 const octokit = new Octokit({ auth: process.env.GITHUB_API_KEY });
-
-export type GitHubData = {
-    repos: {
-        name: string
-        description: string
-        development: {
-            homepage_url: string
-            tags: {
-                name: string
-                style: string 
-            }[]
-            license: string
-            watchers: number
-            forks: number
-            stars: number
-            commits: number
-        }
-        production: {
-            homepage_url: string
-            logo: {
-                image_url: string
-            }
-            preview: {
-                image_url: string
-                video_url: string
-            }
-        }
-    }[]
-}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<GitHubData>) {
     if (req.method === "GET") {

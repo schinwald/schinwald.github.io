@@ -424,13 +424,6 @@
     --font-size-default: var(--font-size-default-tablet);
   }
 
-  .figures {
-    .figures__video {
-      width: calc(50vw - 5vmin);
-      height: calc((50vw - 5vmin) * 9/16);
-    }
-  }
-
   .introduction {
     .layout {
       display: grid;

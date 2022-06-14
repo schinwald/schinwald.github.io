@@ -6,10 +6,11 @@ import isEmail from 'validator/lib/isEmail'
 import isAlpha from 'validator/lib/isAlpha'
 
 type Props = {
-    className?: string;
+    className?: string
+    email: string
 }
 
-export const Contact: React.FC<Props> = ({className}) => {
+export const Contact: React.FC<Props> = ({ className, email }) => {
     const ref = useRef<HTMLFormElement>(null)
     const firstNameRef = useRef<HTMLInputElement>(null)
     const lastNameRef = useRef<HTMLInputElement>(null)
@@ -87,7 +88,7 @@ export const Contact: React.FC<Props> = ({className}) => {
 
     return <form ref={ref} className={[styles["contact"], parseClassName(className)].filter(Boolean).join(" ")}>
         <h2 className={styles["title"]}>Looking to chat?</h2>
-        <p className={styles["description"]}>Send me an email at <Link href="mailto:contact@schinwald.dev" icon={{ type: "fontawesome", name: "link", position: "left" }} underline={true}>contact@schinwald.dev</Link> or fill in the form below:</p>
+        <p className={styles["description"]}>Send me an email at <Link href={`mailto:${email}`} icon={{ type: "fontawesome", name: "link", position: "left" }} underline={true}>{email}</Link> or fill in the form below:</p>
         <Input ref={firstNameRef} className={styles["first"]} name="first" placeholder="First Name" inputMode='text' onChange={() => validateFirstName()} />
         <Input ref={lastNameRef} className={styles["last"]} name="last" placeholder="Last Name" inputMode='text' onChange={() => validateLastName()} />
         <Input ref={emailRef} className={styles["email"]} name="email" placeholder="Email Address" inputMode='email' onChange={() => validateEmail()} />

@@ -1,10 +1,7 @@
-import styles from '@styles/modules/components/Guide.module.scss';
-import { parseClassName } from '@utils/parsers';
-import React from 'react';
-import gsap from 'gsap/dist/gsap'
-import ScrollToPlugin from 'gsap/dist/ScrollToPlugin'
-
-gsap.registerPlugin(ScrollToPlugin)
+import styles from '@styles/modules/components/Guide.module.scss'
+import { parseClassName } from '@utils/parsers'
+import React, { useEffect } from 'react'
+// import gsap from 'gsap'
 
 type Props = {
     className?: string;
@@ -17,7 +14,9 @@ type Props = {
 export const Guide: React.FC<Props> = ({ className, container, target, text, direction }) => {
 
     const onClick = () => {
-        gsap.to(container, { duration: 0.5, scrollTo: target, ease: 'power4' })
+		// const gsap = (window as any).gsap
+		// if (gsap === undefined) return
+        // gsap.to(container, { duration: 0.5, scrollTo: target, ease: 'power4' })
     }
 
     return <p className={[styles["guide"], parseClassName(className)].filter(Boolean).join(" ")}>
