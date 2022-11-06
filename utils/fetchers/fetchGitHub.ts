@@ -72,6 +72,25 @@ export const fetchGitHub = async (repos: string[]) => {
 
                 return github
             })
+        
+        // validate logo and preview urls
+        for (const repo of github.repos) {
+            await fetch(repo.production.logo.image_url)
+                .then((response) => {
+                    if (!response.ok) repo.production.logo.image_url = ''
+                })
+
+            await fetch(repo.production.preview.image_url)
+                .then((response) => {
+                    if (!response.ok) repo.production.preview.image_url = ''
+                })
+
+            await fetch(repo.production.preview.video_url)
+                .then((response) => {
+                    if (!response.ok) repo.production.preview.video_url = ''
+                })
+        }
+
         return JSON.stringify(github)
     } catch (error) {
         console.error(error)

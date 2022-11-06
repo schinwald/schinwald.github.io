@@ -1,7 +1,6 @@
 .container {
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
-  scroll-snap-type: y mandatory;
   overflow: clip scroll;
   scrollbar-color: var(--color-secondary-toned) #00000000;
   scrollbar-width: thin;
@@ -45,14 +44,12 @@
 }
 
 .section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   min-height: 100vh;
   z-index: calc(var(--layer-index) + var(--layer-background));
 
   .layout {
     position: relative;
-    max-width: 100rem;
+    max-width: 80rem;
     padding: 5vmin;
     margin: auto;
     gap: 1.5em;
@@ -85,7 +82,7 @@
         z-index: calc(var(--layer-index) + var(--layer-background));
         background-image: linear-gradient(0deg, var(--color-accent-shadow) 50%, #00000000 90%);
         pointer-events: none;
-        bottom: 99%;
+        bottom: 100%;
         left: -100vh;
         right: -100vh;
         height: 35vh;
@@ -95,7 +92,7 @@
         content: "";
         position: absolute;
         z-index: calc(var(--layer-index) + var(--layer-background));
-        bottom: 99%;
+        bottom: calc(100% - 1px);
         left: -100vh;
         right: -100vh;
         height: 35vh;
@@ -434,7 +431,7 @@
         'figure figure terminal terminal'
         'figure figure article article';
       grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(5, auto);
+      grid-template-rows: 6rem repeat(4, auto);
 
       .navigation { grid-area: navigation; }
       .logo { grid-area: logo; }
