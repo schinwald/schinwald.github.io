@@ -135,11 +135,11 @@ const Jumbotron: React.FC<Props> = ({ className, ...props }) => {
       <div
         className={cn(
           className,
-          "relative h-[175px] mt-10"
+          "relative h-[80px] sm:h-[100px] md:h-[175px] mt-10"
         )}
       >
         <Lottie
-          className="absolute top-[24%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[600px] md:h-[1000px] w-[4000px] pointer-events-none"
+          className="absolute top-[24%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[400px] sm:h-[600px] md:h-[1000px] w-[4000px] pointer-events-none"
           animationData={logoAnimation}
           loop={false}
         />

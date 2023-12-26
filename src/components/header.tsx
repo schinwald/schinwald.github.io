@@ -142,7 +142,7 @@ const Header: React.FC<HeaderProps> = ({ className, title, align, variant, ...pr
       ref={ref}
       className={cn(
         className,
-        'leading-10 w-[fit-content] whitespace-nowrap'
+        'w-[fit-content] whitespace-nowrap'
       )}
     >
       {text}

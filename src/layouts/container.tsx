@@ -10,7 +10,7 @@ const Container: React.FC<PropsWithChildren<Props>> = ({ className, children, ..
     <div 
       className={cn(
         className,
-        'w-full max-w-screen-md flex flex-col gap-10 px-16'
+        'w-full max-w-screen-md flex flex-col gap-10 px-10 md:px-16'
       )}
     >
       {children}

@@ -26,6 +26,19 @@ module.exports = {
       '7xl': '7rem',
       '8xl': '10rem'
     },
+    lineHeight: {
+      sm: '1rem',
+      md: '1rem',
+      lg: '1rem',
+      xl: '1rem',
+      '2xl': '1rem',
+      '3xl': '1rem',
+      '4xl': '1.8rem',
+      '5xl': '2.4rem',
+      '6xl': '2.8rem',
+      '7xl': '3.2rem',
+      '8xl': '3.6rem'
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -101,44 +114,148 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require("tailwindcss/plugin")(function ({ addBase, theme }) {
-      addBase({
-        'h1': {
-          fontFamily: theme('fontFamily.display'),
-          fontSize: theme('fontSize.8xl'),
-        },
-        'h2': {
-          fontFamily: theme('fontFamily.display'),
-          fontSize: theme('fontSize.5xl'),
-        },
-        'h3': {
-          fontFamily: theme('fontFamily.display'),
-          fontSize: theme('fontSize.3xl'),
-        },
-        'h4': {
-          fontFamily: theme('fontFamily.display'),
-          fontSize: theme('fontSize.2xl'),
-        },
-        'h5': {
-          fontFamily: theme('fontFamily.display'),
-          fontSize: theme('fontSize.xl'),
-        },
-        'h6': {
-          fontFamily: theme('fontFamily.body'),
-          fontSize: theme('fontSize.lg'),
-          fontWeight: theme('fontWeight.normal')
-        },
-        'p': {
-          fontFamily: theme('fontFamily.body'),
-          fontSize: theme('fontSize.md'),
-          fontWeight: theme('fontWeight.normal')
-        },
-        'a': {
-          fontFamily: theme('fontFamily.body'),
-          fontSize: theme('fontSize.md'),
-          fontWeight: theme('fontWeight.normal')
+    require("tailwindcss/plugin")(function ({ addComponents, theme }) {
+      addComponents([
+        {
+          '@media (max-width: 1400px)': {
+            'h1': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.8xl'),
+              lineHeight: theme('lineHeight.8xl'),
+            },
+            'h2': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.5xl'),
+              lineHeight: theme('lineHeight.5xl'),
+            },
+            'h3': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.3xl'),
+              lineHeight: theme('lineHeight.3xl'),
+            },
+            'h4': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.2xl'),
+              lineHeight: theme('lineHeight.2xl'),
+            },
+            'h5': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.xl'),
+              lineHeight: theme('lineHeight.xl'),
+            },
+            'h6': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.lg'),
+              lineHeight: theme('lineHeight.lg'),
+              fontWeight: theme('fontWeight.normal')
+            },
+            'p': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal')
+            },
+            'a': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal')
+            }
+          }
+        }, {
+          '@media (max-width: 1100px)': {
+            'h1': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.8xl'),
+              lineHeight: theme('lineHeight.8xl'),
+            },
+            'h2': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.5xl'),
+              lineHeight: theme('lineHeight.5xl'),
+            },
+            'h3': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.3xl'),
+              lineHeight: theme('lineHeight.3xl'),
+            },
+            'h4': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.2xl'),
+              lineHeight: theme('lineHeight.2xl'),
+            },
+            'h5': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.xl'),
+              lineHeight: theme('lineHeight.xl'),
+            },
+            'h6': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.lg'),
+              lineHeight: theme('lineHeight.lg'),
+              fontWeight: theme('fontWeight.normal')
+            },
+            'p': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal')
+            },
+            'a': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal')
+            }
+          }
+        }, {
+          '@media (max-width: 700px)': {
+            'h1': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.8xl'),
+              lineHeight: theme('lineHeight.8xl'),
+            },
+            'h2': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.4xl'),
+              lineHeight: theme('lineHeight.4xl'),
+            },
+            'h3': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.3xl'),
+              lineHeight: theme('lineHeight.3xl'),
+            },
+            'h4': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.2xl'),
+              lineHeight: theme('lineHeight.2xl'),
+            },
+            'h5': {
+              fontFamily: theme('fontFamily.display'),
+              fontSize: theme('fontSize.xl'),
+              lineHeight: theme('lineHeight.xl'),
+            },
+            'h6': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.lg'),
+              lineHeight: theme('lineHeight.lg'),
+              fontWeight: theme('fontWeight.normal')
+            },
+            'p': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal')
+            },
+            'a': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal')
+            }
+          }
         }
-      })
+      ])
     })
   ],
 }
