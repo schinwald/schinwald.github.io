@@ -147,12 +147,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
           </div>
           <div
             ref={lottiePaperAirplaneContainerRef}
-            className="absolute w-[500px] pointer-events-none"
-            style={{
-              top: "calc(0%)",
-              right: "calc(0%)",
-              transform: "translate(30%, -26%)"
-            }}
+            className="absolute bottom-0 right-0 translate-y-[35%] translate-x-[30%] w-[300px] sm:w-[400px] md:w-[500px] pointer-events-none"
           >
             <Lottie
               lottieRef={lottiePaperAirplaneRef}
@@ -161,11 +156,9 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
             />
           </div>
         </div>
-        <div
-          className='w-full max-w-screen-md flex flex-row'
-        >
-          <div className='relative p-12 bg-background rounded-l-md w-[40%] overflow-hidden'>
-            <div className='h-full flex flex-row justify-center items-start'>
+        <div className='w-full max-w-screen-md flex flex-col md:flex-row'>
+          <div className='relative p-12 bg-background rounded-t-md md:rounded-l-md w-full h-[200px] md:h-full md:w-[40%] overflow-hidden'>
+            <div className='absolute h-full w-full flex flex-row justify-start items-start z-20'>
               <h2 className='leading-10 text-white -rotate-6'>
                 <span className='text-3xl'>Let's</span>
                 <br></br>
@@ -189,7 +182,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
               />
             </div>
           </div>
-          <div className='bg-background-overlay rounded-r-md w-[60%]'>
+          <div className='bg-background-overlay rounded-b-md md:rounded-r-md w-full md:w-[60%]'>
             <Form {...form}>
               <form
                 className='p-12 flex flex-col gap-5'

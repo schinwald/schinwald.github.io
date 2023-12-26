@@ -13,8 +13,8 @@ const About: React.FC<Props> = ({ className, ...props }) => {
   return (
     <div className='relative w-screen flex flex-col justify-center items-center mt-40'>
       <Container>
-        <div className='flex flex-row gap-10 z-30'>
-          <div className='flex flex-col'>
+        <div className='flex flex-col sm:flex-row gap-10 z-30'>
+          <div className='flex flex-row'>
             <div className='relative h-[300px] w-[300px] bg-tertiary rounded-[1000px] shadow-lg'>
               <div className='absolute h-[400px] w-[300px] rounded-b-[1000px] overflow-clip bottom-[-1px]'>
                 <img

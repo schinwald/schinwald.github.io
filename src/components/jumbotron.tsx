@@ -139,7 +139,7 @@ const Jumbotron: React.FC<Props> = ({ className, ...props }) => {
         )}
       >
         <Lottie
-          className="absolute top-[24%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[1000px] w-[4000px] pointer-events-none"
+          className="absolute top-[24%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[600px] md:h-[1000px] w-[4000px] pointer-events-none"
           animationData={logoAnimation}
           loop={false}
         />

@@ -87,7 +87,7 @@ const Project: React.FC<Props> = ({ className, title, justify, ...props }) => {
 				<motion.div
 					className={cn(
 						handleJustification({ left: 'flex-row', right: 'flex-row-reverse' }),
-						'flex h-[300px] w-[500px]'
+						'flex h-[300px] w-full sm:w-[500px]'
 					)}
 					onHoverStart={() => {
 						animateOverlay(overlayRef.current, {
