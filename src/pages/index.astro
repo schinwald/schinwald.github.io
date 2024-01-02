@@ -12,26 +12,28 @@ import '@/styles/globals.css'
 
 <Document title="Portfolio | James Schinwald">
 	<Navigation client:only="react" />
-	<main class='flex flex-col justify-center items-center overflow-x-clip'>
-		<section class='z-20 min-h-screen w-screen bg-background text-foreground'>
+	<div class='flex flex-col gap-8'>
+		<section class='z-20 w-screen bg-background text-foreground'>
 			<Jumbotron client:only="react" />
-			<div class='absolute bottom-0 left-0 right-0 bg-background-overlay h-20'></div>
 		</section>
-		<section 
-			class='relative min-h-screen flex flex-col justify-center items-center gap-40 w-full h-full'
-		>
-			<About client:only="react" />
-			<Projects client:only="react" />
-			<Testimonials client:only="react" />
-			<Contact client:only="react" />
-			<div 
-				class='absolute top-0 left-0 bottom-0 right-0 z-[-1] bg-background-soft flex flex-row justify-center'
-				style={{ backgroundImage: `url(${backgroundSoftSVG.src})`, backgroundSize: '30%', backgroundRepeat: 'repeat' }}
+		<main class='flex flex-col justify-center items-center overflow-x-clip'>
+			<section 
+				class='relative min-h-screen flex flex-col justify-center items-center gap-40 w-full h-full'
 			>
-				<div class='bg-gradient-to-r from-transparent to-background-soft w-[100px] h-full z-[-1]'></div>
-				<div class='bg-background-soft w-full max-w-screen-md h-full z-[-1]'></div>
-				<div class='bg-gradient-to-r from-background-soft to-transparent w-[100px] h-full z-[-1]'></div>
-			</div>
-		</section>
-	</main>
+				<About client:only="react" />
+				<Projects client:only="react" />
+				<Testimonials client:only="react" />
+				<Contact client:only="react" />
+			</section>
+		</main>
+		<footer class='flex flex-row justify-center'></footer>
+		<div 
+			class='fixed top-0 left-0 bottom-0 right-0 z-[-1] bg-background-soft flex flex-row justify-center'
+			style={{ backgroundImage: `url(${backgroundSoftSVG.src})`, backgroundSize: '30%', backgroundRepeat: 'repeat' }}
+		>
+			<div class='bg-gradient-to-r from-transparent to-background-soft w-[100px] h-full z-[-1]'></div>
+			<div class='bg-background-soft w-full max-w-screen-md h-full z-[-1]'></div>
+			<div class='bg-gradient-to-r from-background-soft to-transparent w-[100px] h-full z-[-1]'></div>
+		</div>
+	</div>
 </Document>

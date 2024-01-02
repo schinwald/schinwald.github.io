@@ -19,7 +19,7 @@ const Navigation: React.FC<Props> = (props) => {
   useEffect(() => {
     if (isNavigating) {
       const controls = animateBackground(backgroundRef.current, {
-        width: ['0%', '120%'],
+        width: ['0%', '200%'],
         opacity: [1, 1]
       }, {
         duration: 0.2,

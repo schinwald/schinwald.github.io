@@ -68,9 +68,9 @@ const Header: React.FC<HeaderProps> = ({ className, title, align, variant, ...pr
 
   let text
 
-  const centerPadding = 'px-8'
-  const leftPadding = 'pr-16'
-  const rightPadding = 'pl-16'
+  const centerPadding = 'pax-4 md:px-8'
+  const leftPadding = 'pr-8 md:pr-16'
+  const rightPadding = 'pl-8 md:pl-16'
 
   function handleAlignment<T>({ center, left, right }: { center: T, left: T, right: T }): T {
     switch (align) {
@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ className, title, align, variant, ...pr
         >
           <div className='flex flex-row items-center gap-1'>
             <h2 className='text-foreground whitespace-nowrap'>{title}</h2>
-            <div className='bg-white w-5 h-[35px] mt-[0.4rem] opacity-30'></div>
+            <div className='bg-white w-5 h-[25px] sm:h-[35px] mt-[0.2rem] sm:mt-[0.4rem] opacity-30'></div>
           </div>
         </div>
       )

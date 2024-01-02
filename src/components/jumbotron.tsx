@@ -81,7 +81,7 @@ const Jumbotron: React.FC<Props> = ({ className, ...props }) => {
   }, [])
 
   return (
-    <div className='relative h-screen flex flex-col justify-center items-center gap-2 overflow-x-clip'>
+    <div className='relative h-[calc(100dvh)] flex flex-col justify-center items-center gap-2 overflow-x-clip'>
       <Lottie
         lottieRef={lottiePopA}
         className="absolute w-[200px] pointer-events-none"
@@ -147,6 +147,7 @@ const Jumbotron: React.FC<Props> = ({ className, ...props }) => {
       <h3 className="text-white uppercase leading-10">
         Software Engineer
       </h3>
+			<div className='absolute bottom-0 left-0 right-0 bg-background-overlay h-20'></div>
     </div>
   )
 }

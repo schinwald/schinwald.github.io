@@ -34,7 +34,7 @@ const Testimonial: React.FC<Props & PropsWithChildren> = (props) => {
   return (
     <div 
       className={cn(
-        'relative h-[400px] w-[300px] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer',
+        'relative h-[400px] aspect-[3/4] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer',
         className,
       )}
       onClick={onClick}

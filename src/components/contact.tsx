@@ -121,7 +121,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
   }, [])
 
   return (
-    <div className='relative h-screen w-screen flex flex-row justify-center'>
+    <div className='relative h-full w-screen flex flex-row justify-center'>
       <Container>
         <div className='relative flex flex-row justify-start'>
           <Header
@@ -147,7 +147,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
           </div>
           <div
             ref={lottiePaperAirplaneContainerRef}
-            className="absolute bottom-0 right-0 translate-y-[35%] translate-x-[30%] w-[300px] sm:w-[400px] md:w-[500px] pointer-events-none"
+            className="absolute bottom-0 right-0 translate-y-[35%] translate-x-[30%] w-[250px] sm:w-[400px] md:w-[500px] pointer-events-none"
           >
             <Lottie
               lottieRef={lottiePaperAirplaneRef}
@@ -157,13 +157,15 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
           </div>
         </div>
         <div className='w-full max-w-screen-md flex flex-col md:flex-row'>
-          <div className='relative p-12 bg-background rounded-t-md md:rounded-l-md w-full h-[200px] md:h-full md:w-[40%] overflow-hidden'>
-            <div className='absolute h-full w-full flex flex-row justify-start items-start z-20'>
-              <h2 className='leading-10 text-white -rotate-6'>
-                <span className='text-3xl'>Let's</span>
-                <br></br>
-                <span>Connect!</span>
-              </h2>
+          <div className='relative p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[200px] md:h-full md:w-[40%] overflow-hidden'>
+            <div className='relative'>
+              <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20'>
+                <h2 className='leading-10 text-white -rotate-6'>
+                  <span className='text-3xl'>Let's</span>
+                  <br></br>
+                  <span>Connect!</span>
+                </h2>
+              </div>
             </div>
             <div className='absolute top-[10%] left-[50%] translate-x-[-50%] scale-x-[200%] scale-y-[200%]'>
               <Lottie
@@ -182,10 +184,10 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
               />
             </div>
           </div>
-          <div className='bg-background-overlay rounded-b-md md:rounded-r-md w-full md:w-[60%]'>
+          <div className='bg-background-overlay rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%]'>
             <Form {...form}>
               <form
-                className='p-12 flex flex-col gap-5'
+                className='p-8 md:p-12 flex flex-col gap-5'
                 onSubmit={form.handleSubmit(onSubmit)}
               >
                 <FormField

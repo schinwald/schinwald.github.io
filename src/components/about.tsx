@@ -15,13 +15,15 @@ const About: React.FC<Props> = ({ className, ...props }) => {
       <Container>
         <div className='flex flex-col sm:flex-row gap-10 z-30'>
           <div className='flex flex-row'>
-            <div className='relative h-[300px] w-[300px] bg-tertiary rounded-[1000px] shadow-lg'>
-              <div className='absolute h-[400px] w-[300px] rounded-b-[1000px] overflow-clip bottom-[-1px]'>
-                <img
-                  className='absolute bottom-0 h-[360px] object-cover scale-x-[-100%] -rotate-6'
-                  src={profileImage.src}
-                >
-                </img>
+            <div className='w-full px-16 sm:p-0'>
+              <div className='relative w-full sm:w-[200px] md:w-[300px] aspect-square bg-tertiary rounded-[1000px] shadow-lg'>
+                <div className='absolute w-full aspect-[3/4] rounded-b-[1000px] overflow-clip bottom-[-1px]'>
+                  <img
+                    className='absolute bottom-0 w-full aspect-[300/360] object-cover scale-x-[-100%] -rotate-6'
+                    src={profileImage.src}
+                  >
+                  </img>
+                </div>
               </div>
             </div>
           </div>

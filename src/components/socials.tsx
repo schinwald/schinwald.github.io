@@ -5,6 +5,7 @@ import { AiOutlineGithub as GitHubIcon } from 'react-icons/ai'
 import { AiOutlineTwitter as TwitterIcon } from 'react-icons/ai'
 import { AiFillInstagram as InstagramIcon } from 'react-icons/ai'
 import { FaDiscord as DiscordIcon } from 'react-icons/fa'
+import { CiCircleMore as DotsIcon } from "react-icons/ci"
 
 
 type Props = {
@@ -26,7 +27,9 @@ const Socials: React.FC<Props> = ({ className, ...props }) => {
           target="_blank"
         >
           <GitHubIcon className='w-7 h-7' />
-          <h4>Github</h4>
+          <h4 className='hidden sm:block'>
+            Github
+          </h4>
         </a>
       </li>
       <li>
@@ -36,7 +39,9 @@ const Socials: React.FC<Props> = ({ className, ...props }) => {
           target="_blank"
         >
           <LinkedInIcon className='w-7 h-7' />
-          <h4>LinkedIn</h4>
+          <h4 className='hidden sm:block'>
+            LinkedIn
+          </h4>
         </a>
       </li>
       <li>
@@ -46,27 +51,45 @@ const Socials: React.FC<Props> = ({ className, ...props }) => {
           target="_blank"
         >
           <TwitterIcon className='w-7 h-7' />
-          <h4>Twitter</h4>
+          <h4 className='hidden sm:block'>
+            Twitter
+          </h4>
         </a>
       </li>
+      {/* <li> */}
+      {/*   <a */}
+      {/*     className='flex flex-row items-center gap-2' */}
+      {/*     href="" */}
+      {/*     target="_blank" */}
+      {/*   > */}
+      {/*     <InstagramIcon className='w-7 h-7' /> */}
+      {/*     <h4 className='hidden sm:block'> */}
+      {/*       Instagram */}
+      {/*     </h4> */}
+      {/*   </a> */}
+      {/* </li> */}
+      {/* <li> */}
+      {/*   <a */}
+      {/*     className='flex flex-row items-center gap-2' */}
+      {/*     href="" */}
+      {/*     target="_blank" */}
+      {/*   > */}
+      {/*     <DiscordIcon className='w-7 h-7' /> */}
+      {/*     <h4 className='hidden sm:block'> */}
+      {/*       Discord */}
+      {/*     </h4> */}
+      {/*   </a> */}
+      {/* </li> */}
       <li>
         <a
           className='flex flex-row items-center gap-2'
           href=""
           target="_blank"
         >
-          <InstagramIcon className='w-7 h-7' />
-          <h4>Instagram</h4>
-        </a>
-      </li>
-      <li>
-        <a
-          className='flex flex-row items-center gap-2'
-          href=""
-          target="_blank"
-        >
-          <DiscordIcon className='w-7 h-7' />
-          <h4>Discord</h4>
+          <DotsIcon className='w-7 h-7' />
+          <h4 className='hidden sm:block'>
+            More
+          </h4>
         </a>
       </li>
     </ul>
