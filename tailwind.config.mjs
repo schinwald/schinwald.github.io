@@ -117,6 +117,50 @@ module.exports = {
     require("tailwindcss/plugin")(function ({ addComponents, theme }) {
       addComponents([
         {
+          'h1': {
+            fontFamily: theme('fontFamily.display'),
+            fontSize: theme('fontSize.8xl'),
+            lineHeight: theme('lineHeight.8xl'),
+          },
+          'h2': {
+            fontFamily: theme('fontFamily.display'),
+            fontSize: theme('fontSize.4xl'),
+            lineHeight: theme('lineHeight.4xl'),
+          },
+          'h3': {
+            fontFamily: theme('fontFamily.display'),
+            fontSize: theme('fontSize.3xl'),
+            lineHeight: theme('lineHeight.3xl'),
+          },
+          'h4': {
+            fontFamily: theme('fontFamily.display'),
+            fontSize: theme('fontSize.md'),
+            lineHeight: theme('lineHeight.md'),
+          },
+          'h5': {
+            fontFamily: theme('fontFamily.display'),
+            fontSize: theme('fontSize.xl'),
+            lineHeight: theme('lineHeight.xl'),
+          },
+          'h6': {
+            fontFamily: theme('fontFamily.body'),
+            fontSize: theme('fontSize.lg'),
+            lineHeight: theme('lineHeight.lg'),
+            fontWeight: theme('fontWeight.normal')
+          },
+          'p': {
+            fontFamily: theme('fontFamily.body'),
+            fontSize: theme('fontSize.md'),
+            lineHeight: theme('lineHeight.md'),
+            fontWeight: theme('fontWeight.normal')
+          },
+          'a': {
+            fontFamily: theme('fontFamily.body'),
+            fontSize: theme('fontSize.md'),
+            lineHeight: theme('lineHeight.md'),
+            fontWeight: theme('fontWeight.normal')
+          }
+        }, {
           '@media (min-width: 700px)': {
             'h1': {
               fontFamily: theme('fontFamily.display'),
