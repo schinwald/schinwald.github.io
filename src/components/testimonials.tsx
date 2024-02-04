@@ -82,12 +82,12 @@ const Testimonials: React.FC<Props> = ({ className, ...props }) => {
         </div>
       </Container>
       <Container
-        className='h-[500px] items-center bg-background overflow-clip relative'
+        className='h-[400px] md:h-[500px] items-center bg-background overflow-clip relative'
         variant='wide'
       >
         <div className='absolute left-0 right-[calc(50%+1200px)] h-full bg-background z-20'></div>
         <div className='absolute left-[calc(50%+1200px)] right-0 h-full bg-background z-20'></div>
-        <div className='w-[2400px] h-full relative flex flex-row justify-center items-center'>
+        <div className='w-[2400px] h-full relative flex flex-row justify-center items-center scale-[60%] md:scale-100'>
           <div className='absolute left-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-gradient-to-r from-background to-transparent z-20 pointer-events-none'></div>
           <div className='absolute right-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-gradient-to-r to-background from-transparent z-20 pointer-events-none'></div>
           <div ref={testimonialContainerRef} className='w-full flex flex-row justify-center items-center rotate-6 opacity-0'>
