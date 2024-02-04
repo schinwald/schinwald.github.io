@@ -7,7 +7,7 @@ const containerVariants = cva(
   {
     variants: {
       variant: {
-        narrow: "px-16 max-w-screen-md",
+        narrow: "px-6 sm:px-16 max-w-screen-md",
         hybrid: "px-0 sm:px-16 max-w-screen-md",
         wide: "w-screen",
       }
