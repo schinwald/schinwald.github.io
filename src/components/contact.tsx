@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
 import { Header } from '@/components/header'
 import paperAnimation from '@/assets/lotties/paper_airplane.json'
-import liquidAnimation from '@/assets/lotties/liquid.json'
 import Lottie, { type LottieRefCurrentProps } from "lottie-react"
 import { Button } from './primitives/ui/button'
 import { Input } from './primitives/ui/input'
@@ -34,8 +33,6 @@ type Props = {
 const Contact: React.FC<Props> = ({ className, ...props }) => {
   const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null)
   const lottiePaperAirplaneContainerRef = useRef(null)
-  const lottieTopLiquidRef = useRef<LottieRefCurrentProps>(null)
-  const lottieBottomLiquidRef = useRef<LottieRefCurrentProps>(null)
   const [sentMessageRef, animateSentMessage] = useAnimate()
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
   const isInView = useInView(lottiePaperAirplaneContainerRef, { margin: "-200px 0px" })
@@ -52,8 +49,6 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
     if (isInView) {
       if (lottiePaperAirplaneRef.current?.animationItem?.isPaused) {
         animatePaperAirplaneEntry()
-        lottieTopLiquidRef.current?.playSegments([0, 25], true)
-        lottieBottomLiquidRef.current?.playSegments([0, 20], true)
       }
     }
   }, [isInView])
@@ -168,22 +163,6 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
                   <span>Connect!</span>
                 </h2>
               </div>
-            </div>
-            <div className='absolute top-[10%] left-[50%] translate-x-[-50%] scale-x-[200%] scale-y-[200%]'>
-              <Lottie
-                lottieRef={lottieTopLiquidRef}
-                animationData={liquidAnimation}
-                autoplay={false}
-                loop={false}
-              />
-            </div>
-            <div className='absolute bottom-[0%] left-[50%] translate-x-[-50%] scale-x-[-250%] scale-y-[250%] -rotate-12'>
-              <Lottie
-                lottieRef={lottieBottomLiquidRef}
-                animationData={liquidAnimation}
-                autoplay={false}
-                loop={false}
-              />
             </div>
           </div>
           <div className='bg-background-overlay rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%]'>
