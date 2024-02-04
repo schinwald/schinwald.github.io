@@ -121,8 +121,8 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
   }, [])
 
   return (
-    <div className='relative h-full w-screen flex flex-row justify-center'>
-      <Container>
+    <div className='relative w-screen flex flex-col items-center gap-10'>
+      <Container variant='narrow'>
         <div className='relative flex flex-row justify-start'>
           <Header
             className='text-left'
@@ -147,7 +147,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
           </div>
           <div
             ref={lottiePaperAirplaneContainerRef}
-            className="absolute bottom-0 right-0 translate-y-[35%] translate-x-[30%] w-[250px] sm:w-[400px] md:w-[500px] pointer-events-none"
+            className="absolute bottom-0 right-0 translate-y-[35%] translate-x-[30%] w-[300px] sm:w-[400px] md:w-[500px] pointer-events-none"
           >
             <Lottie
               lottieRef={lottiePaperAirplaneRef}
@@ -156,8 +156,10 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
             />
           </div>
         </div>
-        <div className='w-full max-w-screen-md flex flex-col md:flex-row'>
-          <div className='relative p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[200px] md:h-full md:w-[40%] overflow-hidden'>
+      </Container>
+      <Container variant='hybrid'>
+        <div className='flex flex-col md:flex-row'>
+          <div className='relative p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[200px] md:h-auto md:w-[40%] overflow-hidden'>
             <div className='relative'>
               <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20'>
                 <h2 className='leading-10 text-white -rotate-6'>
@@ -245,7 +247,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
                     </FormItem>
                   )}
                 />
-                <div className='flex flex-row justify-start'>
+                <div className='flex flex-row justify-center md:justify-start mt-4'>
                   <Button
                     type="submit"
                     disabled={isSubmitDisabled}
@@ -257,7 +259,9 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
             </Form>
           </div>
         </div>
-        <Socials />
+      </Container>
+      <Container variant='narrow'>
+        <Socials/>
       </Container>
     </div>
   )

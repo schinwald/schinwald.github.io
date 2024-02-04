@@ -11,8 +11,8 @@ type Props = {
 
 const About: React.FC<Props> = ({ className, ...props }) => {
   return (
-    <div className='relative w-screen flex flex-col justify-center items-center mt-40'>
-      <Container>
+    <div className='relative w-screen flex flex-col justify-center items-center'>
+      <Container variant='narrow'>
         <div className='flex flex-col sm:flex-row gap-10 z-30'>
           <div className='flex flex-row'>
             <div className='w-full px-16 sm:p-0'>
@@ -52,7 +52,7 @@ const About: React.FC<Props> = ({ className, ...props }) => {
       </Container>
       <div className='h-[100px] w-[calc(100%+2rem)] bg-background-overlay rotate-6 mt-20 flex flex-row justify-center items-center shadow-lg'>
         <Socials />
-        <div className='absolute h-[10000px] w-[calc(100%+200rem)] bg-background-soft bottom-[100%]'>
+        <div className='absolute h-[1000px] w-[calc(100%+200rem)] bg-gradient-to-t from-background-soft to-background-overlay bottom-[100%]'>
         </div>
       </div>
     </div>

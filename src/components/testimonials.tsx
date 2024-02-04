@@ -5,7 +5,7 @@ import { Container } from '@/layouts/container'
 import { useAnimate } from 'framer-motion'
 import { Link } from './primitives/ui/link'
 
-const count = 40
+const count = 30
 const duration = 120.0
 const delay = duration / 29.0
 const cycleDuration = count * delay
@@ -71,7 +71,7 @@ const Testimonials: React.FC<Props> = ({ className, ...props }) => {
 
   return (
     <div className='relative w-screen flex flex-col items-center gap-10'>
-      <Container>
+      <Container variant='narrow'>
         <div className='flex flex-row justify-end'>
           <Header
             className='text-right'
@@ -80,8 +80,11 @@ const Testimonials: React.FC<Props> = ({ className, ...props }) => {
             variant='cascade'
           />
         </div>
-      </Container >
-      <div className='h-[500px] w-screen bg-background flex flex-row justify-center items-center overflow-clip relative'>
+      </Container>
+      <Container
+        className='h-[500px] items-center bg-background overflow-clip relative'
+        variant='wide'
+      >
         <div className='absolute left-0 right-[calc(50%+1200px)] h-full bg-background z-20'></div>
         <div className='absolute left-[calc(50%+1200px)] right-0 h-full bg-background z-20'></div>
         <div className='w-[2400px] h-full relative flex flex-row justify-center items-center'>
@@ -113,8 +116,8 @@ const Testimonials: React.FC<Props> = ({ className, ...props }) => {
             })}
           </div>
         </div>
-      </div>
-      <Container >
+      </Container>
+      <Container variant='narrow'>
         <div className='flex flex-row justify-end'>
           <Link
             href='/testimonial/review'

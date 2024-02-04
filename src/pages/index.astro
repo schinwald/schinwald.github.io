@@ -11,15 +11,13 @@ import '@/styles/globals.css'
 ---
 
 <Document title="Portfolio | James Schinwald">
-	<Navigation client:only="react" />
-	<div class='flex flex-col gap-8'>
+	<Navigation client:idle />
+	<div class='flex flex-col gap-32'>
 		<section class='z-20 w-screen bg-background text-foreground'>
 			<Jumbotron client:only="react" />
 		</section>
 		<main class='flex flex-col justify-center items-center overflow-x-clip'>
-			<section 
-				class='relative min-h-screen flex flex-col justify-center items-center gap-40 w-full h-full'
-			>
+			<section class='relative min-h-screen flex flex-col justify-center items-center gap-32 w-full h-full'>
 				<About client:only="react" />
 				<Projects client:only="react" />
 				<Testimonials client:only="react" />

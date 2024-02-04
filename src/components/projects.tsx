@@ -10,7 +10,7 @@ type Props = {
 const Projects: React.FC<Props> = ({ className, ...props }) => {
 	return (
 		<div className='relative w-screen flex flex-row justify-center'>
-			<Container>
+			<Container variant='narrow'>
 				<div className='w-full max-w-screen-md flex flex-row justify-start'>
 					<Header
 						className='text-left'

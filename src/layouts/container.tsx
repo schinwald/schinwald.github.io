@@ -1,16 +1,33 @@
 import React, { type PropsWithChildren } from 'react'
+import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from '@/utils'
 
-type Props = {
-  className?: string
-}
+const containerVariants = cva(
+  'w-full flex flex-col gap-10',
+  {
+    variants: {
+      variant: {
+        narrow: "px-16 max-w-screen-md",
+        hybrid: "px-0 sm:px-16 max-w-screen-md",
+        wide: "w-screen",
+      }
+    }
+  }
+)
 
-const Container: React.FC<PropsWithChildren<Props>> = ({ className, children, ...props }) => {
+type Props = {} & 
+VariantProps<typeof containerVariants> &
+React.HTMLAttributes<HTMLDivElement>
+
+const Container: React.FC<PropsWithChildren<Props>> = ({
+  className,
+  variant,
+  children,
+}) => {
   return (
     <div 
       className={cn(
-        className,
-        'w-full max-w-screen-md flex flex-col gap-10 px-10 md:px-16'
+        containerVariants({ variant, className })
       )}
     >
       {children}
