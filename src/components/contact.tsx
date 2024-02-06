@@ -154,7 +154,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
       </Container>
       <Container variant='hybrid'>
         <div className='flex flex-col md:flex-row'>
-          <div className='relative p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[200px] md:h-auto md:w-[40%] overflow-hidden'>
+          <div className='relative px-12 py-6 md:px-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[130px] md:h-auto md:w-[40%] overflow-hidden'>
             <div className='relative'>
               <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20'>
                 <h2 className='leading-10 text-white -rotate-6'>
@@ -168,7 +168,7 @@ const Contact: React.FC<Props> = ({ className, ...props }) => {
           <div className='bg-background-overlay rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%]'>
             <Form {...form}>
               <form
-                className='p-8 md:p-12 flex flex-col gap-5'
+                className='p-8 md:p-12 flex flex-col gap-2 md:gap-5'
                 onSubmit={form.handleSubmit(onSubmit)}
               >
                 <FormField
