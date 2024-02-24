@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     screens: {
       sm: '700px',
-      md: '1100px',
-      lg: '1400px'
+      md: '1200px',
+      lg: '1400px',
     },
     fontFamily: {
       special: ["'Bebas Neue'", "sans-serif"],
@@ -14,9 +14,9 @@ module.exports = {
       body: ["'Open Sans'", "sans-serif"],
     },
     fontSize: {
-      sm: '0.8rem',
-      md: '0.9rem',
-      lg: '1rem',
+      sm: '0.9rem',
+      md: '1rem',
+      lg: '1.1rem',
       xl: '1.2rem',
       '2xl': '1.3rem',
       '3xl': '1.5rem',
@@ -27,12 +27,12 @@ module.exports = {
       '8xl': '10rem'
     },
     lineHeight: {
-      sm: '1rem',
-      md: '1rem',
-      lg: '1rem',
-      xl: '1rem',
-      '2xl': '1rem',
-      '3xl': '1rem',
+      sm: '1.2rem',
+      md: '1.2rem',
+      lg: '1.2rem',
+      xl: '1.2rem',
+      '2xl': '1.2rem',
+      '3xl': '1.4rem',
       '4xl': '1.8rem',
       '5xl': '2.4rem',
       '6xl': '2.8rem',

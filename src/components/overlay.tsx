@@ -2,13 +2,13 @@ import { forwardRef, type PropsWithChildren } from "react"
 import { cn } from '@/utils'
 import { motion } from 'framer-motion'
 
-type Props = {
+type OverlayProps = {
   className?: string
   position: 'absolute' | 'fixed'
 }
 
-const Overlay = forwardRef<HTMLDivElement, Props & PropsWithChildren>((props, ref) => {
-  const { className, children, position, ...otherProps } = props
+const Overlay = forwardRef<HTMLDivElement, OverlayProps & PropsWithChildren>((props, ref) => {
+  const { className, children, position } = props
 
   return (
     <motion.div

@@ -13,104 +13,11 @@ import { Textarea } from './primitives/ui/textarea'
 import { Container } from '@/layouts/container'
 import { Socials } from './socials'
 
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: '(Required)' })
-    .email('(Must be a valid email)'),
-  message: z
-    .string()
-    .min(1, { message: '(Required)' }),
-})
-
-type ContactProps = {
+type CardProps = {
   className?: string
 }
 
-const Contact: React.FC<ContactProps> = () => {
-  const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null)
-  const lottiePaperAirplaneContainerRef = useRef(null)
-  const [sentMessageRef, animateSentMessage] = useAnimate()
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
-  const isInView = useInView(lottiePaperAirplaneContainerRef, { margin: "-200px 0px" })
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      message: "",
-    },
-  })
-
-  useEffect(() => {
-    if (isInView) {
-      if (lottiePaperAirplaneRef.current?.animationItem?.isPaused) {
-        animatePaperAirplaneEntry()
-      }
-    }
-  }, [isInView])
-
-  const animatePaperAirplaneEntry = useCallback(() => {
-    lottiePaperAirplaneRef?.current?.playSegments([0, 96], true)
-    lottiePaperAirplaneRef?.current?.playSegments([97, 146])
-    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(true)
-  }, [lottiePaperAirplaneRef])
-
-  const animatePaperAirplaneExit = useCallback(() => {
-    lottiePaperAirplaneRef?.current?.playSegments([147, 200])
-    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false)
-  }, [lottiePaperAirplaneRef])
-
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    setIsSubmitDisabled(true)
-    animatePaperAirplaneExit()
-    lottiePaperAirplaneRef?.current?.animationItem?.addEventListener('complete', () => {
-      lottiePaperAirplaneRef?.current?.animationItem?.removeEventListener('complete')
-
-      form.resetField('message')
-
-      animateSentMessage([
-        [
-          sentMessageRef.current, {
-            opacity: 0,
-            display: 'block',
-            transform: 'translateY(100%)',
-          }, {
-            duration: 0
-          }
-        ], [
-          sentMessageRef.current, {
-            opacity: 1,
-            transform: 'translateY(0%)',
-          }, {
-            duration: 0.2,
-            ease: "easeOut"
-          }
-        ], [
-          sentMessageRef.current, {
-            opacity: 1,
-            transform: 'translateY(0%)',
-          }, {
-            duration: 0.3,
-          }
-        ], [
-          sentMessageRef.current, {
-            opacity: 0,
-            display: 'none',
-            transform: 'translateY(100%)',
-          }, {
-            duration: 0.5,
-            ease: "easeIn"
-          }
-        ]
-      ])
-
-      setTimeout(() => {
-        animatePaperAirplaneEntry()
-        setIsSubmitDisabled(false)
-      }, 1300)
-    })
-  }, [])
-
+const Card: React.FC<CardProps> = ({ className, ...props }) => {
   return (
     <div className='relative w-screen flex flex-col items-center gap-10'>
       <Container variant='narrow'>

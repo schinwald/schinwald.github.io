@@ -8,11 +8,11 @@ import { FaDiscord as DiscordIcon } from 'react-icons/fa'
 import { CiCircleMore as DotsIcon } from "react-icons/ci"
 
 
-type Props = {
+type SocialsProps = {
   className?: string
 }
 
-const Socials: React.FC<Props> = ({ className, ...props }) => {
+const Socials: React.FC<SocialsProps> = ({ className }) => {
   return (
     <ul
       className={cn(

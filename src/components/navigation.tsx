@@ -4,13 +4,11 @@ import { motion, useAnimate } from 'framer-motion'
 import { useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
-type Props = {
-
+type NavigationProps = {
+  className?: string
 }
 
-const Navigation: React.FC<Props> = (props) => {
-  const { ...otherProps } = props
-
+const Navigation: React.FC<NavigationProps> = () => {
   const [isNavigating, endNavigation] = useNavigationStore(
     useShallow((state) => [state.isNavigating, state.endNavigation])
   )
@@ -18,7 +16,7 @@ const Navigation: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (isNavigating) {
-      const controls = animateBackground(backgroundRef.current, {
+      animateBackground(backgroundRef.current, {
         width: ['0%', '200%'],
         opacity: [1, 1]
       }, {

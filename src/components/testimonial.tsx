@@ -5,29 +5,24 @@ import imageDefaultAvatar from '@/assets/images/avatar.webp'
 import waveAnimation from '@/assets/lotties/wave.json'
 import Lottie from 'lottie-react'
 
-type Props = {
+type TestimonialProps = {
   className?: string
   stars: number
   name: string
   job: string
   company: string
   avatar?: string
-  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
-const Testimonial: React.FC<Props & PropsWithChildren> = (props) => {
-  let {
-    className,
-    stars,
-    name,
-    job,
-    company,
-    avatar,
-    children,
-    onClick,
-    ...otherProps
-  } = props
-
+const Testimonial: React.FC<TestimonialProps & PropsWithChildren> = ({
+  className,
+  stars,
+  name,
+  job,
+  company,
+  avatar,
+  children,
+}) => {
   if (stars < 0) stars = 0
   if (stars > 5) stars = 5
 
@@ -37,7 +32,6 @@ const Testimonial: React.FC<Props & PropsWithChildren> = (props) => {
         'relative h-[400px] aspect-[3/4] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer',
         className,
       )}
-      onClick={onClick}
     >
       <div className='absolute flex flex-col items-center justify-between h-full p-8 z-20'>
         <div className='flex flex-col gap-4'>
