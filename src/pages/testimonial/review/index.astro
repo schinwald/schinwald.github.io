@@ -10,7 +10,7 @@ const session = await getSession(Astro.request);
 
 <Document title="Write a Testimonial">
 	<Navigation client:only="react"/>
-	<section className='bg-background w-screen h-screen'>
+	<section class='bg-background w-screen h-screen'>
 	{
 		!session ? (
 			<Authentication client:only="react"/>

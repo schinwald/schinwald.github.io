@@ -1,5 +1,5 @@
 import React, { type MouseEventHandler, type PropsWithChildren } from 'react'
-import { cn } from '@/utils'
+import { cn } from '@/utils/classname'
 import imageStar from '@/assets/images/star.svg'
 import imageDefaultAvatar from '@/assets/images/avatar.webp'
 import waveAnimation from '@/assets/lotties/wave.json'

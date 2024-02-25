@@ -1,14 +1,13 @@
 ---
 import Document from '@/layouts/document.astro';
 import { Navigation } from '@/components/navigation';
-import { Timeline } from '@/components/timeline';
 import { UnderConstruction } from '@/components/under-construction';
 import '@/styles/globals.css'
 ---
 
 <Document title="Write a Testimonial">
 	<Navigation client:only="react"/>
-	<section className='bg-background w-screen h-screen'>
+	<section class='bg-background w-screen h-screen'>
     <UnderConstruction client:only="react" />
 		<!-- <Timeline client:only="react"/> -->
 	</section>
