@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { cn } from '@/utils'
+import { cn } from '@/utils/classname'
 import { motion, useInView } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 

@@ -1,6 +1,6 @@
 import logoAnimation from '@/assets/lotties/logo.json'
 import popAnimation from '@/assets/lotties/pop.json'
-import { cn } from '@/utils'
+import { cn } from '@/utils/classname'
 import { useEffect, useRef } from "react"
 import Lottie from 'lottie-react'
 import type { LottieRefCurrentProps } from 'lottie-react'

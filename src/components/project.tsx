@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useAnimate, useInView, motion } from 'framer-motion'
-import { cn } from '@/utils'
+import { cn } from '@/utils/classname'
 import { Overlay } from '@/components/overlay'
 import { Link } from './primitives/ui/link'
 import { FaExternalLinkAlt as DemoIcon } from 'react-icons/fa'

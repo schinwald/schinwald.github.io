@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren } from 'react'
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from '@/utils'
+import { cn } from '@/utils/classname'
 
 const containerVariants = cva(
   'w-full flex flex-col gap-10',

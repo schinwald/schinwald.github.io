@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '@/utils'
+import { cn } from '@/utils/classname'
 import { AiFillLinkedin as LinkedInIcon } from 'react-icons/ai'
 import { AiOutlineGithub as GitHubIcon } from 'react-icons/ai'
 import { AiOutlineTwitter as TwitterIcon } from 'react-icons/ai'

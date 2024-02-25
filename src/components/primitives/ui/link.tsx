@@ -2,7 +2,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { motion } from 'framer-motion'
 
-import { cn } from "src/utils"
+import { cn } from "@/utils/classname"
 import { useAnimate } from "framer-motion"
 import { useNavigationStore } from "@/stores/navigation"
 

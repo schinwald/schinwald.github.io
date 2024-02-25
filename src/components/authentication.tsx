@@ -1,6 +1,7 @@
 import { signIn, signOut } from 'auth-astro/client'
 import React from 'react'
 import { Button } from '@/components/primitives/ui/button'
+import { BorderRotating } from '@/components/border-rotating'
 import { AiOutlineGithub as GitHubIcon } from 'react-icons/ai'
 import { AiOutlineGoogle as GoogleIcon } from 'react-icons/ai'
 import { AiOutlineFacebook as FacebookIcon } from 'react-icons/ai'
@@ -17,7 +18,9 @@ const Authentication: React.FC<AuthenticationProps> = () => {
       <div className='flex flex-col justify-center'>
         <div className='flex flex-col items-center gap-6'>
           <h2 className='z-20'>Sign-in</h2>
-          <div className='flex flex-col gap-6 p-10 border-4 border-b-tertiary border-r-tertiary border-t-secondary border-l-secondary rounded-sm bg-background-soft w-full'>
+          <BorderRotating
+            className='w-full'
+          >
             <div className='flex flex-row justify-center'>
               <div className='text-center w-full max-w-[500px]'>
                 <p>Authenticate with one of the providers below to ensure the integrity of your testimonial.</p>
@@ -65,7 +68,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
               {/*   Discord */}
               {/* </Button> */}
             </div>
-          </div>
+          </BorderRotating>
         </div>
       </div>
     </div>
