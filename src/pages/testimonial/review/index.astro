@@ -9,9 +9,9 @@ import '@/styles/globals.css'
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
 
-// if (!session) {
-//   return Astro.redirect('/sign-in')
-// }
+if (!session) {
+  return Astro.redirect('/sign-in')
+}
 ---
 
 <Document title="Write a Testimonial">

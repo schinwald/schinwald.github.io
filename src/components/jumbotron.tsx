@@ -17,8 +17,8 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
   const lottiePopE = useRef<LottieRefCurrentProps>(null)
 
   useEffect(() => {
-    const intervals: number[] = []
-    const timeouts: number[] = []
+    const intervals: NodeJS.Timeout[] = []
+    const timeouts: NodeJS.Timeout[] = []
 
     // Handle pop D
     lottiePopD?.current?.stop()
