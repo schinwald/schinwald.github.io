@@ -33,6 +33,7 @@ const Contact: React.FC<ContactProps> = () => {
   const [sentMessageRef, animateSentMessage] = useAnimate()
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
   const isInView = useInView(lottiePaperAirplaneContainerRef, { margin: "-200px 0px" })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -121,33 +122,6 @@ const Contact: React.FC<ContactProps> = () => {
             align='left'
             variant='cascade'
           />
-          <div className='hidden md:block'>
-            <div
-              className='flex absolute overflow-hidden h-28 flex-col justify-end'
-              style={{
-                bottom: "calc(0%)",
-                right: "calc(0% + 45px)",
-                transform: "translate(-50%, 0%)"
-              }}
-            >
-              <h3
-                ref={sentMessageRef}
-                className='text-success w-full hidden'
-              >
-                Sent!
-              </h3>
-            </div>
-            <div
-              ref={lottiePaperAirplaneContainerRef}
-              className="absolute bottom-0 right-0 translate-y-[35%] translate-x-[30%] w-[300px] sm:w-[400px] lg:w-[500px] pointer-events-none"
-            >
-              <Lottie
-                lottieRef={lottiePaperAirplaneRef}
-                animationData={paperAnimation}
-                autoplay={false}
-              />
-            </div>
-          </div>
         </div>
       </Container>
       <Container variant='hybrid'>
@@ -155,11 +129,23 @@ const Contact: React.FC<ContactProps> = () => {
           <div className='relative flex flex-row md:flex-col justify-between p-8 md:p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[130px] md:h-auto md:w-[40%] overflow-hidden'>
             <div className='relative'>
               <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20'>
-                <h2 className='leading-10 text-white -rotate-6'>
+                <h2 className='leading-10 text-foreground -rotate-6'>
                   <span className='text-3xl'>Let's</span>
                   <br></br>
                   <span>Connect!</span>
                 </h2>
+              </div>
+            </div>
+            <div className='relative mb-2 mr-16 md:m-0 md:ml-0 md:mb-56 lg:m-0 lg:ml-10 lg:mb-56'>
+              <div
+                ref={lottiePaperAirplaneContainerRef}
+                className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[300px] md:w-[600px] lg:w-[600px] pointer-events-none"
+              >
+                <Lottie
+                  lottieRef={lottiePaperAirplaneRef}
+                  animationData={paperAnimation}
+                  autoplay={false}
+                />
               </div>
             </div>
             <div className='absolute bottom-0 right-0 -translate-y-full -translate-x-1/2 mt-2'>
@@ -169,18 +155,6 @@ const Contact: React.FC<ContactProps> = () => {
               >
                 Sent!
               </h2>
-            </div>
-            <div className='relative mb-2 mr-16 md:m-0 md:ml-20 md:mb-56'>
-              <div
-                ref={lottiePaperAirplaneContainerRef}
-                className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[300px] md:w-[400px] lg:w-[500px] pointer-events-none"
-              >
-                <Lottie
-                  lottieRef={lottiePaperAirplaneRef}
-                  animationData={paperAnimation}
-                  autoplay={false}
-                />
-              </div>
             </div>
           </div>
           <div className='bg-background-overlay rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%]'>

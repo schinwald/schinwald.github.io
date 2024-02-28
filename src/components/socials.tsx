@@ -17,7 +17,7 @@ const Socials: React.FC<SocialsProps> = ({ className }) => {
     <ul
       className={cn(
         className,
-        "flex flex-row gap-10 justify-center items-center text-white"
+        "flex flex-row gap-10 justify-center items-center text-foreground"
       )}
     >
       <li>

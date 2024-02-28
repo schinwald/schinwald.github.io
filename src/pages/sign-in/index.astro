@@ -1,0 +1,21 @@
+---
+import Document from '@/layouts/document.astro';
+import { Navigation } from '@/components/navigation';
+import { Authentication } from '@/components/authentication';
+import { AddTestimonial } from '@/components/testimonial';
+import '@/styles/globals.css'
+
+import { getSession } from 'auth-astro/server';
+const session = await getSession(Astro.request);
+
+if (session) {
+  Astro.redirect('/')
+}
+---
+
+<Document title="Sign-in">
+	<Navigation client:only="react"/>
+	<section class='bg-background w-screen h-screen'>
+		<Authentication client:only="react"/>
+	</section>
+</Document>

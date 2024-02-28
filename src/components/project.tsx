@@ -141,7 +141,7 @@ const Project: React.FC<ProjectProps> = ({ title, justify, repository, image }) 
 										href={repository}
 										variant='ghost'
 									>
-										<h2 className='flex justify-row items-center gap-2 text-white mb-2'>
+										<h2 className='flex justify-row items-center gap-2 text-foreground mb-2'>
 											<DemoIcon className='w-10 h-10 -ml-6' />
 											Demo
 										</h2>

@@ -16,7 +16,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
   return (
     <div className='w-screen h-screen bg-background text-foreground flex flex-row justify-center'>
       <div className='flex flex-col justify-center'>
-        <div className='flex flex-col items-center gap-6'>
+        <div className='flex flex-col items-center gap-4'>
           <h2 className='z-20'>Sign-in</h2>
           <BorderRotating
             className='w-full'

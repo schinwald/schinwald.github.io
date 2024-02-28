@@ -19,13 +19,17 @@ type Props = {} &
 VariantProps<typeof containerVariants> &
 React.HTMLAttributes<HTMLDivElement>
 
-const Container: React.FC<PropsWithChildren<Props>> = ({
-  className,
-  variant,
-  children,
-}) => {
+const Container = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>((
+  {
+    className,
+    variant,
+    children,
+  }, 
+  ref
+) => {
   return (
     <div 
+      ref={ref}
       className={cn(
         containerVariants({ variant, className })
       )}
@@ -33,6 +37,6 @@ const Container: React.FC<PropsWithChildren<Props>> = ({
       {children}
     </div>
   )
-}
+})
 
 export { Container }

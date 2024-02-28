@@ -1,4 +1,4 @@
-import React, { type MouseEventHandler, type PropsWithChildren } from 'react'
+import React, { useMemo, type PropsWithChildren } from 'react'
 import { cn } from '@/utils/classname'
 import imageStar from '@/assets/images/star.svg'
 import imageDefaultAvatar from '@/assets/images/avatar.webp'
@@ -9,8 +9,9 @@ type TestimonialProps = {
   className?: string
   stars: number
   name: string
-  job: string
-  company: string
+  relationship?: string
+  occupation?: string
+  company?: string
   avatar?: string
 }
 
@@ -18,13 +19,26 @@ const Testimonial: React.FC<TestimonialProps & PropsWithChildren> = ({
   className,
   stars,
   name,
-  job,
+  relationship,
+  occupation,
   company,
   avatar,
   children,
 }) => {
   if (stars < 0) stars = 0
   if (stars > 5) stars = 5
+
+  const title = useMemo(() => {
+    if (occupation && company) {
+      return <span>{occupation} @ {company}</span>
+    } else if (occupation) {
+      return <span>{occupation}</span>
+    } else if (relationship) {
+      return <span>{relationship}</span>
+    } else {
+      return null
+    }
+  }, [occupation, company, relationship])
 
   return (
     <div 
@@ -64,8 +78,7 @@ const Testimonial: React.FC<TestimonialProps & PropsWithChildren> = ({
               {name}
             </h6>
             <p className='text-tertiary-foreground capitalize flex gap-1'>
-              <span>{job}</span>
-              <span>@{company}</span>
+              {title}
             </p>
           </div>
         </div>
