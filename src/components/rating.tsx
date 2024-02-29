@@ -12,7 +12,7 @@ const Rating = React.forwardRef<
   props.max = props.max ?? 0
 
   return (
-    <div className='relative flex flex-row'>
+    <div className='relative flex flex-row cursor-pointer'>
       <div className='relative flex flex-row gap-2'>
         {Array.from({ length: props.value[0] }).map((_, index) => {
           return (

@@ -2,39 +2,21 @@
 import Document from '@/layouts/document.astro';
 import { Navigation } from '@/components/navigation';
 import { TestimonialEditor } from './_layouts/testimonial-editor';
-import Lottie from 'lottie-react'
-import waveAnimation from '@/assets/lotties/wave.json'
 import '@/styles/globals.css'
 
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
 
-if (!session) {
-  return Astro.redirect('/sign-in')
-}
+// if (!session) {
+//   return Astro.redirect('/sign-in')
+// }
 ---
 
 <Document title="Write a Testimonial">
 	<Navigation client:only="react"/>
 	<section class='bg-background w-screen h-screen overflow-hidden relative'>
 		<div class="h-full w-full flex flex-col justify-center items-center gap-10">
-			<h2 class='text-foreground'>Write A <span class='text-tertiary'>Testimonial</span></h2>
 			<TestimonialEditor client:only="react"/>
 		</div>
-		{Array.from({ length: 40 }).map((value, i) => {
-			const offset = i * 250 - 20 * 250
-
-			return (
-				<Lottie
-					className="absolute w-[400px] left-0 pointer-events-none bottom-[-150px]"
-					animationData={waveAnimation}
-					loop={true}
-					style={{
-						left: `calc(50% + ${offset}px)`
-					}}
-					client:only="react"
-				/>
-			)
-		})}
 	</section>
 </Document>
