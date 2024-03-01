@@ -16,14 +16,14 @@ const Rating = React.forwardRef<
       <div className='relative flex flex-row gap-2'>
         {Array.from({ length: props.value[0] }).map((_, index) => {
           return (
-            <div key={index} className='w-10 h-10'>
+            <div key={`filled-star-${index}`} className='w-10 h-10'>
               <img src={imageStar.src} className='w-full h-full'></img>
             </div>
           )
         })}
         {Array.from({ length: props.max - props.value[0] }).map((_, index) => {
           return (
-            <div key={index} className='w-10 h-10'>
+            <div key={`empty-star-${index}`} className='w-10 h-10'>
               <img src={imageStar.src} className='w-full h-full opacity-10'></img>
             </div>
           )

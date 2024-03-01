@@ -73,9 +73,12 @@ const About: React.FC<AboutProps> = () => {
               />
               <p className='text-foreground opacity-70'>
                 {`
-                    Hello! I am James, an experienced software engineer specializing in full-stack development. With a passion for problem-solving and innovation, I've contributed to diverse projects across [mention industries or technologies].
-                    My approach to work is guided by [mention your key values or principles], ensuring a focus on quality and collaboration. Outside of coding, I enjoy [mention your hobbies or interests], finding inspiration in [mention activities or pursuits].
-                    Feel free to explore my portfolio and reach out for collaboration opportunities.
+                  Hello! I am James, an experienced software engineer specializing in full-stack development. With a passion for problem-solving
+                  and innovation, I've worked on various projects ranging from creating interactive games, crafting user-friendly websites, developing
+                  CLI tools, to architecting distributed systems. My approach to work is guided by a commitment to continuous learning and user-centric
+                  design, ensuring a focus on quality and collaboration. Outside of coding, I find joy in tinkering with my operating system, working
+                  on soldering projects, staying fit through regular exercise, immersing myself in nature, and embracing new hobbies. Feel free to
+                  explore my portfolio and reach out for collaboration opportunities.
                 `}
               </p>
             </div>

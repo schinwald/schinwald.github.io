@@ -27,6 +27,7 @@
     "auth-astro": "^4.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "embla-carousel-react": "^8.0.0",
     "framer-motion": "^10.16.4",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.289.0",

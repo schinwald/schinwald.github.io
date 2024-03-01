@@ -80,18 +80,6 @@ const Socials: React.FC<SocialsProps> = ({ className }) => {
       {/*     </h4> */}
       {/*   </a> */}
       {/* </li> */}
-      <li>
-        <a
-          className='flex flex-row items-center gap-2'
-          href=""
-          target="_blank"
-        >
-          <DotsIcon className='w-7 h-7' />
-          <h4 className='hidden sm:block'>
-            More
-          </h4>
-        </a>
-      </li>
     </ul>
   )
 }
