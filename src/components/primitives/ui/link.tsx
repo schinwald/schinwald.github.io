@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 import { cn } from "@/utils/classname"
 import { useAnimate } from "framer-motion"
-import { useNavigationStore } from "@/stores/navigation"
+import { useNavigationStore } from "@/hooks/stores/navigation"
 
 const linkVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md font-display ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",

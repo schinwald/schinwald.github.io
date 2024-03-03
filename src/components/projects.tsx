@@ -32,7 +32,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 					justify='right'
 					repository='https://github.com/schinwald/pets'
 					image={{
-						url: 'https://github.com/schinwald/pets/blob/main/preview.jpg?raw=true'
+						url: 'https://github.com/schinwald/pets/blob/main/preview.webp?raw=true'
 					}}
 				/>
 				<Project

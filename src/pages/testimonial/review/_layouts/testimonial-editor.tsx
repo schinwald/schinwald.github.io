@@ -105,7 +105,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <Container
-        className='gap-6'
+        className='sm:px-56 gap-6'
         variant='narrow'
       >
         <motion.div

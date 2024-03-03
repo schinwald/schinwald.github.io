@@ -12,6 +12,12 @@ import { z } from "zod"
 import { Textarea } from './primitives/ui/textarea'
 import { Container } from '@/layouts/container'
 import { Socials } from './socials'
+import { cn } from '@/utils/classname'
+
+type Notification = {
+  status?: 'success' | 'error'
+  message?: string
+}
 
 const formSchema = z.object({
   email: z
@@ -30,7 +36,8 @@ type ContactProps = {
 const Contact: React.FC<ContactProps> = () => {
   const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null)
   const lottiePaperAirplaneContainerRef = useRef(null)
-  const [sentMessageRef, animateSentMessage] = useAnimate()
+  const [notification, setNotification] = useState<Notification>({})
+  const [notificationRef, animateNotification] = useAnimate()
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
   const isInView = useInView(lottiePaperAirplaneContainerRef, { margin: "-200px 0px" })
 
@@ -61,17 +68,44 @@ const Contact: React.FC<ContactProps> = () => {
     lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false)
   }, [lottiePaperAirplaneRef])
 
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
+  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
     setIsSubmitDisabled(true)
+
+    const responsePromise = 
+      fetch('/api/contact/email', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: values.email,
+          message: values.message
+        })
+      })
+
     animatePaperAirplaneExit()
-    lottiePaperAirplaneRef?.current?.animationItem?.addEventListener('complete', () => {
+    lottiePaperAirplaneRef?.current?.animationItem?.addEventListener('complete', async () => {
       lottiePaperAirplaneRef?.current?.animationItem?.removeEventListener('complete')
 
-      form.resetField('message')
+      const response = await responsePromise
 
-      animateSentMessage([
+      if (response.ok) {
+        form.resetField('message')
+
+        setNotification({
+          status: 'success',
+          message: 'Sent!'
+        })
+      } else {
+        setNotification({
+          status: 'error',
+          message: 'Error!'
+        })
+      }
+
+      animateNotification([
         [
-          sentMessageRef.current, {
+          notificationRef.current, {
             opacity: 0,
             display: 'block',
             transform: 'translateY(100%)',
@@ -79,7 +113,7 @@ const Contact: React.FC<ContactProps> = () => {
             duration: 0
           }
         ], [
-          sentMessageRef.current, {
+          notificationRef.current, {
             opacity: 1,
             transform: 'translateY(0%)',
           }, {
@@ -87,14 +121,14 @@ const Contact: React.FC<ContactProps> = () => {
             ease: "easeOut"
           }
         ], [
-          sentMessageRef.current, {
+          notificationRef.current, {
             opacity: 1,
             transform: 'translateY(0%)',
           }, {
             duration: 0.3,
           }
         ], [
-          sentMessageRef.current, {
+          notificationRef.current, {
             opacity: 0,
             display: 'none',
             transform: 'translateY(100%)',
@@ -150,10 +184,14 @@ const Contact: React.FC<ContactProps> = () => {
             </div>
             <div className='absolute bottom-0 right-0 -translate-y-full -translate-x-1/2 mt-2'>
               <h2
-                ref={sentMessageRef}
-                className='text-success w-full hidden'
+                ref={notificationRef}
+                className={cn(
+                  'w-full hidden',
+                  notification.status === 'success' && 'text-success',
+                  notification.status === 'error' && 'text-destructive'
+                )}
               >
-                Sent!
+                {notification.message}
               </h2>
             </div>
           </div>

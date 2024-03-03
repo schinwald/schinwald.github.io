@@ -1,5 +1,5 @@
 import { Overlay } from '@/components/overlay'
-import { useNavigationStore } from '@/stores/navigation'
+import { useNavigationStore } from '@/hooks/stores/navigation'
 import { motion, useAnimate } from 'framer-motion'
 import { useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'

@@ -1,24 +1,31 @@
 import type { APIRoute } from "astro";
-import z from 'zod'
+import { supabase } from '@/utils/database/supabase'
 
-export const POST: APIRoute = async ({ request, redirect }) => {
-  // const formData = await request.formData();
-  //
-  // const email = formData.get("email")?.toString();
-  // const password = formData.get("message")?.toString();
-  //
-  // if (!email || !password) {
-  //   return new Response("Email and password are required", { status: 400 });
-  // }
-  //
-  // const { error } = await supabase.auth.signUp({
-  //   email,
-  //   password,
-  // });
-  //
-  // if (error) {
-  //   return new Response(error.message, { status: 500 });
-  // }
+export const GET: APIRoute = async ({}) => {
+  const errors: Record<string, any>[] = []
 
-  return redirect("/signin");
+  const { data: testimonials, error } = await supabase
+    .from('testimonials')
+    .select('first_name, last_name, company, occupation, relationship, review, rating')
+    .eq('approved', true)
+  
+  if (error) {
+    return new Response(JSON.stringify({ errors }), {
+      status: 400,
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+  }
+
+  const data = {
+    testimonials
+  }
+
+  return new Response(JSON.stringify({ data }), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json'
+    },
+  });
 };
