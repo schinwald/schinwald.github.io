@@ -11,14 +11,25 @@ if (!session) {
   return Astro.redirect('/sign-in?redirect=/testimonial/review')
 }
 
+const user = {
+  first_name: session.user?.name?.split(' ')?.at(0)
+  last_name: session.user?.name?.split(' ')?.slice(1, -1).join(' ')
+  avatar: session.user?.image
+}
+
 console.log(session)
 ---
 
 <Document title="Write a Testimonial">
-	<Navigation client:only="react"/>
-	<section class='bg-background w-screen h-screen overflow-hidden relative'>
-		<div class="h-full w-full flex flex-col justify-center items-center gap-10">
-			<TestimonialEditor client:only="react"/>
-		</div>
-	</section>
+  <Navigation client:only="react"/>
+  <section class='bg-background w-screen h-screen overflow-hidden relative'>
+    <div class="h-full w-full flex flex-col justify-center items-center gap-10">
+      <TestimonialEditor
+        firstName={user.first_name}
+        lastName={user.last_name}
+        avatar={user.avatar}
+        client:only="react"
+      />
+    </div>
+  </section>
 </Document>

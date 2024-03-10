@@ -42,18 +42,26 @@ const formSchema = z.object({
 
 type TestimonialEditorProps = {
   className?: string
-  avatar?: string
   firstName?: string
   lastName?: string
+  avatar?: string
 }
 
-const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
+const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
+  className,
+  firstName,
+  lastName,
+  avatar
+}) => {
   const isSubmitDisabled = false
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      rating: 5
+      rating: 5,
+      first_name: firstName,
+      last_name: lastName,
+      avatar
     }
   })
 
@@ -157,7 +165,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
                       <div className='relative h-full w-[200px] md:w-auto aspect-square'>
                         <div className='absolute right-0 top-0 h-[88%] w-[88%] bg-secondary'></div>
                         <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white'>
-                          <img src={imageDefaultAvatar.src} className='w-full h-full opacity-50'></img>
+                          <img src={avatar ? imageDefaultAvatar.src} className='w-full h-full opacity-50'></img>
                         </div>
                       </div>
                       <div className='flex flex-col justify-end w-full gap-6'>
