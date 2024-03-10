@@ -17,6 +17,10 @@ import { cn } from '@/utils/classname'
 import imageDefaultAvatar from '@/assets/images/avatar.webp'
 
 const formSchema = z.object({
+  avatar: z
+    .string()
+    .min(1, { message: '(Required)' }),
+    .optional(),
   first_name: z
     .string()
     .min(1, { message: '(Required)' }),
@@ -42,9 +46,9 @@ const formSchema = z.object({
 
 type TestimonialEditorProps = {
   className?: string
+  avatar?: string
   firstName?: string
   lastName?: string
-  avatar?: string
 }
 
 const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
@@ -59,9 +63,9 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       rating: 5,
+      avatar: avatar,
       first_name: firstName,
-      last_name: lastName,
-      avatar
+      last_name: lastName
     }
   })
 
