@@ -12,9 +12,9 @@ if (!session) {
 }
 
 const user = {
-  first_name: session.user?.name?.split(' ')?.at(0) ?? undefined,
-  last_name: session.user?.name?.split(' ')?.slice(1, -1).join(' ') ?? undefined,
-  avatar: session.user?.image.replace('=s96-c', '') ?? undefined
+  first_name: session.user?.name?.split?.(' ')?.at(0) ?? undefined,
+  last_name: session.user?.name?.split?.(' ')?.slice(1, -1).join(' ') ?? undefined,
+  avatar: session.user?.image?.replace?.('=s96-c', '') ?? undefined
 }
 
 console.log(session)
