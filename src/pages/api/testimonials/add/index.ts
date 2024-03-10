@@ -29,15 +29,10 @@ const schemaPOST = z.object({
 export const POST: APIRoute = async ({ request }) => {
   const errors: Record<string, any>[] = []
 
-  const body = await schemaPOST.parseAsync(await request.json())
+  const bodyParser = schemaPOST.safeParse(await request.json())
 
-  const { data: testimonials, error } = await supabase
-    .from('testimonials')
-    .insert({
-      ...body
-    })
-  
-  if (error) {
+  if (!bodyParser.success) {
+    errors.push(bodyParser.error)
     return new Response(JSON.stringify({ errors }), {
       status: 400,
       headers: {
@@ -46,9 +41,25 @@ export const POST: APIRoute = async ({ request }) => {
     })
   }
 
-  const data = {
-    testimonials
+  const body = bodyParser.data
+
+  const { error } = await supabase
+    .from('testimonials')
+    .insert({
+      ...body
+    })
+  
+  if (error) {
+    errors.push({})
+    return new Response(JSON.stringify({ errors }), {
+      status: 400,
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
   }
+
+  const data = {}
 
   return new Response(JSON.stringify({ data }), {
     status: 200,
