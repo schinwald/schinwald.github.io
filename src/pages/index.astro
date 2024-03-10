@@ -8,6 +8,9 @@ import { Testimonials } from '@/components/testimonials';
 import { Contact } from '@/components/contact';
 import backgroundSoftSVG from '@/assets/images/background-soft.svg';
 import '@/styles/globals.css'
+
+const responseTestimonials = await fetch('http://localhost:4321/api/testimonial/add')
+	.then(response => response.json())
 ---
 
 <Document title="James Schinwald">
@@ -20,7 +23,7 @@ import '@/styles/globals.css'
 			<section class='relative flex flex-col justify-center items-center gap-20 sm:gap-32 w-full h-full'>
 				<About client:only="react" />
 				<Projects client:only="react" />
-				<Testimonials client:only="react" />
+				<Testimonials data={responseTestimonials.data.testimonials} client:only="react" />
 				<Contact client:only="react" />
 			</section>
 		</main>

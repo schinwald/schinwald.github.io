@@ -12,40 +12,56 @@ const cycleDuration = count * delay
 const repeatDelay = cycleDuration > duration ? cycleDuration - duration : 0
 const distance = '1200'
 
-const data = Array.from({ length: 15 }).fill(true)
+function randomlyFillData<Data extends Array<any>>(data: Data, length: number) {
+  let randomlyFilledData: (Data[number] | null)[]
 
-type TestimonialsProps = {
-  className?: string
-}
-
-const Testimonials: React.FC<TestimonialsProps> = () => {
-  let filledData
-  if (data.length < count) {
-    filledData = Array.from({ length: count }).fill(null)
-    for (let i = 0; i <= count; i++) {
-      let j = Math.floor(Math.random() * count)
+  if (data.length < length) {
+    randomlyFilledData = Array.from<null>({ length }).fill(null)
+    for (let i = 0; i <= length; i++) {
+      let j = Math.floor(Math.random() * length)
       while (true) {
-        if (!filledData[j]) {
-          filledData[j] = data[i]
+        if (!randomlyFilledData[j]) {
+          randomlyFilledData[j] = data[i]
           break
         }
 
         j++
-        j = j % count
+        j = j % length
       }
     }
   } else {
-    filledData = data
+    randomlyFilledData = data
   }
 
-  const testimonials = filledData.map((value) => {
+  return randomlyFilledData
+}
+
+type Testimonial = {
+  first_name: string
+  last_name: string
+  occupation?: string
+  company?: string
+  relationship?: string
+  review: string
+  rating: number
+}
+
+type TestimonialsProps = {
+  className?: string
+  data: Testimonial[]
+}
+
+const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
+  const randomlyFilledData = randomlyFillData(data, count)
+
+  const testimonials = randomlyFilledData.map((value) => {
     return {
       data: value,
       animation: useAnimate()
     }
   })
 
-  const [isCarouselPlaying, setCarouselPlaying] = useState(true)
+  // const [isCarouselPlaying, setCarouselPlaying] = useState(true)
   const [testimonialContainerRef, animateTestimonialContainer] = useAnimate()
 
   useEffect(() => {
@@ -126,9 +142,10 @@ const Testimonials: React.FC<TestimonialsProps> = () => {
             className='w-full flex flex-row justify-center items-center rotate-6 opacity-0'
           >
             {testimonials.map((value, index) => {
-              const [ref, _] = value.animation
+              const { data, animation } = value
+              const [ref, _] = animation
 
-              if (!value.data) {
+              if (!data) {
                 return (
                   <div
                     ref={ref}
@@ -148,13 +165,13 @@ const Testimonials: React.FC<TestimonialsProps> = () => {
                   className='absolute'
                 >
                   <Testimonial
-                    stars={4}
-                    name='John Smith'
-                    occupation='Software Developer'
-                    company='Devopie'
-                  >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                  </Testimonial>
+                    rating={data.rating}
+                    name={`${data.first_name} ${data.last_name}`}
+                    occupation={data.occupation}
+                    company={data.company}
+                    relationship={data.relationship}
+                    review={data.review}
+                  />
                 </div>
               )
             })}

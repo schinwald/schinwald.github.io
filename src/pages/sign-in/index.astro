@@ -7,8 +7,10 @@ import '@/styles/globals.css'
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
 
+const redirectURL = Astro.url.searchParams.get('redirect') ?? '/'
+
 if (session) {
-  Astro.redirect('/')
+  Astro.redirect(redirectURL)
 }
 ---
 

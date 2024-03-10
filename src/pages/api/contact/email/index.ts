@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     await emailer.send({
       from: 'website@schinwald.dev',
-      to: 'jamesschinwald@gmail.com',
+      to: 'hi@schinwald.dev',
       subject: `New message! ${body.email}`,
       text: body.message
     })

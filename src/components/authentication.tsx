@@ -5,7 +5,6 @@ import { BorderRotating } from '@/components/border-rotating'
 import { AiOutlineGithub as GitHubIcon } from 'react-icons/ai'
 import { AiOutlineGoogle as GoogleIcon } from 'react-icons/ai'
 import { AiOutlineFacebook as FacebookIcon } from 'react-icons/ai'
-import { AiOutlineLinkedin as LinkedinIcon } from 'react-icons/ai'
 import { FaDiscord as DiscordIcon } from 'react-icons/fa'
 
 type AuthenticationProps = {
@@ -35,14 +34,14 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                 <GitHubIcon/>
                 GitHub
               </Button>
-              {/* <Button */}
-              {/*   className='flex flex-row items-center gap-1 w-full max-w-[300px]' */}
-              {/*   variant='outline' */}
-              {/*   onClick={() => signIn('google')} */}
-              {/* > */}
-              {/*   <GoogleIcon/> */}
-              {/*   Google */}
-              {/* </Button> */}
+              <Button
+                className='flex flex-row items-center gap-1 w-full max-w-[300px]'
+                variant='outline'
+                onClick={() => signIn('google')}
+              >
+                <GoogleIcon/>
+                Google
+              </Button>
               {/* <Button */}
               {/*   className='flex flex-row items-center gap-1 w-full max-w-[300px]' */}
               {/*   variant='outline' */}
@@ -50,14 +49,6 @@ const Authentication: React.FC<AuthenticationProps> = () => {
               {/* > */}
               {/*   <FacebookIcon/> */}
               {/*   Facebook */}
-              {/* </Button> */}
-              {/* <Button */}
-              {/*   className='flex flex-row items-center gap-1 w-full max-w-[300px]' */}
-              {/*   variant='outline' */}
-              {/*   onClick={() => signIn('linkedin')} */}
-              {/* > */}
-              {/*   <LinkedinIcon/> */}
-              {/*   LinkedIn */}
               {/* </Button> */}
               {/* <Button */}
               {/*   className='flex flex-row items-center gap-1 w-full max-w-[300px]' */}

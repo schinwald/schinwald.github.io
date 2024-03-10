@@ -2,7 +2,10 @@ import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import {
+  ChevronLeft as IconLeft,
+  ChevronRight as IconRight,
+} from "lucide-react"
 
 import { cn } from "src/utils/classname"
 import { Button } from "src/components/primitives/ui/button"
@@ -16,6 +19,7 @@ type CarouselProps = {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
+  disableKeyboardEvents?: boolean
   setApi?: (api: CarouselApi) => void
 }
 
@@ -47,6 +51,7 @@ const Carousel = React.forwardRef<
   (
     {
       orientation = "horizontal",
+      disableKeyboardEvents = false,
       opts,
       setApi,
       plugins,
@@ -85,15 +90,17 @@ const Carousel = React.forwardRef<
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === "ArrowLeft") {
-          event.preventDefault()
-          scrollPrev()
-        } else if (event.key === "ArrowRight") {
-          event.preventDefault()
-          scrollNext()
+        if (!disableKeyboardEvents) {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault()
+            scrollPrev()
+          } else if (event.key === "ArrowRight") {
+            event.preventDefault()
+            scrollNext()
+          }
         }
       },
-      [scrollPrev, scrollNext]
+      [disableKeyboardEvents, scrollPrev, scrollNext]
     )
 
     React.useEffect(() => {
@@ -214,7 +221,7 @@ const CarouselPrevious = React.forwardRef<
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft className="h-4 w-4" />
+      <IconLeft className="h-8 w-8 text-foreground" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -243,7 +250,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight className="h-4 w-4" />
+      <IconRight className="h-8 w-8 text-foreground" />
       <span className="sr-only">Next slide</span>
     </Button>
   )

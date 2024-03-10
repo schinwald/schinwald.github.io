@@ -1,8 +1,13 @@
 interface Environments {
+  readonly AUTH_TRUST_HOST: string
+  readonly AUTH_SECRET: string
+  readonly GITHUB_CLIENT_ID: string
+  readonly GITHUB_CLIENT_SECRET: string
+  readonly GOOGLE_CLIENT_ID: string
+  readonly GOOGLE_CLIENT_SECRET: string
   readonly SUPABASE_URL: string
   readonly SUPABASE_KEY: string
   readonly SENDGRID_API_KEY: string
-  readonly MY_EMAIL: string
 }
 
 // Vite

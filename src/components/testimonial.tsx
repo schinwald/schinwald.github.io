@@ -1,4 +1,4 @@
-import React, { useMemo, type PropsWithChildren } from 'react'
+import React, { useMemo } from 'react'
 import { cn } from '@/utils/classname'
 import imageStar from '@/assets/images/star.svg'
 import imageDefaultAvatar from '@/assets/images/avatar.webp'
@@ -7,26 +7,27 @@ import Lottie from 'lottie-react'
 
 type TestimonialProps = {
   className?: string
-  stars: number
+  avatar?: string
   name: string
   relationship?: string
   occupation?: string
   company?: string
-  avatar?: string
+  rating: number
+  review: string
 }
 
-const Testimonial: React.FC<TestimonialProps & PropsWithChildren> = ({
+const Testimonial: React.FC<TestimonialProps> = ({
   className,
-  stars,
+  avatar,
   name,
   relationship,
   occupation,
   company,
-  avatar,
-  children,
+  rating,
+  review,
 }) => {
-  if (stars < 0) stars = 0
-  if (stars > 5) stars = 5
+  if (rating < 0) rating = 0
+  if (rating > 5) rating = 5
 
   const title = useMemo(() => {
     if (occupation && company) {
@@ -50,14 +51,14 @@ const Testimonial: React.FC<TestimonialProps & PropsWithChildren> = ({
       <div className='absolute flex flex-col items-center justify-between h-full p-8 z-20'>
         <div className='flex flex-col gap-4'>
           <div className='flex flex-row justify-center gap-2'>
-            {Array.from({ length: stars }).map((_, index) => {
+            {Array.from({ length: rating }).map((_, index) => {
               return (
                 <div key={index} className='w-10 h-10'>
                   <img src={imageStar.src} className='w-full h-full'></img>
                 </div>
               )
             })}
-            {Array.from({ length: 5 - stars }).map((_, index) => {
+            {Array.from({ length: 5 - rating }).map((_, index) => {
               return (
                 <div key={index} className='w-10 h-10'>
                   <img src={imageStar.src} className='w-full h-full opacity-10'></img>
@@ -66,7 +67,7 @@ const Testimonial: React.FC<TestimonialProps & PropsWithChildren> = ({
             })}
           </div>
           <p className='line-clamp-5'>
-            {children}
+            {review}
           </p>
         </div>
         <div className='flex flex-col items-center gap-2'>

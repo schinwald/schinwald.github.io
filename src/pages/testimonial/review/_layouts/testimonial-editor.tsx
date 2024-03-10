@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Textarea } from '@/components/primitives/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import React, { useReducer, useState } from 'react'
+import React, { useRef, useState, type ElementRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Container } from '@/layouts/container'
 import { Rating } from '@/components/rating'
@@ -13,16 +13,14 @@ import waveAnimation from '@/assets/lotties/wave.json'
 import { motion } from 'framer-motion'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/primitives/ui/carousel'
 import { Input } from '@/components/primitives/ui/input'
+import { cn } from '@/utils/classname'
+import imageDefaultAvatar from '@/assets/images/avatar.webp'
 
 const formSchema = z.object({
-  rating: z
-    .number()
-    .min(0)
-    .max(5),
-  name: z
+  first_name: z
     .string()
     .min(1, { message: '(Required)' }),
-  review: z
+  last_name: z
     .string()
     .min(1, { message: '(Required)' }),
   occupation: z
@@ -32,13 +30,21 @@ const formSchema = z.object({
   company: z
     .string()
     .min(1, { message: '(Required)' })
-    .optional()
+    .optional(),
+  rating: z
+    .number()
+    .min(0)
+    .max(5),
+  review: z
+    .string()
+    .min(1, { message: '(Required)' }),
 })
-
-type Steps = 'write_review' | 'personal_information'
 
 type TestimonialEditorProps = {
   className?: string
+  avatar?: string
+  firstName?: string
+  lastName?: string
 }
 
 const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
@@ -47,36 +53,39 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      rating: 4,
-      review: "",
-      name: "",
-      occupation: "",
-      company: "",
+      rating: 5
     }
   })
 
+  const previousRef = useRef<ElementRef<'button'>>(null)
+  const nextRef = useRef<ElementRef<'button'>>(null)
   const [api, setApi] = useState<CarouselApi>()
-  const [step, setStep] = useState<Steps>()
+  const [isOnLastStep, setIsOnLastStep] = useState<boolean>(true)
+  const [isOnFirstStep, setIsOnFirstStep] = useState<boolean>(true)
 
   React.useEffect(() => {
     if (!api) return
 
+    const totalSteps = api.scrollSnapList().length
+
+    const stepNumber = api.selectedScrollSnap()
+
+    setIsOnFirstStep(stepNumber === 0)
+    setIsOnLastStep(stepNumber === totalSteps - 1)
+
+
     api.on('select', () => {
-      switch (api.selectedScrollSnap()) {
-        case 0:
-          setStep('write_review')
-          break
-        case 1:
-          setStep('personal_information')
-          break
-      }
+      const stepNumber = api.selectedScrollSnap()
+
+      setIsOnFirstStep(stepNumber === 0)
+      setIsOnLastStep(stepNumber === totalSteps - 1)
     })
   }, [api])
 
   const onSubmit = () => { }
 
   const renderButton = () => {
-    if (step === 'personal_information') {
+    if (isOnLastStep) {
       return (
         <Button
           type="submit"
@@ -85,13 +94,13 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
           Submit
         </Button>
       )
-    } 
+    }
 
     return (
       <Button
         type="button"
         onClick={() => {
-          api?.scrollNext()
+          nextRef.current?.click?.()
         }}
       >
         Continue
@@ -99,13 +108,10 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
     )
   }
 
-  const shouldHidePrevious = step === 'write_review'
-  const shouldHideNext = step === 'personal_information'
-
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <Container
-        className='sm:px-56 gap-6'
+        className='sm:px-32 gap-6'
         variant='narrow'
       >
         <motion.div
@@ -118,7 +124,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
           }}
         >
           <Typewriter
-            className='flex justify-center'
+            className='flex justify-center -mr-5'
             cursorClassName='bg-tertiary'
             words={[
               { text: 'Write', className: 'text-foreground' },
@@ -136,70 +142,49 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
             delay: 3.5
           }}
         >
-          <Form {...form}>
-            <form
-              className='w-full flex flex-col'
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              <Carousel setApi={setApi}>
+          <Carousel
+            setApi={setApi}
+            disableKeyboardEvents={true}
+          >
+            <Form {...form}>
+              <form
+                className='w-full flex flex-col'
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
                 <CarouselContent>
                   <CarouselItem>
-                    <div className='flex flex-col w-full h-full p-6 gap-6 justify-between'>
-                      <div className='flex flex-row justify-center'>
-                        <FormField
-                          control={form.control}
-                          name="rating"
-                          render={({ field }) => (
-                            <FormItem className='flex flex-row justify-between w-[400px] space-y-0 -ml-4'>
-                              <FormControl>
-                                <Rating
-                                  step={1}
-                                  min={0}
-                                  max={5}
-                                  value={[field.value]}
-                                  onValueChange={(value) => {
-                                    field.onChange(value[0])
-                                  }}
-                                />
-                              </FormControl>
-                              <div className='flex flex-row justify-center items-center text-foreground'>
-                                <h2 className='m-0'>{field.value}/5</h2>
-                              </div>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <FormField
-                        control={form.control}
-                        name="review"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Textarea
-                                placeholder='What would you like to say...'
-                                rows={10}
-                                {...field}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </CarouselItem>
-                  <CarouselItem>
-                    <div className='flex flex-row w-full h-full gap-10 p-6'>
-                      <div className='relative h-full aspect-square'>
+                    <div className='flex flex-col md:flex-row w-full h-full gap-10 p-6'>
+                      <div className='relative h-full w-[200px] md:w-auto aspect-square'>
                         <div className='absolute right-0 top-0 h-[88%] w-[88%] bg-secondary'></div>
-                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white'></div>
+                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white'>
+                          <img src={imageDefaultAvatar.src} className='w-full h-full opacity-50'></img>
+                        </div>
                       </div>
-                      <div className='flex flex-col justify-center w-full gap-6'>
+                      <div className='flex flex-col justify-end w-full gap-6'>
                         <FormField
                           control={form.control}
-                          name="name"
+                          name="first_name"
                           render={({ field }) => (
                             <FormItem>
                               <div className='flex flex-row justify-start gap-2'>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>First Name</FormLabel>
+                                <FormMessage className='leading-none' />
+                              </div>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="last_name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <div className='flex flex-row justify-start gap-2'>
+                                <FormLabel>Last Name</FormLabel>
                                 <FormMessage className='leading-none' />
                               </div>
                               <FormControl>
@@ -247,15 +232,70 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = () => {
                       </div>
                     </div>
                   </CarouselItem>
+                  <CarouselItem>
+                    <div className='flex flex-col w-full h-full p-6 gap-6 justify-between'>
+                      <div className='flex flex-row justify-center'>
+                        <FormField
+                          control={form.control}
+                          name="rating"
+                          render={({ field }) => (
+                            <FormItem className='flex flex-row justify-between gap-8 w-[360px] space-y-0 -ml-4'>
+                              <FormControl>
+                                <Rating
+                                  step={1}
+                                  min={0}
+                                  max={5}
+                                  value={[field.value]}
+                                  onValueChange={(value) => {
+                                    field.onChange(value[0])
+                                  }}
+                                />
+                              </FormControl>
+                              <div className='flex flex-row justify-center items-center text-foreground'>
+                                <h2 className='m-0'>{field.value}/5</h2>
+                              </div>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name="review"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea
+                                placeholder='What would you like to say...'
+                                rows={12}
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </CarouselItem>
                 </CarouselContent>
-                {!shouldHidePrevious && <CarouselPrevious />}
-                {!shouldHideNext && <CarouselNext />}
-              </Carousel>
-              <div className='flex flex-row justify-center mt-6'>
-                {renderButton()}
-              </div>
-            </form>
-          </Form>
+              </form>
+            </Form>
+            <CarouselPrevious
+              ref={previousRef}
+              className={cn(
+                isOnFirstStep && 'hidden'
+              )}
+              variant='ghost'
+            />
+            <CarouselNext
+              ref={nextRef}
+              className={cn(
+                isOnLastStep && 'hidden'
+              )}
+              variant='ghost'
+            />
+          </Carousel>
+          <div className='flex flex-row justify-center mt-6'>
+            {renderButton()}
+          </div>
         </motion.div>
       </Container>
       <motion.div
