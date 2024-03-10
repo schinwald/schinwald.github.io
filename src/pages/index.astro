@@ -9,7 +9,7 @@ import { Contact } from '@/components/contact';
 import backgroundSoftSVG from '@/assets/images/background-soft.svg';
 import '@/styles/globals.css'
 
-const responseTestimonials = await fetch('/api/testimonials')
+const responseTestimonials = await fetch(`${Astro.url}/api/testimonials`)
 	.then(response => response.json())
 ---
 
