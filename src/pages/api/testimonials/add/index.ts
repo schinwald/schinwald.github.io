@@ -27,7 +27,23 @@ const schemaPOST = z.object({
 })
 
 export const POST: APIRoute = async ({ request }) => {
+  const session = await getSession(request);
+
   const errors: Record<string, any>[] = []
+
+  if (['development'].includes(import.meta.env.APP_ENVIRONMENT)) {
+    // DO NOTHING
+  } else {
+    if (!session) {
+      errors.push({})
+      return new Response(JSON.stringify({ errors }), {
+        status: 403,
+        headers: {
+          'content-type': 'application/json'
+        },
+      })
+    }
+  }
 
   const bodyParser = schemaPOST.safeParse(await request.json())
 
