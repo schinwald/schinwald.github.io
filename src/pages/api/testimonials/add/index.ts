@@ -1,8 +1,13 @@
 import type { APIRoute } from "astro";
+import { getSession } from 'auth-astro/server';
 import { supabase } from '@/utils/database/supabase'
 import { z } from "zod";
 
 const schemaPOST = z.object({
+  avatar: z
+    .string()
+    .min(1)
+    .optional(),
   first_name: z
     .string()
     .min(1),

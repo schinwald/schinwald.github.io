@@ -19,7 +19,7 @@ import imageDefaultAvatar from '@/assets/images/avatar.webp'
 const formSchema = z.object({
   avatar: z
     .string()
-    .min(1, { message: '(Required)' })
+    .min(1)
     .optional(),
   first_name: z
     .string()
@@ -29,11 +29,11 @@ const formSchema = z.object({
     .min(1, { message: '(Required)' }),
   occupation: z
     .string()
-    .min(1, { message: '(Required)' })
+    .min(1)
     .optional(),
   company: z
     .string()
-    .min(1, { message: '(Required)' })
+    .min(1)
     .optional(),
   rating: z
     .number()
@@ -61,6 +61,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onSubmit',
     defaultValues: {
       rating: 5,
       avatar: avatar,
@@ -94,7 +95,23 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     })
   }, [api])
 
-  const onSubmit = () => { }
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
+    const response = await fetch('/api/testimonials/add', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    }).then(response => response.json())
+
+    if ('errors' in response) {
+      return
+    }
+  }
+
+  console.log(form.formState)
+  console.log(form.getValues())
 
   const renderButton = () => {
     if (isOnLastStep) {
@@ -288,6 +305,9 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                     </div>
                   </CarouselItem>
                 </CarouselContent>
+                <div className='flex flex-row justify-center mt-6'>
+                  {renderButton()}
+                </div>
               </form>
             </Form>
             <CarouselPrevious
@@ -305,9 +325,6 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
               variant='ghost'
             />
           </Carousel>
-          <div className='flex flex-row justify-center mt-6'>
-            {renderButton()}
-          </div>
         </motion.div>
       </Container>
       <motion.div
