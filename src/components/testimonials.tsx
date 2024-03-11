@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Header } from '@/components/header'
 import { Testimonial } from '@/components/testimonial'
 import { Container } from '@/layouts/container'
@@ -169,7 +169,6 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
                     name={`${data.first_name} ${data.last_name}`}
                     occupation={data.occupation}
                     company={data.company}
-                    relationship={data.relationship}
                     review={data.review}
                   />
                 </div>

@@ -9,7 +9,6 @@ type TestimonialProps = {
   className?: string
   avatar?: string
   name: string
-  relationship?: string
   occupation?: string
   company?: string
   rating: number
@@ -20,7 +19,6 @@ const Testimonial: React.FC<TestimonialProps> = ({
   className,
   avatar,
   name,
-  relationship,
   occupation,
   company,
   rating,
@@ -31,15 +29,23 @@ const Testimonial: React.FC<TestimonialProps> = ({
 
   const title = useMemo(() => {
     if (occupation && company) {
-      return <span>{occupation} @ {company}</span>
+      return (
+        <p className='text-center'>
+          <span className='whitespace-nowrap'>{occupation}</span>
+          <wbr></wbr>
+          <span className='whitespace-nowrap'>@{company}</span>
+        </p>
+      )
     } else if (occupation) {
-      return <span>{occupation}</span>
-    } else if (relationship) {
-      return <span>{relationship}</span>
+      return (
+        <p className='text-center'>
+          <span className='whitespace-nowrap'>{occupation}</span>
+        </p>
+      )
     } else {
       return null
     }
-  }, [occupation, company, relationship])
+  }, [occupation, company])
 
   return (
     <div 
@@ -74,11 +80,11 @@ const Testimonial: React.FC<TestimonialProps> = ({
           <div className='w-24 h-24 rounded-[1000px] bg-white'>
             <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full opacity-50'></img>
           </div>
-          <div className='flex flex-col items-center'>
+          <div className='flex flex-col items-center gap-1'>
             <h6 className='text-tertiary-foreground capitalize font-bold'>
               {name}
             </h6>
-            <p className='text-tertiary-foreground capitalize flex gap-1'>
+            <p className='text-tertiary-foreground font-thin capitalize'>
               {title}
             </p>
           </div>
