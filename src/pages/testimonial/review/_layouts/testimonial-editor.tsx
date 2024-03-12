@@ -73,6 +73,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
   const previousRef = useRef<ElementRef<'button'>>(null)
   const nextRef = useRef<ElementRef<'button'>>(null)
   const [api, setApi] = useState<CarouselApi>()
+  const [stepNumber, setStepNumber] = useState<number>(0)
   const [isOnLastStep, setIsOnLastStep] = useState<boolean>(true)
   const [isOnFirstStep, setIsOnFirstStep] = useState<boolean>(true)
 
@@ -80,9 +81,9 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     if (!api) return
 
     const totalSteps = api.scrollSnapList().length
-
     const stepNumber = api.selectedScrollSnap()
 
+    setStepNumber(stepNumber)
     setIsOnFirstStep(stepNumber === 0)
     setIsOnLastStep(stepNumber === totalSteps - 1)
 
@@ -90,6 +91,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     api.on('select', () => {
       const stepNumber = api.selectedScrollSnap()
 
+      setStepNumber(stepNumber)
       setIsOnFirstStep(stepNumber === 0)
       setIsOnLastStep(stepNumber === totalSteps - 1)
     })
@@ -181,7 +183,12 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                 onSubmit={form.handleSubmit(onSubmit)}
               >
                 <CarouselContent>
-                  <CarouselItem>
+                  <CarouselItem
+                    className={cn(
+                      'transition duration-1000 opacity-0',
+                      stepNumber === 0 && 'opacity-100'
+                    )}
+                  >
                     <div className='flex flex-col md:flex-row w-full h-full gap-10 p-6'>
                       <div className='relative h-full w-[200px] md:w-auto aspect-square'>
                         <div className='absolute right-0 top-0 h-[88%] w-[88%] bg-secondary'></div>
@@ -261,7 +268,12 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                       </div>
                     </div>
                   </CarouselItem>
-                  <CarouselItem>
+                  <CarouselItem
+                    className={cn(
+                      'transition duration-1000 opacity-0',
+                      stepNumber === 1 && 'opacity-100'
+                    )}
+                  >
                     <div className='flex flex-col w-full h-full p-6 gap-6 justify-between'>
                       <div className='flex flex-row justify-center'>
                         <FormField
