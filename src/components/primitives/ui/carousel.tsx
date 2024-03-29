@@ -20,6 +20,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   disableKeyboardEvents?: boolean
+  watchDrag?: boolean
   setApi?: (api: CarouselApi) => void
 }
 
@@ -52,6 +53,7 @@ const Carousel = React.forwardRef<
     {
       orientation = "horizontal",
       disableKeyboardEvents = false,
+      watchDrag = true,
       opts,
       setApi,
       plugins,
@@ -65,6 +67,7 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        watchDrag
       },
       plugins
     )

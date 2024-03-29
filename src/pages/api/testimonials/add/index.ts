@@ -8,10 +8,7 @@ const schemaPOST = z.object({
     .string()
     .min(1)
     .optional(),
-  first_name: z
-    .string()
-    .min(1),
-  last_name: z
+  full_name: z
     .string()
     .min(1),
   occupation: z

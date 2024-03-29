@@ -8,25 +8,29 @@ import { useForm } from 'react-hook-form'
 import { Container } from '@/layouts/container'
 import { Rating } from '@/components/rating'
 import { Typewriter } from '@/components/typewriter'
-import Lottie from 'lottie-react'
+import Lottie, { type LottieRefCurrentProps } from 'lottie-react'
 import waveAnimation from '@/assets/lotties/wave.json'
 import { motion } from 'framer-motion'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/primitives/ui/carousel'
 import { Input } from '@/components/primitives/ui/input'
 import { cn } from '@/utils/classname'
 import imageDefaultAvatar from '@/assets/images/avatar.webp'
+import confettiAnimation from '@/assets/lotties/confetti.json'
+import thumbsUpAnimation from '@/assets/lotties/thumbs-up.json'
+import { Progress } from '@/components/primitives/ui/progress'
 
 const formSchema = z.object({
   avatar: z
     .string()
-    .min(1)
     .optional(),
-  first_name: z
-    .string()
-    .min(1, { message: '(Required)' }),
-  last_name: z
-    .string()
-    .min(1, { message: '(Required)' }),
+  full_name: z
+    .string({
+      required_error: '(Required)',
+      invalid_type_error: '(Required)',
+    })
+    .regex(/.+ .+/, {
+      message: '(Must be a full name)',
+    }),
   occupation: z
     .string()
     .min(1)
@@ -47,58 +51,46 @@ const formSchema = z.object({
 type TestimonialEditorProps = {
   className?: string
   avatar?: string
-  firstName?: string
-  lastName?: string
+  fullName?: string
 }
 
 const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
   className,
-  firstName,
-  lastName,
+  fullName,
   avatar
 }) => {
-  const isSubmitDisabled = false
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: 'onSubmit',
     defaultValues: {
       rating: 5,
       avatar: avatar,
-      first_name: firstName,
-      last_name: lastName
+      full_name: fullName
     }
   })
 
   const previousRef = useRef<ElementRef<'button'>>(null)
   const nextRef = useRef<ElementRef<'button'>>(null)
   const [api, setApi] = useState<CarouselApi>()
-  const [stepNumber, setStepNumber] = useState<number>(0)
-  const [isOnLastStep, setIsOnLastStep] = useState<boolean>(true)
-  const [isOnFirstStep, setIsOnFirstStep] = useState<boolean>(true)
+  const [slide, setSlide] = useState<number>(0)
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
+  const lottieConfettiRef = useRef<LottieRefCurrentProps>(null)
+  const lottieThumbsUpRef = useRef<LottieRefCurrentProps>(null)
 
   React.useEffect(() => {
     if (!api) return
 
-    const totalSteps = api.scrollSnapList().length
-    const stepNumber = api.selectedScrollSnap()
-
-    setStepNumber(stepNumber)
-    setIsOnFirstStep(stepNumber === 0)
-    setIsOnLastStep(stepNumber === totalSteps - 1)
-
+    setSlide(0)
 
     api.on('select', () => {
-      const stepNumber = api.selectedScrollSnap()
-
-      setStepNumber(stepNumber)
-      setIsOnFirstStep(stepNumber === 0)
-      setIsOnLastStep(stepNumber === totalSteps - 1)
+      const slide = api.selectedScrollSnap()
+      setSlide(slide)
     })
   }, [api])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    setIsSubmitDisabled(true)
+
     const response = await fetch('/api/testimonials/add', {
       method: 'POST',
       headers: {
@@ -110,13 +102,23 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     if ('errors' in response) {
       return
     }
+
+    lottieThumbsUpRef.current?.goToAndPlay?.(0)
+
+    setTimeout(() => {
+      lottieConfettiRef.current?.goToAndPlay?.(0)
+    }, 300)
+
+    setIsSubmitDisabled(false)
+    nextRef.current?.click?.()
   }
 
-  console.log(form.formState)
-  console.log(form.getValues())
-
   const renderButton = () => {
-    if (isOnLastStep) {
+    if (slide === 2) {
+      return null
+    }
+
+    if (slide === 1) {
       return (
         <Button
           type="submit"
@@ -127,44 +129,58 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
       )
     }
 
-    return (
-      <Button
-        type="button"
-        onClick={() => {
-          nextRef.current?.click?.()
-        }}
-      >
-        Continue
-      </Button>
-    )
+    if (slide < 1) {
+      return (
+        <Button
+          type="button"
+          onClick={(event) => {
+            event.preventDefault()
+            nextRef.current?.click?.()
+          }}
+        >
+          Continue
+        </Button>
+      )
+    }
   }
 
   return (
-    <div className='w-full h-full flex justify-center items-center'>
+    <div className='flex flex-col items-center min-h-screen relative overflow-hidden'>
+      <motion.div
+        className='absolute left-[50%] -translate-x-[50%]'
+        initial={{
+          top: '50%',
+          translateY: '-50%',
+          translateX: '-50%'
+        }}
+        animate={{
+          top: '0%',
+          translateY: '0%',
+          translateX: '-50%'
+        }}
+        transition={{
+          ease: 'easeOut',
+          duration: 1.0,
+          delay: 2.5
+        }}
+      >
+        <Typewriter
+          className='flex items-center h-32 -mr-5'
+          cursorClassName='bg-tertiary'
+          words={[
+            { text: 'Write', className: 'text-foreground' },
+            { text: 'A', className: 'text-foreground' },
+            { text: 'Testimonial', className: 'text-tertiary' }
+          ]}
+        />
+      </motion.div>
+      <nav className='h-32 w-full'></nav>
       <Container
-        className='sm:px-32 gap-6'
+        className='h-full sm:px-32 gap-6'
         variant='narrow'
       >
         <motion.div
-          initial={{ y: 200 }}
-          animate={{ y: 0 }}
-          transition={{
-            ease: 'easeOut',
-            duration: 1.0,
-            delay: 2.5
-          }}
-        >
-          <Typewriter
-            className='flex justify-center -mr-5'
-            cursorClassName='bg-tertiary'
-            words={[
-              { text: 'Write', className: 'text-foreground' },
-              { text: 'A', className: 'text-foreground' },
-              { text: 'Testimonial', className: 'text-tertiary' }
-            ]}
-          />
-        </motion.div>
-        <motion.div
+          className='flex flex-col gap-10'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
@@ -173,10 +189,22 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
             delay: 3.5
           }}
         >
+          {/* <Progress */}
+          {/*   className='h-2' */}
+          {/*   value={(slide/2) * 100} */}
+          {/* /> */}
           <Carousel
+            className='relative'
             setApi={setApi}
             disableKeyboardEvents={true}
+            watchDrag={false}
           >
+            <Lottie
+              lottieRef={lottieConfettiRef}
+              className="absolute top-0 bottom-0 right-0 left-0 scale-[200%] pointer-events-none"
+              animationData={confettiAnimation}
+              loop={false}
+            />
             <Form {...form}>
               <form
                 className='w-full flex flex-col'
@@ -186,41 +214,23 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                   <CarouselItem
                     className={cn(
                       'transition duration-1000 opacity-0',
-                      stepNumber === 0 && 'opacity-100'
+                      slide === 0 && 'opacity-100'
                     )}
                   >
-                    <div className='flex flex-col md:flex-row w-full h-full gap-10 p-6'>
-                      <div className='relative h-full w-[200px] md:w-auto aspect-square'>
-                        <div className='absolute right-0 top-0 h-[88%] w-[88%] bg-secondary'></div>
-                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white'>
+                    <div className='flex flex-col justify-center md:flex-row w-full h-full gap-2 p-6'>
+                      <div className='relative h-full aspect-square hidden md:block'>
+                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white rounded-full'>
                           <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full'></img>
                         </div>
                       </div>
-                      <div className='flex flex-col justify-end w-full gap-6'>
+                      <div className='flex flex-col justify-center w-full gap-6'>
                         <FormField
                           control={form.control}
-                          name="first_name"
+                          name="full_name"
                           render={({ field }) => (
                             <FormItem>
                               <div className='flex flex-row justify-start gap-2'>
-                                <FormLabel>First Name</FormLabel>
-                                <FormMessage className='leading-none' />
-                              </div>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="last_name"
-                          render={({ field }) => (
-                            <FormItem>
-                              <div className='flex flex-row justify-start gap-2'>
-                                <FormLabel>Last Name</FormLabel>
+                                <FormLabel>Full Name</FormLabel>
                                 <FormMessage className='leading-none' />
                               </div>
                               <FormControl>
@@ -271,7 +281,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                   <CarouselItem
                     className={cn(
                       'transition duration-1000 opacity-0',
-                      stepNumber === 1 && 'opacity-100'
+                      slide === 1 && 'opacity-100'
                     )}
                   >
                     <div className='flex flex-col w-full h-full p-6 gap-6 justify-between'>
@@ -316,6 +326,25 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                       />
                     </div>
                   </CarouselItem>
+                  <CarouselItem
+                    className={cn(
+                      'transition duration-1000 opacity-100',
+                      slide === 2 && 'opacity-100'
+                    )}
+                  >
+                    <div className='flex flex-col w-full h-full p-6 gap-6 justify-between'>
+                      <div className='flex flex-col h-full items-center justify-center text-white gap-3'>
+                        <Lottie
+                          lottieRef={lottieThumbsUpRef}
+                          className="h-full w-[200px]"
+                          animationData={thumbsUpAnimation}
+                          loop={false}
+                        />
+                        <h3>Hi {form.getValues().full_name},</h3>
+                        <h2>Thank you for the review!</h2>
+                      </div>
+                    </div>
+                  </CarouselItem>
                 </CarouselContent>
                 <div className='flex flex-row justify-center mt-6'>
                   {renderButton()}
@@ -325,24 +354,25 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
             <CarouselPrevious
               ref={previousRef}
               className={cn(
-                isOnFirstStep && 'hidden'
+                (slide === 0 || slide === 2) && 'hidden'
               )}
               variant='ghost'
             />
             <CarouselNext
               ref={nextRef}
               className={cn(
-                isOnLastStep && 'hidden'
+                (slide === 1 || slide === 2) && 'hidden'
               )}
               variant='ghost'
             />
           </Carousel>
         </motion.div>
       </Container>
+      <div className='h-[200px] w-full'></div>
       <motion.div
-        className='absolute'
-        initial={{ bottom: 0 }}
-        animate={{ bottom: 200 }}
+        className='absolute h-[400px]'
+        initial={{ bottom: -400 }}
+        animate={{ bottom: -200 }}
         transition={{
           ease: 'easeOut',
           duration: 1.0,
@@ -365,7 +395,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
           )
         })}
       </motion.div>
-    </div>
+    </div >
   )
 }
 

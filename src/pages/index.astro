@@ -23,7 +23,7 @@ const responseTestimonials = await fetch(`${Astro.url}/api/testimonials`)
 			<section class='relative flex flex-col justify-center items-center gap-20 sm:gap-32 w-full h-full'>
 				<About client:only="react" />
 				<Projects client:only="react" />
-				<Testimonials data={responseTestimonials.data.testimonials} client:only="react" />
+				<Testimonials data={responseTestimonials.data?.testimonials ?? []} client:only="react" />
 				<Contact client:only="react" />
 			</section>
 		</main>

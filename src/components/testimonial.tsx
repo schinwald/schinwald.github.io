@@ -78,7 +78,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
         </div>
         <div className='flex flex-col items-center gap-2'>
           <div className='w-24 h-24 rounded-[1000px] bg-white'>
-            <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full opacity-50'></img>
+            <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full'></img>
           </div>
           <div className='flex flex-col items-center gap-1'>
             <h6 className='text-tertiary-foreground capitalize font-bold'>

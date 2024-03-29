@@ -8,7 +8,7 @@ export const GET: APIRoute = async ({}) => {
     .from('testimonials')
     .select('first_name, last_name, company, occupation, review, rating')
     .eq('approved', true)
-  
+
   if (error) {
     return new Response(JSON.stringify({ errors }), {
       status: 400,
