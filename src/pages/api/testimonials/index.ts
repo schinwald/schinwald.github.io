@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({}) => {
 
   const { data: testimonials, error } = await supabase
     .from('testimonials')
-    .select('first_name, last_name, company, occupation, review, rating')
+    .select('full_name, company, occupation, review, rating')
     .eq('approved', true)
 
   if (error) {
