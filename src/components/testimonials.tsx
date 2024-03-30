@@ -37,8 +37,7 @@ function randomlyFillData<Data extends Array<any>>(data: Data, length: number) {
 }
 
 type Testimonial = {
-  first_name: string
-  last_name: string
+  full_name: string
   occupation?: string
   company?: string
   relationship?: string
@@ -166,7 +165,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
                 >
                   <Testimonial
                     rating={data.rating}
-                    name={`${data.first_name} ${data.last_name}`}
+                    name={data.full_name}
                     occupation={data.occupation}
                     company={data.company}
                     review={data.review}
