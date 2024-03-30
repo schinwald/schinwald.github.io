@@ -51,8 +51,8 @@ const About: React.FC<AboutProps> = () => {
         <div className='flex flex-col sm:flex-row gap-10 z-30'>
           <div className='flex flex-row'>
             <div className='w-full px-16 sm:p-0'>
-              <div className='relative w-full sm:w-[200px] md:w-[300px] aspect-square bg-tertiary rounded-[1000px] shadow-lg'>
-                <div className='absolute w-full aspect-[3/4] rounded-b-[1000px] overflow-clip bottom-[-1px]'>
+              <div className='relative w-full sm:w-[200px] md:w-[300px] aspect-square bg-tertiary rounded-full shadow-lg'>
+                <div className='absolute w-full aspect-[3/4] rounded-b-full overflow-clip bottom-[-1px]'>
                   <img
                     ref={imageRef}
                     className='absolute bottom-0 w-full aspect-[300/360] object-cover scale-x-[-100%] -rotate-6 opacity-0'

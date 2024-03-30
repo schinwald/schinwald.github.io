@@ -219,7 +219,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                   >
                     <div className='flex flex-col justify-center md:flex-row w-full h-full gap-2 p-6'>
                       <div className='relative h-full aspect-square hidden md:block'>
-                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white rounded-full'>
+                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white rounded-full overflow-hidden'>
                           <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full'></img>
                         </div>
                       </div>

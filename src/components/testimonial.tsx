@@ -77,7 +77,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
           </p>
         </div>
         <div className='flex flex-col items-center gap-2'>
-          <div className='w-24 h-24 rounded-[1000px] bg-white'>
+          <div className='w-24 h-24 rounded-full bg-white overflow-hidden'>
             <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full'></img>
           </div>
           <div className='flex flex-col items-center gap-1'>
