@@ -6,6 +6,8 @@ interface Environments {
   readonly GITHUB_CLIENT_SECRET: string
   readonly GOOGLE_CLIENT_ID: string
   readonly GOOGLE_CLIENT_SECRET: string
+  readonly PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY: string
+  readonly GOOGLE_RECAPTCHA_SECRET_KEY: string
   readonly SUPABASE_URL: string
   readonly SUPABASE_KEY: string
   readonly SENDGRID_API_KEY: string

@@ -13,6 +13,7 @@ import { Textarea } from './primitives/ui/textarea'
 import { Container } from '@/layouts/container'
 import { Socials } from './socials'
 import { cn } from '@/utils/classname'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 type Notification = {
   status?: 'success' | 'error'
@@ -71,7 +72,7 @@ const Contact: React.FC<ContactProps> = () => {
   const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
     setIsSubmitDisabled(true)
 
-    const responsePromise = 
+    const responsePromise =
       fetch('/api/contact/email', {
         method: 'POST',
         headers: {
@@ -170,7 +171,7 @@ const Contact: React.FC<ContactProps> = () => {
                 </h2>
               </div>
             </div>
-            <div className='relative mb-2 mr-16 md:m-0 md:ml-0 md:mb-56 lg:m-0 lg:ml-10 lg:mb-56'>
+            <div className='relative mb-2 mr-16 md:m-0 md:ml-0 md:mb-60 lg:m-0 lg:ml-10 lg:mb-60'>
               <div
                 ref={lottiePaperAirplaneContainerRef}
                 className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[300px] md:w-[600px] lg:w-[600px] pointer-events-none"
@@ -236,13 +237,19 @@ const Contact: React.FC<ContactProps> = () => {
                     </FormItem>
                   )}
                 />
-                <div className='flex flex-row justify-center md:justify-start mt-2'>
-                  <Button
-                    type="submit"
-                    disabled={isSubmitDisabled}
-                  >
-                    Submit
-                  </Button>
+                <div className='flex flex-col items-center md:items-start gap-5 mt-2'>
+                  <ReCAPTCHA
+                    sitekey={import.meta.env.PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY}
+                    onChange={(value) => { console.log(value) }}
+                  />
+                  <div className='flex flex-row justify-center md:justify-start'>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitDisabled}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </div>
               </form>
             </Form>
