@@ -141,6 +141,7 @@ const Contact: React.FC<ContactProps> = () => {
       setTimeout(() => {
         animatePaperAirplaneEntry()
         setIsSubmitting(false)
+        setReCAPTCHAResponse('')
       }, 1300)
     })
   }, [isSubmitting, recaptchaResponse])
