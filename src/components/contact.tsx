@@ -65,11 +65,14 @@ const Contact: React.FC<ContactProps> = () => {
 
     const values = form.getValues()
 
+    const queryString = new URLSearchParams({
+      'g-recaptcha-response': recaptchaResponse
+    }).toString()
+
     const responsePromise =
-      fetch('/api/contact/email', {
+      fetch(`/api/contact/email?${queryString}`, {
         method: 'POST',
         headers: {
-          'g-recaptcha-response': recaptchaResponse,
           'content-type': 'application/json'
         },
         body: JSON.stringify({
