@@ -11,7 +11,11 @@ const schemaBody = z.object({
   message: z.string()
 })
 
-export const POST: APIRoute = async ({ params, request }) => {
+export const POST: APIRoute = async ({ request }) => {
+  const params = {
+    'g-recaptcha-response': request.url.split('=')[1]
+  }
+
   const queryParser = await schemaQuery
     .safeParseAsync(params)
   const bodyParser = await schemaBody
