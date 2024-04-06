@@ -140,7 +140,7 @@ const Contact: React.FC<ContactProps> = () => {
         setIsSubmitting(false)
       }, 1300)
     })
-  }, [isSubmitting])
+  }, [isSubmitting, recaptchaResponse])
 
   const animatePaperAirplaneEntry = useCallback(() => {
     lottiePaperAirplaneRef?.current?.playSegments([0, 96], true)
