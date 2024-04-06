@@ -39,8 +39,9 @@ const Contact: React.FC<ContactProps> = () => {
   const lottiePaperAirplaneContainerRef = useRef(null)
   const [notification, setNotification] = useState<Notification>({})
   const [notificationRef, animateNotification] = useAnimate()
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
   const isInView = useInView(lottiePaperAirplaneContainerRef, { margin: "-200px 0px" })
+  const [recaptchaResponse, setReCAPTCHAResponse] = useState<string>('')
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,24 +59,17 @@ const Contact: React.FC<ContactProps> = () => {
     }
   }, [isInView])
 
-  const animatePaperAirplaneEntry = useCallback(() => {
-    lottiePaperAirplaneRef?.current?.playSegments([0, 96], true)
-    lottiePaperAirplaneRef?.current?.playSegments([97, 146])
-    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(true)
-  }, [lottiePaperAirplaneRef])
+  useEffect(() => {
+    if (!isSubmitting) return
+    if (recaptchaResponse.length === 0) return
 
-  const animatePaperAirplaneExit = useCallback(() => {
-    lottiePaperAirplaneRef?.current?.playSegments([147, 200])
-    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false)
-  }, [lottiePaperAirplaneRef])
-
-  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
-    setIsSubmitDisabled(true)
+    const values = form.getValues()
 
     const responsePromise =
       fetch('/api/contact/email', {
         method: 'POST',
         headers: {
+          'g-recaptcha-response': recaptchaResponse,
           'content-type': 'application/json'
         },
         body: JSON.stringify({
@@ -85,6 +79,7 @@ const Contact: React.FC<ContactProps> = () => {
       })
 
     animatePaperAirplaneExit()
+
     lottiePaperAirplaneRef?.current?.animationItem?.addEventListener('complete', async () => {
       lottiePaperAirplaneRef?.current?.animationItem?.removeEventListener('complete')
 
@@ -142,9 +137,24 @@ const Contact: React.FC<ContactProps> = () => {
 
       setTimeout(() => {
         animatePaperAirplaneEntry()
-        setIsSubmitDisabled(false)
+        setIsSubmitting(false)
       }, 1300)
     })
+  }, [isSubmitting])
+
+  const animatePaperAirplaneEntry = useCallback(() => {
+    lottiePaperAirplaneRef?.current?.playSegments([0, 96], true)
+    lottiePaperAirplaneRef?.current?.playSegments([97, 146])
+    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(true)
+  }, [lottiePaperAirplaneRef])
+
+  const animatePaperAirplaneExit = useCallback(() => {
+    lottiePaperAirplaneRef?.current?.playSegments([147, 200])
+    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false)
+  }, [lottiePaperAirplaneRef])
+
+  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true)
   }, [])
 
   return (
@@ -196,7 +206,20 @@ const Contact: React.FC<ContactProps> = () => {
               </h2>
             </div>
           </div>
-          <div className='bg-background-overlay rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%]'>
+          <div className='bg-background-overlay overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative'>
+            <div className={cn(
+              'absolute left-0 top-0 right-0 bottom-0 bg-opacity-90 bg-background-overlay flex justify-center items-center',
+              isSubmitting ? '' : 'hidden'
+            )}>
+              <ReCAPTCHA
+                sitekey={import.meta.env.PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY}
+                onChange={(value) => {
+                  if (value) {
+                    setReCAPTCHAResponse(value)
+                  }
+                }}
+              />
+            </div>
             <Form {...form}>
               <form
                 className='p-8 md:p-12 flex flex-col gap-4 md:gap-5'
@@ -238,15 +261,8 @@ const Contact: React.FC<ContactProps> = () => {
                   )}
                 />
                 <div className='flex flex-col items-center md:items-start gap-5 mt-2'>
-                  <ReCAPTCHA
-                    sitekey={import.meta.env.PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY}
-                    onChange={(value) => { console.log(value) }}
-                  />
                   <div className='flex flex-row justify-center md:justify-start'>
-                    <Button
-                      type="submit"
-                      disabled={isSubmitDisabled}
-                    >
+                    <Button type="submit">
                       Submit
                     </Button>
                   </div>
