@@ -3,6 +3,7 @@ import { getSession } from 'auth-astro/server';
 import { supabase } from '@/utils/database/supabase'
 import { z } from "zod";
 import sharp from "sharp";
+import { v4 as uuid } from 'uuid'
 
 const schemaFormDataPOST = z.object({
   avatar: z
@@ -89,12 +90,9 @@ export const POST: APIRoute = async ({ request }) => {
   if (formData.avatar) {
     const buffer = await formData.avatar.arrayBuffer()
 
-    const filename = session.user?.id
+    const filename = `${uuid()}`
     const file = await sharp(buffer)
-      .resize({
-        width: 256,
-        height: 256,
-      })
+      .resize({ width: 256, height: 256, })
       .webp()
       .toBuffer()
 
@@ -106,7 +104,7 @@ export const POST: APIRoute = async ({ request }) => {
       .upload(avatarPath, file, {
         contentType: 'image/webp',
         cacheControl: '3600',
-        upsert: true
+        upsert: false
       })
 
     if (error) {
