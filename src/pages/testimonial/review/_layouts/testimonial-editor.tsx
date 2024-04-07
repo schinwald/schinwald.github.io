@@ -14,6 +14,7 @@ import { motion } from 'framer-motion'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/primitives/ui/carousel'
 import { Input } from '@/components/primitives/ui/input'
 import { cn } from '@/utils/classname'
+import { MdAddAPhoto as IconUploadPhoto } from 'react-icons/md'
 import imageDefaultAvatar from '@/assets/images/avatar.webp'
 import confettiAnimation from '@/assets/lotties/confetti.json'
 import thumbsUpAnimation from '@/assets/lotties/thumbs-up.json'
@@ -21,7 +22,7 @@ import { Progress } from '@/components/primitives/ui/progress'
 
 const formSchema = z.object({
   avatar: z
-    .string()
+    .unknown()
     .optional(),
   full_name: z
     .string({
@@ -69,11 +70,13 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     }
   })
 
-  const previousRef = useRef<ElementRef<'button'>>(null)
-  const nextRef = useRef<ElementRef<'button'>>(null)
   const [api, setApi] = useState<CarouselApi>()
   const [slide, setSlide] = useState<number>(0)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false)
+
+  const fileBrowserRef = useRef<ElementRef<'input'>>(null)
+  const previousRef = useRef<ElementRef<'button'>>(null)
+  const nextRef = useRef<ElementRef<'button'>>(null)
   const lottieConfettiRef = useRef<LottieRefCurrentProps>(null)
   const lottieThumbsUpRef = useRef<LottieRefCurrentProps>(null)
 
@@ -88,16 +91,39 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
     })
   }, [api])
 
+  const coerceToFileIfPossible = async (value: unknown) => {
+    if (typeof value === 'string') {
+      const buffer = await fetch(value)
+        .then(response => response.blob())
+      return new File([buffer], 'filename')
+    }
+
+    if (value instanceof File) {
+      return value
+    }
+
+    return undefined
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitDisabled(true)
 
-    const response = await fetch('/api/testimonials/add', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    }).then(response => response.json())
+    const formData = new FormData()
+    const avatarFile = await coerceToFileIfPossible(values.avatar)
+
+    if (avatarFile) formData.append('avatar', avatarFile, 'avatar.png')
+    if (values.occupation) formData.append('occupation', values.occupation)
+    if (values.company) formData.append('company', values.company)
+    formData.append('full_name', values.full_name)
+    formData.append('rating', values.rating.toString())
+    formData.append('review', values.review)
+
+    const response = await
+      fetch('/api/testimonials/add', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
 
     if ('errors' in response) {
       return
@@ -218,9 +244,35 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                     )}
                   >
                     <div className='flex flex-col justify-center md:flex-row w-full h-full gap-2 p-6'>
-                      <div className='relative h-full aspect-square hidden md:block'>
-                        <div className='absolute left-0 bottom-0 h-[88%] w-[88%] bg-white rounded-full border-4 border-white overflow-hidden'>
-                          <img src={avatar ?? imageDefaultAvatar.src} className='w-full h-full'></img>
+                      <div className='h-full aspect-square hidden md:block'>
+                        <div className='flex flex-col items-center'>
+                          <input
+                            ref={fileBrowserRef}
+                            className='hidden'
+                            type='file'
+                            onChange={(event) => {
+                              const file = event.target.files?.[0]
+                              if (!file) return
+                              const avatar = URL.createObjectURL(file)
+                              form.setValue('avatar', avatar)
+                            }}
+                          />
+                          <Button
+                            type='button'
+                            variant='link'
+                            size='sm'
+                            onClick={() => {
+                              fileBrowserRef?.current?.click?.()
+                            }}
+                          >
+                            <IconUploadPhoto className='mr-2 -ml-2' />Upload Photo
+                          </Button>
+                          <div className='h-[290px] w-[290px] bg-white rounded-full border-4 border-white overflow-hidden'>
+                            <img
+                              src={form.watch().avatar ?? imageDefaultAvatar.src}
+                              className='w-full h-full'
+                            />
+                          </div>
                         </div>
                       </div>
                       <div className='flex flex-col justify-center w-full gap-6'>

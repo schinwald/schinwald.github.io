@@ -2,12 +2,16 @@ import type { APIRoute } from "astro";
 import { getSession } from 'auth-astro/server';
 import { supabase } from '@/utils/database/supabase'
 import { z } from "zod";
+import sharp from "sharp";
 
-const schemaPOST = z.object({
+const schemaFormDataPOST = z.object({
   avatar: z
-    .string()
-    .min(1)
-    .optional(),
+    .unknown()
+    .refine((value): value is File | undefined => {
+      if (value === undefined) return true
+      if (value instanceof File && value.size > 0) return true
+      return false
+    }),
   full_name: z
     .string()
     .min(1),
@@ -20,6 +24,7 @@ const schemaPOST = z.object({
     .min(1)
     .optional(),
   rating: z
+    .coerce
     .number()
     .min(0)
     .max(5),
@@ -29,12 +34,19 @@ const schemaPOST = z.object({
 })
 
 export const POST: APIRoute = async ({ request }) => {
-  const session = await getSession(request);
-
   const errors: Record<string, any>[] = []
 
+  let session = await getSession(request);
+
   if (['development'].includes(import.meta.env.APP_ENVIRONMENT)) {
-    // DO NOTHING
+    session = {
+      user: {
+        id: '1234567890',
+        name: 'John Smith',
+        email: 'john.smith@email.com',
+      },
+      expires: '1234'
+    }
   } else {
     if (!session) {
       errors.push({})
@@ -45,12 +57,23 @@ export const POST: APIRoute = async ({ request }) => {
         },
       })
     }
+
+    if (!session.user) {
+      errors.push({})
+      return new Response(JSON.stringify({ errors }), {
+        status: 403,
+        headers: {
+          'content-type': 'application/json'
+        },
+      })
+    }
   }
 
-  const bodyParser = schemaPOST.safeParse(await request.json())
+  const formDataParser = schemaFormDataPOST
+    .safeParse(Object.fromEntries(await request.formData()))
 
-  if (!bodyParser.success) {
-    errors.push(bodyParser.error)
+  if (!formDataParser.success) {
+    errors.push(formDataParser.error)
     return new Response(JSON.stringify({ errors }), {
       status: 400,
       headers: {
@@ -59,22 +82,79 @@ export const POST: APIRoute = async ({ request }) => {
     })
   }
 
-  const body = bodyParser.data
+  const formData = formDataParser.data
 
-  const { error } = await supabase
-    .from('testimonials')
-    .insert({
-      ...body
-    })
-  
-  if (error) {
-    errors.push({})
-    return new Response(JSON.stringify({ errors }), {
-      status: 400,
-      headers: {
-        'content-type': 'application/json'
-      },
-    })
+  let avatarPath, avatarPublicURL
+
+  if (formData.avatar) {
+    const buffer = await formData.avatar.arrayBuffer()
+
+    const filename = session.user?.id
+    const file = await sharp(buffer)
+      .resize({
+        width: 256,
+        height: 256,
+      })
+      .webp()
+      .toBuffer()
+
+    avatarPath = `public/${filename}.webp`
+
+    const { error } = await supabase
+      .storage
+      .from('avatars')
+      .upload(avatarPath, file, {
+        contentType: 'image/webp',
+        cacheControl: '3600',
+        upsert: true
+      })
+
+    if (error) {
+      console.error(error)
+      errors.push({})
+      return new Response(JSON.stringify({ errors }), {
+        status: 500,
+        headers: {
+          'content-type': 'application/json'
+        },
+      })
+    }
+  }
+
+  if (avatarPath) {
+    const { data } = supabase
+      .storage
+      .from('avatars')
+      .getPublicUrl(avatarPath)
+
+    avatarPublicURL = data.publicUrl
+  }
+
+  {
+    const testimonial = {
+      avatar: avatarPublicURL,
+      rating: formData.rating,
+      review: formData.review,
+      occupation: formData.occupation,
+      company: formData.company,
+      full_name: formData.full_name,
+      email: session.user?.email,
+      session_id: session.user?.id,
+    }
+
+    const { error } = await supabase
+      .from('testimonials')
+      .insert(testimonial)
+    
+    if (error) {
+      errors.push({})
+      return new Response(JSON.stringify({ errors }), {
+        status: 400,
+        headers: {
+          'content-type': 'application/json'
+        },
+      })
+    }
   }
 
   const data = {}
