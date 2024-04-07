@@ -22,7 +22,7 @@ import { Progress } from '@/components/primitives/ui/progress'
 
 const formSchema = z.object({
   avatar: z
-    .unknown()
+    .string()
     .optional(),
   full_name: z
     .string({
