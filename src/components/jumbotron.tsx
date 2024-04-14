@@ -148,7 +148,12 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
       <h3 className="text-foreground uppercase leading-10">
         Software Engineer
       </h3>
-      <div className='absolute bottom-0 left-0 right-0 bg-background-overlay h-20'></div>
+      <nav className='absolute bottom-0 left-0 right-0 bg-background-overlay h-20 flex flex-row justify-center items-center gap-20'>
+        <a className='font-display text-xl' href='#about'>About Me</a>
+        <a className='font-display text-xl' href='#projects'>Projects</a>
+        <a className='font-display text-xl' href='#testimonials'>Testimonials</a>
+        <a className='font-display text-xl' href='#contact'>Contact</a>
+      </nav>
     </div>
   )
 }

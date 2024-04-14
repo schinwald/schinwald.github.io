@@ -62,7 +62,13 @@ const lineVariant = {
   }
 }
 
-const Header: React.FC<HeaderProps> = ({ className, title, align, variant, ...props }) => {
+const Header: React.FC<HeaderProps> = ({
+  className,
+  title,
+  align,
+  variant,
+  ...props
+}) => {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { margin: "-200px 0px" })
 

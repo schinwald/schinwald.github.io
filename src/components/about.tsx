@@ -5,12 +5,15 @@ import profileImage from '@/assets/images/profile.webp'
 import { Container } from '@/layouts/container'
 import { Link } from './primitives/ui/link'
 import { useAnimate, useInView } from 'framer-motion'
+import { cn } from '@/utils/classname'
 
 type AboutProps = {
   className?: string
 }
 
-const About: React.FC<AboutProps> = () => {
+const About: React.FC<AboutProps> = ({
+  className
+}) => {
   const [imageRef, animateImage] = useAnimate()
   const containerRef = useRef(null)
   const isInView = useInView(containerRef, {
@@ -43,7 +46,10 @@ const About: React.FC<AboutProps> = () => {
   }, [isInView])
 
   return (
-    <div className='relative w-screen flex flex-col justify-center items-center'>
+    <div id='about' className={cn(
+      'relative w-screen flex flex-col justify-center items-center py-8',
+      className
+    )}>
       <Container
         ref={containerRef}
         variant='narrow'

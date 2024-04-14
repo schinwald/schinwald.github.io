@@ -4,6 +4,7 @@ import { Testimonial } from '@/components/testimonial'
 import { Container } from '@/layouts/container'
 import { useAnimate } from 'framer-motion'
 import { Link } from './primitives/ui/link'
+import { cn } from '@/utils/classname'
 
 const count = 30
 const duration = 120.0
@@ -51,7 +52,10 @@ type TestimonialsProps = {
   data: Testimonial[]
 }
 
-const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
+const Testimonials: React.FC<TestimonialsProps> = ({
+  className,
+  data,
+}) => {
   const randomlyFilledData = randomlyFillData(data, count)
 
   const testimonials = randomlyFilledData.map((value) => {
@@ -113,7 +117,10 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
   // }, [isCarouselPlaying])
 
   return (
-    <div className='relative w-screen flex flex-col items-center gap-10'>
+    <div id='testimonials' className={cn(
+      'relative w-screen flex flex-col items-center gap-10 py-8',
+      className
+    )}>
       <Container variant='narrow'>
         <div className='flex flex-row justify-end'>
           <Header

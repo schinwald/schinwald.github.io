@@ -15,12 +15,12 @@ const responseTestimonials = await fetch(`${Astro.url}/api/testimonials`)
 
 <Document title="James Schinwald">
 	<Navigation client:idle />
-	<div class='flex flex-col gap-20 sm:gap-32'>
+	<div class='flex flex-col gap-12 sm:gap-24'>
 		<section class='z-20 h-screen bg-background text-foreground'>
 			<Jumbotron client:only="react" />
 		</section>
 		<main class='flex flex-col justify-center items-center overflow-x-clip'>
-			<section class='relative flex flex-col justify-center items-center gap-20 sm:gap-32 w-full h-full'>
+			<section class='relative flex flex-col justify-center items-center gap-12 sm:gap-24 w-full h-full'>
 				<About client:only="react" />
 				<Projects client:only="react" />
 				<Testimonials data={responseTestimonials.data?.testimonials ?? []} client:only="react" />

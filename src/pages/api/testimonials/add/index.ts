@@ -74,7 +74,8 @@ export const POST: APIRoute = async ({ request }) => {
     .safeParse(Object.fromEntries(await request.formData()))
 
   if (!formDataParser.success) {
-    errors.push(formDataParser.error)
+    console.error(formDataParser.error)
+    errors.push({})
     return new Response(JSON.stringify({ errors }), {
       status: 400,
       headers: {
@@ -145,6 +146,7 @@ export const POST: APIRoute = async ({ request }) => {
       .insert(testimonial)
     
     if (error) {
+      console.error(error)
       errors.push({})
       return new Response(JSON.stringify({ errors }), {
         status: 400,

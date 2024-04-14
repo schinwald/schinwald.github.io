@@ -34,7 +34,9 @@ type ContactProps = {
   className?: string
 }
 
-const Contact: React.FC<ContactProps> = () => {
+const Contact: React.FC<ContactProps> = ({
+  className
+}) => {
   const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null)
   const lottiePaperAirplaneContainerRef = useRef(null)
   const [notification, setNotification] = useState<Notification>({})
@@ -162,7 +164,10 @@ const Contact: React.FC<ContactProps> = () => {
   }, [])
 
   return (
-    <div className='relative w-screen flex flex-col items-center gap-10'>
+    <div id='contact' className={cn(
+      'relative w-screen flex flex-col items-center gap-10 py-8',
+      className
+    )}>
       <Container variant='narrow'>
         <div className='relative flex flex-row justify-start'>
           <Header

@@ -2,14 +2,20 @@ import React from 'react'
 import { Header } from '@/components/header'
 import { Project } from '@/components/project'
 import { Container } from '@/layouts/container'
+import { cn } from '@/utils/classname'
 
 type ProjectsProps = {
 	className?: string
 }
 
-const Projects: React.FC<ProjectsProps> = ({ className }) => {
+const Projects: React.FC<ProjectsProps> = ({
+	className,
+}) => {
 	return (
-		<div className='relative w-screen flex flex-row justify-center'>
+		<div id='projects' className={cn(
+			'relative w-screen flex flex-row justify-center py-8',
+			className
+		)}>
 			<Container variant='narrow'>
 				<div className='w-full max-w-screen-md flex flex-row justify-start'>
 					<Header
