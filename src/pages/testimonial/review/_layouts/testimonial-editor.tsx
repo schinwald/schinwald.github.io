@@ -247,6 +247,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                       <div className='h-full aspect-square hidden md:block'>
                         <div className='flex flex-col items-center'>
                           <input
+                            tabIndex={slide === 0 ? 0 : -1}
                             ref={fileBrowserRef}
                             className='hidden'
                             type='file'
@@ -287,6 +288,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                               </div>
                               <FormControl>
                                 <Input
+                                  tabIndex={slide === 0 ? 0 : -1}
                                   {...field}
                                 />
                               </FormControl>
@@ -304,6 +306,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                               </div>
                               <FormControl>
                                 <Input
+                                  tabIndex={slide === 0 ? 0 : -1}
                                   {...field}
                                 />
                               </FormControl>
@@ -321,6 +324,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                               </div>
                               <FormControl>
                                 <Input
+                                  tabIndex={slide === 0 ? 0 : -1}
                                   {...field}
                                 />
                               </FormControl>
@@ -345,6 +349,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                             <FormItem className='flex flex-row justify-between gap-8 w-[360px] space-y-0 -ml-4'>
                               <FormControl>
                                 <Rating
+                                  tabIndex={slide === 1 ? 0 : -1}
                                   step={1}
                                   min={0}
                                   max={5}
@@ -368,6 +373,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                           <FormItem>
                             <FormControl>
                               <Textarea
+                                tabIndex={slide === 1 ? 0 : -1}
                                 placeholder='What would you like to say...'
                                 rows={12}
                                 {...field}
