@@ -97,7 +97,6 @@ const Header: React.FC<HeaderProps> = ({
         >
           <div className='flex flex-row items-center gap-1'>
             <h2 className='text-foreground whitespace-nowrap'>{title}</h2>
-            <div className='bg-white w-5 h-[25px] sm:h-[35px] mt-[0.2rem] sm:mt-[0.4rem] opacity-30'></div>
           </div>
         </div>
       )

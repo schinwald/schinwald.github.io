@@ -14,15 +14,12 @@ const schemaFormDataPOST = z.object({
       return false
     }),
   full_name: z
-    .string()
-    .min(1),
+    .string(),
   occupation: z
     .string()
-    .min(1)
     .optional(),
   company: z
     .string()
-    .min(1)
     .optional(),
   rating: z
     .coerce
@@ -31,7 +28,6 @@ const schemaFormDataPOST = z.object({
     .max(5),
   review: z
     .string()
-    .min(1),
 })
 
 export const POST: APIRoute = async ({ request }) => {

@@ -25,27 +25,22 @@ const formSchema = z.object({
     .string()
     .optional(),
   full_name: z
-    .string({
-      required_error: '(Required)',
-      invalid_type_error: '(Required)',
-    })
+    .string({ required_error: '(Required)' })
     .regex(/.+ .+/, {
       message: '(Must be a full name)',
     }),
   occupation: z
     .string()
-    .min(1)
     .optional(),
   company: z
     .string()
-    .min(1)
     .optional(),
   rating: z
     .number()
     .min(0)
     .max(5),
   review: z
-    .string()
+    .string({ required_error: '(Required)' })
     .min(1, { message: '(Required)' }),
 })
 
@@ -245,7 +240,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                   >
                     <div className='flex flex-col justify-center md:flex-row w-full h-full gap-2 p-6'>
                       <div className='h-full aspect-square hidden md:block'>
-                        <div className='flex flex-col items-center'>
+                        <div className='flex flex-col items-center gap-2'>
                           <input
                             tabIndex={slide === 0 ? 0 : -1}
                             ref={fileBrowserRef}
@@ -262,16 +257,23 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                             type='button'
                             variant='link'
                             size='sm'
+                            tabIndex={slide === 0 ? 0 : -1}
                             onClick={() => {
                               fileBrowserRef?.current?.click?.()
                             }}
                           >
                             <IconUploadPhoto className='mr-2 -ml-2' />Upload Photo
                           </Button>
-                          <div className='h-[290px] w-[290px] bg-white rounded-full border-4 border-white overflow-hidden'>
+                          <div
+                            className='h-[290px] w-[290px] bg-white rounded-full border-4 border-white overflow-hidden cursor-pointer relative'
+                            onClick={() => {
+                              fileBrowserRef?.current?.click()
+                            }}
+                          >
+                            <div className='absolute left-0 right-0 bottom-0 top-0 bg-black opacity-0 hover:opacity-10'></div>
                             <img
                               src={form.watch().avatar ?? imageDefaultAvatar.src}
-                              className='w-full h-full'
+                              className='w-full h-full hover:scale-105 transition-all duration-300'
                             />
                           </div>
                         </div>
