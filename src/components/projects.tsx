@@ -17,7 +17,7 @@ const Projects: React.FC<ProjectsProps> = ({
 			className
 		)}>
 			<Container variant='narrow'>
-				<div className='w-full max-w-screen-md flex flex-row justify-start'>
+				<div className='relative w-full max-w-screen-md flex flex-row justify-start'>
 					<Header
 						className='text-left'
 						title='Projects'
@@ -26,8 +26,16 @@ const Projects: React.FC<ProjectsProps> = ({
 					/>
 				</div>
 				<Project
-					title='Cartera'
+					title='Express Otter'
 					justify='left'
+					repository='https://github.com/schinwald/express-otter'
+					image={{
+						url: 'https://github.com/schinwald/express-otter/blob/development/logo.png?raw=true'
+					}}
+				/>
+				<Project
+					title='Cartera'
+					justify='right'
 					repository='https://github.com/schinwald/cartera'
 					image={{
 						url: 'https://github.com/schinwald/cartera/blob/main/preview.jpg?raw=true'
@@ -35,7 +43,7 @@ const Projects: React.FC<ProjectsProps> = ({
 				/>
 				<Project
 					title='Pets'
-					justify='right'
+					justify='left'
 					repository='https://github.com/schinwald/pets'
 					image={{
 						url: 'https://github.com/schinwald/pets/blob/main/preview.webp?raw=true'
@@ -43,18 +51,18 @@ const Projects: React.FC<ProjectsProps> = ({
 				/>
 				<Project
 					title='Weather or Not'
-					justify='left'
+					justify='right'
 					repository='https://github.com/schinwald/weather-or-not'
 					image={{
 						url: 'https://github.com/schinwald/weather-or-not/blob/main/preview.jpg?raw=true'
 					}}
 				/>
 				<Project
-					title='Express Otter'
-					justify='right'
-					repository='https://github.com/schinwald/express-otter'
+					title='Calculato'
+					justify='left'
+					repository='https://github.com/schinwald/calculato'
 					image={{
-						url: 'https://github.com/schinwald/express-otter/blob/development/logo.png?raw=true'
+						url: 'https://github.com/schinwald/calculato/blob/main/preview.png?raw=true'
 					}}
 				/>
 			</Container >

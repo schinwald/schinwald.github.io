@@ -6,6 +6,13 @@ import { Container } from '@/layouts/container'
 import { Link } from './primitives/ui/link'
 import { useAnimate, useInView } from 'framer-motion'
 import { cn } from '@/utils/classname'
+import {
+  RxCross2 as CrossIcon
+} from "react-icons/rx";
+import {
+  PiSquareLight as SquareIcon,
+  PiTriangleThin as TriangleIcon
+} from "react-icons/pi";
 
 type AboutProps = {
   className?: string
@@ -39,7 +46,7 @@ const About: React.FC<AboutProps> = ({
         scaleX: ['-100%', '-100%'],
         rotate: ['6deg', '6deg']
       }, {
-        duration: 0.3,
+        duration: 0.5,
         ease: 'easeOut'
       })
     }
@@ -69,14 +76,16 @@ const About: React.FC<AboutProps> = ({
               </div>
             </div>
           </div>
-          <div className='flex flex-col gap-6'>
-            <div className='flex flex-col gap-3'>
-              <Header
-                className='text-left'
-                title='About Me'
-                align='left'
-                variant='typist'
-              />
+          <div className='relative flex flex-col gap-6'>
+            <div className='flex flex-col gap-6'>
+              <div className='flex flex-row'>
+                <Header
+                  className='text-left'
+                  title='About Me'
+                  align='left'
+                  variant='typist'
+                />
+              </div>
               <p className='text-foreground opacity-70'>
                 {`
                   Hello! I am James, an experienced software engineer specializing in full-stack development. With a passion for problem-solving
@@ -88,19 +97,30 @@ const About: React.FC<AboutProps> = ({
                 `}
               </p>
             </div>
-            <div>
+            <div className='flex flex-row gap-6 items-start'>
               <Link
                 href='/about/learn-more'
                 variant='default'
               >
                 Learn more
               </Link>
+              <Socials
+                variant='minimal'
+              />
+            </div>
+            <div className='absolute right-10 -top-2 h-[60px] w-[60px]'>
+              <CrossIcon className='w-full h-full text-secondary opacity-40 animate-spin-slow' />
+            </div>
+            <div className='absolute right-48 -bottom-6 h-[60px] w-[60px]'>
+              <SquareIcon className='w-full h-full text-secondary opacity-30 animate-spin' />
+            </div>
+            <div className='absolute right-10 -bottom-24 h-[150px] w-[150px]'>
+              <TriangleIcon className='w-full h-full text-secondary opacity-50 animate-spin-slow' />
             </div>
           </div>
         </div>
       </Container>
       <div className='h-[100px] w-[calc(100%+2rem)] bg-background-overlay rotate-6 mt-20 flex flex-row justify-center items-center shadow-lg'>
-        <Socials />
         <div className='absolute h-[1000px] w-[calc(100%+200rem)] bg-gradient-to-t from-background-soft to-background-overlay bottom-[100%]'>
         </div>
       </div>

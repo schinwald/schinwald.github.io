@@ -122,7 +122,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
       className
     )}>
       <Container variant='narrow'>
-        <div className='flex flex-row justify-end'>
+        <div className='relative flex flex-row justify-end'>
           <Header
             className='text-right'
             title='Testimonials'
