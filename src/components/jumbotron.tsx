@@ -148,7 +148,7 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
       <h3 className="text-foreground uppercase leading-10">
         Software Engineer
       </h3>
-      <div className="absolute z-0 top-0 left-0 h-screen w-screen opacity-10 bg-[radial-gradient(circle,rgba(255,255,255,1)0%,rgba(0,212,255,0)100%)]"></div>
+      <div className="absolute z-0 top-0 left-0 h-screen w-screen opacity-10 bg-[radial-gradient(circle,rgba(255,255,255,1)0%,rgba(0,212,255,0)100%)] pointer-events-none"></div>
       <nav className='absolute bottom-0 left-0 right-0 bg-background-overlay pt-8 pb-6 h-20 flex flex-row justify-center items-center gap-20 border-b-8 border-[#fff2]'>
         <a className='font-display text-xl opacity-70' href='#about'>About Me</a>
         <a className='font-display text-xl opacity-70' href='#projects'>Projects</a>
