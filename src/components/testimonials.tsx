@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Header } from '@/components/header'
 import { Testimonial } from '@/components/testimonial'
 import { Container } from '@/layouts/container'
-import { useAnimate } from 'framer-motion'
+import { useAnimate, type AnimationPlaybackControls } from 'framer-motion'
 import { Link } from './primitives/ui/link'
 import { cn } from '@/utils/classname'
 
@@ -56,16 +56,38 @@ const Testimonials: React.FC<TestimonialsProps> = ({
   className,
   data,
 }) => {
-  const randomlyFilledData = randomlyFillData(data, count)
+  const randomlyFilledData = useMemo(() => randomlyFillData(data, count), [])
+  const testimonials = randomlyFilledData.map((value, i) => {
+      const animation = useAnimate()
+      const [ref, animate] = animation
+      const [controls, setControls] = useState<AnimationPlaybackControls>()
 
-  const testimonials = randomlyFilledData.map((value) => {
-    return {
-      data: value,
-      animation: useAnimate()
-    }
-  })
+      useEffect(() => {
+        const newControls = animate(ref.current, {
+          translateY: ['-105%', '-105%', '0%', '0%', '105%', '105%'],
+          translateX: ['-120%', '120%', '120%', '-120%', '-120%', '120%'],
+          x: [`-${distance}px`, `${distance}px`, `${distance}px`, `-${distance}px`, `-${distance}px`, `${distance}px`],
+        }, {
+          duration,
+          times: [0, 1 / 3, 1 / 3, 2 / 3, 2 / 3, 1],
+          ease: 'linear',
+          repeat: Infinity,
+          repeatDelay
+        })
 
-  // const [isCarouselPlaying, setCarouselPlaying] = useState(true)
+        newControls.time = duration + repeatDelay - i * delay
+        setControls(newControls)
+      }, [])
+
+      return {
+        data: value,
+        animation,
+        controls
+      }
+    })
+
+  const [isCarouselPlaying, setCarouselPlaying] = useState(true)
+  const [isCarouselReady, setCarouselReady] = useState(false)
   const [testimonialContainerRef, animateTestimonialContainer] = useAnimate()
 
   useEffect(() => {
@@ -75,46 +97,27 @@ const Testimonials: React.FC<TestimonialsProps> = ({
       duration: 1
     })
 
-    for (let i = 0; i < testimonials.length; i++) {
-      const testimonial = testimonials[i]
-      const [ref, animate] = testimonial.animation
-
-      const controls = animate(ref.current, {
-        translateY: ['-105%', '-105%', '0%', '0%', '105%', '105%'],
-        translateX: ['-120%', '120%', '120%', '-120%', '-120%', '120%'],
-        x: [`-${distance}px`, `${distance}px`, `${distance}px`, `-${distance}px`, `-${distance}px`, `${distance}px`],
-      }, {
-        duration,
-        times: [0, 1 / 3, 1 / 3, 2 / 3, 2 / 3, 1],
-        ease: 'linear',
-        repeat: Infinity,
-        repeatDelay
-      })
-
-      controls.time = duration + repeatDelay - i * delay
-    }
-
-    return () => {
-      for (let i = 0; i < testimonials.length; i++) {
-        const testimonial = testimonials[i]
-        const [ref, _] = testimonial.animation
-
-        for (let j = 0; j < ref.animations.length; j++) {
-          ref.animations.pop()
-        }
-      }
-    }
+    setCarouselReady(true)
   }, [])
 
-  // const toggleCarouselPlay = useCallback(() => {
-  //   for (let i = 0; i < animations.length; i++) {
-  //     const [ref, _] = animations[i]
-  //     for (let j = 0; j < ref.animations.length; j++) {
-  //       isCarouselPlaying ? ref.animations[j].pause() : ref.animations[j].play()
-  //       setCarouselPlaying(!isCarouselPlaying)
-  //     }
-  //   }
-  // }, [isCarouselPlaying])
+  const toggleCarouselPlay = useCallback(() => {
+    for (let i = 0; i < testimonials.length; i++) {
+      const testimonial = testimonials[i]
+      const controls = testimonial.controls
+
+      if (!controls) continue
+
+      if (isCarouselPlaying) {
+        const temp = controls.time
+        controls.pause()
+        controls.time = temp
+      } else {
+        controls.play()
+      }
+    }
+
+    setCarouselPlaying(!isCarouselPlaying)
+  }, [isCarouselReady, isCarouselPlaying])
 
   return (
     <div id='testimonials' className={cn(
@@ -170,6 +173,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                   ref={ref}
                   key={index}
                   className='absolute'
+                  onClick={() => {
+                    toggleCarouselPlay()
+                  }}
                 >
                   <Testimonial
                     avatar={data.avatar}
