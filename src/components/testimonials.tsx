@@ -59,11 +59,11 @@ const Testimonials: React.FC<TestimonialsProps> = ({
   const randomlyFilledData = useMemo(() => randomlyFillData(data, count), [])
   const testimonials = randomlyFilledData.map((value, i) => {
       const animation = useAnimate()
-      const [ref, animate] = animation
+      const [testimonialRef, animateTestimonial] = animation
       const [controls, setControls] = useState<AnimationPlaybackControls>()
 
       useEffect(() => {
-        const newControls = animate(ref.current, {
+        const newControls = animateTestimonial(testimonialRef.current, {
           translateY: ['-105%', '-105%', '0%', '0%', '105%', '105%'],
           translateX: ['-120%', '120%', '120%', '-120%', '-120%', '120%'],
           x: [`-${distance}px`, `${distance}px`, `${distance}px`, `-${distance}px`, `-${distance}px`, `${distance}px`],
