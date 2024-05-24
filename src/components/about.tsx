@@ -72,7 +72,7 @@ const About: React.FC<AboutProps> = ({
         <div className='flex flex-col sm:flex-row gap-10 z-30'>
           <div className='flex flex-row justify-center'>
             <div className='w-full px-16 sm:p-0 flex flex-row justify-center'>
-              <div className='relative w-full sm:w-[200px] md:w-[300px] max-w-[250px] sm:max-w-full aspect-square bg-tertiary rounded-full shadow-lg'>
+              <div className='relative z-30 w-full sm:w-[200px] md:w-[300px] max-w-[250px] sm:max-w-full aspect-square bg-tertiary rounded-full shadow-lg'>
                 <div className='absolute w-full aspect-[3/4] rounded-b-full overflow-clip bottom-[-1px]'>
                   <img
                     ref={imageRef}
@@ -120,10 +120,10 @@ const About: React.FC<AboutProps> = ({
             <div className='absolute right-10 -top-2 h-[60px] w-[60px] pointer-events-none'>
               <CrossIcon className='w-full h-full text-secondary opacity-40 animate-spin-slow' />
             </div>
-            <div className='absolute right-48 -bottom-6 h-[60px] w-[60px] pointer-events-none'>
+            <div className='absolute -top-48 left-10 sm:hidden md:block sm:left-auto sm:top-auto sm:right-28 sm:-bottom-6 md:left-auto md:top-auto md:right-28 md:-bottom-6 h-[60px] w-[60px] pointer-events-none'>
               <SquareIcon className='w-full h-full text-secondary opacity-30 animate-spin direction-reverse' />
             </div>
-            <div className='absolute right-10 -bottom-24 h-[150px] w-[150px] pointer-events-none'>
+            <div className='absolute -top-64 right-10 sm:hidden md:block sm:top-auto sm:-right-10 sm:left-auto sm:-bottom-24 md:top-auto md:-right-10 md:left-auto md:-bottom-24 h-[150px] w-[150px] pointer-events-none'>
               <TriangleIcon className='w-full h-full text-secondary opacity-50 animate-spin-slow' />
             </div>
           </div>
