@@ -145,6 +145,9 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
           animationData={logoAnimation}
           loop={false}
         />
+        <h2 className="absolute invisible -translate-x-[50%]">
+          James Schinwald
+        </h2>
       </div>
       <h3 className="text-foreground uppercase leading-10">
         Software Engineer
