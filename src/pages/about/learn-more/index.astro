@@ -2,6 +2,7 @@
 import Document from '@/layouts/document.astro';
 import { Navigation } from '@/components/navigation';
 import { UnderConstruction } from '@/components/under-construction';
+import { BackgroundGradient } from '@/components/background-gradient';
 import '@/styles/globals.css'
 ---
 
@@ -10,6 +11,6 @@ import '@/styles/globals.css'
 	<section class='bg-background w-screen h-screen'>
 		<UnderConstruction client:only="react" />
 		<!-- <Timeline client:only="react"/> -->
-    	<div class="absolute z-100 top-0 left-0 h-screen w-screen opacity-10 bg-[radial-gradient(circle,rgba(255,255,255,1)0%,rgba(0,212,255,0)100%)]"></div>
+		<BackgroundGradient client:only="react" />
 	</section>
 </Document>

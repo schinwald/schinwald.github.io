@@ -1,12 +1,6 @@
 ---
 import Document from '@/layouts/document.astro';
-import { Navigation } from '@/components/navigation';
-import { Jumbotron } from '@/components/jumbotron';
-import { About } from '@/components/about';
-import { Projects } from '@/components/projects';
-import { Testimonials } from '@/components/testimonials';
-import { Contact } from '@/components/contact';
-import backgroundSoftSVG from '@/assets/images/background-soft.svg';
+import { BackgroundGradient } from '@/components/background-gradient';
 import '@/styles/globals.css'
 ---
 
@@ -16,6 +10,6 @@ import '@/styles/globals.css'
 			<h2>Page Not Found</h2>
 			<p>Are you lost?</p>
 		</div>
-    	<div class="absolute z-100 top-0 left-0 h-screen w-screen opacity-10 bg-[radial-gradient(circle,rgba(255,255,255,1)0%,rgba(0,212,255,0)100%)]"></div>
+		<BackgroundGradient client:only="react" />
 	</section>
 </Document>
