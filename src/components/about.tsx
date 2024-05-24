@@ -4,7 +4,7 @@ import { Socials } from '@/components/socials'
 import profileImage from '@/assets/images/profile.webp'
 import { Container } from '@/layouts/container'
 import { Link } from './primitives/ui/link'
-import { useAnimate, useInView } from 'framer-motion'
+import { useAnimate, useInView, stagger } from 'framer-motion'
 import { cn } from '@/utils/classname'
 import {
   RxCross2 as CrossIcon
@@ -22,6 +22,7 @@ const About: React.FC<AboutProps> = ({
   className
 }) => {
   const [imageRef, animateImage] = useAnimate()
+  const [socialsRef, animateSocials] = useAnimate()
   const containerRef = useRef(null)
   const isInView = useInView(containerRef, {
     margin: "-200px 0px",
@@ -43,11 +44,18 @@ const About: React.FC<AboutProps> = ({
       animateImage(imageRef.current, {
         opacity: [0, 1],
         translateY: [30, 0],
-        scaleX: ['-100%', '-100%'],
-        rotate: ['6deg', '6deg']
+        rotate: ['-6deg', '-6deg']
       }, {
         duration: 0.5,
         ease: 'easeOut'
+      })
+
+      animateSocials("li", {
+        opacity: [0, 1],
+        transform: ['translateY(20px)', 'translateY(0px)']
+      }, {
+        duration: 0.5,
+        delay: stagger(0.1, { startDelay: 0.3 })
       })
     }
   }, [isInView])
@@ -68,7 +76,7 @@ const About: React.FC<AboutProps> = ({
                 <div className='absolute w-full aspect-[3/4] rounded-b-full overflow-clip bottom-[-1px]'>
                   <img
                     ref={imageRef}
-                    className='absolute bottom-0 w-full aspect-[300/360] object-cover scale-x-[-100%] -rotate-6 opacity-0'
+                    className='absolute bottom-0 w-full aspect-[300/360] object-cover rotate-6 opacity-0'
                     src={profileImage.src}
                   >
                   </img>
@@ -105,6 +113,7 @@ const About: React.FC<AboutProps> = ({
                 Learn more
               </Link>
               <Socials
+                ref={socialsRef}
                 variant='minimal'
               />
             </div>

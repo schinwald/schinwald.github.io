@@ -10,14 +10,15 @@ type SocialsProps = {
   variant?: 'default' | 'minimal'
 }
 
-const Socials: React.FC<SocialsProps> = ({
+const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(({
   className,
   variant = 'default'
-}) => {
+}, ref) => {
   switch (variant) {
     case 'default':
       return (
         <ul
+          ref={ref}
           className={cn(
             className,
             "flex flex-row gap-8 justify-center items-center text-foreground"
@@ -64,6 +65,7 @@ const Socials: React.FC<SocialsProps> = ({
     case 'minimal':
       return (
         <ul
+          ref={ref}
           className={cn(
             "flex flex-row gap-2 justify-center items-center text-foreground",
             className
@@ -99,6 +101,6 @@ const Socials: React.FC<SocialsProps> = ({
         </ul>
       )
   }
-}
+})
 
 export { Socials }
