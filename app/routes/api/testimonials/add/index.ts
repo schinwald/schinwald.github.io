@@ -1,9 +1,9 @@
-import type { APIRoute } from "astro";
-import { getSession } from 'auth-astro/server';
-import { supabase } from '~/utils/database/supabase'
 import { z } from "zod";
 import sharp from "sharp";
 import { v4 as uuid } from 'uuid'
+import { ActionFunction } from "@remix-run/node";
+import { DatabaseManagementSystem } from "~/utils/database";
+import { TestimonialService } from "~/utils/services/testimonial";
 
 const schemaFormDataPOST = z.object({
   avatar: z
@@ -30,135 +30,166 @@ const schemaFormDataPOST = z.object({
     .string()
 })
 
-export const POST: APIRoute = async ({ request }) => {
-  const errors: Record<string, any>[] = []
+export const action: ActionFunction = async ({ request }) => {
+  if (request.method === 'POST') {
+    const errors: Record<string, any>[] = []
 
-  let session = await getSession(request);
+    const databaseManagementSystem = new DatabaseManagementSystem({ request })
 
-  if (['development'].includes(import.meta.env.APP_ENVIRONMENT)) {
-    session = {
-      user: {
-        id: '1234567890',
-        name: 'John Smith',
-        email: 'john.smith@email.com',
-      },
-      expires: '1234'
+    const {
+      headers,
+      supabaseClient
+    } = databaseManagementSystem.initialize()
+
+    // Grab the session
+    let session
+    {
+      const response = await databaseManagementSystem.getSession()
+
+      if (response.errors) {
+        throw new Response(JSON.stringify(response), {
+          status: response.meta.status,
+          headers
+        })
+      }
+
+      session = response.data.session
     }
-  } else {
-    if (!session) {
+
+    const formDataParser = schemaFormDataPOST
+      .safeParse(Object.fromEntries(await request.formData()))
+
+    if (!formDataParser.success) {
+      console.error(formDataParser.error)
       errors.push({})
-      return new Response(JSON.stringify({ errors }), {
-        status: 403,
-        headers: {
-          'content-type': 'application/json'
+
+      const response = {
+        meta: {
+          status: 422
         },
+        errors
+      }
+
+      throw new Response(JSON.stringify(response), {
+        status: response.meta.status,
+        headers
       })
     }
 
-    if (!session.user) {
-      errors.push({})
-      return new Response(JSON.stringify({ errors }), {
-        status: 403,
-        headers: {
-          'content-type': 'application/json'
-        },
-      })
+    const formData = formDataParser.data
+
+    let avatarPath, avatarPublicURL
+
+    if (formData.avatar) {
+      const buffer = await formData.avatar.arrayBuffer()
+
+      const filename = `${uuid()}`
+      const file = await sharp(buffer)
+        .resize({ width: 256, height: 256, })
+        .webp()
+        .toBuffer()
+
+      avatarPath = `public/${filename}.webp`
+
+      const { error } = await supabaseClient
+        .storage
+        .from('avatars')
+        .upload(avatarPath, file, {
+          contentType: 'image/webp',
+          cacheControl: '3600',
+          upsert: false
+        })
+
+      if (error) {
+        console.error(error)
+        errors.push({})
+
+        const response = {
+          meta: {
+            status: 500
+          },
+          errors
+        }
+
+        return new Response(JSON.stringify(response), {
+          status: response.meta.status,
+          headers
+        })
+      }
     }
-  }
 
-  const formDataParser = schemaFormDataPOST
-    .safeParse(Object.fromEntries(await request.formData()))
+    if (avatarPath) {
+      const { data } = supabaseClient
+        .storage
+        .from('avatars')
+        .getPublicUrl(avatarPath)
 
-  if (!formDataParser.success) {
-    console.error(formDataParser.error)
-    errors.push({})
-    return new Response(JSON.stringify({ errors }), {
-      status: 400,
-      headers: {
-        'content-type': 'application/json'
-      },
+      avatarPublicURL = data.publicUrl
+    }
+
+    {
+      const testimonial = {
+        avatar: avatarPublicURL,
+        rating: formData.rating,
+        review: formData.review,
+        occupation: formData.occupation,
+        company: formData.company,
+        full_name: formData.full_name,
+        email: session.user?.email,
+        session_id: session.user?.id,
+      }
+
+      const { error } = await supabaseClient
+        .from('testimonials')
+        .insert(testimonial)
+      
+      if (error) {
+        console.error(error)
+        errors.push({})
+
+        const response = {
+          meta: {
+            status: 500
+          },
+          errors
+        }
+
+        return new Response(JSON.stringify(response), {
+          status: response.meta.status,
+          headers
+        })
+      }
+    }
+
+    const testimonialService = new TestimonialService({ request, supabaseClient })
+
+    {
+      const response = await testimonialService.create({
+        id: session.user.id,
+        email: session.user.email,
+        fullName: formData.full_name,
+        avatar: formData.avatar,
+        rating: formData.rating,
+        review: formData.review,
+        occupation: formData.occupation,
+        company: formData.company
+      })
+
+      if (response.errors) {
+        return new Response(JSON.stringify(response), {
+          status: response.meta.status,
+          headers
+        })
+      }
+    }
+
+    return new Response(null, {
+      status: 201,
+      headers
     })
   }
 
-  const formData = formDataParser.data
-
-  let avatarPath, avatarPublicURL
-
-  if (formData.avatar) {
-    const buffer = await formData.avatar.arrayBuffer()
-
-    const filename = `${uuid()}`
-    const file = await sharp(buffer)
-      .resize({ width: 256, height: 256, })
-      .webp()
-      .toBuffer()
-
-    avatarPath = `public/${filename}.webp`
-
-    const { error } = await supabase
-      .storage
-      .from('avatars')
-      .upload(avatarPath, file, {
-        contentType: 'image/webp',
-        cacheControl: '3600',
-        upsert: false
-      })
-
-    if (error) {
-      console.error(error)
-      errors.push({})
-      return new Response(JSON.stringify({ errors }), {
-        status: 500,
-        headers: {
-          'content-type': 'application/json'
-        },
-      })
-    }
-  }
-
-  if (avatarPath) {
-    const { data } = supabase
-      .storage
-      .from('avatars')
-      .getPublicUrl(avatarPath)
-
-    avatarPublicURL = data.publicUrl
-  }
-
-  {
-    const testimonial = {
-      avatar: avatarPublicURL,
-      rating: formData.rating,
-      review: formData.review,
-      occupation: formData.occupation,
-      company: formData.company,
-      full_name: formData.full_name,
-      email: session.user?.email,
-      session_id: session.user?.id,
-    }
-
-    const { error } = await supabase
-      .from('testimonials')
-      .insert(testimonial)
-    
-    if (error) {
-      console.error(error)
-      errors.push({})
-      return new Response(JSON.stringify({ errors }), {
-        status: 400,
-        headers: {
-          'content-type': 'application/json'
-        },
-      })
-    }
-  }
-
-  const data = {}
-
-  return new Response(JSON.stringify({ data }), {
-    status: 200,
-    headers: {
-      'content-type': 'application/json'
-    },
-  });
-};
+  return new Response(null, {
+    status: 404
+  })
+}

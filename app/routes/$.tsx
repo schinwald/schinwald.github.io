@@ -3,8 +3,8 @@ import { BackgroundGradient } from '~/components/background-gradient';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Page Not Found" },
+    { name: "description", content: "" },
   ];
 };
 

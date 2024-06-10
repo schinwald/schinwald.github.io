@@ -1,9 +1,24 @@
-import { signIn, signOut } from 'auth-astro/client'
 import React from 'react'
 import { Button } from '~/components/primitives/ui/button'
 import { BorderRotating } from '~/components/border-rotating'
 import { AiOutlineGithub as GitHubIcon } from 'react-icons/ai'
 import { AiOutlineGoogle as GoogleIcon } from 'react-icons/ai'
+
+const signIn = async (provider: 'google' | 'github') => {
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ provider })
+  })
+
+  if (!response.ok) {
+    return
+  }
+
+  window.location.href = response.url
+}
 
 type AuthenticationProps = {
   className?: string
