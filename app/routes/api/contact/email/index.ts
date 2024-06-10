@@ -1,81 +1,102 @@
-import type { APIRoute } from "astro";
-import emailer from '~/utils/services/sendgrid'
 import z from 'zod'
+import { EmailerService } from '~/utils/services/emailer'
+import { ActionFunction } from '@remix-run/node'
+import { DatabaseManagementSystem } from '~/utils/database'
 
-const schemaQuery = z.object({
+const schemaQueryPOST = z.object({
   'g-recaptcha-response': z.string()
 })
 
-const schemaBody = z.object({
+const schemaBodyPOST = z.object({
   email: z.string().email(),
   message: z.string()
 })
 
-export const POST: APIRoute = async ({ request }) => {
-  const params = {
-    'g-recaptcha-response': request.url.split('=')[1]
-  }
+export const action: ActionFunction = async ({ request }) => {
+  if (request.method === 'POST') {
+    const errors: Record<string, any> = []
 
-  const queryParser = await schemaQuery
-    .safeParseAsync(params)
-  const bodyParser = await schemaBody
-    .safeParseAsync(await request.json())
+    const databaseManagementSystem = new DatabaseManagementSystem({ request })
 
-  if (!queryParser.success) {
-    console.error(queryParser.error)
-    return new Response(
-      'Something went wrong!',
-      { status: 400 }
-    )
-  }
+    const {
+      headers
+    } = databaseManagementSystem.initialize()
 
-  if (!bodyParser.success) {
-    console.error(bodyParser.error)
-    return new Response(
-      'Something went wrong!',
-      { status: 400 }
-    )
-  }
+    const { searchParams } = new URL(request.url)
 
-  const query = queryParser.data
-  const body = bodyParser.data
+    const queryParser = await schemaQueryPOST
+      .safeParseAsync(searchParams)
+    const bodyParser = await schemaBodyPOST
+      .safeParseAsync(await request.json())
 
-  { // Make sure the recaptcha is valid
-    const queryString = new URLSearchParams({
-      secret: import.meta.env.GOOGLE_RECAPTCHA_SECRET_KEY,
-      response: query["g-recaptcha-response"]
-    }).toString()
+    if (!queryParser.success) {
+      console.error(queryParser.error)
+      errors.push(queryParser.error)
 
-    const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?${queryString}`, {
-      method: 'POST'
-    }).then(response => response.json())
+      const response = {
+        meta: {
+          status: 422
+        },
+        errors
+      }
 
-    if (!response.success) {
-      console.error(response)
-      return new Response(
-        'Something went wrong!',
-        { status: 400 }
-      )
+      return new Response(JSON.stringify(response), {
+        status: response.meta.status,
+        headers
+      })
     }
-  }
 
-  try {
-    await emailer.send({
-      from: 'website@schinwald.dev',
-      to: 'hi@schinwald.dev',
-      subject: `New message! ${body.email}`,
-      text: body.message
+    if (!bodyParser.success) {
+      console.error(bodyParser.error)
+      errors.push(bodyParser.error)
+
+      const response = {
+        meta: {
+          status: 422
+        },
+        errors
+      }
+
+      return new Response(JSON.stringify(response), {
+        status: response.meta.status,
+        headers
+      })
+    }
+
+    const query = queryParser.data
+    const body = bodyParser.data
+
+    const emailerService = new EmailerService({ request })
+
+    {
+      const response = await emailerService.send({
+        recaptchaResponse: query['g-recaptcha-response'],
+        email: body.email,
+        message: body.message
+      })
+
+      if (response.errors) {
+        return new Response(JSON.stringify(response), {
+          status: response.meta.status,
+          headers
+        })
+      }
+    }
+
+    const response = {
+      meta: {
+        status: 200
+      },
+      data: null
+    }
+
+    return new Response(JSON.stringify(response), {
+      status: response.meta.status,
+      headers
     })
-  } catch (error) {
-    console.error(JSON.stringify(error))
-    return new Response(
-      'Something went wrong!',
-      { status: 400 }
-    )
   }
 
-  return new Response(
-    'Successfully sent email!',
-    { status: 200 }
-  );
-};
+  return new Response(null, {
+    status: 404
+  })
+}
