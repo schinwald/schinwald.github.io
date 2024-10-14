@@ -3,7 +3,7 @@ import { cn } from '~/utils/classname'
 import imageStar from '~/assets/images/star.svg'
 import imageDefaultAvatar from '~/assets/images/avatar.webp'
 import waveAnimation from '~/assets/lotties/wave.json'
-import { LazyLottie } from './lottie.client'
+import { LazyLottie } from './lottie'
 import { ClientOnly } from 'remix-utils/client-only'
 
 type TestimonialProps = {
@@ -49,7 +49,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
   }, [occupation, company])
 
   return (
-    <div 
+    <div
       className={cn(
         'relative h-[400px] aspect-[3/4] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer',
         className,

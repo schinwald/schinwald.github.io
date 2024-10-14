@@ -3,7 +3,7 @@ import { Header } from '~/components/header'
 import { Testimonial } from '~/components/testimonial'
 import { Container } from '~/layouts/container'
 import { useAnimate, type AnimationPlaybackControls } from 'framer-motion'
-import { Link } from './primitives/ui/link'
+import { Link } from '../../../components/primitives/ui/link'
 import { cn } from '~/utils/classname'
 
 const count = 30

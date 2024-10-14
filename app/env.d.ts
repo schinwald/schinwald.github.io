@@ -6,7 +6,7 @@ interface Environments {
   readonly GITHUB_CLIENT_SECRET: string
   readonly GOOGLE_CLIENT_ID: string
   readonly GOOGLE_CLIENT_SECRET: string
-  readonly VITE_GOOGLE_RECAPTCHA_SITE_KEY: string
+  readonly GOOGLE_RECAPTCHA_SITE_KEY: string
   readonly GOOGLE_RECAPTCHA_SECRET_KEY: string
   readonly SUPABASE_URL: string
   readonly SUPABASE_KEY: string
@@ -20,16 +20,10 @@ declare namespace JSX {
   }
 }
 
-interface ImportMetaEnv extends Environments {}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
-
 declare global {
   namespace NodeJS {
-    interface ProcessEnv extends Environments {}
+    interface ProcessEnv extends Environments { }
   }
 }
 
-export {}
+export { }

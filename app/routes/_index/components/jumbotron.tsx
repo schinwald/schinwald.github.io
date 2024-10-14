@@ -2,10 +2,9 @@ import logoAnimation from '~/assets/lotties/logo.json'
 import popAnimation from '~/assets/lotties/pop.json'
 import { cn } from '~/utils/classname'
 import { useEffect, useRef } from "react"
-import Lottie from 'lottie-react'
 import type { LottieRefCurrentProps } from 'lottie-react'
-import { BackgroundGradient } from './background-gradient'
-import { LazyLottie } from "~/components/lottie";
+import { BackgroundGradient } from '~/components/background-gradient'
+import { LazyLottie } from "~/components/lottie.client";
 import { ClientOnly } from "remix-utils/client-only";
 
 type JumbotronProps = {

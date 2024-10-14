@@ -2,19 +2,22 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Header } from '~/components/header'
 import paperAnimation from '~/assets/lotties/paper_airplane.json'
 import type { LottieRefCurrentProps } from "lottie-react"
-import { Button } from './primitives/ui/button'
-import { Input } from './primitives/ui/input'
-import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from './primitives/ui/form'
+import { Button } from '~/components/primitives/ui/button'
+import { Input } from '~/components/primitives/ui/input'
+import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from '~/components/primitives/ui/form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, } from 'react-hook-form'
 import { useAnimate, useInView } from 'framer-motion'
 import { z } from "zod"
-import { Textarea } from './primitives/ui/textarea'
+import { Textarea } from '~/components/primitives/ui/textarea'
 import { Container } from '~/layouts/container'
-import { Socials } from './socials'
+import { Socials } from '~/components/socials'
 import { cn } from '~/utils/classname'
 import { ReCAPTCHA } from 'react-google-recaptcha'
 import { ClientOnly } from 'remix-utils/client-only'
+import { LazyLottie } from '~/components/lottie.client'
+import { useLoaderData } from '@remix-run/react'
+import type { Loader } from '../loader'
 
 type Notification = {
   status?: 'success' | 'error'
@@ -38,7 +41,7 @@ type ContactProps = {
 const Contact: React.FC<ContactProps> = ({
   className
 }) => {
-  const { googleReCAPTCHASiteKey } = useLoaderData<Loader>()
+  const { data: { googleReCAPTCHASiteKey } } = useLoaderData<Loader>()
   const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null)
   const lottiePaperAirplaneContainerRef = useRef(null)
   const [notification, setNotification] = useState<Notification>({})

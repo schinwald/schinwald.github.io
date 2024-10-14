@@ -1,10 +1,6 @@
-import { createServerClient, parse, serialize } from '@supabase/ssr'
+import { createServerClient, parseCookieHeader, serializeCookieHeader } from '@supabase/ssr'
 
-const supabaseClient = createServerClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
-  cookies: {}
-})
-
-export type SupabaseClient = typeof supabaseClient
+export type DBClient = ReturnType<typeof createServerClient>
 
 type Config = {
   request: Request
@@ -12,35 +8,35 @@ type Config = {
 
 export class DatabaseManagementSystem {
   private request: Request
+  private supabaseClient: DBClient
 
   constructor(config: Config) {
     this.request = config.request
   }
 
   public initialize() {
-    const cookies = parse(this.request.headers.get('Cookie') ?? '')
-    const headers = new Headers()
+    const headers = this.request.headers
+    const cookies = parseCookieHeader(headers.get('Cookie') ?? '')
 
-    headers.append('Content-Type', 'application/json')
-
-    const supabaseClient = createServerClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
+    const dbClient = createServerClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
       cookies: {
-        get(key) {
-          return cookies[key]
+        getAll() {
+          return cookies
         },
-        set(key, value, options) {
-          headers.append('Set-Cookie', serialize(key, value, options))
-        },
-        remove(key, options) {
-          headers.append('Set-Cookie', serialize(key, '', options))
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            headers.append('Set-Cookie', serializeCookieHeader(name, value, options))
+          )
         },
       },
     })
 
+    this.supabaseClient = dbClient
+
     return {
-      cookies,
       headers,
-      supabaseClient
+      cookies,
+      dbClient
     }
   }
 
@@ -49,7 +45,7 @@ export class DatabaseManagementSystem {
 
     let {
       data: { session }
-    } = await supabaseClient.auth.getSession()
+    } = await this.supabaseClient.auth.getSession()
 
     if (['development'].includes(import.meta.env.APP_ENVIRONMENT)) {
       session = {
@@ -75,9 +71,7 @@ export class DatabaseManagementSystem {
     if (!session) {
       errors.push({})
       return {
-        meta: {
-          status: 403
-        },
+        meta: { status: 403 },
         errors
       } as const
     }
@@ -85,20 +79,14 @@ export class DatabaseManagementSystem {
     if (!session.user) {
       errors.push({})
       return {
-        meta: {
-          status: 403
-        },
+        meta: { status: 403 },
         errors
       } as const
     }
 
     return {
-      meta: {
-        status: 200,
-      },
-      data: {
-        session
-      }
+      meta: { status: 200, },
+      data: { session }
     } as const
   }
 }
