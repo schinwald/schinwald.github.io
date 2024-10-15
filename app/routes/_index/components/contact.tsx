@@ -77,7 +77,7 @@ const Contact: React.FC<ContactProps> = ({
     }).toString()
 
     const responsePromise =
-      fetch(`/api/contact/email?${queryString}`, {
+      fetch(`?${queryString}`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json'

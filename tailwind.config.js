@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     screens: {
       sm: '700px',
-      md: '1200px',
+      md: '1000px',
       lg: '1400px',
     },
     fontFamily: {
@@ -14,8 +14,8 @@ module.exports = {
       body: ["'Open Sans'", "sans-serif"],
     },
     fontSize: {
-      sm: '0.9rem',
-      md: '1rem',
+      sm: '0.8rem',
+      md: '0.9rem',
       lg: '1.1rem',
       xl: '1.2rem',
       '2xl': '1.3rem',
@@ -28,7 +28,7 @@ module.exports = {
     },
     lineHeight: {
       sm: '1.2rem',
-      md: '1.2rem',
+      md: '1.5rem',
       lg: '1.2rem',
       xl: '1.2rem',
       '2xl': '1.2rem',
@@ -115,7 +115,7 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require("tailwindcss/plugin")(function ({ addComponents, theme }) {
+    require("tailwindcss/plugin")(function({ addComponents, theme }) {
       addComponents([
         {
           'h1': {
