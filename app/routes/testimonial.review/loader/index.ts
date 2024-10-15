@@ -23,13 +23,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { pathname } = new URL(request.url)
 
-  const databaseManagementSystem = new DatabaseManagementSystem({ request })
-  const { cookies, headers, supabaseClient } = databaseManagementSystem.initialize()
+  const dbms = new DatabaseManagementSystem({ request })
+  dbms.initialize()
 
   // Grab session
   let session
   {
-    const response = await databaseManagementSystem.getSession()
+    const response = await dbms.getSession()
 
     if (response.errors) {
       return redirect(`/auth/login?redirect=${pathname}`)
@@ -37,8 +37,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     session = response.data.session
   }
-
-  console.log(session)
 
   return json({
     user: session.user

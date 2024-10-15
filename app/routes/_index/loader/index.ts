@@ -1,10 +1,10 @@
-import type { LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/react"
 import { DatabaseManagementSystem } from "~/utils/database"
 import { randomlyFillData } from "~/utils/helpers"
+import { loaderHandler } from "~/utils/remix/loader.server"
 import { TestimonialService } from "~/utils/services/testimonial.server"
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = await loaderHandler(async ({ request }) => {
   const dbms = new DatabaseManagementSystem({ request })
 
   const {
@@ -40,6 +40,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   return json(response)
-}
+})
 
 export type Loader = typeof loader
