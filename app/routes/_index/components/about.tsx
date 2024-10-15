@@ -62,7 +62,7 @@ const About: React.FC<AboutProps> = ({
 
   return (
     <div id='about' className={cn(
-      'relative w-screen flex flex-col justify-center items-center py-8',
+      'relative w-screen flex flex-col justify-center items-center py-20 -my-10',
       className
     )}>
       <Container

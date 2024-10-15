@@ -19,7 +19,7 @@ export default function() {
   return (
     <div>
       <Navigation />
-      <div className='flex flex-col gap-12 sm:gap-32'>
+      <div className='flex flex-col gap-12 sm:gap-20'>
         <section className='z-20 h-screen bg-background text-foreground'>
           <Jumbotron />
         </section>
