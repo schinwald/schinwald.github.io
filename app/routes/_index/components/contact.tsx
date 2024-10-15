@@ -170,7 +170,7 @@ const Contact: React.FC<ContactProps> = ({
 
   return (
     <div id='contact' className={cn(
-      'relative w-screen flex flex-col items-center gap-10 py-8',
+      'relative w-screen flex flex-col items-center gap-10 py-20 -my-10',
       className
     )}>
       <Container variant='narrow'>

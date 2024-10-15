@@ -13,7 +13,7 @@ const Projects: React.FC<ProjectsProps> = ({
 }) => {
   return (
     <div id='projects' className={cn(
-      'relative w-screen flex flex-row justify-center py-8',
+      'relative w-screen flex flex-row justify-center py-20 -my-10',
       className
     )}>
       <Container variant='narrow'>
