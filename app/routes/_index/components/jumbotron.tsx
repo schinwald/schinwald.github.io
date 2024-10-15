@@ -178,11 +178,11 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
         Software Engineer
       </h3>
       <BackgroundGradient />
-      <nav className='absolute bottom-0 left-0 right-0 pt-8 pb-20 h-20 flex flex-row justify-center items-center gap-10 border-b-8 border-[#fff2]'>
-        <a className='font-display text-xl opacity-70 rounded-md border px-4 py-2' href='#about'>About Me</a>
-        <a className='font-display text-xl opacity-70 rounded-md border px-4 py-2' href='#projects'>Projects</a>
-        <a className='font-display text-xl opacity-70 rounded-md border px-4 py-2' href='#testimonials'>Testimonials</a>
-        <a className='font-display text-xl opacity-70 rounded-md border px-4 py-2' href='#contact'>Contact</a>
+      <nav className='absolute bottom-0 left-0 right-0 pt-8 pb-10 h-20 flex flex-row justify-center items-center gap-6 border-b-8 border-[#fff2]'>
+        <a className='font-display text-md opacity-70 rounded-md border px-4 py-1' href='#about'>About Me</a>
+        <a className='font-display text-md opacity-70 rounded-md border px-4 py-1' href='#projects'>Projects</a>
+        <a className='font-display text-md opacity-70 rounded-md border px-4 py-1' href='#testimonials'>Testimonials</a>
+        <a className='font-display text-md opacity-70 rounded-md border px-4 py-1' href='#contact'>Contact</a>
       </nav>
     </div>
   )
