@@ -17,13 +17,14 @@ export const action = await actionHandler(schema, async ({ input, request }) => 
   let url
   {
     const response = await dbClient.auth.signInWithOAuth({
-      provider: input.provider
+      provider: input.provider,
+      options: {
+        redirectTo: `${request.url}/auth/callback`,
+      }
     })
 
     if (response.error) {
-      throw json({
-
-      })
+      throw json({})
     }
 
     url = response.data.url

@@ -22,6 +22,6 @@ export const actionHandler = async <T, S>(
       })
     }
 
-    callback({ ...args, input: data })
+    return callback({ ...args, input: data })
   }
 }

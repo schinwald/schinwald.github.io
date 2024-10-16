@@ -19,7 +19,7 @@ const linkVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-14 py-6",
+        default: "h-10 px-8 py-4",
         sm: "h-9 rounded-md px-5",
         lg: "h-11 rounded-md px-14",
         icon: "h-10 w-10",
@@ -34,7 +34,7 @@ const linkVariants = cva(
 
 export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof linkVariants> {}
+  VariantProps<typeof linkVariants> { }
 
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ className, variant, size, children, href, onClick, ...props }, ref) => {

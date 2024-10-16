@@ -1,64 +1,19 @@
 import z from 'zod'
-import { ActionFunction, json, redirect } from '@remix-run/node'
 import { DatabaseManagementSystem } from '~/utils/database'
+import { actionHandler } from '~/utils/remix/action.server'
 
-const schemaBodyPOST = z.object({
-  provider: z.enum(['google', 'github'])
+const schema = z.object({
 })
 
-export const action: ActionFunction = async ({ request }) => {
-  if (request.method === 'POST') {
-    const errors: Record<string, any> = []
+export const action = await actionHandler(schema, async ({ request }) => {
+  const errors: Record<string, any> = []
 
-    const databaseManagementSystem = new DatabaseManagementSystem({ request })
+  console.log('in')
 
-    const {
-      headers,
-      supabaseClient
-    } = databaseManagementSystem.initialize()
+  const databaseManagementSystem = new DatabaseManagementSystem({ request })
 
-    const bodyParser = await schemaBodyPOST
-      .safeParseAsync(await request.json())
-
-    if (!bodyParser.success) {
-      console.error(bodyParser.error)
-      errors.push(bodyParser.error)
-
-      const response = {
-        meta: {
-          status: 422
-        },
-        errors
-      }
-
-      return new Response(JSON.stringify(response), {
-        status: response.meta.status,
-        headers
-      })
-    }
-
-    const body = bodyParser.data
-
-    // Begin OAuth
-    let url
-    {
-      const response = await supabaseClient.auth.signInWithOAuth({
-        provider: body.provider
-      })
-
-      if (response.error) {
-        throw json({
-
-        })
-      }
-
-      url = response.data.url
-    }
-
-    return redirect(url)
-  }
-
-  return new Response(null, {
-    status: 404
-  })
-}
+  const {
+    headers,
+    dbClient
+  } = databaseManagementSystem.initialize()
+})
