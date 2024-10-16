@@ -98,7 +98,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
 
   return (
     <div id='testimonials' className={cn(
-      'relative w-screen flex flex-col items-center gap-10 py-20 -my-10',
+      'relative w-screen flex flex-col items-center gap-10 py-20 -my-20',
       className
     )}>
       <Container variant='narrow'>
