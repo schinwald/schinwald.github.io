@@ -12,6 +12,7 @@ module.exports = {
       special: ["'Bebas Neue'", "sans-serif"],
       display: ["'Cubano'", "sans-serif"],
       body: ["'Open Sans'", "sans-serif"],
+      math: ["math", "sans-serif"],
     },
     fontSize: {
       sm: '0.8rem',
