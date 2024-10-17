@@ -124,10 +124,6 @@ const About: React.FC<AboutProps> = ({
           </div>
         </div>
       </Container>
-      <div className='h-[100px] w-[calc(100%+2rem)] bg-background-overlay rotate-6 mt-20 flex flex-row justify-center items-center shadow-lg'>
-        <div className='absolute h-[1000px] w-[calc(100%+200rem)] bg-gradient-to-t from-background-soft to-background-overlay bottom-[100%]'>
-        </div>
-      </div>
     </div>
   )
 }
