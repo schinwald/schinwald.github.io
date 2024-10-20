@@ -271,7 +271,7 @@ const Contact: React.FC<ContactProps> = ({
                       </div>
                       <FormControl>
                         <Textarea
-                          rows={10}
+                          rows={8}
                           {...field}
                         />
                       </FormControl>
