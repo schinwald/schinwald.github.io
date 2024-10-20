@@ -84,7 +84,7 @@ const About: React.FC<AboutProps> = ({
               </div>
             </div>
           </div>
-          <div className='relative flex flex-col gap-6'>
+          <div className='relative flex flex-col justify-center gap-6'>
             <div className='flex flex-col gap-6'>
               <div className='flex flex-row'>
                 <Header

@@ -33,7 +33,6 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
       <h3 className="text-foreground uppercase leading-10">
         Software Engineer
       </h3>
-      <BackgroundGradient />
       <nav className='absolute bottom-0 left-0 right-0 pt-8 pb-10 h-20 flex flex-row justify-center items-center gap-6'>
         <a className='font-display text-md opacity-70 rounded-md border px-4 py-1' href='#about'>About Me</a>
         <a className='font-display text-md opacity-70 rounded-md border px-4 py-1' href='#projects'>Projects</a>

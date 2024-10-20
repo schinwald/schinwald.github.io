@@ -10,6 +10,7 @@ import {
   Background,
   Footer,
 } from './components';
+import { BackgroundGradient } from '~/components/background-gradient';
 
 export default function() {
   const {
@@ -19,21 +20,20 @@ export default function() {
   return (
     <div>
       <Navigation />
-      <div className='flex flex-col gap-32 md:gap-20'>
-        <section className='z-20 h-screen bg-background text-foreground'>
-          <Jumbotron />
+      <section className='h-screen text-foreground'>
+        <Jumbotron />
+      </section>
+      <main className='relative flex flex-col justify-center items-center overflow-x-clip pt-32 md:pt-28'>
+        <section className='flex flex-col justify-center items-center gap-32 md:gap-20 w-full h-full'>
+          <About />
+          <Projects />
+          <Testimonials data={testimonials as any} />
+          <Contact />
         </section>
-        <main className='flex flex-col justify-center items-center overflow-x-clip'>
-          <section className='relative flex flex-col justify-center items-center gap-32 md:gap-20 w-full h-full'>
-            <About />
-            <Projects />
-            <Testimonials data={testimonials as any} />
-            <Contact />
-          </section>
-        </main>
         <Footer />
         <Background />
-      </div>
+      </main>
+      <BackgroundGradient />
     </div>
   );
 }
