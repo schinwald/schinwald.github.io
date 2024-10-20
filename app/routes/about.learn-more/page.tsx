@@ -23,7 +23,7 @@ export default function() {
     <div>
       <Navigation />
       <section className='w-screen h-screen'>
-        <div className='relative w-screen flex flex-col justify-center items-center'>
+        <div className='relative overflow-hidden w-screen flex flex-col justify-center items-center'>
           <Container variant='narrow'>
             <div className='w-full h-full flex flex-col justify-center items-center gap-4'>
               <div className='grid grid-cols-6 gap-5'>
