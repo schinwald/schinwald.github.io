@@ -374,7 +374,7 @@ module.exports = {
             }
           }
         }, {
-          '@media (min-width: 1100px)': {
+          '@media (min-width: 1000px)': {
             'h1': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.6xl'),
