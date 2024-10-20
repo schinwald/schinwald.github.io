@@ -206,18 +206,18 @@ export default function() {
                         <div className='flex flex-col gap-2'>
                           <div className='border border-[#fff3] p-3 rounded-sm flex flex-col gap-4'>
                             <div className='flex flex-row items-center gap-3'>
-                              <img className='w-8' src={experience.devopieLogo.url} alt={experience.devopieLogo.alt} />
+                              <img className='w-8' src={experience.nauticalCommerceLogo.url} alt={experience.nauticalCommerceLogo.alt} />
                               <div>
-                                <h6 className='text-md -my-2'>Devopie</h6>
+                                <h6 className='text-md -my-2'>Nautical Commerce</h6>
                                 <p className='font-thin text-sm -my-2'>Software Engineer</p>
                               </div>
                             </div>
                           </div>
                           <div className='border border-[#fff3] p-3 rounded-sm flex flex-col gap-4'>
                             <div className='flex flex-row items-center gap-3'>
-                              <img className='w-8' src={experience.nauticalCommerceLogo.url} alt={experience.nauticalCommerceLogo.alt} />
+                              <img className='w-8' src={experience.devopieLogo.url} alt={experience.devopieLogo.alt} />
                               <div>
-                                <h6 className='text-md -my-2'>Nautical Commerce</h6>
+                                <h6 className='text-md -my-2'>Devopie</h6>
                                 <p className='font-thin text-sm -my-2'>Software Engineer</p>
                               </div>
                             </div>
