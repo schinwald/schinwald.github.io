@@ -95,7 +95,15 @@ export default function() {
                   <div className='col-span-2'>
                     <div className='relative bg-background-overlay text-foreground-overlay p-6 rounded-md w-full h-full'>
                       <div className='flex flex-col gap-4'>
-                        <h3>Film Buff</h3>
+                        <h3>Open Source</h3>
+                        <p></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='col-span-2'>
+                    <div className='relative bg-background-overlay text-foreground-overlay p-6 rounded-md w-full h-full'>
+                      <div className='flex flex-col gap-4'>
+                        <h3>Animation</h3>
                         <p></p>
                       </div>
                     </div>
