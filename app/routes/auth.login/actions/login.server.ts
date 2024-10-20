@@ -7,7 +7,7 @@ const schema = z.object({
   provider: z.enum(['google', 'github'])
 })
 
-export const action = await actionHandler(schema, async ({ input, request }) => {
+export const action = actionHandler(schema, async ({ input, request }) => {
   const errors: Record<string, any> = []
 
   const databaseManagementSystem = new DatabaseManagementSystem({ request })

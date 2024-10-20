@@ -5,6 +5,6 @@ const schema = z.object({
   email: z.string().email()
 })
 
-export const action = await actionHandler(schema, async ({ input, request }) => {
+export const action = actionHandler(schema, async ({ input, request }) => {
   return
 })
