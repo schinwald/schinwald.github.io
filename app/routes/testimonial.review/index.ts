@@ -1,12 +1,17 @@
 import { serverOnly$ } from 'vite-env-only/macros'
 
-const dynamicImports = serverOnly$(async () => {
-  const { action } = await import('./actions')
+const importLoader = serverOnly$(async () => {
   const { loader } = await import('./loader')
-  return { action, loader }
+  return loader
 })
 
-export const { action, loader } = (await dynamicImports?.()) ?? {}
+const importAction = serverOnly$(async () => {
+  const { action } = await import('./actions')
+  return action
+})
+
+export const loader = importLoader?.()
+export const action = importAction?.()
 
 export * from './meta';
 export { default } from './page';

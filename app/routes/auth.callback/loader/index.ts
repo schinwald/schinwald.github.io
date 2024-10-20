@@ -2,7 +2,7 @@ import { redirect } from "@remix-run/react"
 import { DatabaseManagementSystem } from "~/utils/database"
 import { loaderHandler } from "~/utils/remix/loader.server"
 
-export const loader = await loaderHandler(async ({ request }) => {
+export const loader = loaderHandler(async ({ request }) => {
   const errors: Record<string, any> = []
 
   const requestUrl = new URL(request.url)

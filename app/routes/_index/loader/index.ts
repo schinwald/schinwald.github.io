@@ -4,7 +4,7 @@ import { randomlyFillData } from "~/utils/helpers"
 import { loaderHandler } from "~/utils/remix/loader.server"
 import { TestimonialService } from "~/utils/services/testimonial.server"
 
-export const loader = await loaderHandler(async ({ request }) => {
+export const loader = loaderHandler(async ({ request }) => {
   const dbms = new DatabaseManagementSystem({ request })
 
   const {

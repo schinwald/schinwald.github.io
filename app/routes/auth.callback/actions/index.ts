@@ -5,7 +5,7 @@ import { actionHandler } from '~/utils/remix/action.server'
 const schema = z.object({
 })
 
-export const action = await actionHandler(schema, async ({ request }) => {
+export const action = actionHandler(schema, async ({ request }) => {
   const errors: Record<string, any> = []
 
   console.log('in')
