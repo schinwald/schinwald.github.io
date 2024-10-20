@@ -127,15 +127,12 @@ module.exports = {
           '20%': {
             transform: 'rotate3d(0, 0, 1, 15deg)',
           },
-
           '40%': {
             transform: 'rotate3d(0, 0, 1, -10deg)',
           },
-
           '60%': {
             transform: 'rotate3d(0, 0, 1, 5deg)',
           },
-
           '80%': {
             transform: 'rotate3d(0, 0, 1, -5deg)',
           },
@@ -147,23 +144,18 @@ module.exports = {
           from: {
             transform: 'scale3d(1, 1, 1)',
           },
-
           '30%': {
             transform: 'scale3d(1.25, 0.75, 1)',
           },
-
           '40%': {
             transform: 'scale3d(0.75, 1.25, 1)',
           },
-
           '50%': {
             transform: 'scale3d(1.15, 0.85, 1)',
           },
-
           '65%': {
             transform: 'scale3d(0.95, 1.05, 1)',
           },
-
           '75%': {
             transform: 'scale3d(1.05, 0.95, 1)',
           },
@@ -183,15 +175,12 @@ module.exports = {
           '6.5%': {
             transform: 'translateX(-6px) rotateY(-9deg)',
           },
-
           '18.5%': {
             transform: 'translateX(5px) rotateY(7deg)',
           },
-
           '31.5%': {
             transform: 'translateX(-3px) rotateY(-5deg)',
           },
-
           '43.5%': {
             transform: 'translateX(2px) rotateY(3deg)',
           },
@@ -203,27 +192,21 @@ module.exports = {
           from: {
             transform: 'translate3d(0, 0, 0)',
           },
-
           '15%': {
             transform: 'translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg)',
           },
-
           '30%': {
             transform: 'translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg)',
           },
-
           '45%': {
             transform: 'translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg)',
           },
-
           '60%': {
             transform: 'translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg)',
           },
-
           '75%': {
             transform: 'translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg)',
           },
-
           to: {
             transform: 'translate3d(0, 0, 0)',
           },
@@ -232,31 +215,24 @@ module.exports = {
           'from, 11.1%,to': {
             transform: 'translate3d(0, 0, 0)',
           },
-
           '22.2%': {
             transform: 'skewX(-12.5deg) skewY(-12.5deg)',
           },
-
           '33.3%': {
             transform: 'skewX(6.25deg) skewY(6.25deg)',
           },
-
           '44.4%': {
             transform: 'skewX(-3.125deg) skewY(-3.125deg)',
           },
-
           '55.5%': {
             transform: 'skewX(1.5625deg) skewY(1.5625deg)',
           },
-
           '66.6%': {
             transform: 'skewX(-0.78125deg) skewY(-0.78125deg)',
           },
-
           '77.7%': {
             transform: 'skewX(0.390625deg) skewY(0.390625deg)',
           },
-
           '88.8%': {
             transform: 'skewX(-0.1953125deg) skewY(-0.1953125deg)',
           },
@@ -286,34 +262,46 @@ module.exports = {
         {
           'h1': {
             fontFamily: theme('fontFamily.display'),
-            fontSize: theme('fontSize.8xl'),
-            lineHeight: theme('lineHeight.8xl'),
+            fontSize: theme('fontSize.6xl'),
+            lineHeight: theme('lineHeight.6xl'),
+            marginTop: "0.23rem",
+            marginBottom: "0.67rem",
           },
           'h2': {
             fontFamily: theme('fontFamily.display'),
             fontSize: theme('fontSize.4xl'),
             lineHeight: theme('lineHeight.4xl'),
+            marginTop: "-0.3rem",
+            marginBottom: "-0.06rem",
           },
           'h3': {
             fontFamily: theme('fontFamily.display'),
-            fontSize: theme('fontSize.3xl'),
-            lineHeight: theme('lineHeight.3xl'),
+            fontSize: theme('fontSize.2xl'),
+            lineHeight: theme('lineHeight.2xl'),
+            marginTop: "-0.25rem",
+            marginBottom: "-0.13rem",
           },
           'h4': {
             fontFamily: theme('fontFamily.display'),
-            fontSize: theme('fontSize.md'),
-            lineHeight: theme('lineHeight.md'),
+            fontSize: theme('fontSize.xl'),
+            lineHeight: theme('lineHeight.xl'),
+            marginTop: "-0.2rem",
+            marginBottom: "-0.15rem",
           },
           'h5': {
             fontFamily: theme('fontFamily.display'),
-            fontSize: theme('fontSize.xl'),
-            lineHeight: theme('lineHeight.xl'),
+            fontSize: theme('fontSize.lg'),
+            lineHeight: theme('lineHeight.lg'),
+            marginTop: "-0.3rem",
+            marginBottom: "-0.2rem",
           },
           'h6': {
             fontFamily: theme('fontFamily.body'),
-            fontSize: theme('fontSize.lg'),
-            lineHeight: theme('lineHeight.lg'),
-            fontWeight: theme('fontWeight.normal')
+            fontSize: theme('fontSize.md'),
+            lineHeight: theme('lineHeight.md'),
+            fontWeight: theme('fontWeight.normal'),
+            marginTop: "-0.45rem",
+            marginBottom: "-0.4rem",
           },
           'p': {
             fontFamily: theme('fontFamily.body'),
@@ -331,46 +319,62 @@ module.exports = {
           '@media (min-width: 700px)': {
             'h1': {
               fontFamily: theme('fontFamily.display'),
-              fontSize: theme('fontSize.8xl'),
-              lineHeight: theme('lineHeight.8xl'),
+              fontSize: theme('fontSize.6xl'),
+              lineHeight: theme('lineHeight.6xl'),
+              marginTop: "0.23rem",
+              marginBottom: "0.67rem",
             },
             'h2': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.4xl'),
               lineHeight: theme('lineHeight.4xl'),
+              marginTop: "-0.3rem",
+              marginBottom: "-0.06rem",
             },
             'h3': {
               fontFamily: theme('fontFamily.display'),
-              fontSize: theme('fontSize.3xl'),
-              lineHeight: theme('lineHeight.3xl'),
+              fontSize: theme('fontSize.2xl'),
+              lineHeight: theme('lineHeight.2xl'),
+              marginTop: "-0.25rem",
+              marginBottom: "-0.13rem",
             },
             'h4': {
               fontFamily: theme('fontFamily.display'),
-              fontSize: theme('fontSize.md'),
-              lineHeight: theme('lineHeight.md'),
+              fontSize: theme('fontSize.xl'),
+              lineHeight: theme('lineHeight.xl'),
+              marginTop: "-0.2rem",
+              marginBottom: "-0.15rem",
             },
             'h5': {
               fontFamily: theme('fontFamily.display'),
-              fontSize: theme('fontSize.xl'),
-              lineHeight: theme('lineHeight.xl'),
+              fontSize: theme('fontSize.lg'),
+              lineHeight: theme('lineHeight.lg'),
+              marginTop: "-0.3rem",
+              marginBottom: "-0.2rem",
             },
             'h6': {
               fontFamily: theme('fontFamily.body'),
-              fontSize: theme('fontSize.lg'),
-              lineHeight: theme('lineHeight.lg'),
-              fontWeight: theme('fontWeight.normal')
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             },
             'p': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             },
             'a': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             }
           }
         }, {
@@ -379,44 +383,60 @@ module.exports = {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.6xl'),
               lineHeight: theme('lineHeight.6xl'),
+              marginTop: "0.23rem",
+              marginBottom: "0.67rem",
             },
             'h2': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.4xl'),
               lineHeight: theme('lineHeight.4xl'),
+              marginTop: "-0.3rem",
+              marginBottom: "-0.06rem",
             },
             'h3': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.2xl'),
               lineHeight: theme('lineHeight.2xl'),
+              marginTop: "-0.25rem",
+              marginBottom: "-0.13rem",
             },
             'h4': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.xl'),
               lineHeight: theme('lineHeight.xl'),
+              marginTop: "-0.2rem",
+              marginBottom: "-0.15rem",
             },
             'h5': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.lg'),
               lineHeight: theme('lineHeight.lg'),
+              marginTop: "-0.3rem",
+              marginBottom: "-0.2rem",
             },
             'h6': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             },
             'p': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             },
             'a': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             }
           }
         }, {
@@ -424,45 +444,61 @@ module.exports = {
             'h1': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.8xl'),
-              lineHeight: theme('lineHeight.8xl'),
+              lineHeight: "7.6rem",
+              marginTop: "-0.6rem",
+              marginBottom: "0.4rem",
             },
             'h2': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.5xl'),
               lineHeight: theme('lineHeight.5xl'),
+              marginTop: "-0.3rem",
+              marginBottom: "0rem",
             },
             'h3': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.3xl'),
               lineHeight: theme('lineHeight.3xl'),
+              marginTop: "-0.2rem",
+              marginBottom: "-0.1rem",
             },
             'h4': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.2xl'),
               lineHeight: theme('lineHeight.2xl'),
+              marginTop: "-0.2rem",
+              marginBottom: "-0.1rem",
             },
             'h5': {
               fontFamily: theme('fontFamily.display'),
               fontSize: theme('fontSize.xl'),
               lineHeight: theme('lineHeight.xl'),
+              marginTop: "-0.2rem",
+              marginBottom: "-0.2rem",
             },
             'h6': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.lg'),
               lineHeight: theme('lineHeight.lg'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.2rem",
+              marginBottom: "-0.2rem",
             },
             'p': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             },
             'a': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
-              fontWeight: theme('fontWeight.normal')
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
             }
           }
         }

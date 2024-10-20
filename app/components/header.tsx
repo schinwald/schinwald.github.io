@@ -109,7 +109,7 @@ const Header: React.FC<HeaderProps> = ({
           variants={containerVariant}
           className={cn(
             handleAlignment({ center: centerPadding, left: leftPadding, right: rightPadding }),
-            'uppercase overflow-hidden'
+            'uppercase overflow-hidden flex flex-col gap-1 pt-2'
           )}
         >
           <motion.h2
