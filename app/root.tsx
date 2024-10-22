@@ -5,6 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { useRouteError } from "@remix-run/react";
+import { BackgroundGradient } from "./components/background-gradient";
 
 import "~/styles/globals.css"
 
@@ -51,9 +53,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
-
-import { useRouteError } from "@remix-run/react";
-import { BackgroundGradient } from "./components/background-gradient";
 
 export function ErrorBoundary() {
   const error = useRouteError();
