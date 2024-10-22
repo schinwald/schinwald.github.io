@@ -52,6 +52,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+import { useRouteError } from "@remix-run/react";
+import { BackgroundGradient } from "./components/background-gradient";
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+
+  return (
+    <div>
+      <section className="flex flex-col items-center justify-center h-screen">
+        <article className='text-foreground flex flex-col w-full h-full justify-center items-center gap-2'>
+          <h2>Oh no!</h2>
+          <p>Something went wrong.</p>
+        </article>
+      </section>
+      <BackgroundGradient />
+    </div>
+  );
+}
+
 export default function App() {
   return <Outlet />;
 }
