@@ -1,7 +1,8 @@
 import { LoaderFunctionArgs, json, redirect } from "@remix-run/node"
 import { DatabaseManagementSystem } from "~/utils/database"
+import { loaderHandler } from "~/utils/remix/loader.server"
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = loaderHandler(async ({ request }: LoaderFunctionArgs) => {
   // async function extractSession() {
   //   if (['development'].includes(import.meta.env.APP_ENVIRONMENT)) {
   //     return {} as Record<string, any>
@@ -41,7 +42,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({
     user: session.user
   })
-}
+})
 
 
 export type Loader = typeof loader

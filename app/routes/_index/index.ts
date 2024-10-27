@@ -5,7 +5,7 @@ const importLoader = serverOnly$(async () => {
   return loader
 })
 
-export const loader = importLoader?.()
+export const loader = await importLoader?.()
 
 export * from './meta';
 export { default } from './page';
