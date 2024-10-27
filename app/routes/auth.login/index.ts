@@ -10,8 +10,8 @@ const importAction = serverOnly$(async () => {
   return action
 })
 
-export const loader = importLoader?.()
-export const action = importAction?.()
+export const loader = await importLoader?.()
+export const action = await importAction?.()
 
 export * from './meta';
 export { default } from './page';

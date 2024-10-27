@@ -16,6 +16,7 @@ export default defineConfig({
     envOnlyMacros(),
   ],
   build: {
-    sourcemap: true
+    sourcemap: true,
+    target: "ES2022",
   }
 });

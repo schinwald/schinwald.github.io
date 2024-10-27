@@ -5,4 +5,4 @@ const importLoader = serverOnly$(async () => {
   return loader
 })
 
-export const loader = importLoader?.()
+export const loader = await importLoader?.()
