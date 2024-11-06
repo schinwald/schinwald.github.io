@@ -2,7 +2,7 @@ import { Navigation } from '~/components/navigation';
 import { BackgroundGradient } from '~/components/background-gradient';
 import { LuVolume2 as Volume2 } from "react-icons/lu";
 import { Button } from '~/components/primitives/ui/button';
-import { Dictionary } from '~/components/dictionary';
+import * as Dictionary from '~/components/dictionary';
 import * as experience from '~/assets/images/experience';
 import * as education from '~/assets/images/education';
 import {
@@ -89,7 +89,7 @@ export default function() {
                           <h3>Tinkering</h3>
                           <TinkeringIcon className='w-5 h-5 text-yellow-300' />
                         </div>
-                        <p>I still have a lot to learn when it comes to electrical work, but I have a <Dictionary>TS100</Dictionary> compatible soldering iron called <a className='text-primary'>insert model</a> and have been using it on various simple soldering projects to get better at it. It's really nice because you can fully adjust the temperature.</p>
+                        <p>I still have a lot to learn when it comes to electrical work, but I have a <Dictionary.Root><Dictionary.Word>TS100</Dictionary.Word><Dictionary.Explanation><p className='text-sm'>A soldering iron tip that can be powered by a DC input voltage between 12V-24V, via a 5.5mm barrel connector.</p></Dictionary.Explanation></Dictionary.Root> that I can use to tinker with circuits.</p>
                       </div>
                     </Card.Root>
                   </div>
@@ -122,7 +122,7 @@ export default function() {
                           <h3>Animation</h3>
                           <AnimationIcon className='w-5 h-5 text-blue-500' />
                         </div>
-                        <p>As a kid, I would make stick figure animations with <a className='text-primary' href="https://pivotanimator.net/">Pivot Animator</a>. I loved learning about different animating techniques and would often post my creations on forums for people to critique. To this day, I still get a lot of joy from a jaw dropping animation. I think that's why I enjoy watching <Dictionary>sakuga</Dictionary> in anime so much.</p>
+                        <p>As a kid, I would make stick figure animations with <a className='text-primary' href="https://pivotanimator.net/">Pivot Animator</a>. I loved learning about different animating techniques and would often post my creations on forums for people to critique. To this day, I still get a lot of joy from a jaw dropping animation. I think that's why I enjoy watching <Dictionary.Root><Dictionary.Word>sakuga</Dictionary.Word><Dictionary.Explanation><p className='text-sm'><span className='italic'>Sakuga</span> is a Japanese term that refers to hand-drawn animations in anime production, but the western population has morphed the meaning to represent <span className='font-bold'>quality animation</span>.</p></Dictionary.Explanation></Dictionary.Root> in anime so much.</p>
                       </div>
                     </Card.Root>
                   </div>
