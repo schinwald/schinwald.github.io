@@ -19,8 +19,12 @@ import { TbBriefcase2Filled as ExperienceIcon } from "react-icons/tb";
 import { RiGraduationCapFill as EducationIcon } from "react-icons/ri";
 import { FaCircle as DotfilesIcon } from "react-icons/fa6";
 import { Container } from '~/layouts/container';
+import pronounciation from '~/assets/audio/pronounciation.mp3';
+import { useSound } from 'use-sound';
 
 export default function() {
+  const [playPronounciationSound] = useSound(pronounciation);
+
   return (
     <div>
       <Navigation />
@@ -178,13 +182,13 @@ export default function() {
                             /ˈʃɪnˌwɔːld/
                           </h3>
                           <div className='text-primary'>
-                            <Button variant='ghost' size='minimal'>
+                            <Button variant='ghost' size='minimal' onClick={() => playPronounciationSound()} >
                               <Volume2 className='w-5 h-5' />
                             </Button>
                           </div>
                         </div>
                         <hr className='opacity-30 -mt-3' />
-                        <span className='italic'>sh•in•wo•ld</span>
+                        <span className='italic'>sh•in•wahl•d</span>
                         <p className='text-foreground'>
                           Try to say it with your heaviest Austrian accent. It makes it funnier :)
                         </p>
