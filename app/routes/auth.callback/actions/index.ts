@@ -8,8 +8,6 @@ const schema = z.object({
 export const action = actionHandler(schema, async ({ request }) => {
   const errors: Record<string, any> = []
 
-  console.log('in')
-
   const databaseManagementSystem = new DatabaseManagementSystem({ request })
 
   const {
