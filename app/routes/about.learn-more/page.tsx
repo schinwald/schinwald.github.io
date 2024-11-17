@@ -20,7 +20,7 @@ import { RiGraduationCapFill as EducationIcon } from "react-icons/ri";
 import { FaCircle as DotfilesIcon } from "react-icons/fa6";
 import { Container } from '~/layouts/container';
 import pronounciation from '~/assets/audio/pronounciation.mp3';
-import { useSound } from 'use-sound';
+import useSound from 'use-sound';
 
 export default function() {
   const [playPronounciationSound] = useSound(pronounciation);
