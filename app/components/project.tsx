@@ -136,22 +136,20 @@ const Project: React.FC<ProjectProps> = ({ title, justify, repository, image }) 
                   <div className='relative overflow-hidden w-full h-full'>
                     <Overlay
                       ref={overlayRef}
-                      className='opacity-0'
+                      className='opacity-0 grid'
                       position='absolute'
                     >
-                      <div className='absolute w-full h-full z-10'>
-                        <Link
-                          className='w-full h-full'
-                          href={repository}
-                          variant='ghost'
-                        >
-                          <h2 className='flex justify-row items-center gap-2 text-foreground mb-2'>
-                            <DemoIcon className='w-10 h-10 -ml-6' />
-                            Demo
-                          </h2>
-                        </Link>
-                      </div>
-                      <div className='absolute w-full h-full bg-background opacity-60'></div>
+                      <Link
+                        className='m-0 rounded-none col-span-full row-span-full w-full h-full z-10'
+                        href={repository}
+                        variant='ghost'
+                      >
+                        <h2 className='flex justify-row items-center gap-2 text-foreground mb-2'>
+                          <DemoIcon className='w-10 h-10 -ml-6' />
+                          Demo
+                        </h2>
+                      </Link>
+                      <div className='col-span-full row-span-full bg-background opacity-60'></div>
                     </Overlay>
                     <img
                       ref={imageRef}
