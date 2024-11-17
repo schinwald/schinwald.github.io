@@ -39,7 +39,7 @@ export interface LinkProps
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ className, variant, size, children, href, onClick, ...props }, ref) => {
     const [backgroundRef, animateBackground] = useAnimate()
-    const startNavigation = useNavigationStore((state) => state.startNavigation)
+    const navigate = useNavigationStore((state) => state.startNavigationExit)
 
     return (
       <a
@@ -53,7 +53,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           event.preventDefault()
 
           if (href) {
-            startNavigation(href)
+            navigate({ type: 'left', location: href })
 
             animateBackground(backgroundRef.current, {
               width: ['0%', '200%'],

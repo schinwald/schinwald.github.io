@@ -1,9 +1,7 @@
-import { json } from "@remix-run/node"
-import { loaderHandler } from "~/utils/remix/loader.server"
+import { loaderHandler } from "~/utils/remix/loader.server";
 
-export const loader = loaderHandler(async () => {
-  return json({})
-})
+export const loader = loaderHandler(async ({ json }) => {
+	return json({});
+});
 
-
-export type Loader = typeof loader
+export type Loader = typeof loader;
