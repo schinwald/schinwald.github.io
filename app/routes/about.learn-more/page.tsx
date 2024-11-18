@@ -20,11 +20,8 @@ import { RiGraduationCapFill as EducationIcon } from "react-icons/ri";
 import { FaCircle as DotfilesIcon } from "react-icons/fa6";
 import { Container } from '~/layouts/container';
 import pronunciation from '~/assets/audio/pronounciation.mp3';
-import { Howl } from 'howler';
 
 export default function() {
-  const pronunciationSound = new Howl({ src: pronunciation });
-
   return (
     <div>
       <Navigation />
@@ -182,7 +179,7 @@ export default function() {
                             /ˈʃɪnˌwɔːld/
                           </h3>
                           <div className='text-primary'>
-                            <Button variant='ghost' size='minimal' onClick={() => pronunciationSound.play()} >
+                            <Button variant='ghost' size='minimal'>
                               <Volume2 className='w-5 h-5' />
                             </Button>
                           </div>
