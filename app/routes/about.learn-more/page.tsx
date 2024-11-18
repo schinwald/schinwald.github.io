@@ -19,11 +19,11 @@ import { TbBriefcase2Filled as ExperienceIcon } from "react-icons/tb";
 import { RiGraduationCapFill as EducationIcon } from "react-icons/ri";
 import { FaCircle as DotfilesIcon } from "react-icons/fa6";
 import { Container } from '~/layouts/container';
-import pronounciation from '~/assets/audio/pronounciation.mp3';
-import useSound from 'use-sound';
+import pronunciation from '~/assets/audio/pronounciation.mp3';
+import { Howl } from 'howler';
 
 export default function() {
-  const [playPronounciationSound] = useSound(pronounciation);
+  const pronunciationSound = new Howl({ src: pronunciation });
 
   return (
     <div>
@@ -37,7 +37,7 @@ export default function() {
                   <h1 className='bg-clip-text text-transparent bg-gradient-to-b from-foreground to-tertiary'>
                     Hello!
                   </h1>
-                  <h1 className='absolute opacity-5 left-1/2 -translate-x-1/2 text-foreground text-[40rem] pointer-events-none'>
+                  <h1 className='absolute opacity-[2%] left-1/2 -translate-x-1/2 text-foreground text-[40rem] pointer-events-none'>
                     Hello!
                   </h1>
                 </div>
@@ -182,7 +182,7 @@ export default function() {
                             /ˈʃɪnˌwɔːld/
                           </h3>
                           <div className='text-primary'>
-                            <Button variant='ghost' size='minimal' onClick={() => playPronounciationSound()} >
+                            <Button variant='ghost' size='minimal' onClick={() => pronunciationSound.play()} >
                               <Volume2 className='w-5 h-5' />
                             </Button>
                           </div>
