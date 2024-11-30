@@ -44,4 +44,4 @@ export const loader = loaderHandler(async ({ request, json }) => {
 	});
 });
 
-export type Loader = typeof loader;
+export type Loader = Awaited<typeof loader>;

@@ -1,4 +1,4 @@
-import { json } from "@remix-run/node";
+import { json, TypedResponse } from "@remix-run/node";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { getNavigationJSONData } from "~/hooks/stores/navigation";
 
@@ -18,7 +18,7 @@ const getGlobalJSONData = (args: LoaderFunctionArgs) => ({
 type JSONData<T> = T & NeverRecord<GlobalJSONData>;
 
 type LoaderHandlerArgs = LoaderFunctionArgs & {
-	json: <T>(data: JSONData<T>) => void;
+	json: <T>(data: JSONData<T>) => TypedResponse<T>;
 };
 
 export const loaderHandler = async <T>(
