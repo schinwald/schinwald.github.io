@@ -187,7 +187,7 @@ export default function() {
                             </Button>
                           </div>
                         </div>
-                        <hr className='opacity-30 -mt-3' />
+                        <hr className='-mt-3 border-[#fff2]' />
                         <span className='italic'>sh•in•wahl•d</span>
                         <p className='text-foreground'>
                           Try to say it with your heaviest Austrian accent. It makes it funnier :)
@@ -200,7 +200,7 @@ export default function() {
                           <h3>Experience</h3>
                         </div>
                         <div className='flex flex-col gap-3'>
-                          <div className='transition-all duration-100 outline outline-1 outline-[#fff3] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
+                          <div className='transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
                             <img className='w-8' src={experience.nauticalCommerceLogo.url} alt={experience.nauticalCommerceLogo.alt} />
                             <div className='flex flex-col gap-4'>
                               <div className='flex flex-col justify-between h-8 py-[2px]'>
@@ -213,7 +213,7 @@ export default function() {
                               </div>
                             </div>
                           </div>
-                          <div className='transition-all duration-100 outline outline-1 outline-[#fff3] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
+                          <div className='transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
                             <img className='w-8' src={experience.devopieLogo.url} alt={experience.devopieLogo.alt} />
                             <div className='flex flex-col gap-4'>
                               <div className='flex flex-col justify-between h-8 py-[2px]'>
