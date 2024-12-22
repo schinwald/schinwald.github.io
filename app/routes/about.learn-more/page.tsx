@@ -31,7 +31,7 @@ export default function() {
       <section className='w-screen h-screen'>
         <div className='relative overflow-hidden w-screen flex flex-col justify-center items-center'>
           <Container variant='narrow'>
-            <div className='w-full h-full flex flex-col justify-center items-center gap-4'>
+            <div className='w-full h-full flex flex-col justify-center items-center gap-6'>
               <div className='grid grid-cols-6 gap-5'>
                 <div className='relative col-span-6 flex flex-col justify-end h-[300px]'>
                   <h1 className='bg-clip-text text-transparent bg-gradient-to-b from-foreground to-tertiary'>
@@ -44,34 +44,35 @@ export default function() {
                 <div className='grid grid-cols-subgrid col-span-4 gap-5'>
                   <div className='col-span-4'>
                     <Card.Root>
-                      <article className='flex flex-col gap-4'>
+                      <article className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
-                          <h3>Summary</h3>
+                          <h3>Life</h3>
                           <OriginIcon className='w-5 h-5 text-green-600' />
                         </div>
                         <p>
+                          I was born in the early summer of 1995 in Rhinebeck, New York, alongside my twin brother. My earliest years were spent in Red Hook, NY, before our family embarked on a unique adventure, living in Honduras and Nicaragua for a year and then moving to Buenos Aires, Argentina, for four years. My dad’s work at Tiempos del Mundo, an international newspaper, brought us to South America, where I had my first exposure to a different culture and language. I quickly picked up Spanish and embraced the local love of soccer. Watching Lionel Messi dominate headlines and pitches inspired me to play soccer as much as I could.
                         </p>
-                      </article>
-                      <article className='flex flex-col gap-4'>
-                        <div className='flex flex-row items-center gap-2'>
-                          <h5>Values</h5>
-                        </div>
                         <p>
+                          When we returned to Canada, we settled in Guelph, Ontario, where I’ve lived ever since. Thanks to speaking English at home and my mom’s French Canadian heritage, the transition felt natural. School life was a blend of creativity and independence for me. I spent hours practicing ping pong against a flipped-up table or shooting hoops at our basketball net, often playing by myself. Video games became another outlet, though sharing one computer with my two brothers led to plenty of fights over whose turn it was—especially during World of Warcraft raids. I also had a strong passion for art and once dreamed of becoming an animator, filling sketchbooks with drawings as I imagined a creative future.
                         </p>
-                      </article>
-                      <article className='flex flex-col gap-4'>
-                        <div className='flex flex-row items-center gap-2'>
-                          <h5>Beliefs</h5>
-                        </div>
                         <p>
-                          I'm agnostic. I believe there is probably something more to life than just the things we do and that there is a lot we don't know. My beliefs are my own though and I don't impose them on anyone else.
+                          High school introduced me to programming through basic classes in web development and Java, but these experiences didn’t immediately spark a career interest. Despite my curiosity about technology, I didn’t find much encouragement from my teachers to pursue programming as a viable path.
+                        </p>
+                        <p>
+                          After graduating, I took time off to explore my options, working a variety of odd jobs—including serving at a banquet hall, inspecting automotive parts, and assembling hoses in a factory. These experiences, while challenging, reinforced my determination to find a career I was passionate about.
+                        </p>
+                        <p>
+                          Eventually, I committed to software engineering, driven by my love for programming and the desire to understand the technology I use daily. I enrolled in a computer science program and quickly discovered my passion for web development, scalable applications, and even game development. I’m also deeply interested in creating streamlined development environments that enhance productivity and creativity.
+                        </p>
+                        <p>
+                          Looking back, the journey—from my global upbringing to odd jobs and self-discovery—has shaped who I am today. I’m grateful for the experiences that brought me to a career I truly love.
                         </p>
                       </article>
                     </Card.Root>
                   </div>
                   <div className='col-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Learning</h3>
                           <LearningIcon className='w-5 h-5 text-violet-400' />
@@ -84,7 +85,7 @@ export default function() {
                   </div>
                   <div className='col-span-2 row-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Tinkering</h3>
                           <TinkeringIcon className='w-5 h-5 text-yellow-300' />
@@ -95,7 +96,7 @@ export default function() {
                   </div>
                   <div className='col-span-2 row-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Woodworking</h3>
                           <WoodworkingIcon className='w-5 h-5 text-yellow-600' />
@@ -106,7 +107,7 @@ export default function() {
                   </div>
                   <div className='col-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Outdoors</h3>
                           <OutdoorsIcon className='w-5 h-5 text-green-600' />
@@ -117,7 +118,7 @@ export default function() {
                   </div>
                   <div className='col-span-4'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Animation</h3>
                           <AnimationIcon className='w-5 h-5 text-blue-500' />
@@ -128,7 +129,7 @@ export default function() {
                   </div>
                   <div className='col-span-2 row-span-1'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Dotfiles</h3>
                           <DotfilesIcon className='w-5 h-5 text-blue-500' />
@@ -139,7 +140,7 @@ export default function() {
                   </div>
                   <div className='col-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Open Source</h3>
                           <OpenSourceIcon className='w-5 h-5 text-red-500' />
@@ -150,7 +151,7 @@ export default function() {
                   </div>
                   <div className='col-span-2 row-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <h3>Keyboard</h3>
                         <p>I'm currently rocking the <a className='text-primary' href="https://josefadamcik.github.io/SofleKeyboard/build_guide_rgb.html">Sofle v2.1</a>; a custom split keyboard with 58 keys. It's a great keyboard for typing, but I'm also a big fan of the split layout, as it allows me to have a more ergonomic typing experience.</p>
                       </div>
@@ -158,7 +159,7 @@ export default function() {
                   </div>
                   <div className='col-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <h3>Neovim</h3>
                         <p>My editor of choice is Neovim. I've been using it for a while now, and I'm really loving it. It's fast, it's extensible, and it's just the best editor I've ever used (despite what the haters think!).</p>
                       </div>
@@ -166,7 +167,7 @@ export default function() {
                   </div>
                   <div className='col-span-2 row-span-2'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <h3>Obsidian</h3>
                         <p>I never really grew up taking notes, but Obsidian has made note-taking a breeze.</p>
                       </div>
@@ -176,7 +177,7 @@ export default function() {
                 <div className='col-span-2 row-span-2'>
                   <div className='flex flex-col gap-5'>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-1'>
                           <h3 className='font-math mb-[0.1rem]'>
                             /ˈʃɪnˌwɔːld/
@@ -187,7 +188,7 @@ export default function() {
                             </Button>
                           </div>
                         </div>
-                        <hr className='-mt-3 border-[#fff2]' />
+                        <hr className='-my-6 border-[#fff2]' />
                         <span className='italic'>sh•in•wahl•d</span>
                         <p className='text-foreground'>
                           Try to say it with your heaviest Austrian accent. It makes it funnier :)
@@ -195,14 +196,14 @@ export default function() {
                       </div>
                     </Card.Root>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Experience</h3>
                         </div>
                         <div className='flex flex-col gap-3'>
                           <div className='transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
                             <img className='w-8' src={experience.nauticalCommerceLogo.url} alt={experience.nauticalCommerceLogo.alt} />
-                            <div className='flex flex-col gap-4'>
+                            <div className='flex flex-col gap-6'>
                               <div className='flex flex-col justify-between h-8 py-[2px]'>
                                 <h6 className='text-md font-bold'>Nautical Commerce</h6>
                                 <p className='font-thin text-sm'>Software Engineer</p>
@@ -215,7 +216,7 @@ export default function() {
                           </div>
                           <div className='transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
                             <img className='w-8' src={experience.devopieLogo.url} alt={experience.devopieLogo.alt} />
-                            <div className='flex flex-col gap-4'>
+                            <div className='flex flex-col gap-6'>
                               <div className='flex flex-col justify-between h-8 py-[2px]'>
                                 <h6 className='text-md font-bold'>Devopie Inc.</h6>
                                 <p className='font-thin text-sm'>Software Engineer</p>
@@ -230,14 +231,14 @@ export default function() {
                       </div>
                     </Card.Root>
                     <Card.Root>
-                      <div className='flex flex-col gap-4'>
+                      <div className='flex flex-col gap-6'>
                         <div className='flex flex-row items-center gap-2'>
                           <h3>Education</h3>
                         </div>
                         <div className='flex flex-col gap-3'>
                           <div className='transition-all duration-100 outline outline-1 outline-[#fff3] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer'>
                             <img className='w-8' src={education.universityOfGuelphLogo.url} alt={education.universityOfGuelphLogo.alt} />
-                            <div className='flex flex-col gap-4'>
+                            <div className='flex flex-col gap-6'>
                               <div className='flex flex-col justify-between h-8 py-[2px]'>
                                 <h6 className='text-md font-bold'>University of Guelph</h6>
                                 <p className='font-thin text-sm'>Bachelor of Computing</p>
