@@ -26,7 +26,7 @@ type AuthenticationProps = {
 
 const Authentication: React.FC<AuthenticationProps> = () => {
   return (
-    <div className='w-screen h-screen bg-background text-foreground flex flex-row justify-center'>
+    <div className='w-screen h-screen text-foreground flex flex-row justify-center'>
       <div className='flex flex-col justify-center'>
         <div className='flex flex-col items-center gap-6'>
           <h2 className='z-20'>Login</h2>

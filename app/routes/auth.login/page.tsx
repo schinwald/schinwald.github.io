@@ -6,10 +6,10 @@ export default function() {
   return (
     <div>
       <Navigation />
-      <section className='bg-background w-screen h-screen'>
+      <section className='w-screen h-screen'>
         <Authentication />
         <BackgroundGradient />
       </section>
-    </div>
+    </div >
   )
 }
