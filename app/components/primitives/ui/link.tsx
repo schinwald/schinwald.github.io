@@ -23,6 +23,7 @@ const linkVariants = cva(
         sm: "h-9 rounded-md px-5",
         lg: "h-11 rounded-md px-14",
         icon: "h-10 w-10",
+        minimal: "h-10"
       },
     },
     defaultVariants: {
