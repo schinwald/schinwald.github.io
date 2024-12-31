@@ -19,4 +19,9 @@ export default defineConfig({
 		sourcemap: true,
 		target: "ES2022",
 	},
+	server: {
+		warmup: {
+			clientFiles: ["app/**/*.tsx"],
+		},
+	},
 });

@@ -309,6 +309,12 @@ module.exports = {
             lineHeight: theme('lineHeight.md'),
             fontWeight: theme('fontWeight.normal')
           },
+          'code': {
+            fontFamily: theme('fontFamily.body'),
+            fontSize: theme('fontSize.md'),
+            lineHeight: theme('lineHeight.md'),
+            fontWeight: theme('fontWeight.normal')
+          },
           'a': {
             fontFamily: theme('fontFamily.body'),
             fontSize: theme('fontSize.md'),
@@ -361,6 +367,14 @@ module.exports = {
               marginBottom: "-0.4rem",
             },
             'p': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
+            },
+            'code': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
@@ -430,6 +444,14 @@ module.exports = {
               marginTop: "-0.45rem",
               marginBottom: "-0.4rem",
             },
+            'code': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
+            },
             'a': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
@@ -485,6 +507,14 @@ module.exports = {
               marginBottom: "-0.2rem",
             },
             'p': {
+              fontFamily: theme('fontFamily.body'),
+              fontSize: theme('fontSize.md'),
+              lineHeight: theme('lineHeight.md'),
+              fontWeight: theme('fontWeight.normal'),
+              marginTop: "-0.45rem",
+              marginBottom: "-0.4rem",
+            },
+            'code': {
               fontFamily: theme('fontFamily.body'),
               fontSize: theme('fontSize.md'),
               lineHeight: theme('lineHeight.md'),
