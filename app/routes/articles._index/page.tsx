@@ -15,9 +15,12 @@ export const Article: React.FC = () => (
     <div className='flex flex-col gap-3'>
       <p className='font-light'>🗓️ TBD</p>
       <h3>Coming Soon</h3>
+      <div className='inline-flex gap-1 overflow-hidden'>
+        <span className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>Tutorial</span>
+      </div>
     </div>
     <div className='flex flex-col gap-1'>
-      <p className='line-clamp-3'>
+      <p className='line-clamp-4'>
         Viverra convallis nibh tristique, quam ligula curae. Porttitor odio dictumst proin magna litora quisque scelerisque est pulvinar. Tempus faucibus lectus urna sapien arcu proin. Enim netus ornare iaculis dui vehicula per. Donec ornare magna molestie fusce diam proin. Phasellus ligula ipsum rutrum; nulla senectus rutrum. Accumsan tempus hendrerit natoque, enim senectus turpis litora condimentum mauris. Nam mattis sociosqu lacinia parturient fringilla posuere; finibus porttitor? Ante ultrices nisi sociosqu ullamcorper cras facilisis. Adipiscing fusce eget vestibulum etiam luctus aliquam praesent risus donec.
 
         Taciti nisl eros fringilla phasellus semper. Malesuada eu fames aliquam sem cras. Nostra posuere hac; hendrerit hendrerit mattis ultrices blandit mattis. Donec integer porta nascetur ut platea netus. Nascetur gravida molestie duis tempor ante integer felis. Ut nec egestas vulputate sit quam non. Tempor nibh vel aliquam nam ultricies odio eros. Sit consequat augue natoque primis purus adipiscing cursus lacinia felis.
@@ -35,12 +38,15 @@ export const Article: React.FC = () => (
 
 export const ArticleSide: React.FC = () => (
   <li className=' text-foreground-overlay flex flex-row gap-4 opacity-0'>
-    <div className='aspect-[8/5] bg-[#fff8] h-32 rounded-sm'>
+    <div className='aspect-[8/5] bg-[#fff8] h-36 rounded-sm'>
     </div>
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col justify-center gap-6'>
       <div className='flex flex-col gap-3'>
         <p className='font-light'>🗓️ TBD</p>
         <h3>Coming Soon</h3>
+        <p>
+          <span className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2'>Reactjs</span>
+        </p>
       </div>
       <div className='flex flex-col gap-1'>
         <p className='line-clamp-2'>
