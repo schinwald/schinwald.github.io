@@ -3,7 +3,9 @@ import { bundleMDX } from "mdx-bundler";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import rehypeSlug from "rehype-slug";
-import { Root } from "node_modules/rehype-slug/lib";
+import { visit } from "unist-util-visit";
+import type { Root, ElementContent } from "hast";
+import { match, P } from "ts-pattern";
 
 const isEONET = (error: unknown): error is NodeJS.ErrnoException => {
 	if (typeof error !== "object") return false;
@@ -21,6 +23,60 @@ const globals = {
 	},
 };
 
+// Rehype Plugin to Transform Callouts
+function rehypeCallouts() {
+	return (tree: Root) => {
+		visit(tree, (node, index, parent) => {
+			if (parent === undefined) return;
+			if (index === undefined) return;
+
+			if (node.type === "element" && node.tagName === "blockquote") {
+				const callout = match(node.children[1])
+					.with({ type: "element", tagName: "p" }, (child) => {
+						return match(child.children[0])
+							.with(
+								{
+									type: "text",
+									value: P.when((value) => value.startsWith("[!")),
+								},
+								({ value }) => {
+									const matching = value.match(/^\[!(\w+)\](-?) (.+)/);
+									if (!matching) return null;
+
+									const [, type, collapsableCharacter, title] = matching;
+									const description = value.split("\n").slice(1).join("\n");
+									console.log(description);
+
+									return {
+										type: "element",
+										tagName: "callout",
+										properties: {
+											type,
+											title,
+											isCollapsable: collapsableCharacter === "-",
+										},
+										children: [
+											{
+												type: "text",
+												value: description,
+											},
+										],
+									} satisfies ElementContent;
+								},
+							)
+							.otherwise(() => null);
+					})
+					.otherwise(() => null);
+
+				if (!callout) return;
+
+				// Replace the blockquote with a "callout" element
+				parent.children[index] = callout;
+			}
+		});
+	};
+}
+
 export const loader = loaderHandler(async ({ params, json }) => {
 	if (!params.id) {
 		throw new Response("Article id is required", { status: 404 });
@@ -36,6 +92,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 	const extractHeaders = () => {
 		return (tree: Root) => {
 			tree.children.forEach((node) => {
+				console.log(node);
 				if (node.type === "element" && /^h[1-6]$/.test(node.tagName)) {
 					const id = node.properties?.id;
 					if (id) {
@@ -62,6 +119,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 				options.rehypePlugins = [
 					...(options.rehypePlugins || []),
 					rehypeSlug, // Generates `id` attributes for headers
+					rehypeCallouts,
 					extractHeaders, // Extract headers into the `toc` array
 				];
 				return options;
