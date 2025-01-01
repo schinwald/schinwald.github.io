@@ -14,6 +14,8 @@ import { useMemo } from 'react';
 import { Loader } from './loader';
 import { useLoaderData } from '@remix-run/react';
 import { MDXProvider, useMDXComponents } from '@mdx-js/react';
+import { Callout } from '~/components/callout';
+import { Code } from '~/components/code';
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
@@ -41,11 +43,16 @@ export default function() {
                     <h2 className='text-center'>{frontmatter.title}</h2>
                   </div>
                 </div>
-                <div className='flex flex-col gap-14 col-span-9 row-start-2 row-end-2'>
+                <div className='flex flex-col gap-4 col-span-9 row-start-2 row-end-2'>
                   <div className='aspect-[8/5] bg-[#fff8] rounded-sm'>
                   </div>
+                  <div className='flex gap-2'>
+                    {frontmatter.meta.tags.map((tag) => (
+                      <span className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>{tag}</span>
+                    ))}
+                  </div>
                 </div>
-                <article className='flex flex-col gap-14 col-span-9 row-start-3 row-end-3'>
+                <article className='flex flex-col gap-10 col-span-9 row-start-3 row-end-3'>
                   <MDXProvider components={{
                     h1: ({ children }) => <h1>{children}</h1>,
                     h2: ({ children }) => <h2>{children}</h2>,
@@ -53,16 +60,8 @@ export default function() {
                     h4: ({ children }) => <h4>{children}</h4>,
                     h5: ({ children }) => <h5>{children}</h5>,
                     h6: ({ children }) => <h6>{children}</h6>,
-                    code: ({ children }) => (
-                      <div>
-                        <div className='bg-background-overlay p-4 rounded-t-md'></div>
-                        <div className='bg-background p-4 rounded-b-md'>
-                          <code>
-                            {children}
-                          </code>
-                        </div>
-                      </div>
-                    ),
+                    callout: Callout,
+                    code: Code,
                   }}>
                     <Component />
                   </MDXProvider>
