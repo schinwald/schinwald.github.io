@@ -24,6 +24,28 @@ const globals = {
 };
 
 // Rehype Plugin to Transform Callouts
+function rehypeCode() {
+	return (tree: Root) => {
+		visit(tree, (node) => {
+			if (node.type === "element" && node.tagName === "code") {
+				const child = node.children[0];
+				if (child.type !== "text") return;
+				child.value = child.value.replace(/\n$/, "");
+				const language = match(node.properties)
+					.with({ className: P.array(P.string) }, ({ className }) =>
+						className[0].replace("language-", ""),
+					)
+					.otherwise(() => null);
+
+				node.properties = {
+					language,
+				};
+			}
+		});
+	};
+}
+
+// Rehype Plugin to Transform Callouts
 function rehypeCallouts() {
 	return (tree: Root) => {
 		visit(tree, (node, index, parent) => {
@@ -45,7 +67,6 @@ function rehypeCallouts() {
 
 									const [, type, collapsableCharacter, title] = matching;
 									const description = value.split("\n").slice(1).join("\n");
-									console.log(description);
 
 									return {
 										type: "element",
@@ -92,7 +113,6 @@ export const loader = loaderHandler(async ({ params, json }) => {
 	const extractHeaders = () => {
 		return (tree: Root) => {
 			tree.children.forEach((node) => {
-				console.log(node);
 				if (node.type === "element" && /^h[1-6]$/.test(node.tagName)) {
 					const id = node.properties?.id;
 					if (id) {
@@ -119,6 +139,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 				options.rehypePlugins = [
 					...(options.rehypePlugins || []),
 					rehypeSlug, // Generates `id` attributes for headers
+					rehypeCode,
 					rehypeCallouts,
 					extractHeaders, // Extract headers into the `toc` array
 				];
