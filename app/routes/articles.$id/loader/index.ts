@@ -1,219 +1,23 @@
 import { loaderHandler } from "~/utils/remix/loader.server";
-import { bundleMDX } from "mdx-bundler";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import rehypeSlug from "rehype-slug";
-import { visit } from "unist-util-visit";
-import type { Root, ElementContent } from "hast";
-import { match, P } from "ts-pattern";
+import { getMDXBundle } from "~/utils/mdx/mdx.server";
 
-const isEONET = (error: unknown): error is NodeJS.ErrnoException => {
-	if (typeof error !== "object") return false;
-	if (error === null) return false;
-	if (!("code" in error)) return false;
-	if (error.code !== "ENOENT") return false;
-	return true;
+type TableOfContents = {
+	id: string | number | boolean | (string | number)[];
+	level: number;
+	text: React.ReactNode;
 };
-
-const globals = {
-	"@mdx-js/react": {
-		varName: "MdxJsReact",
-		namedExports: ["useMDXComponents"],
-		defaultExport: false,
-	},
-};
-
-// Rehype Plugin to Transform Callouts
-// Remove p tag from checklist item
-// Include ul/ol tag
-function rehypeChecklistItem() {
-	return (tree: Root) => {
-		visit(tree, (node, index, parent) => {
-			if (parent === undefined) return;
-			if (index === undefined) return;
-
-			if (node.type === "element" && node.tagName === "li") {
-				const newChildren = [];
-				for (const child of node.children) {
-					// Add raw text nodes
-					// This is used when there is no nested lists
-					if (child.type === "text") {
-						if (child.value === "\n") {
-							continue;
-						}
-
-						// This is checking for the "[x] task" patterns
-						const matching = child.value.match(/^\[(x| )\] (.+)/);
-
-						// Matches the checklist item
-						if (matching) {
-							const [, checkedCharacter, text] = matching;
-							newChildren.push({
-								type: "element",
-								tagName: "p",
-								children: [
-									{
-										type: "text",
-										value: text,
-									},
-								],
-							} satisfies ElementContent);
-							node.tagName = "checklist-item";
-							node.properties = {
-								isChecked: checkedCharacter === "x",
-							};
-							continue;
-						}
-
-						// No match means it's a regular list item
-						newChildren.push({
-							type: "element",
-							tagName: "p",
-							children: [child],
-						} satisfies ElementContent);
-						continue;
-					}
-
-					// Add paragraph elements
-					// This is used when there is a nested list inside the list item
-					if (child.type === "element" && child.tagName === "p") {
-						const newGrandChildren = [];
-						for (const grandChild of child.children) {
-							if (grandChild.type === "text") {
-								if (grandChild.value === "\n") {
-									continue;
-								}
-
-								// This is checking for the "[x] task" patterns
-								const matching = grandChild.value.match(/^\[(x| )\] (.+)/);
-
-								// Matches the checklist item
-								if (matching) {
-									const [, checkedCharacter, text] = matching;
-									newGrandChildren.push({
-										type: "text",
-										value: text,
-									} satisfies ElementContent);
-									node.tagName = "checklist-item";
-									node.properties = {
-										isChecked: checkedCharacter === "x",
-									};
-									continue;
-								}
-
-								newGrandChildren.push(grandChild);
-								continue;
-							}
-
-							// We can leave everything else untouched
-							newGrandChildren.push(grandChild);
-						}
-
-						// Add the processed grand children back to the child
-						child.children = newGrandChildren;
-					}
-
-					// We can leave everything else untouched
-					newChildren.push(child);
-				}
-
-				// Add the processed children back to the node
-				node.children = newChildren;
-				parent.children[index] = node;
-			}
-		});
-	};
-}
-
-// Rehype Plugin to Transform Callouts
-function rehypeCode() {
-	return (tree: Root) => {
-		visit(tree, (node) => {
-			if (node.type === "element" && node.tagName === "code") {
-				const child = node.children[0];
-				if (child.type !== "text") return;
-				child.value = child.value.replace(/\n$/, "");
-				const language = match(node.properties)
-					.with({ className: P.array(P.string) }, ({ className }) =>
-						className[0].replace("language-", ""),
-					)
-					.otherwise(() => null);
-
-				node.properties = {
-					language,
-				};
-			}
-		});
-	};
-}
-
-// Rehype Plugin to Transform Callouts
-function rehypeCallouts() {
-	return (tree: Root) => {
-		visit(tree, (node, index, parent) => {
-			if (parent === undefined) return;
-			if (index === undefined) return;
-
-			if (node.type === "element" && node.tagName === "blockquote") {
-				const callout = match(node.children[1])
-					.with({ type: "element", tagName: "p" }, (child) => {
-						return match(child.children[0])
-							.with(
-								{
-									type: "text",
-									value: P.when((value) => value.startsWith("[!")),
-								},
-								({ value }) => {
-									const matching = value.match(/^\[!(\w+)\](-?) (.+)/);
-									if (!matching) return null;
-
-									const [, type, collapsableCharacter, title] = matching;
-									const description = value.split("\n").slice(1).join("\n");
-
-									return {
-										type: "element",
-										tagName: "callout",
-										properties: {
-											type,
-											title,
-											isCollapsable: collapsableCharacter === "-",
-										},
-										children: [
-											{
-												type: "text",
-												value: description,
-											},
-										],
-									} satisfies ElementContent;
-								},
-							)
-							.otherwise(() => null);
-					})
-					.otherwise(() => null);
-
-				if (!callout) return;
-
-				// Replace the blockquote with a "callout" element
-				parent.children[index] = callout;
-			}
-		});
-	};
-}
 
 export const loader = loaderHandler(async ({ params, json }) => {
 	if (!params.id) {
 		throw new Response("Article id is required", { status: 404 });
 	}
 
-	const toc: {
-		id: string | number | boolean | (string | number)[];
-		level: number;
-		text: React.ReactNode;
-	}[] = [];
+	const toc: TableOfContents[] = [];
 
-	// Custom plugin to extract headers with `id` for the TOC
-	const extractHeaders = () => {
-		return (tree: Root) => {
+	const bundle = await getMDXBundle(
+		`app/routes/articles.$id/mdx/${params.id}/index.mdx`,
+		(tree) => {
+			// Generate the table of contents
 			tree.children.forEach((node) => {
 				if (node.type === "element" && /^h[1-6]$/.test(node.tagName)) {
 					const id = node.properties?.id;
@@ -229,40 +33,10 @@ export const loader = loaderHandler(async ({ params, json }) => {
 					}
 				}
 			});
-		};
-	};
+		},
+	);
 
-	let result;
-	try {
-		result = await bundleMDX({
-			globals,
-			mdxOptions(options) {
-				options.providerImportSource = "@mdx-js/react";
-				options.rehypePlugins = [
-					...(options.rehypePlugins || []),
-					rehypeSlug, // Generates `id` attributes for headers
-					rehypeChecklistItem,
-					rehypeCode,
-					rehypeCallouts,
-					extractHeaders, // Extract headers into the `toc` array
-				];
-				return options;
-			},
-			file: path.join(
-				process.cwd(),
-				`app/routes/articles.$id/mdx/${params.id}/index.mdx`,
-			),
-			cwd: path.dirname(fileURLToPath(import.meta.url)),
-		});
-	} catch (error) {
-		if (isEONET(error)) {
-			throw new Response("Unable to find article", { status: 404 });
-		}
-
-		throw error;
-	}
-
-	return json({ ...result, toc });
+	return json({ ...bundle, toc });
 });
 
 export type Loader = Awaited<typeof loader>;
