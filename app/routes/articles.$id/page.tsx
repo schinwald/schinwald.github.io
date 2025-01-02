@@ -16,6 +16,8 @@ import { useLoaderData } from '@remix-run/react';
 import { MDXProvider, useMDXComponents } from '@mdx-js/react';
 import { Callout } from '~/components/callout';
 import { Code } from '~/components/code';
+import { cn } from '~/utils/classname';
+import { Children } from 'react';
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
@@ -60,6 +62,25 @@ export default function() {
                     h4: ({ children }) => <h4>{children}</h4>,
                     h5: ({ children }) => <h5>{children}</h5>,
                     h6: ({ children }) => <h6>{children}</h6>,
+                    ol: ({ children }) => <ol className='list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ol>,
+                    ul: ({ children }) => <ul className='list-disc flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ul>,
+                    li: ({ children }) => <li className='space-y-4'>{children}</li>,
+                    'checklist-item': ({ isChecked, children }) => (
+                      <li className='list-none space-y-4'>
+                        {Children.map(children, (child, index) => {
+                          if (index === 0) {
+                            return (
+                              <div className='flex flex-row items-center gap-2'>
+                                <input type='checkbox' defaultChecked={isChecked} className="-ml-5" />
+                                {child}
+                              </div>
+                            )
+                          }
+
+                          return child;
+                        })}
+                      </li>
+                    ),
                     callout: Callout,
                     code: Code,
                   }}>
@@ -75,8 +96,8 @@ export default function() {
                     <h6>Table of Contents</h6>
                     <ol className='list-none'>
                       {toc.map(({ id, level, text }) => (
-                        <li className='ml-3'>
-                          <a href={`#${id}`}>{text}</a></li>
+                        <li key={`${id}`} className={cn({ 'ml-3': level === 3, 'ml-4': level === 4, 'ml-5': level === 5 })}>
+                          <a href={`#${id}`}>{text?.toString() ?? ''}</a></li>
                       ))}
                     </ol>
                   </div>
