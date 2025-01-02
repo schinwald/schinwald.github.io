@@ -9,14 +9,15 @@ type TableOfContents = {
 };
 
 export const loader = loaderHandler(async ({ params, json }) => {
-	if (!params.id) {
+	const { id } = params;
+	if (!id) {
 		throw new Response("Article id is required", { status: 404 });
 	}
 
 	const toc: TableOfContents[] = [];
 
 	const bundle = await getMDXBundle(
-		`app/routes/articles.$id/mdx/${params.id}/index.mdx`,
+		`app/routes/articles.$id/mdx/${id}/index.mdx`,
 		(tree) => {
 			// Generate the table of contents
 			tree.children.forEach((node) => {
@@ -39,7 +40,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 		},
 	);
 
-	return json({ ...bundle, toc });
+	return json({ ...bundle, toc, id });
 });
 
 export type Loader = Awaited<typeof loader>;
