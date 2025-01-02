@@ -93,6 +93,11 @@ export default function() {
                     ol: ({ children }) => <ol className='list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ol>,
                     ul: ({ children }) => <ul className='list-disc flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ul>,
                     li: ({ children }) => <li className='space-y-4'>{children}</li>,
+                    img: ({ src, alt }) => (
+                      <div className='rounded-sm overflow-clip'>
+                        <img src={src} alt={alt} className='w-full' />
+                      </div>
+                    ),
                     'checklist-item': ({ isChecked, children }) => (
                       <li className='list-none space-y-4'>
                         {Children.map(children, (child, index) => {
