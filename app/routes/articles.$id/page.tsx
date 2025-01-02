@@ -135,14 +135,18 @@ export default function() {
                       ))}
                     </ol>
                   </div>
-                  <div className='flex flex-col items-start gap-1'>
+                  <div className='flex flex-col items-start gap-3'>
                     <Link href='https://buymeacoffee.com/schinwald' variant='ghost' size='minimal' className='flex flex-row gap-2'>
-                      <BuyMeACoffeeIcon className='size-4' />
-                      Buy me a coffee
+                      <BuyMeACoffeeIcon className='text-yellow-200 size-4' />
+                      <span>
+                        Buy me a coffee
+                      </span>
                     </Link>
                     <Button variant='ghost' size='minimal' className='flex flex-row gap-2'>
-                      <FullHeartIcon className='size-4 text-muted-foreground' />
-                      Like
+                      <FullHeartIcon className='text-red-500 size-4' />
+                      <span>
+                        Like
+                      </span>
                     </Button>
                   </div>
                 </div>
