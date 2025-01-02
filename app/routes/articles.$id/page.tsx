@@ -18,6 +18,11 @@ import { Callout } from '~/components/callout';
 import { Code } from '~/components/code';
 import { cn } from '~/utils/classname';
 import { Children } from 'react';
+import { format, isPast, parseISO } from 'date-fns';
+import { BiSolidCircle as CircleIcon } from "react-icons/bi";
+import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
+
+
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
@@ -25,9 +30,32 @@ const MDX_GLOBAL_CONFIG = {
   },
 };
 
+const safeParseISO = (date: string) => {
+  try {
+    return parseISO(date)
+  } catch {
+    return null
+  }
+}
+
+const safeFormat = (date?: Date | null) => {
+  if (!date) return null
+
+  try {
+    return format(date, "MMM dd, yyyy");
+  } catch {
+    return null
+  }
+}
+
 export default function() {
   const { code, frontmatter, toc } = useLoaderData<Loader>();
+  const publishedAt = safeParseISO(frontmatter.meta.publishedAt)
+  const isWaitingForPublication = !publishedAt || isPast(publishedAt)
+  const isLive = frontmatter.meta.isHidden || isWaitingForPublication ? false : true
+
   const Component = useMemo(() => getMDXComponent(code, MDX_GLOBAL_CONFIG), [code])
+
   return (
     <div className='relative'>
       <Navigation />
@@ -41,7 +69,7 @@ export default function() {
               <div className='grid grid-cols-subgrid grid-rows-subgrid col-span-9 row-span-3 text-foreground-overlay'>
                 <div className='flex flex-col gap-14 col-span-9 row-start-1 row-end-2'>
                   <div className='flex flex-col items-center gap-3'>
-                    <p className='font-light'>🗓️ {frontmatter.publishedAt ?? "TBD"}</p>
+                    <p className='font-light'>🗓️ {safeFormat(publishedAt) ?? 'TBD'}</p>
                     <h2 className='text-center'>{frontmatter.title}</h2>
                   </div>
                 </div>
@@ -88,8 +116,15 @@ export default function() {
                   </MDXProvider>
                 </article >
               </div>
-              <div className='col-span-3 col-start-10 self-end row-start-2 row-end-2 flex flex-col gap-4'>
-              </div>
+              {import.meta.env.DEV ?
+                <div className='col-span-3 col-start-10 row-start-1 flex flex-col justify-end'>
+                  {isLive ? (
+                    <p className='text-success flex flex-row items-center gap-2'><CircleIcon className='animate-pulse size-2' />Live</p>
+                  ) : (
+                    <p className='text-destructive flex flex-row items-center gap-2'><EyeOffIcon />Hidden</p>
+                  )}
+                </div>
+                : null}
               <div className='col-span-3 flex flex-col gap-6 col-start-10 row-start-2 row-span-2'>
                 <div className='sticky top-10 flex flex-col gap-8'>
                   <div className='flex flex-col gap-4'>
