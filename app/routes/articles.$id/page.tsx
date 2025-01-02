@@ -48,7 +48,7 @@ const safeFormat = (date?: Date | null) => {
 }
 
 export default function() {
-  const { code, frontmatter, toc } = useLoaderData<Loader>();
+  const { code, frontmatter, toc, id } = useLoaderData<Loader>();
   const publishedAt = safeParseISO(frontmatter.meta.publishedAt)
   const isWaitingForPublication = !publishedAt || isPast(publishedAt)
   const isLive = frontmatter.meta.isHidden || isWaitingForPublication ? false : true
@@ -73,7 +73,8 @@ export default function() {
                   </div>
                 </div>
                 <div className='flex flex-col gap-4 col-span-9 row-start-2 row-end-2'>
-                  <div className='aspect-[8/5] bg-[#fff8] rounded-sm'>
+                  <div className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-clip'>
+                    <img src={`/assets/articles/${id}.png`} />
                   </div>
                   <div className='flex gap-2'>
                     {frontmatter.meta.tags.map((tag) => (
