@@ -74,7 +74,7 @@ export default function() {
                 </div>
                 <div className='flex flex-col gap-4 col-span-9 row-start-2 row-end-2'>
                   <div className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-clip'>
-                    <img src={`/assets/articles/${id}.png`} />
+                    <img src={frontmatter.image.src} alt={frontmatter.image.alt} />
                   </div>
                   <div className='flex gap-2'>
                     {frontmatter.meta.tags.map((tag) => (
