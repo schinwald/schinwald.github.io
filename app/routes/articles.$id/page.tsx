@@ -23,7 +23,6 @@ import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 
 
-
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
     useMDXComponents,
@@ -131,8 +130,8 @@ export default function() {
                     <h6>Table of Contents</h6>
                     <ol className='list-none'>
                       {toc.map(({ id, level, text }) => (
-                        <li key={`${id}`} className={cn({ 'ml-3': level === 3, 'ml-4': level === 4, 'ml-5': level === 5 })}>
-                          <a href={`#${id}`}>{text?.toString() ?? ''}</a></li>
+                        <li key={id} className={cn({ 'ml-3': level === 3, 'ml-4': level === 4, 'ml-5': level === 5 })}>
+                          <a href={`#${id}`}>{text}</a></li>
                       ))}
                     </ol>
                   </div>

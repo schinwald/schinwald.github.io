@@ -1,10 +1,11 @@
 import { loaderHandler } from "~/utils/remix/loader.server";
 import { getMDXBundle } from "~/utils/mdx/mdx.server";
+import * as _ from "radashi";
 
 type TableOfContents = {
-	id: string | number | boolean | (string | number)[];
+	id: string;
 	level: number;
-	text: React.ReactNode;
+	text: string;
 };
 
 export const loader = loaderHandler(async ({ params, json }) => {
@@ -21,14 +22,16 @@ export const loader = loaderHandler(async ({ params, json }) => {
 			tree.children.forEach((node) => {
 				if (node.type === "element" && /^h[1-6]$/.test(node.tagName)) {
 					const id = node.properties?.id;
-					if (id) {
+					if (typeof id === "string") {
 						toc.push({
 							id,
 							level: parseInt(node.tagName[1], 10),
-							text: node.children
-								.filter((child) => child.type === "text")
-								.map((child) => child.value)
-								.join(""),
+							text: _.title(
+								node.children
+									.filter((child) => child.type === "text")
+									.map((child) => child.value)
+									.join(""),
+							),
 						});
 					}
 				}
