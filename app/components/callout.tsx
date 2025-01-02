@@ -25,8 +25,8 @@ const Callout: React.FC<PropsWithChildren<CalloutProps>> = ({
       'border-blue-300': type === 'info',
       'border-green-400': type === 'note',
       'border-purple-300': type === 'tip',
-      'border-red-500': type === 'danger',
-      'border-yellow-300': type === 'warning',
+      'border-red-500 border-double border-4': type === 'danger',
+      'border-yellow-300 border-dashed': type === 'warning',
     })}>
       <div className='flex flex-col gap-3'>
         <div className='flex flex-row items-center gap-1'>
