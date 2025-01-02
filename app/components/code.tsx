@@ -16,10 +16,9 @@ const Code: React.FC<PropsWithChildren<CodeProps>> = ({
       language={language ?? ''}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className='border-white rounded-md p-4 text-md' style={style}>
+        <pre className='border-white rounded-md px-5 py-4 text-md' style={style}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line })}>
-              <span className='mr-2 opacity-40'>{i + 1}</span>
               {line.map((token, key) => (
                 <span key={key} {...getTokenProps({ token })} />
               ))}
