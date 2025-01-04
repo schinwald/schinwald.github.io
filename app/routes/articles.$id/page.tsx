@@ -59,9 +59,13 @@ export default function() {
     <div className='relative'>
       <Navigation />
       <section className='w-screen h-screen'>
-        <div className='relative w-screen flex flex-col justify-center items-center text-foreground gap-28 py-32'>
+        <div className='relative w-screen flex flex-col justify-center items-center text-foreground gap-28'>
           <Container variant='wide'>
-            <img src={svg} className='absolute top-[-380px] left-[-220px] scale-[0.2] object-cover' />
+            <div>
+              <Link to="/" variant='ghost' className='relative'>
+                <img src={svg} className='absolute top-[-380px] left-[-220px] scale-[0.2] object-cover' />
+              </Link>
+            </div>
           </Container>
           <Container variant='narrow'>
             <div className='grid grid-cols-12 auto-rows-min gap-10'>
@@ -142,7 +146,7 @@ export default function() {
                     </ol>
                   </div>
                   <div className='flex flex-col items-start gap-3'>
-                    <Link href='https://buymeacoffee.com/schinwald' variant='ghost' size='minimal' className='flex flex-row gap-2'>
+                    <Link to='https://buymeacoffee.com/schinwald' variant='ghost' size='minimal' className='flex flex-row gap-2'>
                       <BuyMeACoffeeIcon className='text-yellow-200 size-4' />
                       <span>
                         Buy me a coffee

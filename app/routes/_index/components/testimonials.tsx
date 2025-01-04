@@ -171,7 +171,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
       <Container variant='narrow'>
         <div className='flex flex-row justify-end'>
           <Link
-            href='/testimonial/review'
+            to='/testimonial/review'
             variant='default'
           >
             Write a review
