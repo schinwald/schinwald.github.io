@@ -31,11 +31,11 @@ const Callout: React.FC<PropsWithChildren<CalloutProps>> = ({
       <div className='flex flex-col gap-3'>
         <div className='flex flex-row items-center gap-1'>
           {match(type)
-            .with('info', () => <InfoIcon className='size-6 p-[0.1rem] opacity-50 text-blue-300' />)
-            .with('note', () => <NoteIcon className='size-6 p-[0.2rem] opacity-50 text-green-400' />)
-            .with('tip', () => <TipIcon className='size-6 opacity-50 text-purple-300' />)
-            .with('danger', () => <DangerIcon className='size-6 p-[0.1rem] opacity-50 text-red-500' />)
-            .with('warning', () => <WarningIcon className='size-6 p-[0.1rem] opacity-50 text-yellow-300' />)
+            .with('info', () => <InfoIcon className='size-6 -my-1 p-[0.1rem] opacity-50 text-blue-300' />)
+            .with('note', () => <NoteIcon className='size-6 -my-1 p-[0.2rem] opacity-50 text-green-400' />)
+            .with('tip', () => <TipIcon className='size-6 -my-1 opacity-50 text-purple-300' />)
+            .with('danger', () => <DangerIcon className='size-6 -my-1 p-[0.1rem] opacity-50 text-red-500' />)
+            .with('warning', () => <WarningIcon className='size-6 -my-1 p-[0.1rem] opacity-50 text-yellow-300' />)
             .exhaustive()
           }
           <h5 className='drop-shadow-lg'>{title}</h5>
