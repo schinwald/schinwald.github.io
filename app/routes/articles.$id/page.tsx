@@ -88,12 +88,54 @@ export default function() {
                 </div>
                 <article className='flex flex-col gap-10 col-span-9 row-start-3 row-end-3'>
                   <MDXProvider components={{
-                    h1: ({ children, ...props }) => <h1 {...props}>{children}</h1>,
-                    h2: ({ children, ...props }) => <h2 {...props}>{children}</h2>,
-                    h3: ({ children, ...props }) => <h3 {...props}>{children}</h3>,
-                    h4: ({ children, ...props }) => <h4 {...props}>{children}</h4>,
-                    h5: ({ children, ...props }) => <h5 {...props}>{children}</h5>,
-                    h6: ({ children, ...props }) => <h6 {...props}>{children}</h6>,
+                    h1: ({ children, ...props }) => (
+                      <h1 {...props} className='group inline-flex items-center'>
+                        {children}
+                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
+                          <h1>#</h1>
+                        </a>
+                      </h1>
+                    ),
+                    h2: ({ children, ...props }) => (
+                      <h2 {...props} className='group inline-flex items-center'>
+                        {children}
+                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
+                          <h2>#</h2>
+                        </a>
+                      </h2>
+                    ),
+                    h3: ({ children, ...props }) => (
+                      <h3 {...props} className='group inline-flex items-center'>
+                        {children}
+                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
+                          <h3>#</h3>
+                        </a>
+                      </h3>
+                    ),
+                    h4: ({ children, ...props }) => (
+                      <h4 {...props} className='group inline-flex items-center'>
+                        {children}
+                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
+                          <h4>#</h4>
+                        </a>
+                      </h4>
+                    ),
+                    h5: ({ children, ...props }) => (
+                      <h5 {...props} className='group inline-flex items-center'>
+                        {children}
+                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
+                          <h5>#</h5>
+                        </a>
+                      </h5>
+                    ),
+                    h6: ({ children, ...props }) => (
+                      <h6 {...props} className='group inline-flex items-center'>
+                        {children}
+                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
+                          <h6>#</h6>
+                        </a>
+                      </h6>
+                    ),
                     ol: ({ children }) => <ol className='list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ol>,
                     ul: ({ children }) => <ul className='list-disc flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ul>,
                     li: ({ children }) => <li className='space-y-4'>{children}</li>,
