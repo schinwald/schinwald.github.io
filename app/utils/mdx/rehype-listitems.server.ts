@@ -14,12 +14,14 @@ export function rehypeListItem() {
 					// Add raw text nodes
 					// This is used when there is no nested lists
 					if (child.type === "text") {
+						let matching;
+
 						if (child.value === "\n") {
 							continue;
 						}
 
 						// This is checking for the "[x] task" patterns
-						const matching = child.value.match(/^\[(x| )\] (.+)/);
+						matching = child.value.match(/^\[(x| )\] (.+)/);
 
 						// Matches the checklist item
 						if (matching) {
@@ -50,18 +52,33 @@ export function rehypeListItem() {
 						continue;
 					}
 
+					// Add blockquote elements
+					// This is used for arrow items
+					if (child.type === "element" && child.tagName === "blockquote") {
+						// Replace blockquote parent with its children
+						newChildren.push({
+							type: "element",
+							tagName: "p",
+							children: child.children,
+						} satisfies ElementContent);
+						node.tagName = "arrow-item";
+						continue;
+					}
+
 					// Add paragraph elements
 					// This is used when there is a nested list inside the list item
 					if (child.type === "element" && child.tagName === "p") {
 						const newGrandChildren = [];
 						for (const grandChild of child.children) {
 							if (grandChild.type === "text") {
+								let matching;
+
 								if (grandChild.value === "\n") {
 									continue;
 								}
 
 								// This is checking for the "[x] task" patterns
-								const matching = grandChild.value.match(/^\[(x| )\] (.+)/);
+								matching = grandChild.value.match(/^\[(x| )\] (.+)/);
 
 								// Matches the checklist item
 								if (matching) {
