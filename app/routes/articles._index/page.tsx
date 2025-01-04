@@ -6,54 +6,82 @@ import { Link } from '~/components/primitives/ui/link';
 import { Input } from '~/components/primitives/ui/input';
 import svg from '~/assets/images/logo.svg';
 import { useEffect } from 'react';
-import { animate, motion, stagger, useAnimate, useInView } from 'framer-motion';
+import { motion, stagger, useAnimate, useInView } from 'framer-motion';
+import { Loader } from './loader';
+import { useLoaderData } from '@remix-run/react';
 
-export const Article: React.FC = () => (
+type ArticleProps = {
+  id: string
+  title: string;
+  description: string;
+  image?: {
+    src: string;
+    alt: string;
+  }
+  meta?: {
+    tags?: string[];
+  }
+}
+
+export const Article: React.FC<ArticleProps> = ({ id, title, description, image, meta }) => (
   <li className=' text-foreground-overlay flex flex-col gap-6 opacity-0'>
-    <div className='aspect-[8/5] bg-[#fff8] rounded-sm'>
-    </div>
+    <Link to={`/articles/${id}`} variant='ghost' size='minimal' className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden'>
+      <img src={image?.src} alt={image?.alt} />
+    </Link>
     <div className='flex flex-col gap-3'>
       <p className='font-light'>🗓️ TBD</p>
-      <h3>Coming Soon</h3>
+      <h3>{title}</h3>
       <div className='inline-flex gap-1 overflow-hidden'>
-        <span className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>Tutorial</span>
+        {meta?.tags?.map((tag) =>
+          <span key={tag} className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>{tag}</span>
+        )}
       </div>
     </div>
     <div className='flex flex-col gap-1'>
       <p className='line-clamp-4'>
-        Viverra convallis nibh tristique, quam ligula curae. Porttitor odio dictumst proin magna litora quisque scelerisque est pulvinar. Tempus faucibus lectus urna sapien arcu proin. Enim netus ornare iaculis dui vehicula per. Donec ornare magna molestie fusce diam proin. Phasellus ligula ipsum rutrum; nulla senectus rutrum. Accumsan tempus hendrerit natoque, enim senectus turpis litora condimentum mauris. Nam mattis sociosqu lacinia parturient fringilla posuere; finibus porttitor? Ante ultrices nisi sociosqu ullamcorper cras facilisis. Adipiscing fusce eget vestibulum etiam luctus aliquam praesent risus donec.
-
-        Taciti nisl eros fringilla phasellus semper. Malesuada eu fames aliquam sem cras. Nostra posuere hac; hendrerit hendrerit mattis ultrices blandit mattis. Donec integer porta nascetur ut platea netus. Nascetur gravida molestie duis tempor ante integer felis. Ut nec egestas vulputate sit quam non. Tempor nibh vel aliquam nam ultricies odio eros. Sit consequat augue natoque primis purus adipiscing cursus lacinia felis.
-
-        Tempor leo natoque rhoncus nam fermentum lorem tortor donec. Risus mattis conubia tincidunt cursus consectetur in nam leo. Quam lacinia posuere nascetur, fames maecenas orci. Iaculis venenatis fusce mus varius sagittis mus cursus cras. Ultricies justo etiam euismod dapibus rutrum vehicula. Scelerisque diam gravida lacus pulvinar suscipit varius a. Ligula elementum congue himenaeos etiam dictumst tincidunt metus id. Mattis libero feugiat mauris enim cursus; ultricies nec scelerisque. Auctor ex vestibulum hendrerit auctor morbi turpis.
-
-        Sagittis ante senectus lacinia finibus auctor condimentum. Enim ornare eget turpis molestie; sit odio pharetra penatibus. Senectus pharetra turpis non rhoncus lacus dolor ridiculus. Phasellus at vivamus varius porta efficitur est. Dictum aptent posuere blandit massa non natoque dapibus vivamus. Libero duis quisque eu, consequat duis sed.
+        {description}
       </p>
       <div>
-        <Link to='' variant='link' size="minimal">Read More</Link>
+        <Link to={`/articles/${id}`} variant='link' size="minimal">Read More</Link>
       </div>
     </div>
   </li>
 )
 
-export const ArticleSide: React.FC = () => (
+type ArticleSideProps = {
+  id: string
+  title: string;
+  description: string;
+  image?: {
+    src: string;
+    alt: string;
+  }
+  meta?: {
+    tags?: string[];
+  }
+}
+
+export const ArticleSide: React.FC<ArticleSideProps> = ({ id, title, description, image, meta }) => (
   <li className=' text-foreground-overlay flex flex-row gap-4 opacity-0'>
-    <div className='aspect-[8/5] bg-[#fff8] h-36 rounded-sm'>
-    </div>
+    <Link to={`/articles/${id}`} variant='ghost' size='minimal' className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden'>
+      <img src={image?.src} alt={image?.alt} />
+    </Link>
     <div className='flex flex-col justify-center gap-6'>
       <div className='flex flex-col gap-3'>
         <p className='font-light'>🗓️ TBD</p>
-        <h3>Coming Soon</h3>
-        <p>
-          <span className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2'>Reactjs</span>
-        </p>
+        <h3>{title}</h3>
+        <div className='inline-flex gap-1 overflow-hidden'>
+          {meta?.tags?.map((tag) =>
+            <span key={tag} className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2'>{tag}</span>
+          )}
+        </div>
       </div>
       <div className='flex flex-col gap-1'>
         <p className='line-clamp-2'>
-          Tempor leo natoque rhoncus nam fermentum lorem tortor donec. Risus mattis conubia tincidunt cursus consectetur in nam leo. Quam lacinia posuere nascetur, fames maecenas orci. Iaculis venenatis fusce mus varius sagittis mus cursus cras. Ultricies justo etiam euismod dapibus rutrum vehicula. Scelerisque diam gravida lacus pulvinar suscipit varius a. Ligula elementum congue himenaeos etiam dictumst tincidunt metus id. Mattis libero feugiat mauris enim cursus; ultricies nec scelerisque. Auctor ex vestibulum hendrerit auctor morbi turpis.
+          {description}
         </p>
         <div>
-          <Link to='' variant='link' size="minimal">Read More</Link>
+          <Link to={`/articles/${id}`} variant='link' size="minimal">Read More</Link>
         </div>
       </div>
     </div>
@@ -61,6 +89,7 @@ export const ArticleSide: React.FC = () => (
 )
 
 export const FeaturedArticles: React.FC = () => {
+  const { articles } = useLoaderData<Loader>();
   const [featuredArticlesRef, animateFeaturedArticle] = useAnimate()
   const isInView = useInView(featuredArticlesRef, { margin: "-200px 0px", once: true })
 
@@ -76,21 +105,32 @@ export const FeaturedArticles: React.FC = () => {
     }
   }, [isInView])
 
+
+  const featuredArticles = articles.filter(article => article.meta?.isFeatured)
+
   return (
     <Container variant='narrow'>
       <h2>Featured</h2>
       <motion.ol ref={featuredArticlesRef} className='grid grid-cols-12 grid-rows-3 gap-6'>
         <li className='col-span-6 row-span-3'>
-          <Article />
+          {featuredArticles[0] ?
+            <Article {...featuredArticles[0]} />
+            : null}
         </li>
         <li className='col-span-6 row-span-1'>
-          <ArticleSide />
+          {featuredArticles[1] ?
+            <ArticleSide {...featuredArticles[1]} />
+            : null}
         </li>
         <li className='col-span-6 row-span-1'>
-          <ArticleSide />
+          {featuredArticles[2] ?
+            <ArticleSide {...featuredArticles[2]} />
+            : null}
         </li>
         <li className='col-span-6 row-span-1'>
-          <ArticleSide />
+          {featuredArticles[3] ?
+            <ArticleSide {...featuredArticles[3]} />
+            : null}
         </li>
       </motion.ol>
     </Container>
@@ -98,6 +138,7 @@ export const FeaturedArticles: React.FC = () => {
 }
 
 export const AllArticles: React.FC = () => {
+  const { articles } = useLoaderData<Loader>();
   const [allArticlesRef, animateAllArticles] = useAnimate()
   const isInView = useInView(allArticlesRef, { margin: "-200px 0px", once: true })
 
@@ -120,15 +161,9 @@ export const AllArticles: React.FC = () => {
         <Input placeholder="Search articles" />
       </div>
       <motion.ol ref={allArticlesRef} className='grid grid-cols-3 grid-rows-3 gap-6'>
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
+        {articles.map((article, index) =>
+          <Article key={index} {...article} />
+        )}
       </motion.ol>
     </Container>
   )
