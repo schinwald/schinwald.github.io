@@ -21,6 +21,8 @@ import { Children } from 'react';
 import { format, isPast, parseISO } from 'date-fns';
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
+import { FaArrowRightLong as RightArrowIcon } from "react-icons/fa6";
+
 
 
 const MDX_GLOBAL_CONFIG = {
@@ -143,6 +145,22 @@ export default function() {
                       <div className='rounded-sm overflow-clip'>
                         <img src={src} alt={alt} className='w-full' />
                       </div>
+                    ),
+                    'arrow-item': ({ children }) => (
+                      <li className='list-none space-y-4'>
+                        {Children.map(children, (child, index) => {
+                          if (index === 0) {
+                            return (
+                              <div className='flex flex-row items-center gap-2'>
+                                <RightArrowIcon className='text-tertiary size-3 -ml-5' />
+                                {child}
+                              </div>
+                            )
+                          }
+
+                          return child;
+                        })}
+                      </li>
                     ),
                     'checklist-item': ({ isChecked, children }) => (
                       <li className='list-none space-y-4'>
