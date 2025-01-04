@@ -92,7 +92,7 @@ export default function() {
                       <h1 {...props} className='group inline-flex items-center'>
                         {children}
                         <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          <h1>#</h1>
+                          #
                         </a>
                       </h1>
                     ),
@@ -100,7 +100,7 @@ export default function() {
                       <h2 {...props} className='group inline-flex items-center'>
                         {children}
                         <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          <h2>#</h2>
+                          #
                         </a>
                       </h2>
                     ),
@@ -108,7 +108,7 @@ export default function() {
                       <h3 {...props} className='group inline-flex items-center'>
                         {children}
                         <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          <h3>#</h3>
+                          #
                         </a>
                       </h3>
                     ),
@@ -116,7 +116,7 @@ export default function() {
                       <h4 {...props} className='group inline-flex items-center'>
                         {children}
                         <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          <h4>#</h4>
+                          #
                         </a>
                       </h4>
                     ),
@@ -124,7 +124,7 @@ export default function() {
                       <h5 {...props} className='group inline-flex items-center'>
                         {children}
                         <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          <h5>#</h5>
+                          #
                         </a>
                       </h5>
                     ),
@@ -132,7 +132,7 @@ export default function() {
                       <h6 {...props} className='group inline-flex items-center'>
                         {children}
                         <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          <h6>#</h6>
+                          #
                         </a>
                       </h6>
                     ),
