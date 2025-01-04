@@ -2,7 +2,11 @@ import { loaderHandler } from "~/utils/remix/loader.server";
 import matter from "gray-matter";
 import path from "node:path";
 import fs from "node:fs/promises";
-import { sortByRecentAscending } from "~/utils/date";
+import {
+	getPublicationStatus,
+	getVisibiliy,
+	sortByRecentAscending,
+} from "~/utils/date";
 
 export const loader = loaderHandler(async ({ request, json }) => {
 	const files = await fs
@@ -20,9 +24,22 @@ export const loader = loaderHandler(async ({ request, json }) => {
 		articles.push({ id: file, ...data });
 	}
 
-	articles = articles.sort((a, b) =>
-		sortByRecentAscending(a.meta.publishedAt, b.meta.publishedAt),
-	);
+	articles = articles
+		.filter((article) => {
+			const visibility = getVisibiliy({
+				isHidden: Boolean(article.meta.isHidden),
+				publicationStatus: getPublicationStatus(article.meta.publishedAt),
+			});
+
+			if (import.meta.env.PROD && visibility !== "published") {
+				return false;
+			}
+
+			return true;
+		})
+		.sort((a, b) =>
+			sortByRecentAscending(a.meta.publishedAt, b.meta.publishedAt),
+		);
 
 	return json({ articles });
 });
