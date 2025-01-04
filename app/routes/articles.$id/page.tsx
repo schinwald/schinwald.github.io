@@ -60,7 +60,7 @@ export default function() {
   const { code, frontmatter, toc, id } = useLoaderData<Loader>();
   const publishedAt = safeParseISO(frontmatter.meta.publishedAt)
   const publicationStatus = extractPublicationStatus(publishedAt)
-  const isHidden = frontmatter.meta.isHidden as boolean
+  const isHidden = Boolean(frontmatter.meta.isHidden)
   const visibility = match({ isHidden, publicationStatus })
     .with({ isHidden: true, publicationStatus: P.any }, () => 'hidden')
     .with({ isHidden: false, publicationStatus: 'unpublished' }, () => 'hidden')
@@ -93,10 +93,12 @@ export default function() {
                 </div>
                 <div className='flex flex-col gap-4 col-span-9 row-start-2 row-end-2'>
                   <div className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-clip'>
-                    <img src={frontmatter.image.src} alt={frontmatter.image.alt} />
+                    {frontmatter.image ?
+                      <img src={frontmatter.image.src} alt={frontmatter.image.alt} />
+                      : null}
                   </div>
                   <div className='flex gap-2'>
-                    {frontmatter.meta.tags.map((tag) => (
+                    {frontmatter.meta?.tags?.map((tag) => (
                       <span className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>{tag}</span>
                     ))}
                   </div>
