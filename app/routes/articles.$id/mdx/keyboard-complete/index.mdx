@@ -47,6 +47,15 @@ The event loop is a single-threaded, asynchronous, event-driven I/O loop that ha
 
 ```javascript
 const fs = require("fs");
+
+function readFile(path, callback) {
+  fs.readFile(path, "utf8", callback);
+}
+
+readFile("file.txt", function (err, data) {
+  if (err) throw err;
+  console.log(data);
+});
 ```
 
 > [!tip] Tip
