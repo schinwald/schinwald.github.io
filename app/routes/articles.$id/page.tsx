@@ -18,11 +18,11 @@ import { Callout } from '~/components/callout';
 import { Code } from '~/components/code';
 import { cn } from '~/utils/classname';
 import { Children } from 'react';
-import { format, isPast, parseISO } from 'date-fns';
+import { format, isFuture, isPast, parseISO } from 'date-fns';
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { FaArrowRightLong as RightArrowIcon } from "react-icons/fa6";
-
+import { match, P } from 'ts-pattern';
 
 
 const MDX_GLOBAL_CONFIG = {
@@ -49,11 +49,24 @@ const safeFormat = (date?: Date | null) => {
   }
 }
 
+const extractPublicationStatus = (publishedAt: Date | null) => {
+  if (!publishedAt) return 'unpublished'
+  if (isPast(publishedAt)) return 'published'
+  if (isFuture(publishedAt)) return 'scheduled'
+  return 'unpublished'
+}
+
 export default function() {
   const { code, frontmatter, toc, id } = useLoaderData<Loader>();
   const publishedAt = safeParseISO(frontmatter.meta.publishedAt)
-  const isWaitingForPublication = !publishedAt || isPast(publishedAt)
-  const isLive = frontmatter.meta.isHidden || isWaitingForPublication ? false : true
+  const publicationStatus = extractPublicationStatus(publishedAt)
+  const isHidden = frontmatter.meta.isHidden as boolean
+  const visibility = match({ isHidden, publicationStatus })
+    .with({ isHidden: true, publicationStatus: P.any }, () => 'hidden')
+    .with({ isHidden: false, publicationStatus: 'unpublished' }, () => 'hidden')
+    .with({ isHidden: false, publicationStatus: 'published' }, () => 'live')
+    .with({ isHidden: false, publicationStatus: 'scheduled' }, () => 'scheduled')
+    .exhaustive()
 
   const Component = useMemo(() => getMDXComponent(code, MDX_GLOBAL_CONFIG), [code])
 
@@ -187,11 +200,17 @@ export default function() {
               </div>
               {import.meta.env.DEV ?
                 <div className='col-span-3 col-start-10 row-start-1 flex flex-col justify-end'>
-                  {isLive ? (
-                    <p className='text-success flex flex-row items-center gap-2'><CircleIcon className='animate-pulse size-2' />Live</p>
-                  ) : (
-                    <p className='text-destructive flex flex-row items-center gap-2'><EyeOffIcon />Hidden</p>
-                  )}
+                  {match(visibility)
+                    .with('hidden', () =>
+                      <p className='text-destructive flex flex-row items-center gap-2'><EyeOffIcon />Hidden</p>
+                    )
+                    .with('live', () =>
+                      <p className='text-success flex flex-row items-center gap-2'><CircleIcon className='animate-pulse size-2' />Live</p>
+                    )
+                    .with('scheduled', () =>
+                      <p className='text-orange-300 flex flex-row items-center gap-2'><CircleIcon className='animate-pulse size-2' />Scheduled</p>
+                    )
+                    .otherwise(() => null)}
                 </div>
                 : null}
               <div className='col-span-3 flex flex-col gap-6 col-start-10 row-start-2 row-span-2'>
