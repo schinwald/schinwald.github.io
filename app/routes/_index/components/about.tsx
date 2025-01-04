@@ -102,7 +102,7 @@ const About: React.FC<AboutProps> = ({
             </div>
             <div className='flex flex-row gap-6 items-start'>
               <Link
-                href='/about/learn-more'
+                to='/about/learn-more'
                 variant='default'
               >
                 Learn more

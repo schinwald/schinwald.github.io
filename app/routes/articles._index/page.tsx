@@ -30,7 +30,7 @@ export const Article: React.FC = () => (
         Sagittis ante senectus lacinia finibus auctor condimentum. Enim ornare eget turpis molestie; sit odio pharetra penatibus. Senectus pharetra turpis non rhoncus lacus dolor ridiculus. Phasellus at vivamus varius porta efficitur est. Dictum aptent posuere blandit massa non natoque dapibus vivamus. Libero duis quisque eu, consequat duis sed.
       </p>
       <div>
-        <Link href='' variant='link' size="minimal">Read More</Link>
+        <Link to='' variant='link' size="minimal">Read More</Link>
       </div>
     </div>
   </li>
@@ -53,7 +53,7 @@ export const ArticleSide: React.FC = () => (
           Tempor leo natoque rhoncus nam fermentum lorem tortor donec. Risus mattis conubia tincidunt cursus consectetur in nam leo. Quam lacinia posuere nascetur, fames maecenas orci. Iaculis venenatis fusce mus varius sagittis mus cursus cras. Ultricies justo etiam euismod dapibus rutrum vehicula. Scelerisque diam gravida lacus pulvinar suscipit varius a. Ligula elementum congue himenaeos etiam dictumst tincidunt metus id. Mattis libero feugiat mauris enim cursus; ultricies nec scelerisque. Auctor ex vestibulum hendrerit auctor morbi turpis.
         </p>
         <div>
-          <Link href='' variant='link' size="minimal">Read More</Link>
+          <Link to='' variant='link' size="minimal">Read More</Link>
         </div>
       </div>
     </div>

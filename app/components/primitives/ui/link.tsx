@@ -34,18 +34,21 @@ const linkVariants = cva(
 )
 
 export interface LinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  VariantProps<typeof linkVariants> { }
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
+  VariantProps<typeof linkVariants> {
+  from?: 'left' | 'right'
+  to: string
+}
 
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ className, variant, size, children, href, onClick, ...props }, ref) => {
+  ({ className, from, to, variant, size, children, onClick, ...props }, ref) => {
     const [backgroundRef, animateBackground] = useAnimate()
     const navigate = useNavigationStore((state) => state.startNavigationExit)
 
     return (
       <a
         ref={ref}
-        href={href}
+        href={to}
         className={cn(
           'relative overflow-hidden',
           linkVariants({ variant, size, className }),
@@ -53,14 +56,15 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         onClick={(event) => {
           event.preventDefault()
 
-          if (href) {
-            navigate({ type: 'left', location: href })
+          if (to) {
+            navigate({ type: from ?? 'left', location: to })
 
-            animateBackground(backgroundRef.current, {
-              width: ['0%', '200%'],
-            }, {
-              duration: 0.4
-            })
+            if (from)
+              animateBackground(backgroundRef.current, {
+                width: ['0%', '200%'],
+              }, {
+                duration: 0.4
+              })
           }
 
           onClick?.(event)
