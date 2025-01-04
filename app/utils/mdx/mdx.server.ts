@@ -6,6 +6,7 @@ import { bundleMDX } from "mdx-bundler";
 import { Root } from "hast";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { Message } from "esbuild";
 
 // Check if the error is from an "error no entity"
 const isEONET = (error: unknown): error is NodeJS.ErrnoException => {
@@ -47,10 +48,19 @@ export const getMDXBundle = async (file: string, callback: BundlerCallback) => {
 			cwd: path.dirname(fileURLToPath(import.meta.url)),
 		});
 	} catch (error) {
-		if (isEONET(error)) {
-			throw new Response("Unable to find resource", { status: 404 });
-		}
-
-		throw error;
+		return {
+			code: null,
+			frontmatter: null,
+			errors: [
+				{
+					id: "none",
+					pluginName: "custom",
+					text: "something went wrong",
+					location: null,
+					notes: [],
+					detail: "something went wrong",
+				},
+			] satisfies Message[],
+		};
 	}
 };

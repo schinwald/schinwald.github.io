@@ -1,4 +1,5 @@
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
@@ -56,18 +57,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export function ErrorBoundary() {
   const error = useRouteError();
-  console.error(error);
+
+  if (isRouteErrorResponse(error) && error.status === 404 && error.statusText === "Not Found") {
+    return (
+      <main className='w-screen h-screen text-foreground flex flex-col justify-center items-center'>
+        <div className='flex flex-col justify-center items-center gap-2'>
+          <h2>Page Not Found</h2>
+          <p>Are you lost?</p>
+        </div>
+        <BackgroundGradient />
+      </main>
+    );
+  }
 
   return (
-    <div>
-      <section className="flex flex-col items-center justify-center h-screen">
-        <article className='text-foreground flex flex-col w-full h-full justify-center items-center gap-2'>
-          <h2>Oh no!</h2>
-          <p>Something went wrong.</p>
-        </article>
-      </section>
+    <main className='w-screen h-screen text-foreground flex flex-col justify-center items-center'>
+      <div className='flex flex-col justify-center items-center gap-2'>
+        <h2>Oh no!</h2>
+        <p>Something went wrong.</p>
+      </div>
       <BackgroundGradient />
-    </div>
+    </main>
   );
 }
 

@@ -1,4 +1,5 @@
 import { format, isFuture, isPast, parseISO, isAfter } from "date-fns";
+import { match, P } from "ts-pattern";
 
 export const safeParseISO = (date: string) => {
 	try {
@@ -25,8 +26,6 @@ export const sortByRecentAscending = (
 	let aDate = a;
 	let bDate = b;
 
-	console.log(aDate, bDate);
-
 	if (typeof a === "string") aDate = safeParseISO(a as string);
 	if (typeof b === "string") bDate = safeParseISO(b as string);
 
@@ -37,9 +36,31 @@ export const sortByRecentAscending = (
 	return isAfter(aDate, bDate) ? -1 : 1;
 };
 
-export const extractPublicationStatus = (publishedAt: Date | null) => {
-	if (!publishedAt) return "unpublished";
-	if (isPast(publishedAt)) return "published";
-	if (isFuture(publishedAt)) return "scheduled";
+type PublicationStatus = "unpublished" | "published" | "scheduled";
+
+export const getPublicationStatus = (
+	publishedAt: Date | string | null,
+): PublicationStatus => {
+	let cleanedPublishedAt = publishedAt;
+	if (typeof publishedAt === "string")
+		cleanedPublishedAt = safeParseISO(publishedAt as string);
+	if (!cleanedPublishedAt) return "unpublished";
+	if (isPast(cleanedPublishedAt)) return "published";
+	if (isFuture(cleanedPublishedAt)) return "scheduled";
 	return "unpublished";
+};
+
+export const getVisibiliy = ({
+	isHidden,
+	publicationStatus,
+}: { isHidden: boolean; publicationStatus: PublicationStatus }) => {
+	return match({ isHidden, publicationStatus })
+		.with({ isHidden: true, publicationStatus: P.any }, () => "hidden")
+		.with({ isHidden: false, publicationStatus: "unpublished" }, () => "hidden")
+		.with({ isHidden: false, publicationStatus: "published" }, () => "live")
+		.with(
+			{ isHidden: false, publicationStatus: "scheduled" },
+			() => "scheduled",
+		)
+		.exhaustive();
 };

@@ -22,7 +22,7 @@ import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { FaArrowRightLong as RightArrowIcon } from "react-icons/fa6";
 import { match, P } from 'ts-pattern';
-import { extractPublicationStatus, safeFormat, safeParseISO } from '~/utils/date';
+import { getPublicationStatus, getVisibiliy, safeFormat, safeParseISO } from '~/utils/date';
 
 
 const MDX_GLOBAL_CONFIG = {
@@ -31,17 +31,13 @@ const MDX_GLOBAL_CONFIG = {
   },
 };
 
+
 export default function() {
   const { code, frontmatter, toc, id } = useLoaderData<Loader>();
   const publishedAt = safeParseISO(frontmatter.meta.publishedAt)
-  const publicationStatus = extractPublicationStatus(publishedAt)
+  const publicationStatus = getPublicationStatus(publishedAt)
   const isHidden = Boolean(frontmatter.meta.isHidden)
-  const visibility = match({ isHidden, publicationStatus })
-    .with({ isHidden: true, publicationStatus: P.any }, () => 'hidden')
-    .with({ isHidden: false, publicationStatus: 'unpublished' }, () => 'hidden')
-    .with({ isHidden: false, publicationStatus: 'published' }, () => 'live')
-    .with({ isHidden: false, publicationStatus: 'scheduled' }, () => 'scheduled')
-    .exhaustive()
+  const visibility = getVisibiliy({ isHidden, publicationStatus })
 
   const Component = useMemo(() => getMDXComponent(code, MDX_GLOBAL_CONFIG), [code])
 
