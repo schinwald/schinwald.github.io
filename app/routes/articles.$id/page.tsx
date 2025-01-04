@@ -18,11 +18,11 @@ import { Callout } from '~/components/callout';
 import { Code } from '~/components/code';
 import { cn } from '~/utils/classname';
 import { Children } from 'react';
-import { format, isFuture, isPast, parseISO } from 'date-fns';
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { FaArrowRightLong as RightArrowIcon } from "react-icons/fa6";
 import { match, P } from 'ts-pattern';
+import { extractPublicationStatus, safeFormat, safeParseISO } from '~/utils/date';
 
 
 const MDX_GLOBAL_CONFIG = {
@@ -30,31 +30,6 @@ const MDX_GLOBAL_CONFIG = {
     useMDXComponents,
   },
 };
-
-const safeParseISO = (date: string) => {
-  try {
-    return parseISO(date)
-  } catch {
-    return null
-  }
-}
-
-const safeFormat = (date?: Date | null) => {
-  if (!date) return null
-
-  try {
-    return format(date, "MMM dd, yyyy");
-  } catch {
-    return null
-  }
-}
-
-const extractPublicationStatus = (publishedAt: Date | null) => {
-  if (!publishedAt) return 'unpublished'
-  if (isPast(publishedAt)) return 'published'
-  if (isFuture(publishedAt)) return 'scheduled'
-  return 'unpublished'
-}
 
 export default function() {
   const { code, frontmatter, toc, id } = useLoaderData<Loader>();
