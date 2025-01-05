@@ -1,7 +1,9 @@
 import { format, isFuture, isPast, parseISO, isAfter } from "date-fns";
 import { match, P } from "ts-pattern";
 
-export const safeParseISO = (date: string) => {
+export const safeParseISO = (date?: string | null) => {
+	if (!date) return null;
+
 	try {
 		return parseISO(date);
 	} catch {
@@ -26,8 +28,8 @@ export const sortByRecentAscending = (
 	let aDate = a;
 	let bDate = b;
 
-	if (typeof a === "string") aDate = safeParseISO(a as string);
-	if (typeof b === "string") bDate = safeParseISO(b as string);
+	if (typeof a === "string") aDate = safeParseISO(a);
+	if (typeof b === "string") bDate = safeParseISO(b);
 
 	if (!aDate && !bDate) return 0;
 	if (!aDate) return 1;
@@ -43,7 +45,7 @@ export const getPublicationStatus = (
 ): PublicationStatus => {
 	let cleanedPublishedAt = publishedAt;
 	if (typeof publishedAt === "string")
-		cleanedPublishedAt = safeParseISO(publishedAt as string);
+		cleanedPublishedAt = safeParseISO(publishedAt);
 	if (!cleanedPublishedAt) return "unpublished";
 	if (isPast(cleanedPublishedAt)) return "published";
 	if (isFuture(cleanedPublishedAt)) return "scheduled";
