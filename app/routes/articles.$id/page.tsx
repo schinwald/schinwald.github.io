@@ -24,6 +24,8 @@ import { FaArrowRightLong as RightArrowIcon } from "react-icons/fa6";
 import { match } from 'ts-pattern';
 import { getPublicationStatus, getVisibiliy, safeFormat, safeParseISO } from '~/utils/date';
 import { Header } from './components/header';
+import { useScroll } from 'framer-motion';
+import { NavigationBar } from '~/components/navigation-bar';
 
 
 const MDX_GLOBAL_CONFIG = {
@@ -39,6 +41,7 @@ export default function() {
   const publicationStatus = getPublicationStatus(publishedAt)
   const isHidden = Boolean(frontmatter.meta.isHidden)
   const visibility = getVisibiliy({ isHidden, publicationStatus })
+  const { scrollY } = useScroll();
 
   const Component = useMemo(() => getMDXComponent(code, MDX_GLOBAL_CONFIG), [code])
 
@@ -46,14 +49,8 @@ export default function() {
     <div className='relative'>
       <Navigation />
       <section className='w-screen h-screen'>
-        <div className='relative w-screen flex flex-col justify-center items-center text-foreground gap-28'>
-          <Container variant='wide'>
-            <div>
-              <Link to="/" variant='ghost' className='relative'>
-                <img src={svg} className='absolute top-[-380px] left-[-220px] scale-[0.2] object-cover' />
-              </Link>
-            </div>
-          </Container>
+        <div className='relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32'>
+          <NavigationBar />
           <Container variant='narrow'>
             <div className='grid grid-cols-12 auto-rows-min gap-10'>
               <div className='grid grid-cols-subgrid grid-rows-subgrid col-span-9 row-span-3 text-foreground-overlay'>
