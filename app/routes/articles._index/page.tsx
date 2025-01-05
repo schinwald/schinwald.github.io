@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { motion, stagger, useAnimate, useInView } from 'framer-motion';
 import { Loader } from './loader';
 import { useLoaderData } from '@remix-run/react';
+import { safeFormat, safeParseISO } from '~/utils/date';
 
 type ArticleProps = {
   id: string
@@ -20,33 +21,38 @@ type ArticleProps = {
   }
   meta?: {
     tags?: string[];
+    publishedAt: string | null
   }
 }
 
-export const Article: React.FC<ArticleProps> = ({ id, title, description, image, meta }) => (
-  <li className=' text-foreground-overlay flex flex-col gap-6 opacity-0'>
-    <Link to={`/articles/${id}`} variant='ghost' size='minimal' className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden'>
-      <img src={image?.src} alt={image?.alt} />
-    </Link>
-    <div className='flex flex-col gap-3'>
-      <p className='font-light'>🗓️ TBD</p>
-      <h3>{title}</h3>
-      <div className='inline-flex gap-1 overflow-hidden'>
-        {meta?.tags?.map((tag) =>
-          <span key={tag} className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>{tag}</span>
-        )}
+export const Article: React.FC<ArticleProps> = ({ id, title, description, image, meta }) => {
+  const publishedAt = safeParseISO(meta?.publishedAt)
+
+  return (
+    <li className=' text-foreground-overlay flex flex-col gap-6 opacity-0'>
+      <Link to={`/articles/${id}`} variant='ghost' size='minimal' className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden'>
+        <img src={image?.src} alt={image?.alt} />
+      </Link>
+      <div className='flex flex-col gap-3'>
+        <p className='font-light'>🗓️ {safeFormat(publishedAt) ?? 'TBD'}</p>
+        <h3>{title}</h3>
+        <div className='inline-flex gap-1 overflow-hidden'>
+          {meta?.tags?.map((tag) =>
+            <span key={tag} className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0'>{tag}</span>
+          )}
+        </div>
       </div>
-    </div>
-    <div className='flex flex-col gap-1'>
-      <p className='line-clamp-4'>
-        {description}
-      </p>
-      <div>
-        <Link to={`/articles/${id}`} variant='link' size="minimal">Read More</Link>
+      <div className='flex flex-col gap-1'>
+        <p className='line-clamp-4'>
+          {description}
+        </p>
+        <div>
+          <Link to={`/articles/${id}`} variant='link' size="minimal">Read More</Link>
+        </div>
       </div>
-    </div>
-  </li>
-)
+    </li>
+  )
+}
 
 type ArticleSideProps = {
   id: string
@@ -58,35 +64,40 @@ type ArticleSideProps = {
   }
   meta?: {
     tags?: string[];
+    publishedAt: string | null
   }
 }
 
-export const ArticleSide: React.FC<ArticleSideProps> = ({ id, title, description, image, meta }) => (
-  <li className=' text-foreground-overlay flex flex-row gap-4 opacity-0'>
-    <Link to={`/articles/${id}`} variant='ghost' size='minimal' className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden'>
-      <img src={image?.src} alt={image?.alt} />
-    </Link>
-    <div className='flex flex-col justify-center gap-6'>
-      <div className='flex flex-col gap-3'>
-        <p className='font-light'>🗓️ TBD</p>
-        <h3>{title}</h3>
-        <div className='inline-flex gap-1 overflow-hidden'>
-          {meta?.tags?.map((tag) =>
-            <span key={tag} className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2'>{tag}</span>
-          )}
+export const ArticleSide: React.FC<ArticleSideProps> = ({ id, title, description, image, meta }) => {
+  const publishedAt = safeParseISO(meta?.publishedAt)
+
+  return (
+    <li className=' text-foreground-overlay flex flex-row gap-4 opacity-0'>
+      <Link to={`/articles/${id}`} variant='ghost' size='minimal' className='aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden'>
+        <img src={image?.src} alt={image?.alt} />
+      </Link>
+      <div className='flex flex-col justify-center gap-6'>
+        <div className='flex flex-col gap-3'>
+          <p className='font-light'>🗓️ {safeFormat(publishedAt) ?? 'TBD'}</p>
+          <h3>{title}</h3>
+          <div className='inline-flex gap-1 overflow-hidden'>
+            {meta?.tags?.map((tag) =>
+              <span key={tag} className='bg-tertiary text-tertiary-foreground rounded-full text-sm px-2'>{tag}</span>
+            )}
+          </div>
+        </div>
+        <div className='flex flex-col gap-1'>
+          <p className='line-clamp-2'>
+            {description}
+          </p>
+          <div>
+            <Link to={`/articles/${id}`} variant='link' size="minimal">Read More</Link>
+          </div>
         </div>
       </div>
-      <div className='flex flex-col gap-1'>
-        <p className='line-clamp-2'>
-          {description}
-        </p>
-        <div>
-          <Link to={`/articles/${id}`} variant='link' size="minimal">Read More</Link>
-        </div>
-      </div>
-    </div>
-  </li>
-)
+    </li>
+  )
+}
 
 export const FeaturedArticles: React.FC = () => {
   const { articles } = useLoaderData<Loader>();
