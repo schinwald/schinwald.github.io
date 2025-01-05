@@ -21,8 +21,9 @@ import { Children } from 'react';
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { FaArrowRightLong as RightArrowIcon } from "react-icons/fa6";
-import { match, P } from 'ts-pattern';
+import { match } from 'ts-pattern';
 import { getPublicationStatus, getVisibiliy, safeFormat, safeParseISO } from '~/utils/date';
+import { Header } from './components/header';
 
 
 const MDX_GLOBAL_CONFIG = {
@@ -76,54 +77,12 @@ export default function() {
                 </div>
                 <article className='flex flex-col gap-10 col-span-9 row-start-3 row-end-3'>
                   <MDXProvider components={{
-                    h1: ({ children, ...props }) => (
-                      <h1 {...props} className='group inline-flex items-center'>
-                        {children}
-                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          #
-                        </a>
-                      </h1>
-                    ),
-                    h2: ({ children, ...props }) => (
-                      <h2 {...props} className='group inline-flex items-center'>
-                        {children}
-                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          #
-                        </a>
-                      </h2>
-                    ),
-                    h3: ({ children, ...props }) => (
-                      <h3 {...props} className='group inline-flex items-center'>
-                        {children}
-                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          #
-                        </a>
-                      </h3>
-                    ),
-                    h4: ({ children, ...props }) => (
-                      <h4 {...props} className='group inline-flex items-center'>
-                        {children}
-                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          #
-                        </a>
-                      </h4>
-                    ),
-                    h5: ({ children, ...props }) => (
-                      <h5 {...props} className='group inline-flex items-center'>
-                        {children}
-                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          #
-                        </a>
-                      </h5>
-                    ),
-                    h6: ({ children, ...props }) => (
-                      <h6 {...props} className='group inline-flex items-center'>
-                        {children}
-                        <a href={`#${props.id}`} className='ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity'>
-                          #
-                        </a>
-                      </h6>
-                    ),
+                    h1: ({ children, ...props }) => <Header type='h1' {...props}> {children}</Header>,
+                    h2: ({ children, ...props }) => <Header type='h2' {...props}> {children}</Header>,
+                    h3: ({ children, ...props }) => <Header type='h3' {...props}> {children}</Header>,
+                    h4: ({ children, ...props }) => <Header type='h4' {...props}> {children}</Header>,
+                    h5: ({ children, ...props }) => <Header type='h5' {...props}> {children}</Header>,
+                    h6: ({ children, ...props }) => <Header type='h6' {...props}> {children}</Header>,
                     ol: ({ children }) => <ol className='list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ol>,
                     ul: ({ children }) => <ul className='list-disc flex flex-col gap-4 ml-4 marker:text-tertiary'>{children}</ul>,
                     li: ({ children }) => <li className='space-y-4'>{children}</li>,
@@ -191,9 +150,20 @@ export default function() {
                   <div className='flex flex-col gap-4'>
                     <h6>Table of Contents</h6>
                     <ol className='list-none'>
-                      {toc.map(({ id, level, text }) => (
-                        <li key={id} className={cn('text-nowrap', { 'ml-3': level === 3, 'ml-4': level === 4, 'ml-5': level === 5 })}>
-                          <a href={`#${id}`}>{text}</a></li>
+                      {toc.map(({ id, level, text }, index) => (
+                        <li
+                          key={id}
+                          className={cn('text-nowrap transition-all ease-in-out', {
+                            'ml-[1rem]': level === 3,
+                            'ml-[2rem]': level === 4,
+                            'ml-[3rem]': level === 5,
+                            'text-primary': false,
+                          })}
+                        >
+                          <a href={`#${id}`}>
+                            {text}
+                          </a>
+                        </li>
                       ))}
                     </ol>
                   </div>
