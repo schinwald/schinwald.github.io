@@ -10,6 +10,7 @@ import { motion, stagger, useAnimate, useInView } from 'framer-motion';
 import { Loader } from './loader';
 import { useLoaderData } from '@remix-run/react';
 import { safeFormat, safeParseISO } from '~/utils/date';
+import { NavigationBar } from '~/components/navigation-bar';
 
 type ArticleProps = {
   id: string
@@ -185,10 +186,8 @@ export default function() {
     <div>
       <Navigation />
       <section className='w-screen h-screen'>
-        <div className='relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-28 py-32'>
-          <Container variant='wide'>
-            <img src={svg} className='absolute top-[-360px] left-[-200px] scale-[0.2] object-cover' />
-          </Container>
+        <div className='relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32'>
+          <NavigationBar />
           <FeaturedArticles />
           <AllArticles />
           <Container variant='narrow'>
