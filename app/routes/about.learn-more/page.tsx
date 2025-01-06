@@ -15,12 +15,11 @@ import {
 } from "react-icons/fa";
 import * as Card from './components/card';
 import { MdAnimation as AnimationIcon } from "react-icons/md";
-import { TbBriefcase2Filled as ExperienceIcon } from "react-icons/tb";
-import { RiGraduationCapFill as EducationIcon } from "react-icons/ri";
 import { FaCircle as DotfilesIcon } from "react-icons/fa6";
 import { Container } from '~/layouts/container';
 import pronunciation from '~/assets/audio/pronounciation.mp3';
 import { Howl } from 'howler';
+import { NavigationBar } from '~/components/navigation-bar';
 
 export default function() {
   const pronunciationSound = new Howl({ src: pronunciation });
@@ -29,11 +28,12 @@ export default function() {
     <div>
       <Navigation />
       <section className='w-screen h-screen'>
-        <div className='relative overflow-hidden w-screen flex flex-col justify-center items-center'>
+        <div className='relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32'>
+          <NavigationBar />
           <Container variant='narrow'>
             <div className='w-full h-full flex flex-col justify-center items-center gap-6'>
               <div className='grid grid-cols-6 gap-5'>
-                <div className='relative col-span-6 flex flex-col justify-end h-[300px]'>
+                <div className='relative col-span-6 flex flex-col justify-end'>
                   <h1 className='bg-clip-text text-transparent bg-gradient-to-b from-foreground to-tertiary'>
                     Hello!
                   </h1>
