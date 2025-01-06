@@ -145,8 +145,7 @@ export default function() {
               <div className='col-span-3 flex flex-col gap-6 col-start-10 row-start-2 row-span-2'>
                 <div className='sticky top-10 flex flex-col gap-8'>
                   <div className='flex flex-col gap-4'>
-                    <h6>Table of Contents</h6>
-                    <ol className='list-none'>
+                    <ol className='list-none -ml-[1rem] flex flex-col gap-4'>
                       {toc.map(({ id, level, text }, index) => (
                         <li
                           key={id}
@@ -157,9 +156,11 @@ export default function() {
                             'text-primary': false,
                           })}
                         >
-                          <a href={`#${id}`}>
-                            {text}
-                          </a>
+                          <p>
+                            <a href={`#${id}`}>
+                              {text}
+                            </a>
+                          </p>
                         </li>
                       ))}
                     </ol>
