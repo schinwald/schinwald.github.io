@@ -4,13 +4,15 @@ import { Container } from '~/layouts/container';
 import { Button } from '~/components/primitives/ui/button';
 import { Link } from '~/components/primitives/ui/link';
 import { Input } from '~/components/primitives/ui/input';
-import svg from '~/assets/images/logo.svg';
 import { useEffect } from 'react';
 import { motion, stagger, useAnimate, useInView } from 'framer-motion';
 import { Loader } from './loader';
 import { useLoaderData } from '@remix-run/react';
 import { safeFormat, safeParseISO } from '~/utils/date';
 import { NavigationBar } from '~/components/navigation-bar';
+import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
+import { FaSearch as SearchIcon } from "react-icons/fa";
+
 
 type ArticleProps = {
   id: string
@@ -168,9 +170,23 @@ export const AllArticles: React.FC = () => {
 
   return (
     <Container variant='narrow'>
-      <div className='flex flex-row items-end gap-6'>
-        <h2>All My Articles</h2>
-        <Input placeholder="Search articles" />
+      <div className='flex flex-row items-end justify-between text-foreground'>
+        <h2>
+          All
+          <br />
+          Articles
+        </h2>
+        <div className='flex flex-row items-center text-black bg-white px-3 rounded-md w-[400px]'>
+          <SearchIcon />
+          <Input placeholder="Search..." className='bg-none border-none w-full' />
+          <p className='flex flex-row items-center gap-1'>
+            <CommandIcon />
+            +
+            <div className='ml-[0.2rem] rounded size-6 flex justify-center bg-black text-white text-[0.5rem]'>
+              K
+            </div>
+          </p>
+        </div>
       </div>
       <motion.ol ref={allArticlesRef} className='grid grid-cols-3 grid-rows-3 gap-6'>
         {articles.map((article, index) =>
