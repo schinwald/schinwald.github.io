@@ -109,8 +109,9 @@ const Project: React.FC<ProjectProps> = ({ title, justify, repository, image }) 
                     })
 
                     animateImage(imageRef.current, {
-                      scale: ['150%', '160%'],
-                      rotate: [-6, -6]
+                      scale: ['160%', '150%'],
+                      rotate: [-6, -6],
+                      filter: ['blur(0px)', 'blur(3px)'],
                     }, {
                       duration: 0.2,
                       ease: 'easeOut'
@@ -125,8 +126,9 @@ const Project: React.FC<ProjectProps> = ({ title, justify, repository, image }) 
                     })
 
                     animateImage(imageRef.current, {
-                      scale: ['160%', '150%'],
-                      rotate: [-6, -6]
+                      scale: ['150%', '160%'],
+                      rotate: [-6, -6],
+                      filter: ['blur(3px)', 'blur(0px)'],
                     }, {
                       duration: 0.2,
                       ease: 'easeOut'
@@ -153,7 +155,7 @@ const Project: React.FC<ProjectProps> = ({ title, justify, repository, image }) 
                     </Overlay>
                     <img
                       ref={imageRef}
-                      className='object-cover -rotate-6 scale-150'
+                      className='object-cover -rotate-6 scale-[160%]'
                       src={image.url}
                     >
                     </img>
