@@ -1,5 +1,5 @@
-import type { Root, ElementContent } from "hast";
-import { match, P } from "ts-pattern";
+import type { ElementContent, Root } from "hast";
+import { P, match } from "ts-pattern";
 import { visit } from "unist-util-visit";
 
 // Rehype Plugin to Transform Callouts

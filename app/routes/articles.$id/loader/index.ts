@@ -1,8 +1,8 @@
-import { loaderHandler } from "~/utils/remix/loader.server";
-import { getMDXBundle } from "~/utils/mdx/mdx.server";
+import { redirect } from "@remix-run/react";
 import * as _ from "radashi";
 import { getPublicationStatus, getVisibiliy, safeParseISO } from "~/utils/date";
-import { redirect } from "@remix-run/react";
+import { getMDXBundle } from "~/utils/mdx/mdx.server";
+import { loaderHandler } from "~/utils/remix/loader.server";
 
 type TableOfContents = {
 	id: string;
@@ -32,7 +32,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 					if (typeof id === "string") {
 						toc.push({
 							id,
-							level: parseInt(node.tagName[1], 10),
+							level: Number.parseInt(node.tagName[1], 10),
 							text: _.title(
 								node.children
 									.filter((child) => child.type === "text")

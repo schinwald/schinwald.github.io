@@ -1,6 +1,6 @@
-import { visit } from "unist-util-visit";
 import type { Root } from "hast";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
+import { visit } from "unist-util-visit";
 
 // Rehype plugin to transform code blocks
 export function rehypeCode() {
