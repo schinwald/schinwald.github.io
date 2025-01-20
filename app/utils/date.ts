@@ -15,7 +15,7 @@ export const safeFormat = (date?: Date | null) => {
 	if (!date) return null;
 
 	try {
-		return format(date, "MMM dd, yyyy");
+		return format(date, "MMMM dd, yyyy");
 	} catch {
 		return null;
 	}
