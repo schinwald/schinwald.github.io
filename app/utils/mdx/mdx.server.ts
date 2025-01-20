@@ -1,12 +1,12 @@
-import rehypeSlug from "rehype-slug";
-import { rehypeListItem } from "./rehype-listitems.server";
-import { rehypeCallouts } from "./rehype-callouts.server";
-import { rehypeCode } from "./rehype-code.server";
-import { bundleMDX } from "mdx-bundler";
-import { Root } from "hast";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Message } from "esbuild";
+import type { Message } from "esbuild";
+import type { Root } from "hast";
+import { bundleMDX } from "mdx-bundler";
+import rehypeSlug from "rehype-slug";
+import { rehypeCallouts } from "./rehype-callouts.server";
+import { rehypeCode } from "./rehype-code.server";
+import { rehypeListItem } from "./rehype-listitems.server";
 
 // Check if the error is from an "error no entity"
 const isEONET = (error: unknown): error is NodeJS.ErrnoException => {

@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { create } from "zustand";
 
 type ExtractFromSet<T> = T extends Set<infer U> ? U : never;

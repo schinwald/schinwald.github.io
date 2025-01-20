@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Loader } from "./loader";
+import type { Loader } from "./loader";
 
 export const meta: MetaFunction<Loader> = ({ data }) => {
 	return [

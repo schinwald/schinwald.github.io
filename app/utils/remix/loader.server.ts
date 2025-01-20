@@ -1,5 +1,5 @@
-import { json, TypedResponse } from "@remix-run/node";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { type TypedResponse, json } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { getNavigationJSONData } from "~/hooks/stores/navigation";
 
 type NeverRecord<T extends Record<string, unknown>> = {

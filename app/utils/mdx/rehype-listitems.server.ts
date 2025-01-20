@@ -1,4 +1,4 @@
-import type { Root, ElementContent } from "hast";
+import type { ElementContent, Root } from "hast";
 import { visit } from "unist-util-visit";
 
 // Rehype plugin to transform list items

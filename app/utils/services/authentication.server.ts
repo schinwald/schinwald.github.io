@@ -1,19 +1,13 @@
-type Config = {
-
-}
+type Config = {};
 
 class OAuthAPI {
-  private request: Request
+	private request: Request;
 
-  constructor(request: Request) {
-    this.request = request
-  }
+	constructor(request: Request) {
+		this.request = request;
+	}
 
-  public begin() {
+	public begin() {}
 
-  }
-
-  public callback() {
-
-  }
+	public callback() {}
 }
