@@ -1,8 +1,7 @@
 import { Highlight, themes } from "prism-react-renderer";
 import type React from "react";
 import type { PropsWithChildren } from "react";
-import { MdCopyAll as CopyIcon } from "react-icons/md";
-import { Button } from "./primitives/ui/button";
+import { Copy } from "~/components/copy";
 
 type CodeProps = {
 	filename?: string;
@@ -22,20 +21,11 @@ const Code: React.FC<PropsWithChildren<CodeProps>> = ({
 			code={code}
 			language={language ?? ""}
 		>
-			{({ className, style, tokens, getLineProps, getTokenProps }) => (
+			{({ style, tokens, getLineProps, getTokenProps }) => (
 				<div className="grid">
 					<div className="col-span-full row-span-full px-5 py-4 flex items-start justify-end">
 						<div className="sticky top-4">
-							<Button
-								variant="ghost"
-								size="minimal"
-								className="size-5"
-								onClick={() => {
-									navigator.clipboard.writeText(code);
-								}}
-							>
-								<CopyIcon className="size-5" />
-							</Button>
+							<Copy clipboard={code} />
 						</div>
 					</div>
 					<pre
