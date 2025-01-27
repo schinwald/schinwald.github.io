@@ -238,6 +238,20 @@ module.exports = {
 						transform: "skewX(-0.1953125deg) skewY(-0.1953125deg)",
 					},
 				},
+				floatAway: {
+					from: {
+						transform: "translate(-50%, 10%)",
+						opacity: 0,
+					},
+					"50%": {
+						transform: "translate(-50%, -20%)",
+						opacity: 1,
+					},
+					to: {
+						transform: "translate(-50%, -50%)",
+						opacity: 0,
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
@@ -253,6 +267,7 @@ module.exports = {
 				"head-shake": "headShake 2s infinite",
 				wobble: "wobble 1s infinite",
 				jello: "jello 2s infinite",
+				"float-away": "floatAway 0.7s linear",
 			},
 		},
 	},
