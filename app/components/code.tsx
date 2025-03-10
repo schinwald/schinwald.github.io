@@ -29,7 +29,7 @@ const Code: React.FC<PropsWithChildren<CodeProps>> = ({
 						</div>
 					</div>
 					<pre
-						className="col-span-full row-span-full border-white rounded-md px-5 py-4 text-md"
+						className="col-span-full row-span-full border-white rounded-md px-5 py-4 text-md shadow-lg shadow-black/20"
 						style={style}
 					>
 						{filename ? (
