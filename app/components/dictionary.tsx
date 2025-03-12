@@ -4,6 +4,7 @@ import {
 	Tooltip,
 	TooltipArrow,
 	TooltipContent,
+	TooltipPortal,
 	TooltipProvider,
 	TooltipTrigger,
 } from "~/components/primitives/ui/tooltip";
@@ -19,7 +20,7 @@ export const Root: React.FC<PropsWithChildren> = ({ children }) => {
 export const Word: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<TooltipTrigger asChild>
-			<span className="underline decoration-dashed decoration-tertiary italic cursor-help">
+			<span className="underline decoration-wavy decoration-tertiary italic cursor-help">
 				{children}
 			</span>
 		</TooltipTrigger>
@@ -28,18 +29,19 @@ export const Word: React.FC<PropsWithChildren> = ({ children }) => {
 
 export const Explanation: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
-		<TooltipContent
-			sideOffset={5}
-			className="bg-background-soft p-6 rounded-md border-none max-w-xs"
-		>
-			<div className="flex flex-col items-start gap-4">
-				<p className="inline-flex items-center gap-2 text-tertiary">
-					<FaInfoCircle className="w-4 h-4" />
-					Explanation
-				</p>
-				{children}
-			</div>
-			<TooltipArrow height={15} width={20} className="fill-background-soft" />
-		</TooltipContent>
+		<TooltipPortal>
+			<TooltipContent
+				sideOffset={5}
+				className="bg-background-soft p-6 rounded-md max-w-xs shadow-tertiary/10 shadow-lg outline outline-1 outline-tertiary"
+			>
+				<div className="flex flex-col items-start gap-4 text-white">
+					<p className="inline-flex items-center gap-2 text-tertiary">
+						<FaInfoCircle className="w-4 h-4" />
+						Explanation
+					</p>
+					{children}
+				</div>
+			</TooltipContent>
+		</TooltipPortal>
 	);
 };
