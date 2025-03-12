@@ -39,7 +39,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
 								</p>
 							</div>
 						</div>
-						<div className="flex flex-col items-center gap-4">
+						<div className="flex flex-col items-center gap-3">
 							<Button
 								className="group flex flex-row items-center gap-1 w-full"
 								variant="outline"

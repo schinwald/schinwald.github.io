@@ -14,12 +14,12 @@ import pronunciation from "~/assets/audio/pronounciation.mp3";
 import * as education from "~/assets/images/education";
 import * as experience from "~/assets/images/experience";
 import { BackgroundGradient } from "~/components/background-gradient";
+import * as Card from "~/components/card";
 import * as Dictionary from "~/components/dictionary";
 import { Navigation } from "~/components/navigation";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Container } from "~/layouts/container";
-import * as Card from "./components/card";
 
 export default function () {
 	const pronunciationSound = new Howl({ src: pronunciation });
@@ -138,7 +138,7 @@ export default function () {
 													<Dictionary.Root>
 														<Dictionary.Word>TS100</Dictionary.Word>
 														<Dictionary.Explanation>
-															<p className="text-sm">
+															<p className="text-white text-sm">
 																A soldering iron tip that can be powered by a DC
 																input voltage between 12V-24V, via a 5.5mm
 																barrel connector.

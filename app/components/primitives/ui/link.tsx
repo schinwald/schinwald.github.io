@@ -65,7 +65,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 					if (to) {
 						navigate({ type: from ?? "left", location: to });
 
-						if (from)
+						if (from) {
 							animateBackground(
 								backgroundRef.current,
 								{
@@ -75,6 +75,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 									duration: 0.4,
 								},
 							);
+						}
 					}
 
 					onClick?.(event);

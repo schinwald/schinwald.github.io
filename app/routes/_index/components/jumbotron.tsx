@@ -1,6 +1,6 @@
 import { ClientOnly } from "remix-utils/client-only";
 import logoAnimation from "~/assets/lotties/logo.json";
-import { BackgroundGradient } from "~/components/background-gradient";
+import * as Card from "~/components/card";
 import { LazyLottie } from "~/components/lottie.client";
 import { cn } from "~/utils/classname";
 
@@ -33,32 +33,24 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
 			<h3 className="text-foreground uppercase leading-10">
 				Software Engineer
 			</h3>
-			<nav className="absolute bottom-0 left-0 right-0 pt-8 pb-10 h-20 flex flex-row justify-center items-center gap-6">
-				<a
-					className="font-display text-md opacity-70 rounded-md border px-4 py-1"
-					href="#about"
-				>
-					About Me
-				</a>
-				<a
-					className="font-display text-md opacity-70 rounded-md border px-4 py-1"
-					href="#projects"
-				>
-					Projects
-				</a>
-				<a
-					className="font-display text-md opacity-70 rounded-md border px-4 py-1"
-					href="#testimonials"
-				>
-					Testimonials
-				</a>
-				<a
-					className="font-display text-md opacity-70 rounded-md border px-4 py-1"
-					href="#contact"
-				>
-					Contact
-				</a>
-			</nav>
+			<div className="absolute z-10 bottom-8">
+				<Card.Root size="sm">
+					<nav className="flex px-2 divide-solid">
+						<a className="font-display text-sm px-4 py-1" href="#about">
+							About
+						</a>
+						<a className="font-display text-sm px-4 py-1" href="#projects">
+							Projects
+						</a>
+						<a className="font-display text-sm px-4 py-1" href="#testimonials">
+							Testimonials
+						</a>
+						<a className="font-display text-sm px-4 py-1" href="#contact">
+							Contact
+						</a>
+					</nav>
+				</Card.Root>
+			</div>
 		</div>
 	);
 };

@@ -2,7 +2,7 @@ import backgroundSoftSVG from "~/assets/images/background-soft.svg";
 
 export const Background = () => (
 	<div
-		className="absolute top-0 left-0 bottom-0 right-0 -z-30 bg-background-soft flex flex-row justify-center pointer-events-none"
+		className="absolute top-0 left-0 bottom-0 right-0 -z-30 bg-background-soft flex flex-row justify-center pointer-events-none bg-[url('assets/images/noise.svg')] bg-no-repeat bg-cover"
 		style={{
 			backgroundImage: `url(${backgroundSoftSVG})`,
 			backgroundSize: "30%",
