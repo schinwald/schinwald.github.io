@@ -27,6 +27,10 @@ const buttonVariants = cva(
 				icon: "h-10 w-10",
 				minimal: "text-sm",
 			},
+			click: {
+				default: null,
+				scale: "scale-95 opacity-90",
+			},
 		},
 		defaultVariants: {
 			variant: "default",
@@ -42,11 +46,50 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, asChild = false, ...props }, ref) => {
+	(
+		{
+			className,
+			variant,
+			size,
+			click = "default",
+			asChild = false,
+			onKeyDown = () => {},
+			onKeyUp = () => {},
+			onMouseDown = () => {},
+			onMouseUp = () => {},
+			...props
+		},
+		ref,
+	) => {
 		const Comp = asChild ? Slot : "button";
+		const [isPressed, setIsPressed] = React.useState(false);
+
 		return (
 			<Comp
-				className={cn(buttonVariants({ variant, size, className }))}
+				className={cn(
+					buttonVariants({
+						variant,
+						size,
+						click: isPressed ? click : "default",
+						className,
+					}),
+				)}
+				onKeyDown={(event) => {
+					setIsPressed(true);
+					onKeyDown(event);
+				}}
+				onKeyUp={(event) => {
+					setIsPressed(false);
+					onKeyUp(event);
+				}}
+				onMouseDown={(event) => {
+					setIsPressed(true);
+					onMouseDown(event);
+				}}
+				onMouseUp={(event) => {
+					setIsPressed(false);
+					onMouseUp(event);
+				}}
 				ref={ref}
 				{...props}
 			/>
