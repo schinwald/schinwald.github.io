@@ -303,7 +303,9 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
 								/>
 								<div className="flex flex-col items-center md:items-start gap-5 mt-2">
 									<div className="flex flex-row justify-center md:justify-start">
-										<Button type="submit">Submit</Button>
+										<Button type="submit" variant="default" click="scale">
+											Submit
+										</Button>
 									</div>
 								</div>
 							</form>
