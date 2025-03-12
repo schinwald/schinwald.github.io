@@ -57,6 +57,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			onKeyUp = () => {},
 			onMouseDown = () => {},
 			onMouseUp = () => {},
+			onMouseLeave = () => {},
 			...props
 		},
 		ref,
@@ -89,6 +90,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				onMouseUp={(event) => {
 					setIsPressed(false);
 					onMouseUp(event);
+				}}
+				onMouseLeave={(event) => {
+					setIsPressed(false);
+					onMouseLeave(event);
 				}}
 				ref={ref}
 				{...props}
