@@ -181,7 +181,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 			</Container>
 			<Container variant="narrow">
 				<div className="flex flex-row justify-end">
-					<Link from="left" to="/testimonial/review" variant="default">
+					<Link
+						from="left"
+						to="/testimonial/review"
+						variant="default"
+						click="scale"
+					>
 						Write a review
 					</Link>
 				</div>

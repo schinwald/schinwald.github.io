@@ -318,6 +318,7 @@ export default function () {
 														<Button
 															variant="ghost"
 															size="minimal"
+															click="scale"
 															onClick={() => pronunciationSound.play()}
 														>
 															<Volume2 className="w-5 h-5" />

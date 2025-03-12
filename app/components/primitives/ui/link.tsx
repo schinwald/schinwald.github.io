@@ -28,6 +28,10 @@ const linkVariants = cva(
 				icon: "h-10 w-10",
 				minimal: "text-sm",
 			},
+			click: {
+				default: null,
+				scale: "scale-95 opacity-90",
+			},
 		},
 		defaultVariants: {
 			variant: "default",
@@ -45,11 +49,26 @@ export interface LinkProps
 
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 	(
-		{ className, from, to, variant, size, children, onClick, ...props },
+		{
+			className,
+			from,
+			to,
+			variant,
+			size,
+			click = "default",
+			children,
+			onKeyDown = () => {},
+			onKeyUp = () => {},
+			onMouseDown = () => {},
+			onMouseUp = () => {},
+			onClick = () => {},
+			...props
+		},
 		ref,
 	) => {
 		const [backgroundRef, animateBackground] = useAnimate();
 		const navigate = useNavigationStore((state) => state.startNavigationExit);
+		const [isPressed, setIsPressed] = React.useState(false);
 
 		return (
 			<a
@@ -57,8 +76,29 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 				href={to}
 				className={cn(
 					"relative overflow-hidden",
-					linkVariants({ variant, size, className }),
+					linkVariants({
+						variant,
+						size,
+						click: isPressed ? click : "default",
+						className,
+					}),
 				)}
+				onKeyDown={(event) => {
+					setIsPressed(true);
+					onKeyDown(event);
+				}}
+				onKeyUp={(event) => {
+					setIsPressed(false);
+					onKeyUp(event);
+				}}
+				onMouseDown={(event) => {
+					setIsPressed(true);
+					onMouseDown(event);
+				}}
+				onMouseUp={(event) => {
+					setIsPressed(false);
+					onMouseUp(event);
+				}}
 				onClick={(event) => {
 					event.preventDefault();
 
