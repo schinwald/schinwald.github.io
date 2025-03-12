@@ -339,7 +339,7 @@ export default function () {
 													<h3>Experience</h3>
 												</div>
 												<div className="flex flex-col gap-3">
-													<div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
+													<div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
 														<img
 															className="w-8"
 															src={experience.nauticalCommerceLogo.url}
@@ -362,7 +362,7 @@ export default function () {
 															</div>
 														</div>
 													</div>
-													<div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
+													<div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
 														<img
 															className="w-8"
 															src={experience.devopieLogo.url}
@@ -396,7 +396,7 @@ export default function () {
 													<h3>Education</h3>
 												</div>
 												<div className="flex flex-col gap-3">
-													<div className="transition-all duration-100 outline outline-1 outline-[#fff3] hover:outline-2 hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
+													<div className="transition-all duration-100 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
 														<img
 															className="w-8"
 															src={education.universityOfGuelphLogo.url}
