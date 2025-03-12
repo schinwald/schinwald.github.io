@@ -61,6 +61,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 			onKeyUp = () => {},
 			onMouseDown = () => {},
 			onMouseUp = () => {},
+			onMouseLeave = () => {},
 			onClick = () => {},
 			...props
 		},
@@ -98,6 +99,10 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 				onMouseUp={(event) => {
 					setIsPressed(false);
 					onMouseUp(event);
+				}}
+				onMouseLeave={(event) => {
+					setIsPressed(false);
+					onMouseLeave(event);
 				}}
 				onClick={(event) => {
 					event.preventDefault();
