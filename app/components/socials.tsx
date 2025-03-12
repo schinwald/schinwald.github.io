@@ -28,7 +28,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
 								target="_blank"
 								rel="noreferrer"
 							>
-								<GitHubIcon className="w-7 h-7" />
+								<GitHubIcon className="size-7" />
 								<h4 className="hidden sm:block">Github</h4>
 							</a>
 						</li>
@@ -39,7 +39,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
 								target="_blank"
 								rel="noreferrer"
 							>
-								<LinkedInIcon className="w-7 h-7" />
+								<LinkedInIcon className="size-7" />
 								<h4 className="hidden sm:block">LinkedIn</h4>
 							</a>
 						</li>
@@ -50,7 +50,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
 								target="_blank"
 								rel="noreferrer"
 							>
-								<TwitterIcon className="w-7 h-7" />
+								<TwitterIcon className="size-7" />
 								<h4 className="hidden sm:block">Twitter</h4>
 							</a>
 						</li>
@@ -65,34 +65,34 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
 							className,
 						)}
 					>
-						<li>
+						<li className="opacity-0">
 							<a
 								className="flex flex-row items-center gap-2"
 								href="https://www.github.com/schinwald"
 								target="_blank"
 								rel="noreferrer"
 							>
-								<GitHubIcon className="w-8 h-8" />
+								<GitHubIcon className="size-8" />
 							</a>
 						</li>
-						<li>
+						<li className="opacity-0">
 							<a
 								className="flex flex-row items-center gap-2"
 								href="https://www.linkedin.com/in/schinwald"
 								target="_blank"
 								rel="noreferrer"
 							>
-								<LinkedInIcon className="w-8 h-8" />
+								<LinkedInIcon className="size-8" />
 							</a>
 						</li>
-						<li>
+						<li className="opacity-0">
 							<a
 								className="flex flex-row items-center gap-2"
 								href="https://www.twitter.com/schinwald"
 								target="_blank"
 								rel="noreferrer"
 							>
-								<TwitterIcon className="w-8 h-8" />
+								<TwitterIcon className="size-8" />
 							</a>
 						</li>
 					</ul>
