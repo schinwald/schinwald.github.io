@@ -11,7 +11,7 @@ module.exports = {
 		fontFamily: {
 			special: ["'Bebas Neue'", "sans-serif"],
 			display: ["'Cubano'", "sans-serif"],
-			body: ["'Open Sans'", "sans-serif"],
+			body: ["'Inter'", "sans-serif"],
 			math: ["math", "sans-serif"],
 		},
 		fontSize: {
@@ -106,6 +106,14 @@ module.exports = {
 				"accordion-up": {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: 0 },
+				},
+				"fade-in": {
+					from: { opacity: 0 },
+					to: { opacity: 1 },
+				},
+				"fade-out": {
+					from: { opacity: 1 },
+					to: { opacity: 0 },
 				},
 				wiggle: {
 					"0%, 100%": { transform: "rotate(-15deg)" },
@@ -256,6 +264,8 @@ module.exports = {
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+				"fade-in": "fade-in 0.2s ease-in",
+				"fade-out": "fade-out 0.2s ease-out",
 				"spin-slow": "spin 6s linear infinite",
 				wiggle: "wiggle 1s ease-in-out infinite",
 				"heart-beat": "heartBeat 1s infinite",

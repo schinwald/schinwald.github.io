@@ -43,6 +43,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
 							<Button
 								className="group flex flex-row items-center gap-1 w-full"
 								variant="outline"
+								click="squish-lightly"
 								onClick={() => signIn("github")}
 							>
 								<GitHubIcon className="group-hover:animate-wiggle" />
@@ -51,6 +52,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
 							<Button
 								className="group flex flex-row items-center gap-1 w-full"
 								variant="outline"
+								click="squish-lightly"
 								onClick={() => signIn("google")}
 							>
 								<GoogleIcon className="group-hover:animate-wiggle" />

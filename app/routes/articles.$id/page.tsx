@@ -216,21 +216,22 @@ export default function () {
 										))}
 									</div>
 									<div className="flex flex-col gap-4">
-										<ol className="list-none -ml-[1rem] flex flex-col gap-4">
+										<h6>On this page</h6>
+										<ol className="list-none flex flex-col gap-2 border-l border-white/20">
 											{toc.map(({ id, level, text }, index) => (
 												<li
 													key={id}
 													className={cn(
-														"text-nowrap transition-all ease-in-out",
+														"py-2 text-nowrap transition-all ease-in-out",
 														{
-															"ml-[1rem]": level === 3,
-															"ml-[2rem]": level === 4,
-															"ml-[3rem]": level === 5,
+															"pl-[1rem]": level === 3,
+															"pl-[2rem]": level === 4,
+															"pl-[3rem]": level === 5,
 															"text-primary": false,
 														},
 													)}
 												>
-													<p>
+													<p className="text-sm font-medium">
 														<a href={`#${id}`}>{text}</a>
 													</p>
 												</li>
