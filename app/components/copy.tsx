@@ -14,7 +14,7 @@ export const Copy: React.FC<CopyProps> = ({ clipboard }) => {
 					variant="ghost"
 					size="minimal"
 					className="size-5"
-					click="scale"
+					click="squish-normally"
 					onClick={() => {
 						navigator.clipboard.writeText(clipboard ?? "");
 					}}

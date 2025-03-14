@@ -185,7 +185,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 						from="left"
 						to="/testimonial/review"
 						variant="default"
-						click="scale"
+						click="squish-lightly"
 					>
 						Write a review
 					</Link>

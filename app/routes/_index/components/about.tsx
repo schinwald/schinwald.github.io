@@ -111,7 +111,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
 								from="left"
 								to="/about/learn-more"
 								variant="default"
-								click="scale"
+								click="squish-lightly"
 							>
 								Learn more
 							</Link>

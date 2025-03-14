@@ -5,6 +5,7 @@ import { cn } from "~/utils/classname";
 const rootStyles = cva("flex flex-col relative", {
 	variants: {
 		size: {
+			xs: null,
 			sm: "p-2 gap-2",
 			md: "p-4 gap-4",
 			lg: "p-6 gap-4",
@@ -19,7 +20,7 @@ type RootProps = PropsWithChildren & VariantProps<typeof rootStyles>;
 
 export const Root: React.FC<RootProps> = ({ children, size }) => {
 	return (
-		<div className=" text-foreground-overlay rounded-md w-full h-full gap-4 grid overflow-clip outline outline-1 outline-[#fff2]">
+		<div className=" text-foreground-overlay rounded-md w-full h-full gap-4 grid overflow-clip outline outline-2 outline-[#fff2]">
 			<div className="row-span-full col-span-full bg-background-overlay backdrop-blur-lg opacity-40" />
 			<div
 				className={cn(

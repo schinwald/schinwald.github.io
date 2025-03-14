@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "~/utils/classname";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center whitespace-nowrap font-display rounded-md ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50",
+	"inline-flex items-center justify-center whitespace-nowrap font-display rounded-md ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200",
 	{
 		variants: {
 			variant: {
@@ -29,7 +29,8 @@ const buttonVariants = cva(
 			},
 			click: {
 				default: null,
-				scale: "scale-95 opacity-90",
+				"squish-lightly": "scale-95 opacity-90",
+				"squish-normally": "scale-90 opacity-90",
 			},
 		},
 		defaultVariants: {

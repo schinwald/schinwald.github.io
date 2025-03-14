@@ -2,7 +2,6 @@ import type { PropsWithChildren } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import {
 	Tooltip,
-	TooltipArrow,
 	TooltipContent,
 	TooltipPortal,
 	TooltipProvider,
