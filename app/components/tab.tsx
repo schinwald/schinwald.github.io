@@ -100,14 +100,14 @@ export const Root: React.FC = () => {
 							{ "opacity-0": hoverTabMotion.activeTabIndex === null },
 						)}
 						style={{
-							left: hoverTabMotion.tabStyle.left - 2,
-							width: hoverTabMotion.tabStyle.width + 4,
+							left: hoverTabMotion.tabStyle.left - 4,
+							width: hoverTabMotion.tabStyle.width + 8,
 						}}
 					>
 						<span className="h-full w-full rounded-sm bg-white/10" />
 					</span>
 					<nav className="flex py-2 divide-x-2 divide-white/10">
-						<div className="pr-2">
+						<div className="pl-[3px] pr-2">
 							<Item index={0}>
 								<a
 									className={cn("font-display uppercase px-4 text-sm")}
@@ -117,27 +117,30 @@ export const Root: React.FC = () => {
 								</a>
 							</Item>
 						</div>
-						<div className="pl-2">
+						<div className="pl-2 pr-[3px]">
 							<Item index={1}>
 								<a
-									className={cn("font-display uppercase px-4 text-sm")}
+									className={cn("font-display uppercase px-3 text-sm")}
 									href="#about"
+									rel="noopener noreferrer"
 								>
 									About
 								</a>
 							</Item>
 							<Item index={3}>
 								<a
-									className={cn("font-display uppercase px-4 text-sm")}
-									href="#testimonials"
+									className={cn("font-display uppercase px-3 text-sm")}
+									href="#projects"
+									rel="noopener noreferrer"
 								>
 									Stuff
 								</a>
 							</Item>
 							<Item index={4}>
 								<a
-									className={cn("font-display uppercase px-4 text-sm")}
+									className={cn("font-display uppercase px-3 text-sm")}
 									href="#contact"
+									rel="noopener noreferrer"
 								>
 									Contact
 								</a>

@@ -151,7 +151,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 							if (!data) {
 								return (
 									<div ref={ref} key={index} className="absolute">
-										<div className="relative h-[400px] aspect-[3/4] bg-background-overlay opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
+										<div className="relative h-[400px] aspect-[3/4] bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
 									</div>
 								);
 							}
