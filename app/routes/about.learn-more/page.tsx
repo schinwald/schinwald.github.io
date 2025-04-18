@@ -20,6 +20,7 @@ import { Navigation } from "~/components/navigation";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Container } from "~/layouts/container";
+import { Education, Experience } from "./components";
 
 export default function () {
 	const pronunciationSound = new Howl({ src: pronunciation });
@@ -338,55 +339,21 @@ export default function () {
 												<div className="flex flex-row items-center gap-2">
 													<h3>Experience</h3>
 												</div>
-												<div className="flex flex-col gap-3">
-													<div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
-														<img
-															className="w-8"
-															src={experience.nauticalCommerceLogo.url}
-															alt={experience.nauticalCommerceLogo.alt}
-														/>
-														<div className="flex flex-col gap-6">
-															<div className="flex flex-col justify-between h-8 py-[2px]">
-																<h6 className="text-md font-bold">
-																	Nautical Commerce
-																</h6>
-																<p className="font-thin text-sm">
-																	Software Engineer
-																</p>
-															</div>
-															<div className="flex flex-col justify-between h-8 py-[2px]">
-																<h6 className="text-md font-bold">
-																	2024 - Present
-																</h6>
-																<p className="font-thin text-sm">Toronto, ON</p>
-															</div>
-														</div>
-													</div>
-													<div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
-														<img
-															className="w-8"
-															src={experience.devopieLogo.url}
-															alt={experience.devopieLogo.alt}
-														/>
-														<div className="flex flex-col gap-6">
-															<div className="flex flex-col justify-between h-8 py-[2px]">
-																<h6 className="text-md font-bold">
-																	Devopie Inc.
-																</h6>
-																<p className="font-thin text-sm">
-																	Software Engineer
-																</p>
-															</div>
-															<div className="flex flex-col justify-between h-8 py-[2px]">
-																<h6 className="text-md font-bold">
-																	2022 - 2024
-																</h6>
-																<p className="font-thin text-sm">
-																	Hamilton, ON
-																</p>
-															</div>
-														</div>
-													</div>
+												<div className="flex flex-col gap-4">
+													<Experience
+														logo={experience.nauticalCommerceLogo}
+														company="Nautical Commerce"
+														role="Software Engineer"
+														dates={["2024", "Present"]}
+														location="Toronto, ON"
+													/>
+													<Experience
+														logo={experience.devopieLogo}
+														company="Devopie Inc."
+														role="Software Engineer"
+														dates={["2022", "2024"]}
+														location="Hamilton, ON"
+													/>
 												</div>
 											</div>
 										</Card.Root>
@@ -395,30 +362,14 @@ export default function () {
 												<div className="flex flex-row items-center gap-2">
 													<h3>Education</h3>
 												</div>
-												<div className="flex flex-col gap-3">
-													<div className="transition-all duration-100 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
-														<img
-															className="w-8"
-															src={education.universityOfGuelphLogo.url}
-															alt={education.universityOfGuelphLogo.alt}
-														/>
-														<div className="flex flex-col gap-6">
-															<div className="flex flex-col justify-between h-8 py-[2px]">
-																<h6 className="text-md font-bold">
-																	University of Guelph
-																</h6>
-																<p className="font-thin text-sm">
-																	Bachelor of Computing
-																</p>
-															</div>
-															<div className="flex flex-col justify-between h-8 py-[2px]">
-																<h6 className="text-md font-bold">
-																	2017 - 2021
-																</h6>
-																<p className="font-thin text-sm">Guelph, ON</p>
-															</div>
-														</div>
-													</div>
+												<div className="flex flex-col gap-4">
+													<Education
+														logo={education.universityOfGuelphLogo}
+														provider="University of Guelph"
+														certificate="Bachelor of Computing"
+														dates={["2017", "2021"]}
+														location="Guelph, ON"
+													/>
 												</div>
 											</div>
 										</Card.Root>
