@@ -15,16 +15,26 @@ const Rating = React.forwardRef<
 		<div className="relative flex flex-row cursor-pointer">
 			<div className="relative flex flex-row gap-2">
 				{Array.from({ length: value[0] }).map((_, index) => {
+					const key = `filled-star-${index}`;
 					return (
-						<div key={`filled-star-${index}`} className="w-10 h-10">
-							<img src={imageStar} className="w-full h-full"></img>
+						<div key={key} className="w-10 h-10">
+							<img
+								src={imageStar}
+								alt="Filled star icon"
+								className="w-full h-full"
+							/>
 						</div>
 					);
 				})}
 				{Array.from({ length: max - value[0] }).map((_, index) => {
+					const key = `empty-star-${index}`;
 					return (
-						<div key={`empty-star-${index}`} className="w-10 h-10">
-							<img src={imageStar} className="w-full h-full opacity-10"></img>
+						<div key={key} className="w-10 h-10">
+							<img
+								src={imageStar}
+								alt="Empty star icon"
+								className="w-full h-full opacity-10"
+							/>
 						</div>
 					);
 				})}

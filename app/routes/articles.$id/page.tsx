@@ -209,11 +209,17 @@ export default function () {
 							<div className="col-span-3 flex flex-col gap-6 col-start-10 row-start-2 row-span-2">
 								<div className="sticky top-10 flex flex-col gap-8">
 									<div className="flex gap-2">
-										{frontmatter.meta?.tags?.map((tag) => (
-											<span className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0">
-												{tag}
-											</span>
-										))}
+										{frontmatter.meta?.tags?.map((tag: any) => {
+											const key = `tag-${tag}`;
+											return (
+												<span
+													key={key}
+													className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+												>
+													{tag}
+												</span>
+											);
+										})}
 									</div>
 									<div className="flex flex-col gap-4">
 										<h6>On this page</h6>

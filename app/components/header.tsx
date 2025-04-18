@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref, { margin: "-200px 0px" });
 
-	let text;
+	let text: JSX.Element;
 
 	const centerPadding = "pax-4 md:px-8";
 	const leftPadding = "pr-8 md:pr-16";
@@ -166,7 +166,7 @@ const Header: React.FC<HeaderProps> = ({
 				animate={isInView && "slide_right"}
 				variants={lineVariant}
 				className="border-[2px] border-secondary mt-1"
-			></motion.hr>
+			/>
 		</div>
 	);
 };

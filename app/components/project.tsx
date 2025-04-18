@@ -15,6 +15,7 @@ type ProjectProps = {
 	repository: string;
 	image: {
 		url: string;
+		alt: string;
 	};
 };
 
@@ -60,7 +61,13 @@ const Project: React.FC<ProjectProps> = ({
 				},
 			);
 		}
-	}, [isInView]);
+	}, [
+		isInView,
+		markerRef.current,
+		headerRef.current,
+		animateMarker,
+		animateHeader,
+	]);
 
 	function handleJustification<T>({ left, right }: { left: T; right: T }): T {
 		switch (justify) {
@@ -89,7 +96,7 @@ const Project: React.FC<ProjectProps> = ({
 					ref={markerRef}
 					className="h-10 aspect-square bg-tertiary z-30"
 					style={{ opacity: 0, scale: "0%" }}
-				></motion.div>
+				/>
 				<div className="overflow-hidden">
 					<motion.div
 						ref={headerRef}
@@ -197,7 +204,8 @@ const Project: React.FC<ProjectProps> = ({
 											ref={imageRef}
 											className="object-cover -rotate-6 scale-[160%]"
 											src={image.url}
-										></img>
+											alt={image.alt}
+										/>
 									</div>
 								</motion.div>
 							);

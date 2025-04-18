@@ -32,6 +32,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 					repository="https://github.com/schinwald/express-otter"
 					image={{
 						url: "https://github.com/schinwald/express-otter/blob/development/logo.png?raw=true",
+						alt: "Express Otter logo",
 					}}
 				/>
 				<Project
@@ -40,6 +41,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 					repository="https://github.com/schinwald/cartera"
 					image={{
 						url: "https://github.com/schinwald/cartera/blob/main/preview.jpg?raw=true",
+						alt: "Cartera logo",
 					}}
 				/>
 				<Project
@@ -48,6 +50,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 					repository="https://github.com/schinwald/pets"
 					image={{
 						url: "https://github.com/schinwald/pets/blob/main/preview.webp?raw=true",
+						alt: "Pets logo",
 					}}
 				/>
 				<Project
@@ -56,6 +59,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 					repository="https://github.com/schinwald/weather-or-not"
 					image={{
 						url: "https://github.com/schinwald/weather-or-not/blob/main/preview.jpg?raw=true",
+						alt: "Weather or Not logo",
 					}}
 				/>
 				<Project
@@ -64,6 +68,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 					repository="https://github.com/schinwald/calculato"
 					image={{
 						url: "https://github.com/schinwald/calculato/blob/main/preview.png?raw=true",
+						alt: "Calculato logo",
 					}}
 				/>
 			</Container>

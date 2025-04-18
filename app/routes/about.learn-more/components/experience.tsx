@@ -6,7 +6,7 @@ type ExperienceProps = {
 		alt: string;
 	};
 	company: string;
-	role: string;
+	occupation: string;
 	dates: [string, string];
 	location: string;
 };
@@ -14,7 +14,7 @@ type ExperienceProps = {
 export const Experience: React.FC<ExperienceProps> = ({
 	logo,
 	company,
-	role,
+	occupation,
 	dates,
 	location,
 }) => {
@@ -26,7 +26,7 @@ export const Experience: React.FC<ExperienceProps> = ({
 					<Cycler.Item>
 						<div className="flex flex-col justify-between h-8 py-[2px]">
 							<h6 className="text-md font-bold">{company}</h6>
-							<p className="text-sm font-thin">{role}</p>
+							<p className="text-sm font-thin">{occupation}</p>
 						</div>
 					</Cycler.Item>
 					<Cycler.Item>

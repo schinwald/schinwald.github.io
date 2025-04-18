@@ -162,7 +162,7 @@ export default function () {
 													I think this stems from my love for making stuff, but
 													recently I've been taking up woodworking and have
 													really been enjoying it. I made my{" "}
-													<a className="text-primary" href="">
+													<a className="text-primary" href="/">
 														desk
 													</a>{" "}
 													out of a birch vaneer plywood and applied a
@@ -343,14 +343,14 @@ export default function () {
 													<Experience
 														logo={experience.nauticalCommerceLogo}
 														company="Nautical Commerce"
-														role="Software Engineer"
+														occupation="Software Engineer"
 														dates={["2024", "Present"]}
 														location="Toronto, ON"
 													/>
 													<Experience
 														logo={experience.devopieLogo}
 														company="Devopie Inc."
-														role="Software Engineer"
+														occupation="Software Engineer"
 														dates={["2022", "2024"]}
 														location="Hamilton, ON"
 													/>

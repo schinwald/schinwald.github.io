@@ -65,7 +65,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
 				},
 			);
 		}
-	}, [isInView]);
+	}, [isInView, imageRef, animateImage, animateSocials]);
 
 	return (
 		<div
@@ -85,7 +85,8 @@ const About: React.FC<AboutProps> = ({ className }) => {
 										ref={imageRef}
 										className="absolute bottom-0 w-full aspect-[300/360] object-cover rotate-6 opacity-0"
 										src={profileImage}
-									></img>
+										alt="James Schinwald"
+									/>
 								</div>
 							</div>
 						</div>
