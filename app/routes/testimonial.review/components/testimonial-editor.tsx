@@ -193,7 +193,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
 					]}
 				/>
 			</motion.div>
-			<nav className="h-32 w-full"></nav>
+			<nav className="h-32 w-full" />
 			<Container
 				className="h-full sm:px-32 gap-6 flex-grow justify-center"
 				variant="narrow"
@@ -272,11 +272,17 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
 														onClick={() => {
 															fileBrowserRef?.current?.click();
 														}}
+														onKeyUp={(event) => {
+															if (event.key === "Enter") {
+																fileBrowserRef?.current?.click?.();
+															}
+														}}
 													>
 														<div className="absolute left-0 right-0 bottom-0 top-0 bg-black opacity-0 hover:opacity-10" />
 														<img
-															src={form.watch().avatar ?? imageDefaultAvatar}
 															className="w-full h-full hover:scale-105 transition-all duration-300"
+															src={form.watch().avatar ?? imageDefaultAvatar}
+															alt="User's avatar"
 														/>
 													</div>
 												</div>

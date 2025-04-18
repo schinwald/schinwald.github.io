@@ -174,18 +174,25 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
 				}, 1300);
 			},
 		);
-	}, [isSubmitting, recaptchaResponse]);
+	}, [
+		isSubmitting,
+		recaptchaResponse,
+		animateNotification,
+		form.getValues,
+		form.resetField,
+		notificationRef,
+	]);
 
 	const animatePaperAirplaneEntry = useCallback(() => {
 		lottiePaperAirplaneRef?.current?.playSegments([0, 96], true);
 		lottiePaperAirplaneRef?.current?.playSegments([97, 146]);
 		lottiePaperAirplaneRef?.current?.animationItem?.setLoop(true);
-	}, [lottiePaperAirplaneRef]);
+	}, []);
 
 	const animatePaperAirplaneExit = useCallback(() => {
 		lottiePaperAirplaneRef?.current?.playSegments([147, 200]);
 		lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false);
-	}, [lottiePaperAirplaneRef]);
+	}, []);
 
 	const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
 		setIsSubmitting(true);
@@ -216,7 +223,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
 							<div className="absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20">
 								<h2 className="leading-10 text-foreground -rotate-6">
 									<span className="text-3xl">Let's</span>
-									<br></br>
+									<br />
 									<span>Connect!</span>
 								</h2>
 							</div>

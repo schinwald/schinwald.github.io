@@ -26,7 +26,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 		(tree) => {
 			// TODO: remove foreach since it's slow
 			// Generate the table of contents
-			tree.children.forEach((node) => {
+			for (const node of tree.children) {
 				if (node.type === "element" && /^h[1-6]$/.test(node.tagName)) {
 					const id = node.properties?.id;
 					if (typeof id === "string") {
@@ -42,7 +42,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
 						});
 					}
 				}
-			});
+			}
 		},
 	);
 

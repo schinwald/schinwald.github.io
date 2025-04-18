@@ -161,7 +161,7 @@ export const FeaturedArticles: React.FC = () => {
 				},
 			);
 		}
-	}, [isInView]);
+	}, [isInView, animateFeaturedArticle]);
 
 	const featuredArticles = articles.filter(
 		(article) => article.meta?.isFeatured,
@@ -219,7 +219,7 @@ export const AllArticles: React.FC = () => {
 				},
 			);
 		}
-	}, [isInView]);
+	}, [isInView, animateAllArticles]);
 
 	return (
 		<Container variant="narrow">
@@ -243,13 +243,11 @@ export const AllArticles: React.FC = () => {
 					</p>
 				</div>
 			</div>
-			<motion.ol
-				ref={allArticlesRef}
-				className="grid grid-cols-3 grid-rows-3 gap-6"
-			>
-				{articles.map((article, index) => (
-					<Article key={index} {...article} />
-				))}
+			<motion.ol ref={allArticlesRef} className="grid grid-rows-3 gap-6">
+				{articles.map((article, index) => {
+					const key = `article-${index}`;
+					return <Article key={key} {...article} />;
+				})}
 			</motion.ol>
 		</Container>
 	);

@@ -1,6 +1,5 @@
 import { ClientOnly } from "remix-utils/client-only";
 import logoAnimation from "~/assets/lotties/logo.json";
-import * as Card from "~/components/card";
 import { LazyLottie } from "~/components/lottie.client";
 import * as Tab from "~/components/tab";
 import { cn } from "~/utils/classname";

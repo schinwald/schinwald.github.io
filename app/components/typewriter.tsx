@@ -23,17 +23,24 @@ export const Typewriter = ({
 	const renderWords = () => {
 		return (
 			<div>
-				{wordsArray.map((word, idx) => {
+				{wordsArray.map((word, index) => {
+					const key = `word-${index}`;
 					return (
-						<div key={`word-${idx}`} className="inline-block">
-							{word.text.map((char, index) => (
-								<span
-									key={`char-${index}`}
-									className={cn(`dark:text-white text-black `, word.className)}
-								>
-									{char}
-								</span>
-							))}
+						<div key={key} className="inline-block">
+							{word.text.map((char, index) => {
+								const key = `char-${index}`;
+								return (
+									<span
+										key={key}
+										className={cn(
+											"dark:text-white text-black ",
+											word.className,
+										)}
+									>
+										{char}
+									</span>
+								);
+							})}
 							&nbsp;
 						</div>
 					);
@@ -73,7 +80,7 @@ export const Typewriter = ({
 					repeatType: "reverse",
 				}}
 				className={cn("block w-[4px]", cursorClassName)}
-			></motion.span>
+			/>
 		</div>
 	);
 };

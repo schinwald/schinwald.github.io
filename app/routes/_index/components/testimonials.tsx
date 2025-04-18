@@ -14,7 +14,7 @@ const cycleDuration = count * delay;
 const repeatDelay = cycleDuration > duration ? cycleDuration - duration : 0;
 const distance = "1200";
 
-type Testimonial = {
+type Data = {
 	avatar?: string;
 	full_name: string;
 	occupation?: string;
@@ -26,7 +26,7 @@ type Testimonial = {
 
 type TestimonialsProps = {
 	className?: string;
-	data: (Testimonial | null)[];
+	data: (Data | null)[];
 };
 
 const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
@@ -67,7 +67,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 
 			newControls.time = duration + repeatDelay - i * delay;
 			setControls(newControls);
-		}, []);
+		}, [testimonialRef, i, controls, animateTestimonial]);
 
 		return {
 			data: value,
@@ -88,7 +88,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 		);
 
 		setCarouselReady(true);
-	}, []);
+	}, [testimonialContainerRef, animateTestimonialContainer]);
 
 	const toggleCarouselPlay = useCallback(() => {
 		for (let i = 0; i < testimonials.length; i++) {
@@ -107,7 +107,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 		}
 
 		setCarouselPlaying(!isCarouselPlaying);
-	}, [isCarouselReady, isCarouselPlaying]);
+	}, [testimonials, isCarouselPlaying]);
 
 	return (
 		<div
@@ -145,12 +145,13 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 						className="w-full flex flex-row justify-center items-center rotate-6 opacity-0"
 					>
 						{testimonials.map((value, index) => {
+							const key = `testimonial-${index}`;
 							const { data, animation } = value;
 							const [ref, _] = animation;
 
 							if (!data) {
 								return (
-									<div ref={ref} key={index} className="absolute">
+									<div ref={ref} key={key} className="absolute">
 										<div className="relative h-[400px] aspect-[3/4] bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
 									</div>
 								);
@@ -159,10 +160,15 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 							return (
 								<div
 									ref={ref}
-									key={index}
+									key={key}
 									className="absolute"
 									onClick={() => {
 										toggleCarouselPlay();
+									}}
+									onKeyUp={(event) => {
+										if (event.key === "Enter") {
+											toggleCarouselPlay();
+										}
 									}}
 								>
 									<Testimonial

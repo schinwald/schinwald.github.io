@@ -31,12 +31,16 @@ export class DatabaseManagementSystem {
 						return cookies;
 					},
 					setAll(cookiesToSet) {
-						cookiesToSet.forEach(({ name, value, options }) =>
+						for (const cookie of cookiesToSet) {
 							headers.append(
 								"Set-Cookie",
-								serializeCookieHeader(name, value, options),
-							),
-						);
+								serializeCookieHeader(
+									cookie.name,
+									cookie.value,
+									cookie.options,
+								),
+							);
+						}
 					},
 				},
 			},

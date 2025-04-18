@@ -33,7 +33,7 @@ const Navigation: React.FC<NavigationProps> = () => {
 		if (loaderData.navigationType) {
 			startNavigationEnter({ type: loaderData.navigationType });
 		}
-	}, []);
+	}, [startNavigationEnter, loaderData.navigationType]);
 
 	useEffect(() => {
 		if (navigationState === "exiting") {
@@ -75,7 +75,14 @@ const Navigation: React.FC<NavigationProps> = () => {
 				);
 			}
 		}
-	}, [navigationState, navigationType]);
+	}, [
+		navigationState,
+		navigationType,
+		endNavigationEnter,
+		endNavigationExit,
+		backgroundRef.current,
+		animateBackground,
+	]);
 
 	return (
 		<Overlay className="pointer-events-none z-50" position="fixed">
@@ -83,7 +90,7 @@ const Navigation: React.FC<NavigationProps> = () => {
 				<motion.div
 					ref={backgroundRef}
 					className="absolute h-full opacity-0 bg-background w-[100%] "
-				></motion.div>
+				/>
 			)}
 			{(loaderData.navigationType ||
 				navigationState === "entering" ||
@@ -91,7 +98,7 @@ const Navigation: React.FC<NavigationProps> = () => {
 				<motion.div
 					ref={backgroundRef}
 					className="absolute h-full opacity-100 bg-background w-[100%] "
-				></motion.div>
+				/>
 			)}
 		</Overlay>
 	);

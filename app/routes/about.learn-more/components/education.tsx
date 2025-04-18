@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
 	Carousel,
 	type CarouselApi,
@@ -31,6 +31,11 @@ export const Education: React.FC<EducationProps> = ({
 			<div
 				className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer"
 				onClick={() => api?.scrollNext()}
+				onKeyUp={(event) => {
+					if (event.key === "Enter") {
+						api?.scrollNext();
+					}
+				}}
 			>
 				<img className="w-8" src={logo.url} alt={logo.alt} />
 				<div className="flex flex-col gap-6">

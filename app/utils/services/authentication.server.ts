@@ -1,4 +1,4 @@
-type Config = {};
+type Config = object;
 
 class OAuthAPI {
 	private request: Request;

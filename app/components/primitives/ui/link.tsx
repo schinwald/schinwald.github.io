@@ -131,7 +131,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 				<motion.div
 					ref={backgroundRef}
 					className="absolute right-0 bg-background h-full -skew-x-6 translate-x-[100px] border-l-[80px] border-l-white"
-				></motion.div>
+				/>
 				{children}
 			</a>
 		);

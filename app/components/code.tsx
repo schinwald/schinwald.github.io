@@ -37,13 +37,19 @@ const Code: React.FC<PropsWithChildren<CodeProps>> = ({
 								<span className="border-b">{filename}</span>
 							</div>
 						) : null}
-						{tokens.map((line, i) => (
-							<div key={i} {...getLineProps({ line })}>
-								{line.map((token, key) => (
-									<span key={key} {...getTokenProps({ token })} />
-								))}
-							</div>
-						))}
+						{tokens.map((line, i) => {
+							const lineKey = `line-${i}`;
+							return (
+								<div key={lineKey} {...getLineProps({ line })}>
+									{line.map((token, key) => {
+										const tokenKey = `token-${key}`;
+										return (
+											<span key={tokenKey} {...getTokenProps({ token })} />
+										);
+									})}
+								</div>
+							);
+						})}
 					</pre>
 				</div>
 			)}

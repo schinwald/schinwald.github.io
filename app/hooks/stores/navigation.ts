@@ -5,8 +5,9 @@ type ExtractFromSet<T> = T extends Set<infer U> ? U : never;
 
 const navigationTypes = new Set(["left", "right"] as const);
 
-const isNavigationType = (type: unknown): type is NavigationType => {
-	return navigationTypes.has(type as any);
+const isNavigationType = (type: string | null): type is NavigationType => {
+	if (type === null) return false;
+	return navigationTypes.has(type as NavigationType);
 };
 
 type NavigationType = ExtractFromSet<typeof navigationTypes>;
