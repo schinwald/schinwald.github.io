@@ -25,7 +25,7 @@ export default function () {
 				<section className="flex flex-col justify-center items-center gap-32 md:gap-20 w-full h-full">
 					<About />
 					<Projects />
-					<Testimonials data={testimonials as any} />
+					<Testimonials data={testimonials} />
 					<Contact />
 				</section>
 				<Footer />

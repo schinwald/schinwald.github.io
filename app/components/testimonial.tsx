@@ -9,10 +9,10 @@ import { LazyLottie } from "./lottie";
 
 type TestimonialProps = {
 	className?: string;
-	avatar?: string;
-	name: string;
-	occupation?: string;
-	company?: string;
+	avatar: string | null;
+	fullname: string;
+	occupation: string | null;
+	company: string | null;
 	rating: number;
 	review: string;
 };
@@ -20,7 +20,7 @@ type TestimonialProps = {
 const Testimonial: React.FC<TestimonialProps> = ({
 	className,
 	avatar,
-	name,
+	fullname,
 	occupation,
 	company,
 	rating,
@@ -99,7 +99,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
 					</div>
 					<div className="flex flex-col items-center gap-1">
 						<h6 className="text-tertiary-foreground capitalize font-bold">
-							{name}
+							{fullname}
 						</h6>
 						{title}
 					</div>
