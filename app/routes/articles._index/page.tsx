@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { FaSearch as SearchIcon } from "react-icons/fa";
 import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
 import { BackgroundGradient } from "~/components/background-gradient";
-import { Navigation } from "~/components/navigation";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Input } from "~/components/primitives/ui/input";
@@ -42,7 +41,7 @@ export const Article: React.FC<ArticleProps> = ({
 				to={`/articles/${id}`}
 				variant="ghost"
 				size="minimal"
-				className="aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden"
+				className="aspect-8/5 bg-[#fff8] rounded-sm overflow-hidden"
 			>
 				<img src={image?.src} alt={image?.alt} />
 			</Link>
@@ -104,7 +103,7 @@ export const ArticleSide: React.FC<ArticleSideProps> = ({
 				to={`/articles/${id}`}
 				variant="ghost"
 				size="minimal"
-				className="aspect-[8/5] bg-[#fff8] rounded-sm overflow-hidden"
+				className="aspect-8/5 bg-[#fff8] rounded-sm overflow-hidden"
 			>
 				<img src={image?.src} alt={image?.alt} />
 			</Link>
@@ -256,7 +255,6 @@ export const AllArticles: React.FC = () => {
 export default function () {
 	return (
 		<div>
-			<Navigation />
 			<section className="w-screen h-screen">
 				<div className="relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
 					<NavigationBar />

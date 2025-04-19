@@ -13,7 +13,6 @@ import { match } from "ts-pattern";
 import { BackgroundGradient } from "~/components/background-gradient";
 import { Callout } from "~/components/callout";
 import { Code } from "~/components/code";
-import { Navigation } from "~/components/navigation";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Input } from "~/components/primitives/ui/input";
@@ -49,7 +48,6 @@ export default function () {
 
 	return (
 		<div className="relative">
-			<Navigation />
 			<section className="w-screen h-screen">
 				<div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
 					<NavigationBar />
@@ -68,7 +66,7 @@ export default function () {
 									</div>
 								</div>
 								<div className="flex flex-col gap-4 col-span-9 row-start-2 row-end-2">
-									<div className="aspect-[8/5] bg-[#fff8] rounded-sm overflow-clip shadow-lg shadow-black/20">
+									<div className="aspect-8/5 bg-[#fff8] rounded-sm overflow-clip shadow-lg shadow-black/20">
 										{frontmatter.image ? (
 											<img
 												src={frontmatter.image.src}

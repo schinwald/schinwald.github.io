@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import * as React from "react";
 
 import { useAnimate } from "framer-motion";
-import { useNavigationStore } from "~/hooks/stores/navigation";
+import { useNavigationStore } from "~/components/navigation";
 import { cn } from "~/utils/classname";
 
 const linkVariants = cva(
-	"inline-flex items-center justify-center whitespace-nowrap font-display ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200",
+	"inline-flex items-center justify-center whitespace-nowrap font-display ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200",
 	{
 		variants: {
 			variant: {
@@ -124,7 +124,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 						}
 					}
 
-					onClick?.(event);
+					onClick(event);
 				}}
 				{...props}
 			>

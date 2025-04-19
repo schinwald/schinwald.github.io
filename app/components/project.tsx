@@ -129,7 +129,7 @@ const Project: React.FC<ProjectProps> = ({
 											left: "flex-row",
 											right: "flex-row-reverse",
 										}),
-										"flex w-full sm:w-1/2 lg:w-[450px] aspect-[5/3]",
+										"flex w-full sm:w-1/2 lg:w-[450px] aspect-5/3",
 									)}
 									onHoverStart={() => {
 										animateOverlay(

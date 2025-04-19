@@ -80,10 +80,10 @@ const About: React.FC<AboutProps> = ({ className }) => {
 					<div className="flex flex-row justify-center">
 						<div className="w-full px-16 sm:p-0 flex flex-row justify-center">
 							<div className="relative z-30 w-full sm:w-[200px] md:w-[300px] max-w-[250px] sm:max-w-full aspect-square bg-tertiary rounded-full shadow-lg">
-								<div className="absolute w-full aspect-[3/4] rounded-b-full overflow-clip bottom-[-1px]">
+								<div className="absolute w-full aspect-3/4 rounded-b-full overflow-clip bottom-[-1px]">
 									<img
 										ref={imageRef}
-										className="absolute bottom-0 w-full aspect-[300/360] object-cover rotate-6 opacity-0"
+										className="absolute bottom-0 w-full aspect-300/360 object-cover rotate-6 opacity-0"
 										src={profileImage}
 										alt="James Schinwald"
 									/>

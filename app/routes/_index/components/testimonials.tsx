@@ -136,8 +136,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 					<div className="absolute right-[100%] w-full h-full bg-background z-20" />
 					<div className="absolute left-[100%] w-full h-full bg-background z-20" />
 					{/* Adding shadows to the edges */}
-					<div className="absolute left-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-					<div className="absolute right-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-gradient-to-r to-background from-transparent z-20 pointer-events-none" />
+					<div className="absolute left-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-linear-to-r from-background to-transparent z-20 pointer-events-none" />
+					<div className="absolute right-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-linear-to-r to-background from-transparent z-20 pointer-events-none" />
 				</div>
 				<div className="w-full max-w-[2400px] h-full relative flex flex-row justify-center items-center scale-[60%] md:scale-100 select-none">
 					<div
@@ -152,7 +152,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 							if (!data) {
 								return (
 									<div ref={ref} key={key} className="absolute">
-										<div className="relative h-[400px] aspect-[3/4] bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
+										<div className="relative h-[400px] aspect-3/4 bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
 									</div>
 								);
 							}

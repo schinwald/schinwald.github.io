@@ -130,7 +130,7 @@ export const Root: React.FC = () => {
 						left: activeTabMotion.style.left + 8,
 					}}
 				>
-					<span className="w-full h-full bg-gradient-to-r from-transparent via-secondary/80 to-transparent" />
+					<span className="w-full h-full bg-linear-to-r from-transparent via-secondary/80 to-transparent" />
 				</span>
 			</div>
 		</TabContext.Provider>

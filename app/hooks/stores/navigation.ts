@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { create } from "zustand";
+import { createStore } from "zustand";
 
 type ExtractFromSet<T> = T extends Set<infer U> ? U : never;
 
@@ -22,7 +22,7 @@ type StartNavigationExitArgs = {
 	location: string;
 };
 
-type Navigation = {
+export type Navigation = {
 	location?: string;
 	navigationType?: NavigationType;
 	navigationState: NavigationState;
@@ -32,9 +32,12 @@ type Navigation = {
 	endNavigationExit: () => void;
 };
 
+export type NavigationStore = ReturnType<typeof createNavigationStore>;
+
 const param = "navigating";
 
-export const useNavigationStore = create<Navigation>()((set, get) => {
+export const createNavigationStore = (init?: Partial<Navigation>) => {
+	// Remove the navigation query string from the URL
 	if (typeof window !== "undefined") {
 		const url = new URL(window.location.href);
 		const type = url.searchParams.get(param);
@@ -45,13 +48,13 @@ export const useNavigationStore = create<Navigation>()((set, get) => {
 		}
 	}
 
-	return {
-		navigationType: undefined,
-		navigationState: "idle",
+	return createStore<Navigation>()((set, get) => ({
+		navigationType: init?.navigationType ?? undefined,
+		navigationState: init?.navigationState ?? "idle",
 		startNavigationEnter: ({ type = "left" }) => {
 			set(() => ({
-				navigationType: type,
 				navigationState: "entering",
+				navigationType: type,
 			}));
 		},
 		endNavigationEnter: () => {
@@ -61,9 +64,9 @@ export const useNavigationStore = create<Navigation>()((set, get) => {
 		},
 		startNavigationExit: ({ type = "left", location }) => {
 			set(() => ({
+				navigationState: "exiting",
 				navigationType: type,
 				location,
-				navigationState: "exiting",
 			}));
 		},
 		endNavigationExit: () => {
@@ -76,8 +79,8 @@ export const useNavigationStore = create<Navigation>()((set, get) => {
 				navigationState: "exited",
 			}));
 		},
-	};
-});
+	}));
+};
 
 export const getNavigationJSONData = (args: LoaderFunctionArgs) => {
 	const url = new URL(args.request.url);
@@ -86,10 +89,12 @@ export const getNavigationJSONData = (args: LoaderFunctionArgs) => {
 	if (isNavigationType(navigationType)) {
 		return {
 			navigationType,
-		};
+			navigationState: "entering",
+		} as const;
 	}
 
 	return {
 		navigationType: undefined,
-	};
+		navigationState: "idle",
+	} as const;
 };

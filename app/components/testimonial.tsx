@@ -54,7 +54,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
 	return (
 		<div
 			className={cn(
-				"relative h-[400px] aspect-[3/4] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer",
+				"relative h-[400px] aspect-3/4 bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer",
 				className,
 			)}
 		>
