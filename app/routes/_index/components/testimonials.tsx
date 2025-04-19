@@ -62,10 +62,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 					ease: "linear",
 					repeat: Number.POSITIVE_INFINITY,
 					repeatDelay,
+					startTime: -i * delay * 1000,
 				},
 			);
-
-			newControls.time = duration + repeatDelay - i * delay;
 			setControls(newControls);
 		}, [testimonialRef, i, controls, animateTestimonial]);
 
