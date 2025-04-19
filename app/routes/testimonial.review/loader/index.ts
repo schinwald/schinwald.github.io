@@ -22,8 +22,6 @@ export const loader = loaderHandler(async ({ request, json }) => {
 	//   avatar: session.user?.image?.replace?.('=s96-c', '') ?? undefined
 	// }
 
-	const { pathname } = new URL(request.url);
-
 	const dbms = new DatabaseManagementSystem({ request });
 	dbms.initialize();
 
@@ -33,7 +31,10 @@ export const loader = loaderHandler(async ({ request, json }) => {
 		const response = await dbms.getSession();
 
 		if (response.errors) {
-			return redirect(`/auth/login?redirect=${pathname}`);
+			const url = new URL(request.url);
+			url.pathname = "/auth/login";
+			url.searchParams.set("redirect", url.pathname);
+			return redirect(url.pathname + url.search);
 		}
 
 		session = response.data.session;
