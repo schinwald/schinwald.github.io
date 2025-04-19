@@ -117,8 +117,6 @@ const NavigationOverlay: React.FC<NavigationProps> = () => {
 		animateBackground,
 	]);
 
-	console.log(navigationState, navigationType);
-
 	return (
 		<Overlay className="pointer-events-none z-50" position="fixed">
 			{match({ state: navigationState, type: navigationType })

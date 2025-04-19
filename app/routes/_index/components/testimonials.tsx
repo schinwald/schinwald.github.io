@@ -15,11 +15,10 @@ const repeatDelay = cycleDuration > duration ? cycleDuration - duration : 0;
 const distance = "1200";
 
 type Data = {
-	avatar?: string;
-	full_name: string;
-	occupation?: string;
-	company?: string;
-	relationship?: string;
+	avatar: string | null;
+	fullName: string;
+	occupation: string | null;
+	company: string | null;
 	review: string;
 	rating: number;
 };
@@ -173,7 +172,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 									<Testimonial
 										avatar={data.avatar}
 										rating={data.rating}
-										name={data.full_name}
+										fullname={data.fullName}
 										occupation={data.occupation}
 										company={data.company}
 										review={data.review}
