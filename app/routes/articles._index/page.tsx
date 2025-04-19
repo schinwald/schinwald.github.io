@@ -242,7 +242,10 @@ export const AllArticles: React.FC = () => {
 					</p>
 				</div>
 			</div>
-			<motion.ol ref={allArticlesRef} className="grid grid-rows-3 gap-6">
+			<motion.ol
+				ref={allArticlesRef}
+				className="grid grid-rows-3 grid-cols-3 gap-6"
+			>
 				{articles.map((article, index) => {
 					const key = `article-${index}`;
 					return <Article key={key} {...article} />;
