@@ -18,7 +18,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
 			)}
 		>
 			<Container variant="narrow">
-				<div className="relative w-full max-w-screen-md flex flex-row justify-start">
+				<div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-start">
 					<Header
 						className="text-left"
 						title="Projects"

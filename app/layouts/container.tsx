@@ -5,8 +5,8 @@ import { cn } from "~/utils/classname";
 const containerVariants = cva("w-full flex flex-col gap-10", {
 	variants: {
 		variant: {
-			narrow: "px-6 sm:px-16 max-w-screen-md",
-			hybrid: "px-0 sm:px-16 max-w-screen-md",
+			narrow: "px-6 sm:px-16 max-w-(--breakpoint-md)",
+			hybrid: "px-0 sm:px-16 max-w-(--breakpoint-md)",
 			wide: "w-screen",
 		},
 	},

@@ -54,7 +54,7 @@ const Rating = React.forwardRef<
 						</SliderPrimitive.Track>
 						<SliderPrimitive.Thumb
 							tabIndex={tabIndex}
-							className="block h-5 w-5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+							className="block h-5 w-5 rounded-full focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 						/>
 					</SliderPrimitive.Root>
 				</div>

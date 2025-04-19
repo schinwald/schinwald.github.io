@@ -9,8 +9,8 @@ export const Background = () => (
 			backgroundRepeat: "repeat",
 		}}
 	>
-		<div className="bg-gradient-to-r from-transparent to-background-soft w-[500px] h-full" />
-		<div className="bg-background-soft w-full max-w-screen-md h-full" />
-		<div className="bg-gradient-to-l from-transparent to-background-soft w-[500px] h-full" />
+		<div className="bg-linear-to-r from-transparent to-background-soft w-[500px] h-full" />
+		<div className="bg-background-soft w-full max-w-(--breakpoint-md) h-full" />
+		<div className="bg-linear-to-l from-transparent to-background-soft w-[500px] h-full" />
 	</div>
 );
