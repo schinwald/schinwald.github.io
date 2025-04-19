@@ -5,11 +5,17 @@ import {
 	Scripts,
 	ScrollRestoration,
 	isRouteErrorResponse,
+	json,
 } from "@remix-run/react";
 import { useRouteError } from "@remix-run/react";
 import { BackgroundGradient } from "./components/background-gradient";
 
+import { loaderHandler } from "~/utils/remix/loader.server";
+
 import "~/styles/globals.css";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { serverOnly$ } from "vite-env-only/macros";
+import { NavigationProvider } from "./components/navigation";
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -108,6 +114,17 @@ export function ErrorBoundary() {
 	);
 }
 
+const importLoader = serverOnly$(async () => {
+	const { loader } = await import("./loader");
+	return loader;
+});
+
+export const loader = await importLoader?.();
+
 export default function App() {
-	return <Outlet />;
+	return (
+		<NavigationProvider>
+			<Outlet />
+		</NavigationProvider>
+	);
 }
