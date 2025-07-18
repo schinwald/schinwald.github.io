@@ -1,16 +1,16 @@
-import { type TypedResponse, json } from "@remix-run/node";
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs, TypedResponse } from "@remix-run/node";
 import { getNavigationJSONData } from "~/hooks/stores/navigation";
+import { createContext, success } from "./utils.server";
 
 type NeverRecord<T extends Record<string, unknown>> = {
-	[K in keyof T]?: never;
+  [K in keyof T]?: never;
 };
 
 // This is the global JSON data that is returned on each loader handler
 // NOTE: to add more data, define a handler and add it to the object
 export type GlobalJSONData = ReturnType<typeof getGlobalJSONData>;
 const getGlobalJSONData = (args: LoaderFunctionArgs) => ({
-	...getNavigationJSONData(args),
+  ...getNavigationJSONData(args),
 });
 
 // This is the JSON data that can be returned from the loader handler
@@ -18,21 +18,21 @@ const getGlobalJSONData = (args: LoaderFunctionArgs) => ({
 type JSONData<T> = T & NeverRecord<GlobalJSONData>;
 
 type LoaderHandlerArgs = LoaderFunctionArgs & {
-	json: <T>(data: JSONData<T>) => TypedResponse<T>;
+  json: <T>(data: JSONData<T>) => TypedResponse<T>;
 };
 
 export const loaderHandler = async <T>(
-	callback: (args: LoaderHandlerArgs) => Promise<T>,
+  callback: (args: LoaderHandlerArgs) => Promise<T>,
 ) => {
-	return (args: LoaderFunctionArgs) => {
-		return callback({
-			...args,
-			json: (data) => {
-				return json({
-					...getGlobalJSONData(args),
-					...data,
-				});
-			},
-		});
-	};
+  return (args: LoaderFunctionArgs) =>
+    createContext(async () => {
+      return await callback({
+        ...args,
+        json: (data) =>
+          success({
+            ...getGlobalJSONData(args),
+            ...data,
+          }),
+      });
+    });
 };

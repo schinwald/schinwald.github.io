@@ -1,3 +1,3 @@
-export * from "./timeline";
-export * from "./experience";
 export * from "./education";
+export * from "./experience";
+export * from "./timeline";

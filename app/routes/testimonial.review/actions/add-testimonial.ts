@@ -1,180 +1,60 @@
-import type { ActionFunction } from "@remix-run/node";
 import sharp from "sharp";
 import { v4 as uuid } from "uuid";
 import { z } from "zod";
-import { DatabaseManagementSystem } from "~/utils/database";
-import { TestimonialService } from "~/utils/services/testimonial.server";
+import { getUser } from "~/utils/authentication/authentication.server";
+import { db } from "~/utils/database";
+import { testimonials } from "~/utils/database/schema";
+import { actionHandler } from "~/utils/remix/action.server";
+import { supabase } from "~/utils/storage";
 
-const schemaFormDataPOST = z.object({
-	avatar: z.unknown().refine((value): value is File | undefined => {
-		if (value === undefined) return true;
-		if (value instanceof File && value.size > 0) return true;
-		return false;
-	}),
-	full_name: z.string(),
-	occupation: z.string().optional(),
-	company: z.string().optional(),
-	rating: z.coerce.number().min(0).max(5),
-	review: z.string(),
-});
+export const action = actionHandler(
+  {
+    validators: {
+      formData: z.object({
+        avatar: z.file().optional(),
+        fullName: z.string(),
+        occupation: z.string().optional(),
+        company: z.string().optional(),
+        rating: z.coerce.number().min(0).max(5),
+        review: z.string(),
+      }),
+    },
+  },
+  async ({ formData, request }) => {
+    const user = await getUser(request);
 
-export const action: ActionFunction = async ({ request }) => {
-	if (request.method === "POST") {
-		const errors: Record<string, any>[] = [];
+    const avatarURL = await (async () => {
+      if (!formData.avatar) return user.avatar_url;
 
-		const databaseManagementSystem = new DatabaseManagementSystem({ request });
+      const buffer = await formData.avatar.arrayBuffer();
+      const filename = uuid();
+      const path = `public/${filename}.webp`;
+      const file = await sharp(buffer)
+        .resize({ width: 256, height: 256 })
+        .webp()
+        .toBuffer();
 
-		const { headers, dbClient } = databaseManagementSystem.initialize();
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .upload(path, file, {
+          contentType: "image/webp",
+          cacheControl: "3600",
+          upsert: false,
+        });
 
-		// Grab the session
-		let session;
-		{
-			const response = await databaseManagementSystem.getSession();
+      if (error) throw new Error(error.message);
 
-			if (response.errors) {
-				throw new Response(JSON.stringify(response), {
-					status: response.meta.status,
-					headers,
-				});
-			}
+      return data.fullPath;
+    })();
 
-			session = response.data.session;
-		}
-
-		const formDataParser = schemaFormDataPOST.safeParse(
-			Object.fromEntries(await request.formData()),
-		);
-
-		if (!formDataParser.success) {
-			console.error(formDataParser.error);
-			errors.push({});
-
-			const response = {
-				meta: {
-					status: 422,
-				},
-				errors,
-			};
-
-			throw new Response(JSON.stringify(response), {
-				status: response.meta.status,
-				headers,
-			});
-		}
-
-		const formData = formDataParser.data;
-
-		let avatarPath, avatarPublicURL;
-
-		if (formData.avatar) {
-			const buffer = await formData.avatar.arrayBuffer();
-
-			const filename = `${uuid()}`;
-			const file = await sharp(buffer)
-				.resize({ width: 256, height: 256 })
-				.webp()
-				.toBuffer();
-
-			avatarPath = `public/${filename}.webp`;
-
-			const { error } = await dbClient.storage
-				.from("avatars")
-				.upload(avatarPath, file, {
-					contentType: "image/webp",
-					cacheControl: "3600",
-					upsert: false,
-				});
-
-			if (error) {
-				console.error(error);
-				errors.push({});
-
-				const response = {
-					meta: {
-						status: 500,
-					},
-					errors,
-				};
-
-				return new Response(JSON.stringify(response), {
-					status: response.meta.status,
-					headers,
-				});
-			}
-		}
-
-		if (avatarPath) {
-			const { data } = dbClient.storage
-				.from("avatars")
-				.getPublicUrl(avatarPath);
-
-			avatarPublicURL = data.publicUrl;
-		}
-
-		{
-			const testimonial = {
-				avatar: avatarPublicURL,
-				rating: formData.rating,
-				review: formData.review,
-				occupation: formData.occupation,
-				company: formData.company,
-				full_name: formData.full_name,
-				email: session.user?.email,
-				session_id: session.user?.id,
-			};
-
-			const { error } = await dbClient.from("testimonials").insert(testimonial);
-
-			if (error) {
-				console.error(error);
-				errors.push({});
-
-				const response = {
-					meta: {
-						status: 500,
-					},
-					errors,
-				};
-
-				return new Response(JSON.stringify(response), {
-					status: response.meta.status,
-					headers,
-				});
-			}
-		}
-
-		const testimonialService = new TestimonialService({
-			request,
-			dbClient,
-		});
-
-		{
-			const response = await testimonialService.create({
-				id: session.user.id,
-				email: session.user.email,
-				fullName: formData.full_name,
-				avatar: formData.avatar,
-				rating: formData.rating,
-				review: formData.review,
-				occupation: formData.occupation,
-				company: formData.company,
-			});
-
-			if (response.errors) {
-				return new Response(JSON.stringify(response), {
-					status: response.meta.status,
-					headers,
-				});
-			}
-		}
-
-		return new Response(null, {
-			status: 201,
-			headers,
-		});
-	}
-
-	return new Response(null, {
-		status: 404,
-	});
-};
+    db.insert(testimonials).values({
+      email: user.email,
+      fullName: formData.fullName,
+      avatar: avatarURL,
+      rating: formData.rating,
+      review: formData.review,
+      occupation: formData.occupation,
+      company: formData.company,
+    });
+  },
+);
