@@ -28,8 +28,8 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/primitives/ui/form";
-import { Input } from "~/components/primitives/ui/input";
-import { Textarea } from "~/components/primitives/ui/textarea";
+import * as Input from "~/components/primitives/ui/input";
+import * as Textarea from "~/components/primitives/ui/textarea";
 import { Rating } from "~/components/rating";
 import { Typewriter } from "~/components/typewriter";
 import { Container } from "~/layouts/container";
@@ -271,7 +271,8 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                             Upload Photo
                           </Button>
                           <Button
-                            className="h-[290px] w-[290px] bg-white rounded-full border-4 border-white overflow-hidden cursor-pointer relative"
+                            className="h-[290px] w-[290px] bg-white rounded-full border-4 border-white overflow-hidden cursor-pointer relative p-0"
+                            variant="ghost"
                             onClick={() => {
                               fileBrowserRef?.current?.click();
                             }}
@@ -301,10 +302,12 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                                 <FormMessage className="leading-none" />
                               </div>
                               <FormControl>
-                                <Input
-                                  tabIndex={slide === 0 ? 0 : -1}
-                                  {...field}
-                                />
+                                <Input.Root>
+                                  <Input.Field
+                                    tabIndex={slide === 0 ? 0 : -1}
+                                    {...field}
+                                  />
+                                </Input.Root>
                               </FormControl>
                             </FormItem>
                           )}
@@ -319,10 +322,12 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                                 <FormMessage className="leading-none" />
                               </div>
                               <FormControl>
-                                <Input
-                                  tabIndex={slide === 0 ? 0 : -1}
-                                  {...field}
-                                />
+                                <Input.Root>
+                                  <Input.Field
+                                    tabIndex={slide === 0 ? 0 : -1}
+                                    {...field}
+                                  />
+                                </Input.Root>
                               </FormControl>
                             </FormItem>
                           )}
@@ -386,12 +391,14 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Textarea
-                                tabIndex={slide === 1 ? 0 : -1}
-                                placeholder="What would you like to say..."
-                                rows={12}
-                                {...field}
-                              />
+                              <Textarea.Root>
+                                <Textarea.Field
+                                  tabIndex={slide === 1 ? 0 : -1}
+                                  placeholder="What would you like to say..."
+                                  rows={12}
+                                  {...field}
+                                />
+                              </Textarea.Root>
                             </FormControl>
                           </FormItem>
                         )}

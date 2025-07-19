@@ -16,7 +16,7 @@ import { Callout } from "~/components/callout";
 import { Code } from "~/components/code";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
-import { Input } from "~/components/primitives/ui/input";
+import * as Input from "~/components/primitives/ui/input";
 import { Link } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
@@ -275,7 +275,9 @@ export default function () {
                   articles are published
                 </p>
                 <div className="flex flex-row gap-4">
-                  <Input placeholder="Enter your email" />
+                  <Input.Root>
+                    <Input.Field placeholder="Enter your email" />
+                  </Input.Root>
                   <Button>Subscribe</Button>
                 </div>
               </div>

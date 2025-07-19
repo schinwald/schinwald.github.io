@@ -1,7 +1,6 @@
 import { ClientOnly } from "remix-utils/client-only";
 import logoAnimation from "~/assets/lotties/logo.json";
 import { LazyLottie } from "~/components/lottie.client";
-import * as Tab from "~/components/tab";
 import { cn } from "~/utils/classname";
 
 type JumbotronProps = {
@@ -10,7 +9,7 @@ type JumbotronProps = {
 
 const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
   return (
-    <div className="relative h-screen flex flex-col justify-center items-center overflow-x-clip transition-all">
+    <div className="relative h-full flex flex-col justify-center items-center overflow-x-clip transition-all">
       <div className="flex flex-col items-center gap-8">
         <div
           className={cn(
@@ -34,9 +33,6 @@ const Jumbotron: React.FC<JumbotronProps> = ({ className }) => {
         <h3 className="text-foreground uppercase leading-10">
           Software Engineer
         </h3>
-      </div>
-      <div className="absolute bottom-10">
-        <Tab.Root />
       </div>
     </div>
   );

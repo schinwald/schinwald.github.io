@@ -6,7 +6,7 @@ import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
 import { BackgroundGradient } from "~/components/background-gradient";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
-import { Input } from "~/components/primitives/ui/input";
+import * as Input from "~/components/primitives/ui/input";
 import { Link } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
@@ -228,9 +228,11 @@ export const AllArticles: React.FC = () => {
           <br />
           Articles
         </h2>
-        <div className="flex flex-row items-center text-black bg-white px-3 rounded-md w-[400px]">
-          <SearchIcon />
-          <Input
+        <Input.Root className="w-[400px] text-black flex gap-2">
+          <div className="flex flex-row items-center">
+            <SearchIcon />
+          </div>
+          <Input.Field
             placeholder="Search..."
             className="bg-none border-none w-full"
           />
@@ -240,7 +242,7 @@ export const AllArticles: React.FC = () => {
               K
             </div>
           </p>
-        </div>
+        </Input.Root>
       </div>
       <motion.ol
         ref={allArticlesRef}
@@ -272,7 +274,9 @@ export default function () {
                   articles are published
                 </p>
                 <div className="flex flex-row gap-4">
-                  <Input placeholder="Enter your email" />
+                  <Input.Root>
+                    <Input.Field placeholder="Enter your email" />
+                  </Input.Root>
                   <Button>Subscribe</Button>
                 </div>
               </div>

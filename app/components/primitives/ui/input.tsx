@@ -2,16 +2,14 @@ import * as React from "react";
 
 import { cn } from "~/utils/classname";
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+type RootProps = React.HTMLAttributes<HTMLDivElement>;
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+const Root = React.forwardRef<HTMLDivElement, RootProps>(
+  ({ className, ...props }, ref) => {
     return (
-      <input
-        type={type}
+      <div
         className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-white px-3 py-5 ring-offset-background file:border-0 file:bg-transparent file:text-md file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex flex-row px-3 bg-white rounded-md border border-[#fff2] has-focus-visible:outline-hidden has-focus-visible:ring-2 has-focus-visible:ring-white has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
           className,
         )}
         ref={ref}
@@ -20,6 +18,26 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-Input.displayName = "Input";
+Root.displayName = "Root";
 
-export { Input };
+export interface FieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const Field = React.forwardRef<HTMLInputElement, FieldProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          "flex h-10 py-5 w-full file:border-0 file:bg-transparent file:text-md file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          className,
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+Field.displayName = "Field";
+
+export { Root, Field };
