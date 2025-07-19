@@ -2,15 +2,14 @@ import * as React from "react";
 
 import { cn } from "~/utils/classname";
 
-export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+type RootProps = React.HTMLAttributes<HTMLDivElement>;
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Root = React.forwardRef<HTMLDivElement, RootProps>(
   ({ className, ...props }, ref) => {
     return (
-      <textarea
+      <div
         className={cn(
-          "flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex flex-row px-3 bg-white rounded-md border border-[#fff2] has-focus-visible:outline-hidden has-focus-visible:ring-2 has-focus-visible:ring-white has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
           className,
         )}
         ref={ref}
@@ -19,6 +18,25 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     );
   },
 );
-Textarea.displayName = "Textarea";
+Root.displayName = "Root";
 
-export { Textarea };
+export interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+const Field = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <textarea
+        className={cn(
+          "flex min-h-[80px] bg-transparent w-full py-2 placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          className,
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+Field.displayName = "Field";
+
+export { Root, Field };

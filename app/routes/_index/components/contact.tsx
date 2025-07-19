@@ -20,8 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/primitives/ui/form";
-import { Input } from "~/components/primitives/ui/input";
-import { Textarea } from "~/components/primitives/ui/textarea";
+import * as Input from "~/components/primitives/ui/input";
+import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
@@ -217,7 +217,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
       </Container>
       <Container variant="hybrid">
         <div className="flex flex-col md:flex-row">
-          <div className="relative flex flex-row md:flex-col justify-between p-8 md:p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[130px] md:h-auto md:w-[40%] overflow-hidden">
+          <div className="relative border-l border-t border-b border-[#fff2] flex flex-row md:flex-col justify-between p-8 md:p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[130px] md:h-auto md:w-[40%] overflow-hidden">
             <div className="relative">
               <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20">
                 <h2 className="leading-10 text-foreground -rotate-6">
@@ -256,7 +256,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
               </h2>
             </div>
           </div>
-          <div className="bg-background-overlay overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative">
+          <div className="bg-background-overlay overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative border-r border-t border-b border-[#fff2]">
             <div
               className={cn(
                 "absolute left-0 top-0 right-0 bottom-0 bg-opacity-90 bg-background-overlay flex justify-center items-center",
@@ -287,7 +287,9 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                         <FormMessage className="leading-none" />
                       </div>
                       <FormControl>
-                        <Input {...field} />
+                        <Input.Root>
+                          <Input.Field {...field} />
+                        </Input.Root>
                       </FormControl>
                     </FormItem>
                   )}
@@ -302,7 +304,9 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                         <FormMessage className="leading-none" />
                       </div>
                       <FormControl>
-                        <Textarea rows={8} {...field} />
+                        <Textarea.Root>
+                          <Textarea.Field rows={8} {...field} />
+                        </Textarea.Root>
                       </FormControl>
                     </FormItem>
                   )}

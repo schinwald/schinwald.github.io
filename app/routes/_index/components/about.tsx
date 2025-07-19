@@ -68,7 +68,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
     <div
       id="about"
       className={cn(
-        "relative w-screen flex flex-col justify-center items-center py-20 -my-20",
+        "relative w-screen flex flex-col justify-center items-center py-36 -my-36",
         className,
       )}
     >
@@ -100,7 +100,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
               </div>
               <p className="text-foreground opacity-70">
                 {`
-                  Hey there! I'm a software engineer based in Toronto, ON, who loves solving problems and bringing ideas to life through code. I have ${yearsOfExperience} years of experience and work across the stack and enjoy making apps that are both fun and functional. Whether it's tweaking a UI or optimizing the backend, I love building smooth, user-friendly experiences.
+                  Hey there! I'm a software engineer based in Toronto, ON, who loves solving problems and bringing ideas to life through code. I have ${yearsOfExperience}+ years of experience and work across the stack and enjoy making apps that are both fun and functional. Whether it's tweaking a UI or optimizing the backend, I love building smooth, user-friendly experiences.
                 `}
               </p>
             </div>

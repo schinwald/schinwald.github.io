@@ -25,7 +25,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
           >
             <li>
               <a
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
                 href="https://www.github.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
@@ -36,7 +36,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             </li>
             <li>
               <a
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
                 href="https://www.linkedin.com/in/schinwald"
                 target="_blank"
                 rel="noreferrer"
@@ -47,7 +47,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             </li>
             <li>
               <a
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
                 href="https://www.twitter.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
@@ -69,7 +69,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
           >
             <li className="opacity-0">
               <a
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
                 href="https://www.github.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
@@ -79,7 +79,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             </li>
             <li className="opacity-0">
               <a
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
                 href="https://www.linkedin.com/in/schinwald"
                 target="_blank"
                 rel="noreferrer"
@@ -89,7 +89,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             </li>
             <li className="opacity-0">
               <a
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
                 href="https://www.twitter.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
