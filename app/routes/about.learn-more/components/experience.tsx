@@ -19,7 +19,7 @@ export const Experience: React.FC<ExperienceProps> = ({
   location,
 }) => {
   return (
-    <div className="transition-all duration-200 outline outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
+    <div className="transition-all duration-200 outline-1 outline-[#fff2] hover:outline-[#fff7] p-3 rounded-sm flex flex-row items-start gap-2 max-h-[58px] overflow-hidden cursor-pointer">
       <img className="w-8" src={logo.url} alt={logo.alt} />
       <div className="flex flex-col gap-6">
         <Cycler.Root>
