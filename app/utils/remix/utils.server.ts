@@ -1,5 +1,5 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import { json } from "@remix-run/node";
+import { data as response } from "react-router";
 
 export const success = <Data>(data: Data) => {
   const headers = new Headers();
@@ -8,7 +8,7 @@ export const success = <Data>(data: Data) => {
     headers.append("set-cookie", committedSession);
   }
 
-  return json(data, { headers });
+  return response(data, { headers });
 };
 
 export const redirect = (url: string) => {

@@ -1,4 +1,4 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "react-router";
 import { match } from "ts-pattern";
 import type { z } from "zod";
 import { createContext } from "./utils.server";

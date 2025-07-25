@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage } from "react-router";
 import type { Simplify } from "drizzle-orm";
 import { Authenticator } from "remix-auth";
 import { CodeChallengeMethod, OAuth2Strategy } from "remix-auth-oauth2";

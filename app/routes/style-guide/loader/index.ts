@@ -1,6 +1,6 @@
 import { loaderHandler } from "~/utils/remix/loader.server";
 
-export const loader = loaderHandler(async ({ request, json }) => {
+export const loader = loaderHandler(async ({ json }) => {
   return json({});
 });
 

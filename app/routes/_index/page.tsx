@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { BackgroundGradient } from "~/components/background-gradient";
 import * as Tab from "~/components/tab";
 import {

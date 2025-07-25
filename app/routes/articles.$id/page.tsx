@@ -1,5 +1,5 @@
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { getMDXComponent } from "mdx-bundler/client";
 import { Children, useMemo } from "react";
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";

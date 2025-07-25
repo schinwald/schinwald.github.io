@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
 import { BackgroundGradient } from "./components/background-gradient";
 
 import "~/styles/globals.css";
