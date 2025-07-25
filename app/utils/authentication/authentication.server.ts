@@ -9,8 +9,8 @@ import { Google } from "~/utils/services/google.server";
 type User = {
   id: string;
   email: string;
-  name: string;
-  avatar_url: string;
+  fullName: string;
+  avatarURL: string;
 };
 
 export const redirectSessionStorage = createCookieSessionStorage({
@@ -96,8 +96,8 @@ authenticator.use(
       return {
         id: user.sub,
         email: user.email,
-        name: user.name,
-        avatar_url: user.picture,
+        fullName: user.name,
+        avatarURL: user.picture,
       };
     },
   ),
@@ -127,8 +127,8 @@ authenticator.use(
         return {
           id: user.id.toString(),
           email: emails.find((email) => email.primary)?.email ?? "",
-          name: user.name,
-          avatar_url: user.avatar_url,
+          fullName: user.name,
+          avatarURL: user.avatar_url,
         };
       });
 

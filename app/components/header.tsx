@@ -110,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
         >
           <div className="flex flex-row items-center gap-1">
-            <h2 className="text-foreground whitespace-nowrap">{title}</h2>
+            <h1 className="text-foreground whitespace-nowrap">{title}</h1>
           </div>
         </div>
       );
@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({
             "uppercase overflow-hidden flex flex-col gap-1 pt-2",
           )}
         >
-          <motion.h2
+          <motion.h1
             custom={2}
             variants={textVariant}
             className="text-background-soft whitespace-nowrap z-0 relative"
@@ -140,8 +140,8 @@ const Header: React.FC<HeaderProps> = ({
             }}
           >
             {title}
-          </motion.h2>
-          <motion.h2
+          </motion.h1>
+          <motion.h1
             custom={1}
             variants={textVariant}
             className="text-background-soft whitespace-nowrap z-10 relative"
@@ -151,8 +151,8 @@ const Header: React.FC<HeaderProps> = ({
             }}
           >
             {title}
-          </motion.h2>
-          <h2 className="text-foreground z-20 relative">{title}</h2>
+          </motion.h1>
+          <h1 className="text-foreground z-20 relative">{title}</h1>
         </motion.div>
       );
       break;

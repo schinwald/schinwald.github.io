@@ -2,23 +2,24 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-import { cn } from "~/utils/classname";
+import { cn } from "app/utils/classname";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap font-display ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200",
+  "inline-flex items-center justify-center ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200 cursor-pointer text-left transition-all",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 uppercase rounded-md text-md md:text-xl",
+          "bg-primary text-primary-foreground hover:bg-primary/90 uppercase rounded-md text-md md:text-xl font-display text-center whitespace-nowrap",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:outline",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md focus-visible:outline font-display text-center whitespace-nowrap",
         outline:
-          "border border-input hover:bg-accent hover:text-accent-foreground focus-visible:outline",
+          "border border-input hover:bg-accent hover:text-accent-foreground rounded-md focus-visible:outline font-display text-center whitespace-nowrap",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 focus-visible:outline",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md focus-visible:outline font-display text-center whitespace-nowrap",
         ghost: "hover:opacity-50",
         link: "text-primary underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-hidden",
+        unstyled: "",
       },
       size: {
         default: "h-10 px-8 py-4 text-md",

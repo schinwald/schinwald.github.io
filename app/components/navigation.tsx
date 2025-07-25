@@ -117,6 +117,8 @@ const NavigationOverlay: React.FC<NavigationProps> = () => {
     animateBackground,
   ]);
 
+  console.log(navigationState, navigationType);
+
   return (
     <Overlay className="pointer-events-none z-50" position="fixed">
       {match({ state: navigationState, type: navigationType })
@@ -126,7 +128,7 @@ const NavigationOverlay: React.FC<NavigationProps> = () => {
             className="absolute h-full opacity-0 bg-background w-[100%] "
           />
         ))
-        .with({ state: P.union("entering", "exited"), type: "left" }, () => (
+        .with({ state: P.union("entering", "entered"), type: "left" }, () => (
           <motion.div
             ref={backgroundRef}
             className="absolute h-full opacity-100 bg-background w-[100%] "

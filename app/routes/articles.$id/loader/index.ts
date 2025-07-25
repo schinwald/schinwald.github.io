@@ -3,7 +3,7 @@ import { getPublicationStatus, getVisibiliy } from "~/utils/date";
 import { getMDXBundle } from "~/utils/mdx/mdx.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
 
-type TableOfContents = {
+export type TableOfContents = {
   id: string;
   level: number;
   text: string;

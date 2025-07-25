@@ -16,6 +16,7 @@ import * as experience from "~/assets/images/experience";
 import { BackgroundGradient } from "~/components/background-gradient";
 import * as Card from "~/components/card";
 import * as Dictionary from "~/components/dictionary";
+import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Container } from "~/layouts/container";
@@ -30,16 +31,14 @@ export default function () {
         <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
           <NavigationBar />
           <Container variant="narrow">
+            <Header
+              className="row-span-1"
+              title="About Me"
+              align="left"
+              variant="typist"
+            />
             <div className="w-full h-full flex flex-col justify-center items-center gap-6">
               <div className="grid grid-cols-6 gap-5">
-                <div className="relative col-span-6 flex flex-col justify-end">
-                  <h1 className="bg-clip-text text-transparent bg-linear-to-b from-foreground to-tertiary">
-                    Hello!
-                  </h1>
-                  <h1 className="absolute opacity-[2%] left-1/2 -translate-x-1/2 text-foreground text-[40rem] pointer-events-none">
-                    Hello!
-                  </h1>
-                </div>
                 <div className="grid grid-cols-subgrid col-span-4 gap-5">
                   <div className="col-span-4">
                     <Card.Root>

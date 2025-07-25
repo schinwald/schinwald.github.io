@@ -112,22 +112,17 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
     <div
       id="testimonials"
       className={cn(
-        "relative w-screen flex flex-col items-center gap-10 py-20 -my-20",
+        "relative w-screen flex flex-col items-center gap-10 py-28 -my-28",
         className,
       )}
     >
       <Container variant="narrow">
         <div className="relative flex flex-row justify-end">
-          <Header
-            className="text-right"
-            title="Testimonials"
-            align="right"
-            variant="cascade"
-          />
+          <Header title="Testimonials" align="right" variant="cascade" />
         </div>
       </Container>
       <Container
-        className="h-[400px] md:h-[500px] items-center bg-background overflow-clip relative"
+        className="h-[400px] md:h-[500px] items-center bg-background overflow-clip relative border border-[#fff2]"
         variant="wide"
       >
         <div className="w-full max-w-[2400px] h-full absolute pointer-events-none">
@@ -157,9 +152,11 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
               }
 
               return (
-                <Button
+                <button
                   ref={ref}
+                  tabIndex={-1}
                   key={key}
+                  type="button"
                   className="absolute"
                   onClick={() => {
                     toggleCarouselPlay();
@@ -178,7 +175,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
                     company={data.company}
                     review={data.review}
                   />
-                </Button>
+                </button>
               );
             })}
           </div>

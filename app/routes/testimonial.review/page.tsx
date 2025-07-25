@@ -8,8 +8,11 @@ export default function () {
 
   return (
     <div>
-      <section className="bg-background w-screen h-screen overflow-y-scroll overflow-x-hidden">
-        <TestimonialEditor fullName={user.fullName} avatar={user.avatar} />
+      <section className="w-screen h-screen overflow-y-scroll overflow-x-hidden">
+        <TestimonialEditor
+          fullName={user.fullName}
+          avatarURL={user.avatarURL}
+        />
         <BackgroundGradient />
       </section>
     </div>
