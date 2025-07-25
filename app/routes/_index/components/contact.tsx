@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { useAnimate, useInView } from "framer-motion";
 import type { LottieRefCurrentProps } from "lottie-react";
 import type React from "react";

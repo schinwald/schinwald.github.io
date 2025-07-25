@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "react-router";
 import { createStore } from "zustand";
 
 type ExtractFromSet<T> = T extends Set<infer U> ? U : never;

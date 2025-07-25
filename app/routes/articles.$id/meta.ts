@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "react-router";
 import type { Loader } from "./loader";
 
 export const meta: MetaFunction<Loader> = ({ data }) => {

@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs, TypedResponse } from "@remix-run/node";
+import type { LoaderFunctionArgs, TypedResponse } from "react-router";
 import { getNavigationJSONData } from "~/hooks/stores/navigation";
 import { createContext, success } from "./utils.server";
 
