@@ -32,7 +32,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
   const title = useMemo(() => {
     if (occupation && company) {
       return (
-        <p className="text-center text-tertiary-foreground font-thin capitalize">
+        <p className="text-center text-tertiary-foreground capitalize leading-5">
           <span className="whitespace-nowrap">{occupation}</span>
           <br />
           <span className="whitespace-nowrap">@{company}</span>
@@ -42,7 +42,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
 
     if (occupation) {
       return (
-        <p className="text-center text-tertiary-foreground font-thin capitalize">
+        <p className="text-center text-tertiary-foreground capitalize">
           <span className="whitespace-nowrap">{occupation}</span>
         </p>
       );
@@ -54,11 +54,11 @@ const Testimonial: React.FC<TestimonialProps> = ({
   return (
     <div
       className={cn(
-        "relative h-[400px] aspect-3/4 bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer",
+        "relative h-[400px] aspect-3/4 border border-[#fff2] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer",
         className,
       )}
     >
-      <div className="absolute flex flex-col items-center justify-between h-full p-8 z-20">
+      <div className="absolute flex flex-col gap-4 items-center justify-between h-full p-8 z-20">
         <div className="flex flex-col gap-4">
           <div className="flex flex-row justify-center gap-2">
             {/* TODO: replace this with rating component */}
@@ -89,18 +89,18 @@ const Testimonial: React.FC<TestimonialProps> = ({
           </div>
           <p className="line-clamp-5">{review}</p>
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-24 h-24 rounded-full bg-white border-white border-4 overflow-hidden">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-24 h-24 rounded-full bg-white outline-4 outline-white/70 overflow-hidden">
             <img
               src={avatar ?? imageDefaultAvatar}
               alt="Avatar of the user"
               className="w-full h-full"
             />
           </div>
-          <div className="flex flex-col items-center gap-1">
-            <h6 className="text-tertiary-foreground capitalize font-bold">
+          <div className="flex flex-col items-center gap-3">
+            <h5 className="text-tertiary-foreground/80 capitalize font-bold">
               {fullname}
-            </h6>
+            </h5>
             {title}
           </div>
         </div>

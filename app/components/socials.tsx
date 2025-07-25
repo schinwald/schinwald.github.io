@@ -5,6 +5,7 @@ import {
   AiOutlineTwitter as TwitterIcon,
 } from "react-icons/ai";
 import { cn } from "~/utils/classname";
+import { Link } from "./primitives/ui/link";
 
 type SocialsProps = {
   className?: string;
@@ -24,37 +25,43 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             )}
           >
             <li>
-              <a
-                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
-                href="https://www.github.com/schinwald"
+              <Link
+                className="flex flex-row gap-2"
+                to="https://www.github.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
+                variant="ghost"
+                size="minimal"
               >
                 <GitHubIcon className="size-7" />
-                <h4 className="hidden sm:block">Github</h4>
-              </a>
+                <h4 className="hidden sm:block mr-1">Github</h4>
+              </Link>
             </li>
             <li>
-              <a
-                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
-                href="https://www.linkedin.com/in/schinwald"
+              <Link
+                className="flex flex-row gap-2"
+                to="https://www.linkedin.com/in/schinwald"
                 target="_blank"
                 rel="noreferrer"
+                variant="ghost"
+                size="minimal"
               >
                 <LinkedInIcon className="size-7" />
-                <h4 className="hidden sm:block">LinkedIn</h4>
-              </a>
+                <h4 className="hidden sm:block mr-1">LinkedIn</h4>
+              </Link>
             </li>
             <li>
-              <a
-                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
-                href="https://www.twitter.com/schinwald"
+              <Link
+                className="flex flex-row gap-2 px-1"
+                to="https://www.twitter.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
+                variant="ghost"
+                size="minimal"
               >
                 <TwitterIcon className="size-7" />
-                <h4 className="hidden sm:block">Twitter</h4>
-              </a>
+                <h4 className="hidden sm:block mr-1">Twitter</h4>
+              </Link>
             </li>
           </ul>
         );
@@ -68,34 +75,37 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             )}
           >
             <li className="opacity-0">
-              <a
-                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
-                href="https://www.github.com/schinwald"
+              <Link
+                to="https://www.github.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
+                variant="ghost"
+                size="minimal"
               >
                 <GitHubIcon className="size-8" />
-              </a>
+              </Link>
             </li>
             <li className="opacity-0">
-              <a
-                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
-                href="https://www.linkedin.com/in/schinwald"
+              <Link
+                to="https://www.linkedin.com/in/schinwald"
                 target="_blank"
                 rel="noreferrer"
+                variant="ghost"
+                size="minimal"
               >
                 <LinkedInIcon className="size-8" />
-              </a>
+              </Link>
             </li>
             <li className="opacity-0">
-              <a
-                className="flex flex-row items-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background px-1 rounded-md"
-                href="https://www.twitter.com/schinwald"
+              <Link
+                to="https://www.twitter.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
+                variant="ghost"
+                size="minimal"
               >
                 <TwitterIcon className="size-8" />
-              </a>
+              </Link>
             </li>
           </ul>
         );

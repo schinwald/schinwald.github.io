@@ -68,7 +68,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
     <div
       id="about"
       className={cn(
-        "relative w-screen flex flex-col justify-center items-center py-36 -my-36",
+        "relative w-screen flex flex-col justify-center items-center py-56 -my-56",
         className,
       )}
     >

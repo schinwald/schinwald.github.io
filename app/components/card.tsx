@@ -9,6 +9,7 @@ const rootStyles = cva("flex flex-col relative", {
       sm: "p-2 gap-2",
       md: "p-4 gap-4",
       lg: "p-6 gap-4",
+      xl: "p-8 gap-4",
     },
   },
   defaultVariants: {
@@ -16,16 +17,20 @@ const rootStyles = cva("flex flex-col relative", {
   },
 });
 
-type RootProps = PropsWithChildren & VariantProps<typeof rootStyles>;
+type RootProps = PropsWithChildren &
+  VariantProps<typeof rootStyles> & {
+    className?: string;
+  };
 
-export const Root: React.FC<RootProps> = ({ children, size }) => {
+export const Root: React.FC<RootProps> = ({ children, className, size }) => {
   return (
-    <div className=" text-foreground-overlay rounded-md w-full h-full gap-4 grid overflow-clip outline-2 outline-[#fff2]">
-      <div className="row-span-full col-span-full bg-background-overlay backdrop-blur-lg opacity-40" />
+    <div className="w-full h-full grid">
+      <div className="row-span-full rounded-md col-span-full bg-background-overlay backdrop-blur-lg opacity-40" />
       <div
         className={cn(
-          "row-span-full col-span-full flex flex-col relative gap-4",
+          "overflow-clip outline outline-[#fff2] text-foreground-overlay rounded-md row-span-full col-span-full flex flex-col relative gap-4",
           rootStyles({ size }),
+          className,
         )}
       >
         {children}
@@ -34,14 +39,18 @@ export const Root: React.FC<RootProps> = ({ children, size }) => {
   );
 };
 
-export const Header: React.FC<PropsWithChildren> = ({ children }) => {
+type HeaderProps = PropsWithChildren & { className?: string };
+
+export const Header: React.FC<HeaderProps> = ({ children, className }) => {
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className={cn("flex flex-row items-center gap-2", className)}>
       <h3>{children}</h3>
     </div>
   );
 };
 
-export const Content: React.FC<PropsWithChildren> = ({ children }) => {
-  return <div>{children}</div>;
+type ContentProps = PropsWithChildren & { className?: string };
+
+export const Content: React.FC<ContentProps> = ({ children, className }) => {
+  return <div className={className}>{children}</div>;
 };

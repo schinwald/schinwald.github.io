@@ -201,18 +201,13 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
     <div
       id="contact"
       className={cn(
-        "relative w-screen flex flex-col items-center gap-10 py-20 -my-20",
+        "relative w-screen flex flex-col items-center gap-10 py-28 -my-28",
         className,
       )}
     >
       <Container variant="narrow">
         <div className="relative flex flex-row justify-start">
-          <Header
-            className="text-left"
-            title="Contact"
-            align="left"
-            variant="cascade"
-          />
+          <Header title="Contact" align="left" variant="cascade" />
         </div>
       </Container>
       <Container variant="hybrid">
@@ -256,7 +251,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
               </h2>
             </div>
           </div>
-          <div className="bg-background-overlay overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative border-r border-t border-b border-[#fff2]">
+          <div className="bg-background-overlay/60 overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative border-r border-t border-b border-[#fff2]">
             <div
               className={cn(
                 "absolute left-0 top-0 right-0 bottom-0 bg-opacity-90 bg-background-overlay flex justify-center items-center",
@@ -311,16 +306,14 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                     </FormItem>
                   )}
                 />
-                <div className="flex flex-col items-center md:items-start gap-5 mt-2">
-                  <div className="flex flex-row justify-center md:justify-start">
-                    <Button
-                      type="submit"
-                      variant="default"
-                      click="squish-lightly"
-                    >
-                      Submit
-                    </Button>
-                  </div>
+                <div className="flex flex-row justify-center md:justify-start">
+                  <Button
+                    type="submit"
+                    variant="default"
+                    click="squish-lightly"
+                  >
+                    Submit
+                  </Button>
                 </div>
               </form>
             </Form>

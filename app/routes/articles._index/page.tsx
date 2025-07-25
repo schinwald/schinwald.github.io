@@ -3,99 +3,73 @@ import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect } from "react";
 import { FaSearch as SearchIcon } from "react-icons/fa";
 import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
+import placeholderSVG from "~/assets/images/placeholder.svg";
 import { BackgroundGradient } from "~/components/background-gradient";
+import * as Card from "~/components/card";
+import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import * as Input from "~/components/primitives/ui/input";
 import { Link } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
+import type { Article as ArticleItem } from "~/utils/mdx/mdx.server";
 import type { Loader } from "./loader";
 
 type ArticleProps = {
-  id: string;
-  title: string;
-  description: string;
-  image?: {
-    src: string;
-    alt: string;
-  };
-  meta?: {
-    tags?: string[];
-    publishedAt: string | null;
-  };
+  article: ArticleItem;
 };
 
 export const Article: React.FC<ArticleProps> = ({
-  id,
-  title,
-  description,
-  image,
-  meta,
+  article: { id, title, image, meta },
 }) => {
-  const publishedAt = safeParseISO(meta?.publishedAt);
+  const publishedAt = safeParseISO(meta.publishedAt);
 
   return (
     <li className=" text-foreground-overlay flex flex-col gap-6 opacity-0">
-      <Link
-        to={`/articles/${id}`}
-        variant="ghost"
-        size="minimal"
-        className="aspect-8/5 bg-[#fff8] rounded-sm overflow-hidden"
-      >
-        <img src={image?.src} alt={image?.alt} />
-      </Link>
-      <div className="flex flex-col gap-3">
-        <time className="font-light inline-flex gap-2">
-          <span>🗓</span>
-          {safeFormat(publishedAt) ?? "TBD"}
-        </time>
-        <h3>{title}</h3>
-        <div className="inline-flex gap-1 overflow-hidden">
-          {meta?.tags?.map((tag) => (
-            <span
-              key={tag}
-              className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col gap-1">
-        <p className="line-clamp-4">{description}</p>
-        <div>
-          <Link to={`/articles/${id}`} variant="link" size="minimal">
-            Read More
+      <Card.Root size="xs">
+        <Card.Header>
+          <Link
+            to={`/articles/${id}`}
+            variant="ghost"
+            size="minimal"
+            className="aspect-8/5 bg-[#fff8] overflow-hidden"
+          >
+            <img src={image?.src ?? placeholderSVG} alt={image?.alt} />
           </Link>
-        </div>
-      </div>
+        </Card.Header>
+        <Card.Content className="p-4 pt-0">
+          <div className="flex flex-col gap-3">
+            <time className="font-light inline-flex gap-2">
+              <span>🗓</span>
+              {safeFormat(publishedAt) ?? "TBD"}
+            </time>
+            <h3>{title}</h3>
+            <div className="inline-flex gap-1 overflow-hidden">
+              {meta.tags?.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Card.Content>
+      </Card.Root>
     </li>
   );
 };
 
 type ArticleSideProps = {
-  id: string;
-  title: string;
-  description: string;
-  image?: {
-    src: string;
-    alt: string;
-  };
-  meta?: {
-    tags?: string[];
-    publishedAt: string | null;
-  };
+  article: ArticleItem;
 };
 
 export const ArticleSide: React.FC<ArticleSideProps> = ({
-  id,
-  title,
-  description,
-  image,
-  meta,
+  article: { id, title, description, image, meta },
 }) => {
-  const publishedAt = safeParseISO(meta?.publishedAt);
+  const publishedAt = safeParseISO(meta.publishedAt);
 
   return (
     <li className=" text-foreground-overlay flex flex-row gap-4 opacity-0">
@@ -115,7 +89,7 @@ export const ArticleSide: React.FC<ArticleSideProps> = ({
           </time>
           <h3>{title}</h3>
           <div className="inline-flex gap-1 overflow-hidden">
-            {meta?.tags?.map((tag) => (
+            {meta.tags?.map((tag) => (
               <span
                 key={tag}
                 className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2"
@@ -163,7 +137,7 @@ export const FeaturedArticles: React.FC = () => {
   }, [isInView, animateFeaturedArticle]);
 
   const featuredArticles = articles.filter(
-    (article) => article.meta?.isFeatured,
+    (article) => article.meta.isFeatured,
   );
 
   return (
@@ -174,21 +148,23 @@ export const FeaturedArticles: React.FC = () => {
         className="grid grid-cols-12 grid-rows-3 gap-6"
       >
         <li className="col-span-6 row-span-3">
-          {featuredArticles[0] ? <Article {...featuredArticles[0]} /> : null}
+          {featuredArticles[0] ? (
+            <Article article={featuredArticles[0]} />
+          ) : null}
         </li>
         <li className="col-span-6 row-span-1">
           {featuredArticles[1] ? (
-            <ArticleSide {...featuredArticles[1]} />
+            <ArticleSide article={featuredArticles[1]} />
           ) : null}
         </li>
         <li className="col-span-6 row-span-1">
           {featuredArticles[2] ? (
-            <ArticleSide {...featuredArticles[2]} />
+            <ArticleSide article={featuredArticles[2]} />
           ) : null}
         </li>
         <li className="col-span-6 row-span-1">
           {featuredArticles[3] ? (
-            <ArticleSide {...featuredArticles[3]} />
+            <ArticleSide article={featuredArticles[3]} />
           ) : null}
         </li>
       </motion.ol>
@@ -223,20 +199,16 @@ export const AllArticles: React.FC = () => {
   return (
     <Container variant="narrow">
       <div className="flex flex-row items-end justify-between text-foreground">
-        <h2>
-          All
-          <br />
-          Articles
-        </h2>
-        <Input.Root className="w-[400px] text-black flex gap-2">
+        <Header title="Articles" align="left" variant="typist" />
+        <Input.Root className="w-[400px] flex gap-2">
           <div className="flex flex-row items-center">
-            <SearchIcon />
+            <SearchIcon className="text-black" />
           </div>
           <Input.Field
             placeholder="Search..."
             className="bg-none border-none w-full"
           />
-          <p className="flex flex-row items-center gap-1">
+          <p className="flex flex-row items-center gap-1 text-black">
             <CommandIcon />+
             <div className="ml-[0.2rem] rounded size-6 flex justify-center bg-black text-white text-[0.5rem]">
               K
@@ -250,7 +222,7 @@ export const AllArticles: React.FC = () => {
       >
         {articles.map((article, index) => {
           const key = `article-${index}`;
-          return <Article key={key} {...article} />;
+          return <Article key={key} article={article} />;
         })}
       </motion.ol>
     </Container>
@@ -263,7 +235,7 @@ export default function () {
       <section className="w-screen h-screen">
         <div className="relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
           <NavigationBar />
-          <FeaturedArticles />
+          {/* <FeaturedArticles /> */}
           <AllArticles />
           <Container variant="narrow">
             <div className="flex flex-row justify-between items-end">

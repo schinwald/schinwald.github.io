@@ -60,12 +60,18 @@ export const getVisibiliy = ({
   publicationStatus: PublicationStatus;
 }) => {
   return match({ isHidden, publicationStatus })
-    .with({ isHidden: true, publicationStatus: P.any }, () => "hidden")
-    .with({ isHidden: false, publicationStatus: "unpublished" }, () => "hidden")
-    .with({ isHidden: false, publicationStatus: "published" }, () => "live")
+    .with({ isHidden: true, publicationStatus: P.any }, () => "hidden" as const)
+    .with(
+      { isHidden: false, publicationStatus: "unpublished" },
+      () => "hidden" as const,
+    )
+    .with(
+      { isHidden: false, publicationStatus: "published" },
+      () => "live" as const,
+    )
     .with(
       { isHidden: false, publicationStatus: "scheduled" },
-      () => "scheduled",
+      () => "scheduled" as const,
     )
     .exhaustive();
 };
