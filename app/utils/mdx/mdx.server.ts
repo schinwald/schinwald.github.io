@@ -106,14 +106,14 @@ const excerptHandler = (file: Buffer<ArrayBufferLike>, options: any) => {
 
 export const getArticles = async () => {
   const files = await fs
-    .readdir(path.join(process.cwd(), "/app/routes/articles.$id/mdx"))
+    .readdir(path.join(process.cwd(), "/app/routes/articles.$id/.server/mdx"))
     .then((files) => files.filter((file) => !file.startsWith(".")));
 
   const articles: Article[] = [];
   for (const file of files) {
     const filePath = path.join(
       process.cwd(),
-      `/app/routes/articles.$id/mdx/${file}/index.mdx`,
+      `/app/routes/articles.$id/.server/mdx/${file}/index.mdx`,
     );
     const fileContents = await fs.readFile(filePath);
     const { data, excerpt } = matter(fileContents, {

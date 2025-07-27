@@ -10,9 +10,12 @@ import {
 import { BackgroundGradient } from "./components/background-gradient";
 
 import "~/styles/globals.css";
-import { serverOnly$ } from "vite-env-only/macros";
 import { NavigationProvider } from "./components/navigation";
 import { OverlayProvider } from "./hooks/overlay";
+
+import { loader as actualLoader } from "./loader";
+
+export const loader = await actualLoader;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -110,13 +113,6 @@ export function ErrorBoundary() {
     </main>
   );
 }
-
-const importLoader = serverOnly$(async () => {
-  const { loader } = await import("./loader");
-  return loader;
-});
-
-export const loader = await importLoader?.();
 
 export default function App() {
   return (

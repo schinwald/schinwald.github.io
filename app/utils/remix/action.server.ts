@@ -79,9 +79,10 @@ const getInput = async (request: Request) => {
 };
 
 export const intent = <
+  T,
   Actions extends Record<
     string,
-    Promise<(args: ExtendedActionFunctionArgs) => Promise<void>>
+    Promise<(args: ExtendedActionFunctionArgs) => Promise<T>>
   >,
 >(
   actions: Actions,

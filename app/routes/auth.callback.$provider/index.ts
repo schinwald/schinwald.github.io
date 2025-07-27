@@ -1,8 +1,3 @@
-import { serverOnly$ } from "vite-env-only/macros";
+import { loader as actualLoader } from "./.server/loader";
 
-const importLoader = serverOnly$(async () => {
-  const { loader } = await import("./loader");
-  return loader;
-});
-
-export const loader = await importLoader?.();
+export const loader = await actualLoader;

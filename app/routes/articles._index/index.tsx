@@ -1,8 +1,8 @@
-import { useLoaderData } from "react-router";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect } from "react";
 import { FaSearch as SearchIcon } from "react-icons/fa";
 import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
+import { useLoaderData } from "react-router";
 import placeholderSVG from "~/assets/images/placeholder.svg";
 import { BackgroundGradient } from "~/components/background-gradient";
 import * as Card from "~/components/card";
@@ -14,7 +14,12 @@ import { Link } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
 import type { Article as ArticleItem } from "~/utils/mdx/mdx.server";
-import type { Loader } from "./loader";
+import { meta as actualMeta } from "./.meta";
+import type { Loader } from "./.server/loader";
+import { loader as actualLoader } from "./.server/loader";
+
+export const loader = await actualLoader;
+export const meta = actualMeta;
 
 type ArticleProps = {
   article: ArticleItem;

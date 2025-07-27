@@ -1,5 +1,4 @@
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
-import { useLoaderData } from "react-router";
 import { getMDXComponent } from "mdx-bundler/client";
 import { Children, useMemo } from "react";
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
@@ -10,6 +9,7 @@ import {
 import { IoMdHeart as FullHeartIcon } from "react-icons/io";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { SiBuymeacoffee as BuyMeACoffeeIcon } from "react-icons/si";
+import { useLoaderData } from "react-router";
 import { match } from "ts-pattern";
 import placeholderSVG from "~/assets/images/placeholder.svg";
 import { BackgroundGradient } from "~/components/background-gradient";
@@ -28,9 +28,13 @@ import {
   safeFormat,
   safeParseISO,
 } from "~/utils/date";
-import { Header } from "./components/header";
-import type { Loader } from "./loader";
-import type { TableOfContents as TOC } from "./loader/index";
+import { Header } from "./.components/header";
+import { meta as actualMeta } from "./.meta";
+import type { Loader, TableOfContents as TOC } from "./.server/loader";
+import { loader as actualLoader } from "./.server/loader";
+
+export const loader = await actualLoader;
+export const meta = actualMeta;
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {

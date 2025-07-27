@@ -20,7 +20,10 @@ import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Container } from "~/layouts/container";
-import { Education, Experience } from "./components";
+import { Education, Experience } from "./.components";
+import { loader as actualLoader } from "./.server/loader";
+
+export const loader = await actualLoader;
 
 export default function () {
   const pronunciationSound = new Howl({ src: pronunciation });

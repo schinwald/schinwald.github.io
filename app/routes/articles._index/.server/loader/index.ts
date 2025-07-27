@@ -14,7 +14,7 @@ export const loader = loaderHandler(async ({ json }) => {
         publicationStatus: getPublicationStatus(article.meta.publishedAt),
       });
 
-      if (import.meta.env.PROD && visibility !== "published") {
+      if (import.meta.env.PROD && visibility !== "live") {
         return false;
       }
 

@@ -1,6 +1,11 @@
 import { BackgroundGradient } from "~/components/background-gradient";
 import * as Card from "~/components/card";
 import { Container } from "~/layouts/container";
+import { meta as actualMeta } from "./.meta";
+import { loader as actualLoader } from "./.server/loader";
+
+export const loader = await actualLoader;
+export const meta = actualMeta;
 
 export default function () {
   return (

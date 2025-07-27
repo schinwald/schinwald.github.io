@@ -21,7 +21,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
   const toc: TableOfContents[] = [];
 
   const { code, frontmatter, errors } = await getMDXBundle(
-    `app/routes/articles.$id/mdx/${id}/index.mdx`,
+    `app/routes/articles.$id/.server/mdx/${id}/index.mdx`,
     (tree) => {
       // TODO: remove foreach since it's slow
       // Generate the table of contents
@@ -57,7 +57,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
     publicationStatus: getPublicationStatus(frontmatter.meta.publishedAt),
   });
 
-  if (import.meta.env.PROD && visibility !== "published") {
+  if (import.meta.env.PROD && visibility !== "live") {
     throw new Response(null, {
       status: 404,
       statusText: "Not Found",
