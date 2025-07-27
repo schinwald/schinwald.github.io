@@ -186,20 +186,21 @@ export const AllArticles: React.FC = () => {
   });
 
   useEffect(() => {
-    if (isInView) {
-      animateAllArticles(
-        "li",
-        {
-          opacity: [0, 1],
-          transform: ["translateY(20px)", "translateY(0px)"],
-        },
-        {
-          duration: 0.5,
-          delay: stagger(0.1),
-        },
-      );
-    }
-  }, [isInView, animateAllArticles]);
+    if (!isInView) return;
+    if (articles.length === 0) return;
+
+    animateAllArticles(
+      "li",
+      {
+        opacity: [0, 1],
+        transform: ["translateY(20px)", "translateY(0px)"],
+      },
+      {
+        duration: 0.5,
+        delay: stagger(0.1),
+      },
+    );
+  }, [isInView, articles, animateAllArticles]);
 
   return (
     <Container variant="narrow">
@@ -225,10 +226,16 @@ export const AllArticles: React.FC = () => {
         ref={allArticlesRef}
         className="grid grid-rows-3 grid-cols-3 gap-6"
       >
-        {articles.map((article, index) => {
-          const key = `article-${index}`;
-          return <Article key={key} article={article} />;
-        })}
+        {articles.length > 0 ? (
+          articles.map((article, index) => {
+            const key = `article-${index}`;
+            return <Article key={key} article={article} />;
+          })
+        ) : (
+          <div>
+            <h3>No articles found.</h3>
+          </div>
+        )}
       </motion.ol>
     </Container>
   );

@@ -114,8 +114,7 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeArticle = data[activeIndex];
-
-  if (!activeArticle) throw new Error("No active article");
+  console.log(activeArticle);
 
   return (
     <div
@@ -156,27 +155,37 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
               />
             );
           })}
-          <div className="row-span-full col-start-5 col-span-8 relative h-full bg-background-overlay/60 rounded-md w-full flex flex-col text-white">
-            <div className="relative bg-background-overlay/60 border border-[#fff2] rounded-t-md w-full aspect-8/5 overflow-hidden">
-              <img
-                className="object-cover w-full h-full"
-                src={activeArticle?.image?.src ?? placeholderSVG}
-                alt={activeArticle?.image?.alt}
-              />
-            </div>
-            <div className="grow p-8 border-b border-x border-[#fff2] rounded-b-md flex flex-col justify-between">
-              <div className="grow flex flex-col gap-4">
-                <p className="flex items-center gap-2">
-                  <BookOpenIcon />
-                  <span>{activeArticle.meta.readingTime}</span>
-                </p>
-                <article>{activeArticle.excerpt}</article>
+          {activeArticle ? (
+            <div className="row-span-full col-start-5 col-span-8 relative h-full bg-background-overlay/60 rounded-md w-full flex flex-col text-white">
+              <div className="relative bg-background-overlay/60 border border-[#fff2] rounded-t-md w-full aspect-8/5 overflow-hidden">
+                <img
+                  className="object-cover w-full h-full"
+                  src={activeArticle?.image?.src ?? placeholderSVG}
+                  alt={activeArticle?.image?.alt}
+                />
               </div>
-              <div>
-                <Link to={`/articles/${activeArticle.id}`}>Read More</Link>
+              <div className="grow p-8 border-b border-x border-[#fff2] rounded-b-md flex flex-col justify-between">
+                <div className="grow flex flex-col gap-4">
+                  <p className="flex items-center gap-2">
+                    <BookOpenIcon />
+                    <span>{activeArticle.meta.readingTime}</span>
+                  </p>
+                  <article>{activeArticle.excerpt}</article>
+                </div>
+                <div>
+                  <Link to={`/articles/${activeArticle.id}`}>Read More</Link>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="col-start-5 col-span-8 row-span-full h-full">
+              <Card.Root>
+                <Card.Content className="flex flex-row justify-center items-center h-full">
+                  <h3>No articles found.</h3>
+                </Card.Content>
+              </Card.Root>
+            </div>
+          )}
         </div>
       </Container>
     </div>

@@ -8,7 +8,7 @@ export function randomlyFillData<A, T extends Array<A>>(
     length,
   }).fill(null);
 
-  for (let i = 0; i <= data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     let j = Math.floor(Math.random() * length);
 
     while (true) {
@@ -32,7 +32,7 @@ export function fillData<A, T extends Array<A>>(data: T, length: number) {
     length,
   }).fill(null);
 
-  for (let i = 0; i <= data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     filledData[i] = data[i];
   }
 
