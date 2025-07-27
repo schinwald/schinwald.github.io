@@ -1,7 +1,12 @@
 import { useLoaderData } from "react-router";
 import { BackgroundGradient } from "~/components/background-gradient";
-import { TestimonialEditor } from "./components/testimonial-editor";
-import type { Loader } from "./loader";
+import { TestimonialEditor } from "./.components/testimonial-editor";
+import { action as actualAction } from "./.server/actions";
+import type { Loader } from "./.server/loader";
+import { loader as actualLoader } from "./.server/loader";
+
+export const loader = await actualLoader;
+export const action = actualAction;
 
 export default function () {
   const { user } = useLoaderData<Loader>();

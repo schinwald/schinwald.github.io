@@ -24,6 +24,7 @@
     "@react-router/serve": "^7.0.0",
     "@sendgrid/mail": "^8.1.5",
     "@supabase/supabase-js": "^2.52.0",
+    "@tailwindcss/vite": "^4.1.11",
     "@types/hast": "^3.0.4",
     "@types/howler": "^2.2.12",
     "@types/react-google-recaptcha": "^2.1.9",

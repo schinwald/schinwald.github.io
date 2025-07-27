@@ -4,6 +4,6 @@ import { flatRoutes } from "remix-flat-routes";
 
 export default remixRoutesOptionAdapter((defineRoutes) =>
   flatRoutes("routes", defineRoutes, {
-    ignoredRouteFiles: ["**/.*", "**/*.mdx"], // ignore dot files
+    ignoredRouteFiles: ["**/.*", "**/.*/**"], // ignore dot files
   }),
 ) satisfies RouteConfig;

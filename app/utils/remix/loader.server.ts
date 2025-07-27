@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs, TypedResponse } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
 import { getNavigationJSONData } from "~/hooks/stores/navigation";
 import { createContext, success } from "./utils.server";
 
@@ -17,22 +17,21 @@ const getGlobalJSONData = (args: LoaderFunctionArgs) => ({
 // NOTE: this excludes global json data since there could be naming conflicts
 type JSONData<T> = T & NeverRecord<GlobalJSONData>;
 
-type LoaderHandlerArgs = LoaderFunctionArgs & {
-  json: <T>(data: JSONData<T>) => TypedResponse<T>;
-};
+// type LoaderHandlerArgs = LoaderFunctionArgs & {
+//   json: <T>(data: JSONData<T>) => <T>;
+// };
 
-export const loaderHandler = async <T>(
-  callback: (args: LoaderHandlerArgs) => Promise<T>,
-) => {
-  return (args: LoaderFunctionArgs) =>
-    createContext(async () => {
+export const loaderHandler = async <T>(callback: (args: any) => Promise<T>) => {
+  return async (args: LoaderFunctionArgs) => {
+    return await createContext(async () => {
       return await callback({
         ...args,
-        json: (data) =>
+        json: (data: any) =>
           success({
             ...getGlobalJSONData(args),
             ...data,
           }),
       });
     });
+  };
 };

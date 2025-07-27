@@ -3,15 +3,20 @@ import { BackgroundGradient } from "~/components/background-gradient";
 import * as Tab from "~/components/tab";
 import {
   About,
+  Articles,
   Background,
   Contact,
   Footer,
   Jumbotron,
   Projects,
   Testimonials,
-} from "./components";
-import { Articles } from "./components/articles";
-import type { Loader } from "./loader";
+} from "./.components";
+import { meta as actualMeta } from "./.meta";
+import type { Loader } from "./.server/loader";
+import { loader as actualLoader } from "./.server/loader";
+
+export const loader = await actualLoader;
+export const meta = actualMeta;
 
 export default function () {
   const {
