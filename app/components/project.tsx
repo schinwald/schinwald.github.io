@@ -42,9 +42,9 @@ const Project: React.FC<ProjectProps> = ({
           <GlobeIcon className="w-full h-full text-white" />
         </div>
       </div>
-      <div className="bg-background outline-4 outline-white/70 rounded-md w-full aspect-square">
+      <div className="bg-white outline-4 outline-white/70 rounded-md w-full aspect-square">
         <img
-          className="object-cover w-full h-full rounded-md"
+          className="object-cover w-full h-full rounded-md animate-fade-in"
           src={image.url}
           alt={image.alt}
         />

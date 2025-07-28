@@ -174,7 +174,7 @@ export default function () {
                   <Card.Root size="xs" className="gap-1">
                     <Card.Header className="flex flex-col gap-4">
                       <img
-                        className="object-cover object-center aspect-8/5"
+                        className="object-cover object-center aspect-8/5 w-full"
                         src={frontmatter?.image?.src ?? placeholderSVG}
                         alt={frontmatter?.image?.alt}
                       />
