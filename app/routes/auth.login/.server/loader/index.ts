@@ -4,9 +4,9 @@ import {
   setRedirectURL,
 } from "~/utils/authentication/authentication.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
-import { redirect } from "~/utils/remix/utils.server";
+import { redirect, success } from "~/utils/remix/utils.server";
 
-export const loader = loaderHandler(async ({ request, json }) => {
+export const loader = loaderHandler(async ({ request }) => {
   const user = await getUser(request);
 
   if (user) {
@@ -16,7 +16,7 @@ export const loader = loaderHandler(async ({ request, json }) => {
 
   const redirectTo = new URL(request.url).searchParams.get("redirectTo");
   if (redirectTo) await setRedirectURL(request, redirectTo);
-  return json({});
+  return success({});
 });
 
 export type Loader = Awaited<typeof loader>;

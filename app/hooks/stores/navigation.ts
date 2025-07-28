@@ -71,9 +71,14 @@ export const createNavigationStore = (init?: Partial<Navigation>) => {
     },
     endNavigationExit: () => {
       const { location } = get();
+
       if (!location) throw new Error("No location to navigate to");
+
       const url = new URL(location, window.location.origin);
-      url.searchParams.set(param, "left");
+      if (url.origin === window.location.origin) {
+        url.searchParams.set(param, "left");
+      }
+
       if (location) window.location.href = url.href;
       set(() => ({
         navigationState: "exited",

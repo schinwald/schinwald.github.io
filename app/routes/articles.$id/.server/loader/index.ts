@@ -2,6 +2,7 @@ import * as _ from "radashi";
 import { getPublicationStatus, getVisibiliy } from "~/utils/date";
 import { getMDXBundle } from "~/utils/mdx/mdx.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
+import { success } from "~/utils/remix/utils.server";
 
 export type TableOfContents = {
   id: string;
@@ -9,7 +10,7 @@ export type TableOfContents = {
   text: string;
 };
 
-export const loader = loaderHandler(async ({ params, json }) => {
+export const loader = loaderHandler(async ({ params }) => {
   const { id } = params;
   if (!id) {
     throw new Response(null, {
@@ -64,7 +65,7 @@ export const loader = loaderHandler(async ({ params, json }) => {
     });
   }
 
-  return json({ code, frontmatter, toc, id });
+  return success({ code, frontmatter, toc, id });
 });
 
 export type Loader = Awaited<typeof loader>;
