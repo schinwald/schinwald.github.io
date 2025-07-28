@@ -90,7 +90,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
               <Item index={0}>
                 <a
                   className={cn(
-                    "font-display uppercase px-4 text-sm h-full flex",
+                    "font-display uppercase px-4 text-lg h-full flex",
                   )}
                   href="/"
                   tabIndex={-1}
@@ -103,7 +103,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
               <Item index={1}>
                 <a
                   className={cn(
-                    "font-display uppercase px-3 text-sm h-full flex",
+                    "font-display uppercase px-3 text-lg h-full flex",
                   )}
                   href="#about"
                   rel="noopener noreferrer"
@@ -115,7 +115,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
               <Item index={3}>
                 <a
                   className={cn(
-                    "font-display uppercase px-3 text-sm h-full flex",
+                    "font-display uppercase px-3 text-lg h-full flex",
                   )}
                   href="#projects"
                   rel="noopener noreferrer"
@@ -127,7 +127,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
               <Item index={4}>
                 <a
                   className={cn(
-                    "font-display uppercase px-3 text-sm h-full flex",
+                    "font-display uppercase px-3 text-lg h-full flex",
                   )}
                   href="#articles"
                   rel="noopener noreferrer"
@@ -139,7 +139,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
               <Item index={5}>
                 <a
                   className={cn(
-                    "font-display uppercase px-3 text-sm h-full flex",
+                    "font-display uppercase px-3 text-lg h-full flex",
                   )}
                   href="#testimonials"
                   rel="noopener noreferrer"
@@ -151,7 +151,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
               <Item index={6}>
                 <a
                   className={cn(
-                    "font-display uppercase px-3 text-sm h-full flex",
+                    "font-display uppercase px-3 text-lg h-full flex",
                   )}
                   href="#contact"
                   rel="noopener noreferrer"
