@@ -5,7 +5,7 @@ import { action as actualAction } from "./.server/actions";
 import { loader as actualLoader } from "./.server/loader";
 
 export const loader = await actualLoader;
-export const action = actualAction;
+export const action = await actualAction;
 export const meta = actualMeta;
 
 export default function () {
