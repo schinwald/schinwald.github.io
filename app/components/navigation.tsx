@@ -1,4 +1,3 @@
-import { useLoaderData } from "react-router";
 import { motion, useAnimate } from "framer-motion";
 import {
   createContext,
@@ -7,6 +6,7 @@ import {
   useEffect,
   useRef,
 } from "react";
+import { useRouteLoaderData } from "react-router";
 import { match, P } from "ts-pattern";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";
@@ -16,7 +16,7 @@ import {
   type Navigation,
   type NavigationStore,
 } from "~/hooks/stores/navigation";
-import type { GlobalJSONData } from "~/utils/remix/loader.server";
+import type { Loader } from "~/loader";
 
 const NavigationContext = createContext<NavigationStore | null>(null);
 
@@ -29,11 +29,11 @@ export function useNavigationStore<T>(selector: (state: Navigation) => T): T {
 export const NavigationProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const loaderData = useLoaderData() as GlobalJSONData;
+  const loaderData = useRouteLoaderData<Loader>("root");
   const store = useRef(
     createNavigationStore({
-      navigationType: loaderData.navigationType,
-      navigationState: loaderData.navigationState,
+      navigationType: loaderData?.navigationType,
+      navigationState: loaderData?.navigationState,
     }),
   ).current;
   return (
@@ -116,8 +116,6 @@ const NavigationOverlay: React.FC<NavigationProps> = () => {
     endNavigationExit,
     animateBackground,
   ]);
-
-  console.log(navigationState, navigationType);
 
   return (
     <Overlay className="pointer-events-none z-50" position="fixed">

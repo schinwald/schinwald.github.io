@@ -8,8 +8,9 @@ import {
 import { fillData, randomlyFillData } from "~/utils/helpers";
 import { getArticles } from "~/utils/mdx/mdx.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
+import { success } from "~/utils/remix/utils.server";
 
-export const loader = loaderHandler(async ({ json }) => {
+export const loader = loaderHandler(async () => {
   const testimonials = await db
     .select({
       fullName: testimonialModel.fullName,
@@ -50,7 +51,7 @@ export const loader = loaderHandler(async ({ json }) => {
     },
   };
 
-  return json(response);
+  return success(response);
 });
 
 export type Loader = Awaited<typeof loader>;
