@@ -52,6 +52,6 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
-    "supabase": "^1.145.4"
+    "supabase": "^2.33.9"
   }
 }
