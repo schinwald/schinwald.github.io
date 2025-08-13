@@ -26,7 +26,7 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({ className }) => {
           <NavigationBar />
           <Container variant="narrow" className="gap-6">
             <Stepper.Root step={step} className="flex flex-col gap-4">
-              <div className="flex flex-col md:flex-row h-[650px]">
+              <div className="flex flex-col md:flex-row h-[620px]">
                 <div className="relative grid w-full h-full border border-[#fff2] bg-background rounded-md overflow-visible">
                   <div className="col-span-full row-span-full">
                     <Stepper.Collector onNext={onNext} onBack={onBack} />

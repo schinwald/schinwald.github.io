@@ -11,7 +11,7 @@ export const meta = actualMeta;
 export default function () {
   return (
     <div>
-      <section className="w-screen h-screen overflow-y-scroll overflow-x-hidden">
+      <section className="w-screen h-screen">
         <TestimonialEditor />
         <BackgroundGradient />
       </section>

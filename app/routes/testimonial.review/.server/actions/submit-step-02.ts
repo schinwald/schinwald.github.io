@@ -1,4 +1,3 @@
-import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { getUser } from "~/utils/authentication/authentication.server";
 import { db } from "~/utils/database";
@@ -9,7 +8,6 @@ export const action = actionHandler(
   {
     validators: {
       formData: z.object({
-        id: z.string().optional(),
         rating: z.coerce.number().min(0).max(5),
         review: z.string(),
       }),
@@ -28,5 +26,9 @@ export const action = actionHandler(
       target: testimonials.email,
       set: data,
     });
+
+    return {
+      data: [],
+    };
   },
 );

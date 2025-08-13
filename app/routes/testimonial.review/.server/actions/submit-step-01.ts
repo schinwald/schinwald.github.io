@@ -11,7 +11,6 @@ export const action = actionHandler(
   {
     validators: {
       formData: z.object({
-        id: z.string().optional(),
         avatar: z.file().optional(),
         fullName: z.string(),
         occupation: z.string().optional(),

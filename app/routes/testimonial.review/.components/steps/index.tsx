@@ -34,7 +34,7 @@ const Root: React.FC<StepperRootProps> = ({ step, ...props }) => {
   return (
     <StepperContext.Provider value={{ step }}>
       <AnimatePresence initial={false} mode="wait">
-        <Step.Root key={step} {...props} />
+        <Step.Root key={`root-${step}`} {...props} />
       </AnimatePresence>
     </StepperContext.Provider>
   );
@@ -49,7 +49,7 @@ const Collector: React.FC<StepperCollectorProps> = (props) => {
 
   return (
     <AnimatePresence initial={false} mode="popLayout" propagate>
-      <div className="w-full h-full absolute z-10" key={step}>
+      <div className="w-full h-full absolute z-10" key={`collector-${step}`}>
         <Step.Collector {...props} />
       </div>
     </AnimatePresence>
@@ -63,7 +63,7 @@ const Preview: React.FC = () => {
 
   return (
     <AnimatePresence initial={false} mode="popLayout" propagate>
-      <div className="w-full h-full absolute z-0" key={step}>
+      <div className="w-full h-full absolute z-0" key={`preview-${step}`}>
         <Step.Preview />
       </div>
     </AnimatePresence>

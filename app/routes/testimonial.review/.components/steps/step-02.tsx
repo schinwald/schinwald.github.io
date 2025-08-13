@@ -1,4 +1,9 @@
-import { useForm } from "@conform-to/react";
+import {
+  getInputProps,
+  getTextareaProps,
+  useForm,
+  useInputControl,
+} from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router";
@@ -55,6 +60,11 @@ const Collector: React.FC<StepCollectorProps> = ({
     throw new Error("FormProvider does not contain a form and/or fields");
   }
 
+  const coerceToInt = (value: string | number = 0) => {
+    if (typeof value === "string") return Number.parseInt(value);
+    return Number.parseInt(value.toString());
+  };
+
   return (
     <motion.div
       className="w-[50%] h-full"
@@ -79,13 +89,11 @@ const Collector: React.FC<StepCollectorProps> = ({
                 step={1}
                 min={0}
                 max={5}
-                value={[2]}
-                onValueChange={(value) => {
-                  // field.onChange(value[0]);
-                }}
+                name={fields.rating.name}
+                defaultValue={[coerceToInt(fields.rating.defaultValue)]}
               />
               <div className="flex flex-row justify-center items-center text-foreground">
-                <h2 className="m-0">{fields.rating.value ?? 0}/5</h2>
+                <h2 className="m-0">{coerceToInt(fields.rating.value)}/5</h2>
               </div>
             </Form.Field>
             <Form.Field>
@@ -93,8 +101,7 @@ const Collector: React.FC<StepCollectorProps> = ({
                 <Textarea.Field
                   placeholder="Write a review..."
                   rows={14}
-                  id={fields.review.id}
-                  name={fields.review.name}
+                  {...getTextareaProps(fields.review)}
                 />
               </Textarea.Root>
             </Form.Field>
@@ -149,7 +156,7 @@ const Preview = () => {
           testimonial.rating ??
           undefined
         }
-        review={testimonial.review ?? undefined}
+        review={fields.review.value ?? testimonial.review ?? undefined}
       />
     </motion.div>
   );
