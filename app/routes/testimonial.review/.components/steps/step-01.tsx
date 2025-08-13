@@ -1,4 +1,5 @@
-import { getInputProps } from "@conform-to/react";
+import { getInputProps, useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod/v4";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdUploadFile as UploadIcon } from "react-icons/md";
@@ -19,7 +20,11 @@ import { Label } from "~/components/primitives/ui/label";
 import { Testimonial } from "~/components/testimonial";
 import type { LoaderData } from "~/utils/remix/loader.server";
 import type { Loader } from "../../.server/loader";
-import { ArrowRightIcon, type StepCollectorProps } from "./helper";
+import {
+  ArrowRightIcon,
+  type StepCollectorProps,
+  type StepRootProps,
+} from "./helper";
 
 const schema = z.object({
   avatarURL: z.string().optional(),
@@ -30,13 +35,26 @@ const schema = z.object({
   company: z.string().optional(),
 });
 
-const getDefaultValue = ({ testimonial }: LoaderData<Loader>) => {
-  return {
-    avatarURL: testimonial.avatar,
-    fullName: testimonial.fullName,
-    occupation: testimonial.occupation,
-    company: testimonial.company,
-  };
+const Root: React.FC<StepRootProps> = ({ className, children }) => {
+  const { testimonial } = useLoaderData<Loader>();
+
+  const [form, fields] = useForm({
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: schema });
+    },
+    defaultValue: {
+      avatarURL: testimonial.avatar,
+      fullName: testimonial.fullName,
+      occupation: testimonial.occupation,
+      company: testimonial.company,
+    },
+  });
+
+  return (
+    <Form.Root method="PATCH" form={form} fields={fields} className={className}>
+      {children}
+    </Form.Root>
+  );
 };
 
 const Collector: React.FC<StepCollectorProps> = ({ onNext = () => {} }) => {
@@ -181,8 +199,7 @@ const Preview: React.FC = () => {
 };
 
 export const StepOne = {
+  Root,
   Collector,
   Preview,
-  schema,
-  getDefaultValue,
 };

@@ -1,25 +1,10 @@
-import { useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod/v4";
 import { AnimatePresence } from "framer-motion";
-import { createContext, useContext, useRef, useState } from "react";
-import { useLoaderData } from "react-router";
-import {
-  SwitchTransition,
-  Transition,
-  type TransitionStatus,
-} from "react-transition-group";
-import * as Card from "~/components/card";
-import { Form } from "~/components/primitives/ui/form";
+import { createContext, useContext } from "react";
 import { cn } from "~/utils/classname";
-import type { Loader } from "../../.server/loader";
 import type { StepCollectorProps, StepRootProps } from "./helper";
 import { StepOne } from "./step-01";
 import { StepTwo } from "./step-02";
 import { StepThree } from "./step-03";
-
-type StepperRootProps = StepRootProps & {
-  step: number;
-};
 
 type StepperContextValue = {
   step: number;
@@ -39,32 +24,18 @@ const useStepper = () => {
   return context;
 };
 
-const useFormStep = (step: number) => {
-  const loaderData = useLoaderData<Loader>();
-
-  const stepData = {
-    schema: Steps[step].schema,
-    defaultValue: Steps[step].getDefaultValue(loaderData),
-  };
-
-  const [form, fields] = useForm({
-    onValidate({ formData }) {
-      return parseWithZod(formData, { schema: stepData.schema });
-    },
-    defaultValue: stepData.defaultValue,
-  });
-
-  return { form, fields, method: "PATCH" as const };
+type StepperRootProps = StepRootProps & {
+  step: number;
 };
 
-const Root: React.FC<StepperRootProps> = ({ step, className, children }) => {
-  const props = useFormStep(step);
+const Root: React.FC<StepperRootProps> = ({ step, ...props }) => {
+  const Step = Steps[step];
 
   return (
     <StepperContext.Provider value={{ step }}>
-      <Form.Root {...props} className={className}>
-        {children}
-      </Form.Root>
+      <AnimatePresence initial={false} mode="wait">
+        <Step.Root key={step} {...props} />
+      </AnimatePresence>
     </StepperContext.Provider>
   );
 };
@@ -77,7 +48,7 @@ const Collector: React.FC<StepperCollectorProps> = (props) => {
   const Step = Steps[step];
 
   return (
-    <AnimatePresence initial={false} mode="popLayout">
+    <AnimatePresence initial={false} mode="popLayout" propagate>
       <div className="w-full h-full absolute z-10" key={step}>
         <Step.Collector {...props} />
       </div>
@@ -91,7 +62,7 @@ const Preview: React.FC = () => {
   const Step = Steps[step];
 
   return (
-    <AnimatePresence initial={false} mode="popLayout">
+    <AnimatePresence initial={false} mode="popLayout" propagate>
       <div className="w-full h-full absolute z-0" key={step}>
         <Step.Preview />
       </div>

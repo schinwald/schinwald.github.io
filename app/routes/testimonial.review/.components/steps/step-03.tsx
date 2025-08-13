@@ -1,12 +1,11 @@
-import z from "zod/v4";
 import { useNavigationStore } from "~/components/navigation";
 import { Testimonial } from "~/components/testimonial";
 import { useCountdown } from "~/hooks/coundown";
-import type { StepCollectorProps } from "./helper";
+import type { StepCollectorProps, StepRootProps } from "./helper";
 
-const schema = z.object({});
-
-const getDefaultValue = () => ({});
+const Root: React.FC<StepRootProps> = ({ className, children }) => {
+  return <div className={className}>{children}</div>;
+};
 
 const Collector: React.FC<StepCollectorProps> = () => {
   const navigate = useNavigationStore((state) => state.startNavigationExit);
@@ -46,8 +45,7 @@ const Preview = () => {
 };
 
 export const StepThree = {
+  Root,
   Collector,
   Preview,
-  schema,
-  getDefaultValue,
 };

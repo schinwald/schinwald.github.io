@@ -1,3 +1,5 @@
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod/v4";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router";
 import z from "zod/v4";
@@ -10,12 +12,12 @@ import {
 import * as Textarea from "~/components/primitives/ui/textarea";
 import { Rating } from "~/components/rating";
 import { Testimonial } from "~/components/testimonial";
-import type { LoaderData } from "~/utils/remix/loader.server";
 import type { Loader } from "../../.server/loader";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
   type StepCollectorProps,
+  type StepRootProps,
 } from "./helper";
 
 const schema = z.object({
@@ -23,11 +25,24 @@ const schema = z.object({
   review: z.string({ error: "(Required)" }).min(1, { error: "(Required)" }),
 });
 
-const getDefaultValue = ({ testimonial }: LoaderData<Loader>) => {
-  return {
-    rating: testimonial.rating,
-    review: testimonial.review,
-  };
+const Root: React.FC<StepRootProps> = ({ className, children }) => {
+  const { testimonial } = useLoaderData<Loader>();
+
+  const [form, fields] = useForm({
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: schema });
+    },
+    defaultValue: {
+      rating: testimonial.rating,
+      review: testimonial.review,
+    },
+  });
+
+  return (
+    <Form.Root method="PATCH" form={form} fields={fields} className={className}>
+      {children}
+    </Form.Root>
+  );
 };
 
 const Collector: React.FC<StepCollectorProps> = ({
@@ -141,8 +156,7 @@ const Preview = () => {
 };
 
 export const StepTwo = {
+  Root,
   Collector,
   Preview,
-  schema,
-  getDefaultValue,
 };
