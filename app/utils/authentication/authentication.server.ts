@@ -1,10 +1,10 @@
-import { createCookieSessionStorage } from "react-router";
 import type { Simplify } from "drizzle-orm";
+import { createCookieSessionStorage } from "react-router";
 import { Authenticator } from "remix-auth";
 import { CodeChallengeMethod, OAuth2Strategy } from "remix-auth-oauth2";
 import { addCommitSession, redirect } from "~/utils/remix/utils.server";
-import { Github } from "~/utils/services/github.server";
-import { Google } from "~/utils/services/google.server";
+import { GithubService } from "~/utils/services/github.server";
+import { GoogleService } from "~/utils/services/google.server";
 
 type User = {
   id: string;
@@ -87,7 +87,7 @@ authenticator.use(
       codeChallengeMethod: CodeChallengeMethod.S256,
     },
     async ({ tokens }) => {
-      const google = new Google({
+      const google = new GoogleService({
         accessToken: tokens.accessToken(),
       });
 
@@ -116,7 +116,7 @@ authenticator.use(
       codeChallengeMethod: CodeChallengeMethod.S256,
     },
     async (data) => {
-      const github = new Github({
+      const github = new GithubService({
         accessToken: data.tokens.accessToken(),
       });
 

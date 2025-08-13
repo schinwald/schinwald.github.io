@@ -4,7 +4,7 @@ type Config = {
   accessToken: string;
 };
 
-export class Github {
+export class GithubService {
   accessToken: string;
   headers: HeadersInit;
 

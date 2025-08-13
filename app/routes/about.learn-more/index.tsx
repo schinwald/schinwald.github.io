@@ -2,7 +2,7 @@ import { Howl } from "howler";
 import {
   FaBook as LearningIcon,
   FaCode as OpenSourceIcon,
-  FaStreetView as OriginIcon,
+  // FaStreetView as OriginIcon,
   FaTree as OutdoorsIcon,
   FaWrench as TinkeringIcon,
   FaHammer as WoodworkingIcon,
@@ -30,7 +30,7 @@ export default function () {
 
   return (
     <div>
-      <section className="w-screen h-screen">
+      <section className="w-screen h-screen overflow-x-hidden">
         <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
           <NavigationBar />
           <Container variant="narrow">
@@ -43,78 +43,6 @@ export default function () {
             <div className="w-full h-full flex flex-col justify-center items-center gap-6">
               <div className="grid grid-cols-6 gap-5">
                 <div className="grid grid-cols-subgrid col-span-4 gap-5">
-                  <div className="col-span-4">
-                    <Card.Root>
-                      <article className="flex flex-col gap-6">
-                        <div className="flex flex-row items-center gap-2">
-                          <h3>Life</h3>
-                          <OriginIcon className="w-5 h-5 text-green-600" />
-                        </div>
-                        <p>
-                          I was born in the early summer of 1995 in Rhinebeck,
-                          New York, alongside my twin brother. My earliest years
-                          were spent in Red Hook, NY, before our family embarked
-                          on a unique adventure, living in Honduras and
-                          Nicaragua for a year and then moving to Buenos Aires,
-                          Argentina, for four years. My dad’s work at Tiempos
-                          del Mundo, an international newspaper, brought us to
-                          South America, where I had my first exposure to a
-                          different culture and language. I quickly picked up
-                          Spanish and embraced the local love of soccer.
-                          Watching Lionel Messi dominate headlines and pitches
-                          inspired me to play soccer as much as I could.
-                        </p>
-                        <p>
-                          When we returned to Canada, we settled in Guelph,
-                          Ontario, where I’ve lived ever since. Thanks to
-                          speaking English at home and my mom’s French Canadian
-                          heritage, the transition felt natural. School life was
-                          a blend of creativity and independence for me. I spent
-                          hours practicing ping pong against a flipped-up table
-                          or shooting hoops at our basketball net, often playing
-                          by myself. Video games became another outlet, though
-                          sharing one computer with my two brothers led to
-                          plenty of fights over whose turn it was—especially
-                          during World of Warcraft raids. I also had a strong
-                          passion for art and once dreamed of becoming an
-                          animator, filling sketchbooks with drawings as I
-                          imagined a creative future.
-                        </p>
-                        <p>
-                          High school introduced me to programming through basic
-                          classes in web development and Java, but these
-                          experiences didn’t immediately spark a career
-                          interest. Despite my curiosity about technology, I
-                          didn’t find much encouragement from my teachers to
-                          pursue programming as a viable path.
-                        </p>
-                        <p>
-                          After graduating, I took time off to explore my
-                          options, working a variety of odd jobs—including
-                          serving at a banquet hall, inspecting automotive
-                          parts, and assembling hoses in a factory. These
-                          experiences, while challenging, reinforced my
-                          determination to find a career I was passionate about.
-                        </p>
-                        <p>
-                          Eventually, I committed to software engineering,
-                          driven by my love for programming and the desire to
-                          understand the technology I use daily. I enrolled in a
-                          computer science program and quickly discovered my
-                          passion for web development, scalable applications,
-                          and even game development. I’m also deeply interested
-                          in creating streamlined development environments that
-                          enhance productivity and creativity.
-                        </p>
-                        <p>
-                          Looking back, the journey—from my global upbringing to
-                          odd jobs and self-discovery—has shaped who I am today.
-                          I’m grateful for the experiences that brought me to a
-                          career I truly love.
-                        </p>
-                      </article>
-                    </Card.Root>
-                  </div>
                   <div className="col-span-2">
                     <Card.Root>
                       <div className="flex flex-col gap-6">

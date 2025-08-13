@@ -126,7 +126,7 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
       <Container variant="narrow">
         <div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-between items-end">
           <Header title="Articles" align="left" variant="cascade" />
-          <Link click="squish-normally" to="/articles">
+          <Link click="squish-normally" to="/articles" from="left">
             See More
           </Link>
         </div>
