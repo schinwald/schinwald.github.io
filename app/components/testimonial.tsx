@@ -9,12 +9,12 @@ import { LazyLottie } from "./lottie";
 
 type TestimonialProps = {
   className?: string;
-  avatar: string | null;
-  fullname: string;
-  occupation: string | null;
-  company: string | null;
-  rating: number;
-  review: string;
+  avatar?: string;
+  fullname?: string;
+  occupation?: string;
+  company?: string;
+  rating?: number;
+  review?: string;
 };
 
 const Testimonial: React.FC<TestimonialProps> = ({
@@ -23,7 +23,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
   fullname,
   occupation,
   company,
-  rating,
+  rating = 0,
   review,
 }) => {
   if (rating < 0) rating = 0;
@@ -94,7 +94,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
             <img
               src={avatar ?? imageDefaultAvatar}
               alt="Avatar of the user"
-              className="w-full h-full"
+              className="w-full h-full object-cover"
             />
           </div>
           <div className="flex flex-col items-center gap-3">

@@ -1,8 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
+import { cn } from "app/utils/classname";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-
-import { cn } from "app/utils/classname";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200 cursor-pointer text-left transition-all",
@@ -78,6 +77,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             className,
           }),
         )}
+        type="button"
         onKeyDown={(event) => {
           setIsPressed(true);
           onKeyDown(event);

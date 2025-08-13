@@ -1,9 +1,9 @@
-import { actionHandler, intent } from "~/utils/remix/action.server";
+import { actionHandler, actionHandlers } from "~/utils/remix/action.server";
 
 export const test = actionHandler({}, async () => {
   // TODO: add some actions
 });
 
-export const action = intent({
+export const action = actionHandlers({
   test,
 });

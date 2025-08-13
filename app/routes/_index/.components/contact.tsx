@@ -1,38 +1,32 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLoaderData } from "react-router";
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod/v4";
 import { useAnimate, useInView } from "framer-motion";
 import type { LottieRefCurrentProps } from "lottie-react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ReCAPTCHA } from "react-google-recaptcha";
-import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
-import { z } from "zod";
+import { z } from "zod/v4";
 import paperAnimation from "~/assets/lotties/paper_airplane.json";
 import { Header } from "~/components/header";
 import { LazyLottie } from "~/components/lottie.client";
 import { Button } from "~/components/primitives/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/primitives/ui/form";
+import { Form } from "~/components/primitives/ui/form";
 import * as Input from "~/components/primitives/ui/input";
+import { Label } from "~/components/primitives/ui/label";
 import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
-import type { Loader } from "../loader";
+import type { Loader } from "../.server/loader";
 
 type Notification = {
   status?: "success" | "error";
   message?: string;
 };
 
-const formSchema = z.object({
+const schema = z.object({
   email: z.email({ error: "(Must be a valid email)" }),
   message: z.string().min(1, { error: "(Required)" }),
 });
@@ -55,11 +49,9 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
   const [recaptchaResponse, setReCAPTCHAResponse] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      message: "",
+  const [form, fields] = useForm({
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema });
     },
   });
 
@@ -74,7 +66,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
     lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false);
   }, []);
 
-  const onSubmit = useCallback(async (_values: z.infer<typeof formSchema>) => {
+  const onSubmit = useCallback(async (_values: any) => {
     setIsSubmitting(true);
   }, []);
 
@@ -90,22 +82,20 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
     if (!isSubmitting) return;
     if (recaptchaResponse.length === 0) return;
 
-    const values = form.getValues();
-
-    const queryString = new URLSearchParams({
-      "g-recaptcha-response": recaptchaResponse,
-    }).toString();
-
-    const responsePromise = fetch(`?${queryString}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: values.email,
-        message: values.message,
-      }),
-    });
+    // const queryString = new URLSearchParams({
+    //   "g-recaptcha-response": recaptchaResponse,
+    // }).toString();
+    //
+    // const responsePromise = fetch(`?${queryString}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: values.email,
+    //     message: values.message,
+    //   }),
+    // });
 
     animatePaperAirplaneExit();
 
@@ -116,21 +106,21 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
           "complete",
         );
 
-        const response = await responsePromise;
-
-        if (response.ok) {
-          form.resetField("message");
-
-          setNotification({
-            status: "success",
-            message: "Sent!",
-          });
-        } else {
-          setNotification({
-            status: "error",
-            message: "Error!",
-          });
-        }
+        // const response = await responsePromise;
+        //
+        // if (response.ok) {
+        //   form.resetField("message");
+        //
+        //   setNotification({
+        //     status: "success",
+        //     message: "Sent!",
+        //   });
+        // } else {
+        //   setNotification({
+        //     status: "error",
+        //     message: "Error!",
+        //   });
+        // }
 
         animateNotification([
           [
@@ -190,8 +180,6 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
     isSubmitting,
     recaptchaResponse,
     animateNotification,
-    form.getValues,
-    form.resetField,
     notificationRef,
     animatePaperAirplaneEntry,
     animatePaperAirplaneExit,
@@ -267,56 +255,40 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                 }}
               />
             </div>
-            <Form {...form}>
-              <form
-                className="p-8 md:p-12 flex flex-col gap-4 md:gap-5"
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="flex flex-row justify-start gap-2">
-                        <FormLabel>Email</FormLabel>
-                        <FormMessage className="leading-none" />
-                      </div>
-                      <FormControl>
-                        <Input.Root>
-                          <Input.Field {...field} />
-                        </Input.Root>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="flex flex-row justify-start gap-2">
-                        <FormLabel>Message</FormLabel>
-                        <FormMessage className="leading-none" />
-                      </div>
-                      <FormControl>
-                        <Textarea.Root>
-                          <Textarea.Field rows={8} {...field} />
-                        </Textarea.Root>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <div className="flex flex-row justify-center md:justify-start">
-                  <Button
-                    type="submit"
-                    variant="default"
-                    click="squish-lightly"
-                  >
-                    Submit
-                  </Button>
+            <Form.Root
+              form={form}
+              fields={fields}
+              method="POST"
+              className="p-8 md:p-12 flex flex-col gap-4 md:gap-5"
+            >
+              <Form.Field>
+                <div className="flex flex-row gap-2">
+                  <Label htmlFor={fields.email.id}>Email</Label>
+                  <span className="text-destructive">
+                    {fields.email.errors}
+                  </span>
                 </div>
-              </form>
-            </Form>
+                <Input.Root>
+                  <Input.Field id={fields.email.id} name={fields.email.name} />
+                </Input.Root>
+              </Form.Field>
+              <Form.Field>
+                <div className="flex flex-row gap-2">
+                  <Label htmlFor={fields.message.id}>Message</Label>
+                  <span className="text-destructive">
+                    {fields.message.errors}
+                  </span>
+                </div>
+                <Textarea.Root>
+                  <Textarea.Field id={fields.message.id} rows={8} />
+                </Textarea.Root>
+              </Form.Field>
+              <Form.Field className="flex flex-row justify-center md:justify-start mt-5">
+                <Button type="submit" variant="default" click="squish-lightly">
+                  Submit
+                </Button>
+              </Form.Field>
+            </Form.Root>
           </div>
         </div>
       </Container>

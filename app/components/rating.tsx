@@ -12,7 +12,7 @@ const Rating = React.forwardRef<
   max = max ?? 0;
 
   return (
-    <div className="relative flex flex-row cursor-pointer">
+    <div className="relative flex flex-row cursor-pointer my-3">
       <div className="relative flex flex-row gap-2">
         {Array.from({ length: value[0] }).map((_, index) => {
           const key = `filled-star-${index}`;

@@ -1,100 +1,89 @@
+import { motion } from "framer-motion";
+import { useLoaderData } from "react-router";
+import z from "zod/v4";
+import * as Card from "~/components/card";
 import { Button } from "~/components/primitives/ui/button";
 import {
-  FormControl,
-  FormField,
-  FormItem,
+  Form,
+  useForm as useFormContext,
 } from "~/components/primitives/ui/form";
 import * as Textarea from "~/components/primitives/ui/textarea";
 import { Rating } from "~/components/rating";
-import { cn } from "~/utils/classname";
+import { Testimonial } from "~/components/testimonial";
+import type { LoaderData } from "~/utils/remix/loader.server";
+import type { Loader } from "../../.server/loader";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
-  coerceToFileIfPossible,
-  type StepProps,
+  type StepCollectorProps,
 } from "./helper";
 
-export const stepTwo: React.FC<StepProps> = ({
-  state,
+const schema = z.object({
+  rating: z.number().min(0).max(5),
+  review: z.string({ error: "(Required)" }).min(1, { error: "(Required)" }),
+});
+
+const getDefaultValue = ({ testimonial }: LoaderData<Loader>) => {
+  return {
+    rating: testimonial.rating,
+    review: testimonial.review,
+  };
+};
+
+const Collector: React.FC<StepCollectorProps> = ({
   onBack = () => {},
   onNext = () => {},
 }) => {
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const formData = new FormData();
-    const avatarFile = await coerceToFileIfPossible(values.avatar_url);
+  const { form, fields } = useFormContext<z.infer<typeof schema>>();
 
-    if (avatarFile) formData.append("avatar", avatarFile, "avatar.png");
-    if (values.occupation) formData.append("occupation", values.occupation);
-    if (values.company) formData.append("company", values.company);
-    formData.append("full_name", values.full_name);
-    formData.append("rating", values.rating.toString());
-    formData.append("review", values.review);
-
-    const response = await fetch("/api/testimonials/add", {
-      method: "POST",
-      body: formData,
-    }).then((response) => response.json());
-
-    if ("errors" in response) {
-      return;
-    }
-
-    onNext();
+  if (!form || !fields) {
+    throw new Error("FormProvider does not contain a form and/or fields");
   }
 
   return (
-    <div
-      className={cn("duration-300", {
-        "animate-fade-in": state === "entering" || state === "entered",
-        "animate-fade-out": state === "exiting" || state === "exited",
-      })}
+    <motion.div
+      className="w-[50%] h-full"
+      initial={{ x: "0%" }}
+      animate={{ x: "100%" }}
+      exit={{ x: "0%" }}
+      transition={{ duration: 0.3 }}
     >
-      <Form {...form}>
-        <form
-          className="w-full flex flex-col"
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <div className="flex flex-col justify-center gap-6">
-            <FormField
-              control={form.control}
-              name="rating"
-              render={({ field }) => (
-                <FormItem className="flex flex-row justify-between gap-8 space-y-0">
-                  <FormControl>
-                    <Rating
-                      step={1}
-                      min={0}
-                      max={5}
-                      value={[field.value]}
-                      onValueChange={(value) => {
-                        field.onChange(value[0]);
-                      }}
-                    />
-                  </FormControl>
-                  <div className="flex flex-row justify-center items-center text-foreground">
-                    <h2 className="m-0">{field.value}/5</h2>
-                  </div>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="review"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea.Root>
-                      <Textarea.Field
-                        placeholder="Write a review..."
-                        rows={14}
-                        {...field}
-                      />
-                    </Textarea.Root>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <div className="flex flex-row justify-between mt-3">
+      <Card.Root>
+        <Card.Content>
+          <motion.div
+            className="p-6 w-full h-full flex flex-col justify-center gap-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 0.15 } }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.15,
+            }}
+          >
+            <Form.Field className="flex-row justify-between">
+              <Rating
+                step={1}
+                min={0}
+                max={5}
+                value={[2]}
+                onValueChange={(value) => {
+                  // field.onChange(value[0]);
+                }}
+              />
+              <div className="flex flex-row justify-center items-center text-foreground">
+                <h2 className="m-0">{fields.rating.value ?? 0}/5</h2>
+              </div>
+            </Form.Field>
+            <Form.Field>
+              <Textarea.Root>
+                <Textarea.Field
+                  placeholder="Write a review..."
+                  rows={14}
+                  id={fields.review.id}
+                  name={fields.review.name}
+                />
+              </Textarea.Root>
+            </Form.Field>
+            <Form.Field className="flex flex-row justify-between mt-5">
               <Button
                 variant="outline"
                 click="squish-normally"
@@ -103,14 +92,57 @@ export const stepTwo: React.FC<StepProps> = ({
                 <ArrowLeftIcon className="mr-2 -ml-1" />
                 <span>Back</span>
               </Button>
-              <Button click="squish-normally" onClick={() => onNext()}>
+              <Form.Submit
+                click="squish-normally"
+                intent="submitStepTwo"
+                onSubmitSuccess={() => onNext()}
+              >
                 <span>Next</span>
                 <ArrowRightIcon className="ml-2 -mr-1" />
-              </Button>
-            </div>
-          </div>
-        </form>
-      </Form>
-    </div>
+              </Form.Submit>
+            </Form.Field>
+          </motion.div>
+        </Card.Content>
+      </Card.Root>
+    </motion.div>
   );
+};
+
+const Preview = () => {
+  const { form, fields } = useFormContext<z.infer<typeof schema>>();
+  const { testimonial } = useLoaderData<Loader>();
+
+  if (!form || !fields) {
+    throw new Error("FormProvider does not contain a form and/or fields");
+  }
+
+  return (
+    <motion.div
+      className="w-[50%] h-full flex flex-col justify-center items-center"
+      initial={{ x: "100%" }}
+      animate={{ x: "0%" }}
+      exit={{ x: "100%" }}
+      transition={{ duration: 0.3 }}
+    >
+      <Testimonial
+        avatar={testimonial.avatar ?? undefined}
+        fullname={testimonial.fullName ?? undefined}
+        occupation={testimonial.occupation ?? undefined}
+        company={testimonial.company ?? undefined}
+        rating={
+          Number.parseInt(fields.rating.value ?? "0") ??
+          testimonial.rating ??
+          undefined
+        }
+        review={testimonial.review ?? undefined}
+      />
+    </motion.div>
+  );
+};
+
+export const StepTwo = {
+  Collector,
+  Preview,
+  schema,
+  getDefaultValue,
 };

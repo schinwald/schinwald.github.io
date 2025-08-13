@@ -78,7 +78,7 @@ const getInput = async (request: Request) => {
     .otherwise(() => null);
 };
 
-export const intent = <
+export const actionHandlers = async <
   T,
   Actions extends Record<
     string,
@@ -90,7 +90,7 @@ export const intent = <
   return async (args: ActionFunctionArgs) => {
     const input = await getInput(args.request);
     const action = await actions[input.intent];
-    if (!action) throw new Error(`No action found for intent: ${intent}`);
+    if (!action) throw new Error(`No action found for intent: ${input.intent}`);
     return action({
       ...args,
       json: input,

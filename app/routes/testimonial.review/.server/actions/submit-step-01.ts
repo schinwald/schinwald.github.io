@@ -11,12 +11,11 @@ export const action = actionHandler(
   {
     validators: {
       formData: z.object({
+        id: z.string().optional(),
         avatar: z.file().optional(),
         fullName: z.string(),
         occupation: z.string().optional(),
         company: z.string().optional(),
-        rating: z.coerce.number().min(0).max(5),
-        review: z.string(),
       }),
     },
   },
@@ -24,7 +23,7 @@ export const action = actionHandler(
     const user = await getUser(request);
 
     const avatarURL = await (async () => {
-      if (!formData.avatar) return user.avatar_url;
+      if (!formData.avatar) return user.avatarURL;
 
       const buffer = await formData.avatar.arrayBuffer();
       const filename = uuid();
@@ -47,14 +46,21 @@ export const action = actionHandler(
       return data.fullPath;
     })();
 
-    db.insert(testimonials).values({
+    const data = {
       email: user.email,
-      fullName: formData.fullName,
       avatar: avatarURL,
-      rating: formData.rating,
-      review: formData.review,
+      fullName: formData.fullName,
       occupation: formData.occupation,
       company: formData.company,
+    };
+
+    await db.insert(testimonials).values(data).onConflictDoUpdate({
+      target: testimonials.email,
+      set: data,
     });
+
+    return {
+      data: [],
+    };
   },
 );

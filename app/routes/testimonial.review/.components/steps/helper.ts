@@ -1,12 +1,15 @@
-import type { TransitionStatus } from "react-transition-group";
+import type { PropsWithChildren } from "react";
 
 export {
   FaArrowLeft as ArrowLeftIcon,
   FaArrowRight as ArrowRightIcon,
 } from "react-icons/fa";
 
-export type StepProps = {
-  state: TransitionStatus;
+export type StepRootProps = {
+  className?: string;
+} & PropsWithChildren;
+
+export type StepCollectorProps = {
   onBack?: () => void;
   onNext?: () => void;
 };

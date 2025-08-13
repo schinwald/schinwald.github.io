@@ -24,7 +24,7 @@ const Callout: React.FC<PropsWithChildren<CalloutProps>> = ({
   return (
     <div
       className={cn(
-        "rounded-md bg-background-overlay bg-opacity-40 px-6 py-5 border-2 border-opacity-30 shadow-lg shadow-black/20",
+        "rounded-md bg-background-overlay px-6 py-5 border-2 border-opacity-30 shadow-lg shadow-black/20",
         {
           "border-blue-300": type === "info",
           "border-green-400": type === "note",

@@ -13,7 +13,6 @@ import { ServerRouter } from "react-router";
 
 // Reject/cancel all pending promises after 5 seconds
 export const streamTimeout = 5000;
-console.log("in");
 
 export default function handleRequest(
   request: Request,
@@ -25,7 +24,6 @@ export default function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _loadContext: AppLoadContext,
 ) {
-  console.log("hi");
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
         request,
@@ -53,7 +51,6 @@ function handleBotRequest(
       <ServerRouter context={reactRouterContext} url={request.url} />,
       {
         onAllReady() {
-          console.log("shellRendered");
           shellRendered = true;
           const body = new PassThrough();
           const stream = createReadableStreamFromReadable(body);
@@ -96,15 +93,12 @@ function handleBrowserRequest(
   responseHeaders: Headers,
   reactRouterContext: EntryContext,
 ) {
-  console.log("testing");
   return new Promise((resolve, reject) => {
     let shellRendered = false;
-    console.log("testing2");
     const { pipe, abort } = renderToPipeableStream(
       <ServerRouter context={reactRouterContext} url={request.url} />,
       {
         onShellReady() {
-          console.log("shellReady");
           shellRendered = true;
           const body = new PassThrough();
           const stream = createReadableStreamFromReadable(body);

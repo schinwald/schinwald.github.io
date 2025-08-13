@@ -29,7 +29,7 @@ const Project: React.FC<ProjectProps> = ({
   return (
     <div
       className={cn(
-        "relative h-[500px] bg-background-overlay/60 border border-[#fff2] rounded-md w-full p-8 flex flex-col justify-between gap-6 text-white",
+        "relative h-[500px] bg-background-overlay border border-[#fff2] rounded-md w-full p-8 flex flex-col justify-between gap-6 text-white",
         className,
       )}
     >

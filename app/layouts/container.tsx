@@ -24,5 +24,6 @@ const Container = React.forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
     );
   },
 );
+Container.displayName = "Container";
 
 export { Container };

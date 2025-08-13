@@ -128,7 +128,7 @@
 
 	--color-background: #111111;
 	--color-background-soft: #222222;
-	--color-background-overlay: #434343;
+	--color-background-overlay: #343434;
 
 	--color-foreground: #ffffff;
 	--color-foreground-soft: #ffffff;
@@ -426,6 +426,10 @@
 		margin-bottom: -0.4rem;
 		opacity: 0.8;
 	}
+	label {
+		@apply font-body text-md leading-md;
+		margin-top: 0.3rem;
+	}
 	code {
 		@apply font-body text-md leading-md;
 		margin-top: -0.45rem;
@@ -470,6 +474,10 @@
 			margin-bottom: -0.4rem;
 			opacity: 0.8;
 		}
+    label {
+      @apply font-body text-md leading-md;
+      margin-top: 0.3rem;
+    }
 		code {
 			@apply font-body text-md leading-md;
 			margin-top: -0.45rem;
@@ -515,6 +523,10 @@
 			margin-bottom: -0.4rem;
 			opacity: 0.8;
 		}
+    label {
+      @apply font-body text-md leading-md;
+      margin-top: 0.3rem;
+    }
 		code {
 			@apply font-body text-md leading-md;
 			margin-top: -0.45rem;
@@ -560,6 +572,10 @@
 			margin-bottom: -0.4rem;
 			opacity: 0.8;
 		}
+    label {
+      @apply font-body text-md leading-md;
+      margin-top: 0.3rem;
+    }
 		code {
 			@apply font-body text-md leading-md;
 			margin-top: -0.45rem;
@@ -605,6 +621,10 @@
 			margin-bottom: -0.4rem;
 			opacity: 0.8;
 		}
+    label {
+      @apply font-body text-md leading-md;
+      margin-top: 0.3rem;
+    }
 		code {
 			@apply font-body text-md leading-md;
 			margin-top: -0.45rem;

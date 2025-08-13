@@ -16,11 +16,11 @@ export const testimonials = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true, mode: "string" })
       .defaultNow()
       .notNull(),
-    fullName: text("full_name").notNull(),
+    fullName: text("full_name"),
     company: text(),
     occupation: text(),
-    review: text().notNull(),
-    rating: smallint().notNull(),
+    review: text(),
+    rating: smallint(),
     approved: boolean().default(false).notNull(),
     avatar: text(),
     email: text(),

@@ -1,23 +1,18 @@
-import { useLoaderData } from "react-router";
 import { BackgroundGradient } from "~/components/background-gradient";
 import { TestimonialEditor } from "./.components/testimonial-editor";
+import { meta as actualMeta } from "./.meta";
 import { action as actualAction } from "./.server/actions";
-import type { Loader } from "./.server/loader";
 import { loader as actualLoader } from "./.server/loader";
 
 export const loader = await actualLoader;
-export const action = actualAction;
+export const action = await actualAction;
+export const meta = actualMeta;
 
 export default function () {
-  const { user } = useLoaderData<Loader>();
-
   return (
     <div>
       <section className="w-screen h-screen overflow-y-scroll overflow-x-hidden">
-        <TestimonialEditor
-          fullName={user.fullName}
-          avatarURL={user.avatarURL}
-        />
+        <TestimonialEditor />
         <BackgroundGradient />
       </section>
     </div>

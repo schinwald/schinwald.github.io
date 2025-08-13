@@ -4,8 +4,8 @@ import {
   AiOutlineGoogle as GoogleIcon,
 } from "react-icons/ai";
 import { BorderRotating } from "~/components/border-rotating";
-import { Form } from "~/components/form";
 import { NavigationBar } from "~/components/navigation-bar";
+import { Form } from "~/components/primitives/ui/form";
 
 type AuthenticationProps = {
   className?: string;

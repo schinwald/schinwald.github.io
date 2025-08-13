@@ -10,12 +10,15 @@ import {
 import { BackgroundGradient } from "./components/background-gradient";
 
 import "~/styles/globals.css";
+import { Code } from "./components/code";
 import { NavigationProvider } from "./components/navigation";
 import { OverlayProvider } from "./hooks/overlay";
-
+import { Container } from "./layouts/container";
 import { loader as actualLoader } from "./loader";
+import { action as actualAction } from "./routes/_index/.server/actions";
 
 export const loader = await actualLoader;
+export const action = await actualAction;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -87,16 +90,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export function ErrorBoundary() {
   const error = useRouteError();
 
-  if (
-    isRouteErrorResponse(error) &&
-    error.status === 404 &&
-    error.statusText === "Not Found"
-  ) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
     return (
       <main className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-2">
           <h2>Page Not Found</h2>
           <p>Are you lost?</p>
+        </div>
+        <BackgroundGradient />
+      </main>
+    );
+  }
+
+  if (process.env.NODE_ENV === "development" && error instanceof Error) {
+    return (
+      <main className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center gap-2 p-10">
+          <Container variant="narrow">
+            <Code className="overflow-scroll w-full h-[600px] outline outline-destructive">
+              {error.stack}
+            </Code>
+          </Container>
         </div>
         <BackgroundGradient />
       </main>

@@ -1,171 +1,193 @@
-import type * as LabelPrimitive from "@radix-ui/react-label";
-import { Slot } from "@radix-ui/react-slot";
-import * as React from "react";
-import type { ControllerProps, FieldPath, FieldValues } from "react-hook-form";
-import { Controller, FormProvider, useFormContext } from "react-hook-form";
-
-import { Label } from "~/components/primitives/ui/label";
+import type { FormMetadata } from "@conform-to/react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  type FetcherFormProps,
+  type FetcherWithComponents,
+  useFetcher,
+} from "react-router";
 import { cn } from "~/utils/classname";
+import { Button, type ButtonProps } from "./button";
 
-const Form = FormProvider;
-
-type FormFieldContextValue<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = {
-  name: TName;
-};
-
-const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue,
-);
-
-const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
-  return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
-    </FormFieldContext.Provider>
-  );
-};
-
-const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext);
-  const itemContext = React.useContext(FormItemContext);
-  const { getFieldState, formState } = useFormContext();
-
-  const fieldState = getFieldState(fieldContext.name, formState);
-
-  if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>");
-  }
-
-  const { id } = itemContext;
-
-  return {
-    id,
-    name: fieldContext.name,
-    formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
-    formMessageId: `${id}-form-item-message`,
-    ...fieldState,
+type FormContextValue<T extends Record<string, any>> = {
+  form?: FormMetadata<T, string[]>;
+  fields?: ReturnType<FormMetadata<T, string[]>["getFieldset"]>;
+  fetcher: Omit<FetcherWithComponents<any>, "submit"> & {
+    ref: React.RefObject<HTMLFormElement | null>;
+    submit: () => void;
+    onSubmitSuccess: (callback: OnSubmitSuccess) => void;
+    onSubmitFailure: (callback: OnSubmitFailure) => void;
   };
 };
 
-type FormItemContextValue = {
-  id: string;
-};
+const FormContext = createContext<FormContextValue<any> | null>(null);
 
-const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue,
-);
+export const useForm = <T extends Record<string, any>>() => {
+  const context = useContext<FormContextValue<T> | null>(FormContext);
 
-const FormItem = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const id = React.useId();
-
-  return (
-    <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
-    </FormItemContext.Provider>
-  );
-});
-FormItem.displayName = "FormItem";
-
-const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
-  const { formItemId } = useFormField();
-
-  return (
-    <Label
-      ref={ref}
-      className={cn(className)}
-      htmlFor={formItemId}
-      {...props}
-    />
-  );
-});
-FormLabel.displayName = "FormLabel";
-
-const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
-  const { error, formItemId, formDescriptionId, formMessageId } =
-    useFormField();
-
-  return (
-    <Slot
-      ref={ref}
-      id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!error}
-      {...props}
-    />
-  );
-});
-FormControl.displayName = "FormControl";
-
-const FormDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField();
-
-  return (
-    <p
-      ref={ref}
-      id={formDescriptionId}
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    />
-  );
-});
-FormDescription.displayName = "FormDescription";
-
-const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
-
-  if (!body) {
-    return null;
+  if (!context) {
+    throw new Error("useForm must be used within a FormProvider");
   }
 
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  );
-});
-FormMessage.displayName = "FormMessage";
+  return context;
+};
 
-export {
-  useFormField,
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
+type OnSubmitSuccess = (data: any) => void;
+type OnSubmitFailure = (errors: any) => void;
+
+const useExtendedFetcher = () => {
+  const ref = useRef<HTMLFormElement>(null);
+  const fetcher = useFetcher();
+  const previousState = useRef<FetcherWithComponents<any>["state"]>("idle");
+  const submitSuccessCallbacks = useRef<OnSubmitSuccess[]>([]);
+  const submitFailureCallbacks = useRef<OnSubmitFailure[]>([]);
+
+  const submit = useCallback(() => {
+    if (!ref.current) return;
+    fetcher.submit(ref.current);
+  }, [fetcher]);
+
+  useEffect(() => {
+    const shouldUpdatePreviousState = previousState.current !== fetcher.state;
+    const wasTransitioning =
+      previousState.current === "submitting" ||
+      previousState.current === "loading";
+    const isSubmissionFinished =
+      wasTransitioning && fetcher.state === "idle" && fetcher.data;
+
+    if (!isSubmissionFinished) {
+      if (shouldUpdatePreviousState) {
+        previousState.current = fetcher.state;
+      }
+      return;
+    }
+
+    const payload = fetcher.data;
+
+    if ("data" in payload) {
+      for (const callback of submitSuccessCallbacks.current) {
+        callback(payload.data);
+      }
+    }
+
+    if ("error" in payload) {
+      for (const callback of submitFailureCallbacks.current) {
+        callback(payload.errors);
+      }
+    }
+
+    if (shouldUpdatePreviousState) {
+      previousState.current = fetcher.state;
+    }
+  }, [fetcher.data, fetcher.state]);
+
+  return {
+    ...fetcher,
+    ref,
+    submit,
+    onSubmitSuccess: (callback: OnSubmitSuccess) => {
+      submitSuccessCallbacks.current.push(callback);
+    },
+    onSubmitFailure: (callback: OnSubmitFailure) => {
+      submitFailureCallbacks.current.push(callback);
+    },
+  };
+};
+
+export type RootProps = React.RefAttributes<HTMLFormElement> & {
+  form?: FormMetadata<any, string[]>;
+  fields?: ReturnType<FormMetadata<any, string[]>["getFieldset"]>;
+  onSubmitSuccess?: OnSubmitSuccess;
+  onSubmitFailure?: OnSubmitFailure;
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+} & FetcherFormProps;
+
+export const Root: React.FC<RootProps> = ({
+  form,
+  fields,
+  children,
+  className,
+  onSubmitSuccess = () => {},
+  onSubmitFailure = () => {},
+  ...props
+}) => {
+  const fetcher = useExtendedFetcher();
+
+  fetcher.onSubmitSuccess(onSubmitSuccess);
+  fetcher.onSubmitFailure(onSubmitFailure);
+
+  const value = useMemo(
+    () => ({
+      form,
+      fields,
+      fetcher,
+    }),
+    [fetcher, form, fields],
+  );
+
+  return (
+    <FormContext.Provider value={value}>
+      <fetcher.Form
+        ref={fetcher.ref}
+        id={form?.id}
+        className={className}
+        {...props}
+      >
+        {children}
+      </fetcher.Form>
+    </FormContext.Provider>
+  );
+};
+
+type FieldProps = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+};
+
+const Field: React.FC<FieldProps> = ({ className, children }) => {
+  return <div className={cn("flex flex-col gap-2", className)}>{children}</div>;
+};
+
+interface SubmitProps extends ButtonProps {
+  intent: string;
+  onSubmitSuccess?: OnSubmitSuccess;
+  onSubmitFailure?: OnSubmitFailure;
+}
+
+export const Submit: React.FC<SubmitProps> = ({
+  children,
+  intent,
+  onSubmitSuccess = () => {},
+  onSubmitFailure = () => {},
+  ...props
+}) => {
+  const { fetcher } = useForm();
+
+  useEffect(() => {
+    fetcher.onSubmitSuccess(onSubmitSuccess);
+    fetcher.onSubmitFailure(onSubmitFailure);
+  }, [
+    onSubmitSuccess,
+    onSubmitFailure,
+    fetcher.onSubmitSuccess,
+    fetcher.onSubmitFailure,
+  ]);
+
+  return (
+    <Button type="submit" name="intent" value={intent} {...props}>
+      {children}
+    </Button>
+  );
+};
+
+export const Form = {
+  Root,
+  Field,
+  Submit,
 };
