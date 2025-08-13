@@ -15,10 +15,8 @@ import { NavigationProvider } from "./components/navigation";
 import { OverlayProvider } from "./hooks/overlay";
 import { Container } from "./layouts/container";
 import { loader as actualLoader } from "./loader";
-import { action as actualAction } from "./routes/_index/.server/actions";
 
 export const loader = await actualLoader;
-export const action = await actualAction;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

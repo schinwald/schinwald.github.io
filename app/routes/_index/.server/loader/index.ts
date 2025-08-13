@@ -41,9 +41,6 @@ export const loader = loaderHandler(async () => {
     );
 
   const response = {
-    meta: {
-      status: 200,
-    },
     data: {
       articles: fillData(articles, 4),
       testimonials: randomlyFillData(testimonials, 30),

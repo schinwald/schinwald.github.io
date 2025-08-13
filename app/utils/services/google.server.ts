@@ -1,18 +1,22 @@
 import { z } from "zod";
 
 type Config = {
-  accessToken: string;
+  accessToken?: string;
 };
 
-export class Google {
-  accessToken: string;
-  headers: HeadersInit;
+export class GoogleService {
+  private accessToken?: string;
+  private headers: HeadersInit;
 
-  constructor(config: Config) {
-    this.accessToken = config.accessToken;
-    this.headers = {
-      authorization: `Bearer ${this.accessToken}`,
-    };
+  constructor(config?: Config) {
+    this.accessToken = config?.accessToken;
+    this.headers = {};
+
+    if (this.accessToken) {
+      Object.assign(this.headers, {
+        authorization: `Bearer ${this.accessToken}`,
+      });
+    }
   }
 
   async getUser() {
@@ -30,6 +34,24 @@ export class Google {
         picture: z.string(),
         email: z.string(),
         email_verified: z.boolean(),
+      })
+      .parse(response);
+  }
+
+  async verifyReCAPTCHA(recatpchaResponse: string) {
+    const queryString = new URLSearchParams({
+      secret: import.meta.env.GOOGLE_RECAPTCHA_SECRET_KEY,
+      response: recatpchaResponse,
+    }).toString();
+
+    const response = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?${queryString}`,
+      { method: "POST" },
+    ).then((response) => response.json());
+
+    return z
+      .object({
+        success: z.boolean(),
       })
       .parse(response);
   }

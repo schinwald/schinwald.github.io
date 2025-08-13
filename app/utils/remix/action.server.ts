@@ -43,16 +43,36 @@ export const actionHandler = async <JSON, FormData, Params, Query, Result>(
       }
 
       const json = options.validators?.json?.safeParse(args.json);
-      if (json?.error) throw new Error("Invalid JSON");
+      if (json?.error) {
+        const reason = json.error.issues
+          .map((issue) => issue.message)
+          .join("\n");
+        throw new Error(`Invalid JSON: ${reason}`);
+      }
 
       const formData = options.validators?.formData?.safeParse(args.formData);
-      if (formData?.error) throw new Error("Invalid form data");
+      if (formData?.error) {
+        const reason = formData.error.issues
+          .map((issue) => issue.message)
+          .join("\n");
+        throw new Error(`Invalid form data: ${reason}`);
+      }
 
       const params = options.validators?.params?.safeParse(args.params);
-      if (params?.error) throw new Error("Invalid params");
+      if (params?.error) {
+        const reason = params.error.issues
+          .map((issue) => issue.message)
+          .join("\n");
+        throw new Error(`Invalid params: ${reason}`);
+      }
 
       const query = options.validators?.query?.safeParse(searchParams);
-      if (query?.error) throw new Error("Invalid query");
+      if (query?.error) {
+        const reason = query.error.issues
+          .map((issue) => issue.message)
+          .join("\n");
+        throw new Error(`Invalid query: ${reason}`);
+      }
 
       // TODO: fix these types to return never
       return callback({

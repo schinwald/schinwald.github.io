@@ -22,8 +22,10 @@ type FormContextValue<T extends Record<string, any>> = {
   fetcher: Omit<FetcherWithComponents<any>, "submit"> & {
     ref: React.RefObject<HTMLFormElement | null>;
     submit: () => void;
-    onSubmitSuccess: (callback: OnSubmitSuccess) => void;
-    onSubmitFailure: (callback: OnSubmitFailure) => void;
+    registerSubmitSuccess: (callback: OnSubmitSuccess) => string;
+    registerSubmitFailure: (callback: OnSubmitFailure) => string;
+    unregisterSubmitSuccess: (id: string) => void;
+    unregisterSubmitFailure: (id: string) => void;
   };
 };
 
@@ -46,8 +48,12 @@ const useExtendedFetcher = () => {
   const ref = useRef<HTMLFormElement>(null);
   const fetcher = useFetcher();
   const previousState = useRef<FetcherWithComponents<any>["state"]>("idle");
-  const submitSuccessCallbacks = useRef<OnSubmitSuccess[]>([]);
-  const submitFailureCallbacks = useRef<OnSubmitFailure[]>([]);
+  const submitSuccessCallbacks = useRef<Map<string, OnSubmitSuccess>>(
+    new Map(),
+  );
+  const submitFailureCallbacks = useRef<Map<string, OnSubmitFailure>>(
+    new Map(),
+  );
 
   const submit = useCallback(() => {
     if (!ref.current) return;
@@ -72,13 +78,13 @@ const useExtendedFetcher = () => {
     const payload = fetcher.data;
 
     if ("data" in payload) {
-      for (const callback of submitSuccessCallbacks.current) {
+      for (const callback of submitSuccessCallbacks.current.values()) {
         callback(payload.data);
       }
     }
 
     if ("error" in payload) {
-      for (const callback of submitFailureCallbacks.current) {
+      for (const callback of submitFailureCallbacks.current.values()) {
         callback(payload.errors);
       }
     }
@@ -92,11 +98,21 @@ const useExtendedFetcher = () => {
     ...fetcher,
     ref,
     submit,
-    onSubmitSuccess: (callback: OnSubmitSuccess) => {
-      submitSuccessCallbacks.current.push(callback);
+    registerSubmitSuccess: (callback: OnSubmitSuccess) => {
+      const id = crypto.randomUUID();
+      submitSuccessCallbacks.current.set(id, callback);
+      return id;
     },
-    onSubmitFailure: (callback: OnSubmitFailure) => {
-      submitFailureCallbacks.current.push(callback);
+    registerSubmitFailure: (callback: OnSubmitFailure) => {
+      const id = crypto.randomUUID();
+      submitFailureCallbacks.current.set(id, callback);
+      return id;
+    },
+    unregisterSubmitSuccess: (id: string) => {
+      submitSuccessCallbacks.current.delete(id);
+    },
+    unregisterSubmitFailure: (id: string) => {
+      submitFailureCallbacks.current.delete(id);
     },
   };
 };
@@ -120,8 +136,22 @@ export const Root: React.FC<RootProps> = ({
 }) => {
   const fetcher = useExtendedFetcher();
 
-  fetcher.onSubmitSuccess(onSubmitSuccess);
-  fetcher.onSubmitFailure(onSubmitFailure);
+  useEffect(() => {
+    const successId = fetcher.registerSubmitSuccess(onSubmitSuccess);
+    const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
+
+    return () => {
+      fetcher.unregisterSubmitSuccess(successId);
+      fetcher.unregisterSubmitFailure(failureId);
+    };
+  }, [
+    fetcher.registerSubmitSuccess,
+    fetcher.registerSubmitFailure,
+    fetcher.unregisterSubmitFailure,
+    fetcher.unregisterSubmitSuccess,
+    onSubmitFailure,
+    onSubmitSuccess,
+  ]);
 
   const value = useMemo(
     () => ({
@@ -170,13 +200,20 @@ export const Submit: React.FC<SubmitProps> = ({
   const { fetcher } = useForm();
 
   useEffect(() => {
-    fetcher.onSubmitSuccess(onSubmitSuccess);
-    fetcher.onSubmitFailure(onSubmitFailure);
+    const successId = fetcher.registerSubmitSuccess(onSubmitSuccess);
+    const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
+
+    return () => {
+      fetcher.unregisterSubmitSuccess(successId);
+      fetcher.unregisterSubmitFailure(failureId);
+    };
   }, [
-    onSubmitSuccess,
+    fetcher.registerSubmitSuccess,
+    fetcher.registerSubmitFailure,
+    fetcher.unregisterSubmitFailure,
+    fetcher.unregisterSubmitSuccess,
     onSubmitFailure,
-    fetcher.onSubmitSuccess,
-    fetcher.onSubmitFailure,
+    onSubmitSuccess,
   ]);
 
   return (

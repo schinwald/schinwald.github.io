@@ -1,16 +1,6 @@
-import { z } from "zod";
-import { actionHandler } from "~/utils/remix/action.server";
+import { actionHandlers } from "~/utils/remix/action.server";
+import { action as sendEmail } from "./send-email";
 
-export const action = actionHandler(
-  {
-    validators: {
-      json: z.object({
-        email: z.email(),
-        message: z.string(),
-      }),
-    },
-  },
-  async () => {
-    return;
-  },
-);
+export const action = actionHandlers({
+  sendEmail,
+});

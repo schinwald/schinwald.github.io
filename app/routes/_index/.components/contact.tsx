@@ -1,5 +1,6 @@
-import { useForm } from "@conform-to/react";
+import { getInputProps, getTextareaProps, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
+import { Label } from "@radix-ui/react-label";
 import { useAnimate, useInView } from "framer-motion";
 import type { LottieRefCurrentProps } from "lottie-react";
 import type React from "react";
@@ -11,10 +12,8 @@ import { z } from "zod/v4";
 import paperAnimation from "~/assets/lotties/paper_airplane.json";
 import { Header } from "~/components/header";
 import { LazyLottie } from "~/components/lottie.client";
-import { Button } from "~/components/primitives/ui/button";
 import { Form } from "~/components/primitives/ui/form";
 import * as Input from "~/components/primitives/ui/input";
-import { Label } from "~/components/primitives/ui/label";
 import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
 import { Container } from "~/layouts/container";
@@ -39,6 +38,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
   const {
     data: { googleReCAPTCHASiteKey },
   } = useLoaderData<Loader>();
+
   const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null);
   const lottiePaperAirplaneContainerRef = useRef(null);
   const [notification, setNotification] = useState<Notification>({});
@@ -66,10 +66,6 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
     lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false);
   }, []);
 
-  const onSubmit = useCallback(async (_values: any) => {
-    setIsSubmitting(true);
-  }, []);
-
   useEffect(() => {
     if (isInView) {
       if (lottiePaperAirplaneRef.current?.animationItem?.isPaused) {
@@ -78,25 +74,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
     }
   }, [isInView, animatePaperAirplaneEntry]);
 
-  useEffect(() => {
-    if (!isSubmitting) return;
-    if (recaptchaResponse.length === 0) return;
-
-    // const queryString = new URLSearchParams({
-    //   "g-recaptcha-response": recaptchaResponse,
-    // }).toString();
-    //
-    // const responsePromise = fetch(`?${queryString}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: values.email,
-    //     message: values.message,
-    //   }),
-    // });
-
+  const submitSuccessHandler = () => {
     animatePaperAirplaneExit();
 
     lottiePaperAirplaneRef?.current?.animationItem?.addEventListener(
@@ -105,22 +83,6 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
         lottiePaperAirplaneRef?.current?.animationItem?.removeEventListener(
           "complete",
         );
-
-        // const response = await responsePromise;
-        //
-        // if (response.ok) {
-        //   form.resetField("message");
-        //
-        //   setNotification({
-        //     status: "success",
-        //     message: "Sent!",
-        //   });
-        // } else {
-        //   setNotification({
-        //     status: "error",
-        //     message: "Error!",
-        //   });
-        // }
 
         animateNotification([
           [
@@ -169,6 +131,8 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
           ],
         ]);
 
+        setNotification({ message: "Sent!", status: "success" });
+
         setTimeout(() => {
           animatePaperAirplaneEntry();
           setIsSubmitting(false);
@@ -176,14 +140,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
         }, 1300);
       },
     );
-  }, [
-    isSubmitting,
-    recaptchaResponse,
-    animateNotification,
-    notificationRef,
-    animatePaperAirplaneEntry,
-    animatePaperAirplaneExit,
-  ]);
+  };
 
   return (
     <div
@@ -239,54 +196,71 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
               </h2>
             </div>
           </div>
-          <div className="bg-background-overlay/60 overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative border-r border-t border-b border-[#fff2]">
-            <div
-              className={cn(
-                "absolute left-0 top-0 right-0 bottom-0 bg-opacity-90 bg-background-overlay flex justify-center items-center",
-                isSubmitting ? "" : "hidden",
-              )}
-            >
-              <ReCAPTCHA
-                sitekey={googleReCAPTCHASiteKey}
-                onChange={(value) => {
-                  if (value) {
-                    setReCAPTCHAResponse(value);
-                  }
-                }}
-              />
-            </div>
+          <div className="bg-background-overlay overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative border-r border-t border-b border-[#fff2]">
             <Form.Root
               form={form}
               fields={fields}
               method="POST"
-              className="p-8 md:p-12 flex flex-col gap-4 md:gap-5"
+              className="p-8 md:p-12 flex flex-col gap-5 text-foreground"
             >
+              <div
+                className={cn(
+                  "absolute left-0 top-0 right-0 bottom-0 bg-background-overlay flex justify-center items-center",
+                  isSubmitting ? "" : "hidden",
+                )}
+              >
+                <ReCAPTCHA
+                  sitekey={googleReCAPTCHASiteKey}
+                  onChange={(value) => {
+                    if (value) {
+                      setReCAPTCHAResponse(value);
+                    }
+                  }}
+                />
+                <input
+                  type="hidden"
+                  name="recaptchaResponse"
+                  value={recaptchaResponse}
+                />
+              </div>
               <Form.Field>
                 <div className="flex flex-row gap-2">
                   <Label htmlFor={fields.email.id}>Email</Label>
-                  <span className="text-destructive">
+                  <span id={fields.email.errorId} className="text-destructive">
                     {fields.email.errors}
                   </span>
                 </div>
                 <Input.Root>
-                  <Input.Field id={fields.email.id} name={fields.email.name} />
+                  <Input.Field
+                    {...getInputProps(fields.email, { type: "email" })}
+                  />
                 </Input.Root>
               </Form.Field>
               <Form.Field>
                 <div className="flex flex-row gap-2">
                   <Label htmlFor={fields.message.id}>Message</Label>
-                  <span className="text-destructive">
+                  <span
+                    id={fields.message.errorId}
+                    className="text-destructive"
+                  >
                     {fields.message.errors}
                   </span>
                 </div>
                 <Textarea.Root>
-                  <Textarea.Field id={fields.message.id} rows={8} />
+                  <Textarea.Field
+                    rows={8}
+                    {...getTextareaProps(fields.message)}
+                  />
                 </Textarea.Root>
               </Form.Field>
               <Form.Field className="flex flex-row justify-center md:justify-start mt-5">
-                <Button type="submit" variant="default" click="squish-lightly">
+                <Form.Submit
+                  intent="sendEmail"
+                  click="squish-normally"
+                  onSubmitSuccess={() => submitSuccessHandler()}
+                >
                   Submit
-                </Button>
+                </Form.Submit>
               </Form.Field>
             </Form.Root>
           </div>
