@@ -28,7 +28,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
             category="library"
             repository="https://github.com/schinwald/express-otter"
             title="Express Otter"
-            description="A simple, open-source, and self-hosted ecommerce platform."
+            description="An automatic file-system based routing solution for express."
             image={{
               url: "https://github.com/schinwald/express-otter/blob/development/logo.png?raw=true",
               alt: "Express Otter logo",
@@ -39,7 +39,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
             repository="https://github.com/schinwald/cartera"
             category="finance"
             title="Cartera"
-            description="A simple, open-source, and self-hosted ecommerce platform."
+            description="A cryptocurrency wallet manager that streamlines transactions, removes barriers, and emphasizes transparency without compromising security."
             image={{
               url: "https://github.com/schinwald/cartera/blob/main/preview.jpg?raw=true",
               alt: "Cartera logo",
@@ -50,7 +50,7 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
             repository="https://github.com/schinwald/pets"
             category="game"
             title="Pets"
-            description="A simple, open-source, and self-hosted ecommerce platform."
+            description="A small game demo, where you watch your pets move around and eat food from their food bowl."
             image={{
               url: "https://github.com/schinwald/pets/blob/main/preview.webp?raw=true",
               alt: "Pets logo",

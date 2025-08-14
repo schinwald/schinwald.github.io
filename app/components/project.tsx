@@ -29,14 +29,14 @@ const Project: React.FC<ProjectProps> = ({
   return (
     <div
       className={cn(
-        "relative h-[500px] bg-background-overlay border border-[#fff2] rounded-md w-full p-8 flex flex-col justify-between gap-6 text-white",
+        "relative h-[520px] bg-background-overlay border border-[#fff2] rounded-md w-full p-8 flex flex-col justify-between gap-6 text-white",
         className,
       )}
     >
       <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex flex-col justify-around h-full">
           <h3>{index.toString().padStart(2, "0")}</h3>
-          <h4 className="text-secondary text-sm">{category}</h4>
+          <h4 className="text-secondary">{category}</h4>
         </div>
         <div className="size-11 border-2 border-[#fff2] rounded-sm p-1 flex flex-row items-center justify-center">
           <GlobeIcon className="w-full h-full text-white" />
@@ -51,12 +51,13 @@ const Project: React.FC<ProjectProps> = ({
       </div>
       <header className="h-full flex flex-col gap-4">
         <h2>{title}</h2>
-        <p className="text-sm">{description}</p>
+        <p className="text-sm line-clamp-3">{description}</p>
       </header>
       <div className="absolute bottom-0">
         <Link
           className="translate-y-[50%] flex gap-1"
-          click="squish-normally"
+          click="squish-lightly"
+          from="left"
           to={repository}
         >
           <PlayIcon className="-ml-2" />

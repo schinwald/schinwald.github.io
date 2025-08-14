@@ -168,12 +168,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
                   }}
                 >
                   <Testimonial
-                    avatar={data.avatar}
-                    rating={data.rating}
-                    fullname={data.fullName}
-                    occupation={data.occupation}
-                    company={data.company}
-                    review={data.review}
+                    avatar={data.avatar ?? undefined}
+                    rating={data.rating ?? undefined}
+                    fullname={data.fullName ?? undefined}
+                    occupation={data.occupation ?? undefined}
+                    company={data.company ?? undefined}
+                    review={data.review ?? undefined}
                   />
                 </button>
               );

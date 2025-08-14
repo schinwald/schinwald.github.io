@@ -107,7 +107,12 @@ export const ArticleSide: React.FC<ArticleSideProps> = ({
         <div className="flex flex-col gap-1">
           <p className="line-clamp-2">{description}</p>
           <div>
-            <Link to={`/articles/${id}`} variant="link" size="minimal">
+            <Link
+              from="left"
+              to={`/articles/${id}`}
+              variant="link"
+              size="minimal"
+            >
               Read More
             </Link>
           </div>
