@@ -72,7 +72,10 @@ export const Root: React.FC<RootProps> = ({ className }) => {
       }}
     >
       <div className={cn("relative", className)}>
-        <Card.Root size="xs">
+        <Card.Root
+          size="xs"
+          className="bg-background-overlay/30 brightness-125 backdrop-blur-lg"
+        >
           <span
             className={cn(
               "absolute bottom-0 top-0 z-20 flex overflow-hidden p-1 transition-all duration-300 opacity-100 pointer-events-none",

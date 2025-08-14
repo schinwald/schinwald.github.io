@@ -155,8 +155,8 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
             );
           })}
           {activeArticle ? (
-            <div className="row-span-full col-start-5 col-span-8 relative h-full bg-background-overlay/60 rounded-md w-full flex flex-col text-white">
-              <div className="relative bg-background-overlay/60 border border-[#fff2] rounded-t-md w-full aspect-8/5 overflow-hidden">
+            <div className="row-span-full col-start-5 col-span-8 relative h-full bg-background-overlay rounded-md w-full flex flex-col text-white">
+              <div className="relative bg-background-overlay border border-[#fff2] rounded-t-md w-full aspect-8/5 overflow-hidden">
                 <img
                   className="object-cover w-full h-full"
                   src={activeArticle?.image?.src ?? placeholderSVG}
