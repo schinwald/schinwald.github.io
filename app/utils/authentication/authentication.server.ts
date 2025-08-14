@@ -67,7 +67,13 @@ export const requireAuthentication = async (request: Request) => {
   const user = await getUser(request);
 
   if (!user) {
-    const query = new URLSearchParams({ redirectTo: request.url });
+    const url = new URL(request.url);
+    const navigating = url.searchParams.get("navigating");
+    url.searchParams.delete("navigating");
+    const query = new URLSearchParams({
+      redirectTo: url.toString(),
+      ...(navigating ? { navigating } : {}),
+    });
     const queryString = query.toString();
     redirect(`/auth/login?${queryString}`);
   }
