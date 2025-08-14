@@ -28,25 +28,27 @@ const Authentication: React.FC<AuthenticationProps> = () => {
               </div>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <Form.Root action="/auth/login?provider=google">
-                <Form.Submit
-                  className="group flex flex-row items-center gap-1 w-full"
-                  variant="outline"
-                  click="squish-lightly"
-                >
-                  <GoogleIcon className="group-hover:animate-wiggle" />
-                  Google
-                </Form.Submit>
-              </Form.Root>
-              <Form.Root action="/auth/login?provider=github">
-                <Form.Submit
-                  className="group flex flex-row items-center gap-1 w-full"
-                  variant="outline"
-                  click="squish-lightly"
-                >
-                  <GitHubIcon className="group-hover:animate-wiggle" />
-                  GitHub
-                </Form.Submit>
+              <Form.Root method="POST">
+                <Form.Field>
+                  <Form.Submit
+                    intent="authenticateWithGoogle"
+                    className="group flex flex-row items-center gap-1 w-full"
+                    variant="outline"
+                    click="squish-lightly"
+                  >
+                    <GoogleIcon className="group-hover:animate-wiggle" />
+                    Google
+                  </Form.Submit>
+                  <Form.Submit
+                    intent="authenticateWithGithub"
+                    className="group flex flex-row items-center gap-1 w-full"
+                    variant="outline"
+                    click="squish-lightly"
+                  >
+                    <GitHubIcon className="group-hover:animate-wiggle" />
+                    GitHub
+                  </Form.Submit>
+                </Form.Field>
               </Form.Root>
             </div>
           </BorderRotating>
