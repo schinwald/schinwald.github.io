@@ -1,4 +1,4 @@
-import type { FormMetadata } from "@conform-to/react";
+import type { FormMetadata, SubmissionResult } from "@conform-to/react";
 import {
   createContext,
   useCallback,
@@ -6,7 +6,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from "react";
 import {
   type FetcherFormProps,
@@ -41,8 +40,8 @@ export const useForm = <T extends Record<string, any>>() => {
   return context;
 };
 
-type OnSubmitSuccess = (data: any) => void;
-type OnSubmitFailure = (errors: any) => void;
+type OnSubmitSuccess = (data: SubmissionResult) => void;
+type OnSubmitFailure = (data: SubmissionResult) => void;
 
 const useExtendedFetcher = () => {
   const ref = useRef<HTMLFormElement>(null);
@@ -79,13 +78,15 @@ const useExtendedFetcher = () => {
 
     if ("data" in payload) {
       for (const callback of submitSuccessCallbacks.current.values()) {
-        callback(payload.data);
+        callback(payload);
       }
     }
 
     if ("error" in payload) {
+      console.log(submitFailureCallbacks.current.values());
       for (const callback of submitFailureCallbacks.current.values()) {
-        callback(payload.errors);
+        console.log(callback);
+        callback(payload);
       }
     }
 
@@ -137,6 +138,7 @@ export const Root: React.FC<RootProps> = ({
   const fetcher = useExtendedFetcher();
 
   useEffect(() => {
+    console.log("registering", onSubmitSuccess);
     const successId = fetcher.registerSubmitSuccess(onSubmitSuccess);
     const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
 
@@ -147,10 +149,10 @@ export const Root: React.FC<RootProps> = ({
   }, [
     fetcher.registerSubmitSuccess,
     fetcher.registerSubmitFailure,
-    fetcher.unregisterSubmitFailure,
     fetcher.unregisterSubmitSuccess,
-    onSubmitFailure,
+    fetcher.unregisterSubmitFailure,
     onSubmitSuccess,
+    onSubmitFailure,
   ]);
 
   const value = useMemo(

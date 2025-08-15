@@ -1,12 +1,17 @@
-import { getInputProps, getTextareaProps, useForm } from "@conform-to/react";
+import {
+  getInputProps,
+  getTextareaProps,
+  type SubmissionResult,
+  useForm,
+} from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
 import { Label } from "@radix-ui/react-label";
 import { useAnimate, useInView } from "framer-motion";
 import type { LottieRefCurrentProps } from "lottie-react";
 import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ReCAPTCHA } from "react-google-recaptcha";
-import { useLoaderData } from "react-router";
+import { useActionData, useLoaderData } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
 import { z } from "zod/v4";
 import paperAnimation from "~/assets/lotties/paper_airplane.json";
@@ -18,6 +23,7 @@ import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
+import type { action } from "../.server/actions";
 import type { Loader } from "../.server/loader";
 
 type Notification = {
@@ -34,112 +40,177 @@ type ContactProps = {
   className?: string;
 };
 
+const useNotificationAnimation = () => {
+  const [value, setValue] = useState<Notification>({});
+  const [ref, animate] = useAnimate();
+
+  const play = () => {
+    animate([
+      [
+        ref.current,
+        {
+          opacity: 0,
+          display: "block",
+          transform: "translateY(100%)",
+        },
+        {
+          duration: 0,
+        },
+      ],
+      [
+        ref.current,
+        {
+          opacity: 1,
+          transform: "translateY(0%)",
+        },
+        {
+          duration: 0.2,
+          ease: "easeOut",
+        },
+      ],
+      [
+        ref.current,
+        {
+          opacity: 1,
+          transform: "translateY(0%)",
+        },
+        {
+          duration: 0.3,
+        },
+      ],
+      [
+        ref.current,
+        {
+          opacity: 0,
+          display: "none",
+          transform: "translateY(100%)",
+        },
+        {
+          duration: 0.5,
+          ease: "easeIn",
+        },
+      ],
+    ]);
+  };
+
+  return {
+    ref,
+    value,
+    notify: (notification: Notification) => {
+      setValue(notification);
+      play();
+    },
+  };
+};
+
+type AirplaneAnimation = "enter" | "exit";
+type AnimationOptions = {
+  onComplete?: () => void;
+};
+
+const useAirplaneAnimation = () => {
+  const ref = useRef<LottieRefCurrentProps>(null);
+  const containerRef = useRef(null);
+
+  const play = (animation: AirplaneAnimation, options?: AnimationOptions) => {
+    switch (animation) {
+      case "enter": {
+        ref.current?.playSegments([0, 96], true);
+        ref.current?.playSegments([97, 146]);
+        ref.current?.animationItem?.setLoop(true);
+        break;
+      }
+      case "exit": {
+        ref.current?.playSegments([147, 200]);
+        ref.current?.animationItem?.setLoop(false);
+      }
+    }
+
+    if (options?.onComplete) {
+      ref.current?.animationItem?.addEventListener("complete", () => {
+        ref.current?.animationItem?.removeEventListener("complete");
+        options?.onComplete?.();
+      });
+    }
+  };
+
+  const isPaused = ref.current?.animationItem?.isPaused;
+
+  return {
+    ref,
+    containerRef,
+    play,
+    isPaused,
+  };
+};
+
+type BotCheckerProps = {
+  googleReCAPTCHASiteKey: string;
+};
+
+const BotChecker: React.FC<BotCheckerProps> = ({ googleReCAPTCHASiteKey }) => {
+  const [recaptchaResponse, setReCAPTCHAResponse] = useState<string>("");
+
+  return (
+    <div
+      className={cn(
+        "absolute left-0 top-0 right-0 bottom-0 bg-background-overlay flex justify-center items-center hidden",
+      )}
+    >
+      <ReCAPTCHA
+        sitekey={googleReCAPTCHASiteKey}
+        onChange={(value) => {
+          if (value) {
+            setReCAPTCHAResponse(value);
+          }
+        }}
+      />
+      <input type="hidden" name="recaptchaResponse" value={recaptchaResponse} />
+    </div>
+  );
+};
+
 const Contact: React.FC<ContactProps> = ({ className }) => {
   const {
     data: { googleReCAPTCHASiteKey },
   } = useLoaderData<Loader>();
 
-  const lottiePaperAirplaneRef = useRef<LottieRefCurrentProps>(null);
-  const lottiePaperAirplaneContainerRef = useRef(null);
-  const [notification, setNotification] = useState<Notification>({});
-  const [notificationRef, animateNotification] = useAnimate();
-  const isInView = useInView(lottiePaperAirplaneContainerRef, {
+  const airplaneAnimation = useAirplaneAnimation();
+  const notificationAnimation = useNotificationAnimation();
+
+  const isInView = useInView(airplaneAnimation.containerRef, {
     margin: "-200px 0px",
   });
-  const [recaptchaResponse, setReCAPTCHAResponse] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const [lastResult, setLastResult] = useState<SubmissionResult>();
+
+  console.log(lastResult);
 
   const [form, fields] = useForm({
+    lastResult,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema });
     },
   });
 
-  const animatePaperAirplaneEntry = useCallback(() => {
-    lottiePaperAirplaneRef?.current?.playSegments([0, 96], true);
-    lottiePaperAirplaneRef?.current?.playSegments([97, 146]);
-    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(true);
-  }, []);
-
-  const animatePaperAirplaneExit = useCallback(() => {
-    lottiePaperAirplaneRef?.current?.playSegments([147, 200]);
-    lottiePaperAirplaneRef?.current?.animationItem?.setLoop(false);
-  }, []);
-
   useEffect(() => {
     if (isInView) {
-      if (lottiePaperAirplaneRef.current?.animationItem?.isPaused) {
-        animatePaperAirplaneEntry();
+      if (airplaneAnimation.isPaused) {
+        airplaneAnimation.play("enter");
       }
     }
-  }, [isInView, animatePaperAirplaneEntry]);
+  }, [isInView, airplaneAnimation.play, airplaneAnimation.isPaused]);
 
   const submitSuccessHandler = () => {
-    animatePaperAirplaneExit();
-
-    lottiePaperAirplaneRef?.current?.animationItem?.addEventListener(
-      "complete",
-      async () => {
-        lottiePaperAirplaneRef?.current?.animationItem?.removeEventListener(
-          "complete",
-        );
-
-        animateNotification([
-          [
-            notificationRef.current,
-            {
-              opacity: 0,
-              display: "block",
-              transform: "translateY(100%)",
-            },
-            {
-              duration: 0,
-            },
-          ],
-          [
-            notificationRef.current,
-            {
-              opacity: 1,
-              transform: "translateY(0%)",
-            },
-            {
-              duration: 0.2,
-              ease: "easeOut",
-            },
-          ],
-          [
-            notificationRef.current,
-            {
-              opacity: 1,
-              transform: "translateY(0%)",
-            },
-            {
-              duration: 0.3,
-            },
-          ],
-          [
-            notificationRef.current,
-            {
-              opacity: 0,
-              display: "none",
-              transform: "translateY(100%)",
-            },
-            {
-              duration: 0.5,
-              ease: "easeIn",
-            },
-          ],
-        ]);
-
-        setNotification({ message: "Sent!", status: "success" });
+    airplaneAnimation.play("exit", {
+      onComplete: () => {
+        notificationAnimation.notify({ message: "Sent!", status: "success" });
 
         setTimeout(() => {
-          animatePaperAirplaneEntry();
-          setIsSubmitting(false);
-          setReCAPTCHAResponse("");
+          airplaneAnimation.play("enter");
         }, 1300);
       },
-    );
+    });
   };
 
   return (
@@ -169,13 +240,13 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
             </div>
             <div className="relative mb-2 mr-16 md:m-0 md:ml-0 md:mb-60 lg:m-0 lg:ml-10 lg:mb-60">
               <div
-                ref={lottiePaperAirplaneContainerRef}
+                ref={airplaneAnimation.containerRef}
                 className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[300px] md:w-[600px] lg:w-[600px] pointer-events-none"
               >
                 <ClientOnly>
                   {() => (
                     <LazyLottie
-                      lottieRef={lottiePaperAirplaneRef}
+                      lottieRef={airplaneAnimation.ref}
                       animationData={paperAnimation}
                       autoplay={false}
                     />
@@ -185,14 +256,16 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
             </div>
             <div className="absolute bottom-0 right-0 -translate-y-full -translate-x-1/2 mt-2">
               <h2
-                ref={notificationRef}
+                ref={notificationAnimation.ref}
                 className={cn(
                   "w-full hidden",
-                  notification.status === "success" && "text-success",
-                  notification.status === "error" && "text-destructive",
+                  notificationAnimation.value.status === "success" &&
+                    "text-success",
+                  notificationAnimation.value.status === "error" &&
+                    "text-destructive",
                 )}
               >
-                {notification.message}
+                {notificationAnimation.value.message}
               </h2>
             </div>
           </div>
@@ -202,27 +275,10 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
               fields={fields}
               method="POST"
               className="p-8 md:p-12 flex flex-col gap-5 text-foreground"
+              onSubmitSuccess={(data) => console.log(data)}
+              onSubmitFailure={(data) => console.log(data)}
             >
-              <div
-                className={cn(
-                  "absolute left-0 top-0 right-0 bottom-0 bg-background-overlay flex justify-center items-center",
-                  isSubmitting ? "" : "hidden",
-                )}
-              >
-                <ReCAPTCHA
-                  sitekey={googleReCAPTCHASiteKey}
-                  onChange={(value) => {
-                    if (value) {
-                      setReCAPTCHAResponse(value);
-                    }
-                  }}
-                />
-                <input
-                  type="hidden"
-                  name="recaptchaResponse"
-                  value={recaptchaResponse}
-                />
-              </div>
+              <BotChecker googleReCAPTCHASiteKey={googleReCAPTCHASiteKey} />
               <Form.Field>
                 <div className="flex flex-row gap-2">
                   <Label htmlFor={fields.email.id}>Email</Label>
