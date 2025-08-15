@@ -1,3 +1,4 @@
+import { parseWithZod } from "@conform-to/zod/v4";
 import type { ActionFunctionArgs } from "react-router";
 import { match } from "ts-pattern";
 import type { z } from "zod";
@@ -44,41 +45,39 @@ export const actionHandler = async <JSON, FormData, Params, Query, Result>(
 
       const json = options.validators?.json?.safeParse(args.json);
       if (json?.error) {
-        const reason = json.error.issues
-          .map((issue) => issue.message)
-          .join("\n");
-        throw new Error(`Invalid JSON: ${reason}`);
+        return {
+          errors: json.error.issues,
+        };
       }
 
-      const formData = options.validators?.formData?.safeParse(args.formData);
-      if (formData?.error) {
-        const reason = formData.error.issues
-          .map((issue) => issue.message)
-          .join("\n");
-        throw new Error(`Invalid form data: ${reason}`);
+      const submission = parseWithZod(args.formData, {
+        schema: options.validators?.formData,
+      });
+      console.log(submission.reply());
+      // const formData = options.validators?.formData?.safeParse(args.formData);
+      if (submission.status === "error") {
+        return submission.reply();
       }
 
       const params = options.validators?.params?.safeParse(args.params);
       if (params?.error) {
-        const reason = params.error.issues
-          .map((issue) => issue.message)
-          .join("\n");
-        throw new Error(`Invalid params: ${reason}`);
+        return {
+          errors: params.error.issues,
+        };
       }
 
       const query = options.validators?.query?.safeParse(searchParams);
       if (query?.error) {
-        const reason = query.error.issues
-          .map((issue) => issue.message)
-          .join("\n");
-        throw new Error(`Invalid query: ${reason}`);
+        return {
+          errors: query.error.issues,
+        };
       }
 
       // TODO: fix these types to return never
       return callback({
         ...args,
         json: json?.data as JSON,
-        formData: formData?.data as FormData,
+        formData: submission.payload as FormData,
         params: params?.data as Params,
         query: query?.data as Query,
       });
@@ -86,16 +85,23 @@ export const actionHandler = async <JSON, FormData, Params, Query, Result>(
   };
 };
 
-const getInput = async (request: Request) => {
-  return await match(request.headers.get("content-type"))
-    .with("application/json", () => request.json())
-    .with("application/x-www-form-urlencoded;charset=UTF-8", () =>
-      request.formData().then(Object.fromEntries),
-    )
-    .with("multipart/form-data", () =>
-      request.formData().then(Object.fromEntries),
-    )
-    .otherwise(() => null);
+type Input = {
+  json?: Record<string, unknown>;
+  formData?: FormData;
+};
+
+const getInput = async (request: Request): Promise<Input> => {
+  return match(request.headers.get("content-type"))
+    .with("application/json", async () => ({
+      json: await request.json(),
+    }))
+    .with("application/x-www-form-urlencoded;charset=UTF-8", async () => ({
+      formData: await request.formData(),
+    }))
+    .with("multipart/form-data", async () => ({
+      formData: await request.formData(),
+    }))
+    .otherwise(() => ({}));
 };
 
 export const actionHandlers = async <
@@ -109,12 +115,18 @@ export const actionHandlers = async <
 ) => {
   return async (args: ActionFunctionArgs) => {
     const input = await getInput(args.request);
-    const action = await actions[input.intent];
-    if (!action) throw new Error(`No action found for intent: ${input.intent}`);
+    const intent = input.formData?.get("intent");
+
+    if (!intent) throw new Error("No intent found in form data");
+    if (typeof intent !== "string") throw new Error("Intent is not a string");
+
+    const action = await actions[intent];
+    if (!action) throw new Error(`No action found for intent: ${intent}`);
+
     return action({
       ...args,
-      json: input,
-      formData: input,
+      json: input.json,
+      formData: input.formData,
     });
   };
 };
