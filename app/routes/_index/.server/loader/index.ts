@@ -38,7 +38,8 @@ export const loader = loaderHandler(async () => {
     })
     .sort((a, b) =>
       sortByRecentAscending(a.meta.publishedAt, b.meta.publishedAt),
-    );
+    )
+    .slice(0, 4);
 
   const response = {
     data: {

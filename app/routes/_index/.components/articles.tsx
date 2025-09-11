@@ -98,7 +98,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
           className={cn("absolute inset-0 opacity-10", {
             "bg-white": active,
           })}
-          style={{ width: `${counter / 10}%` }}
+          style={duration === -1 ? {} : { width: `${counter / 10}%` }}
         ></div>
       </Card.Root>
     </Button>
@@ -114,6 +114,7 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeArticle = data[activeIndex];
+  const numberOfArticles = data.filter((article) => article).length;
 
   return (
     <div
@@ -148,8 +149,10 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
                 key={key}
                 data={article}
                 active={index === activeIndex}
-                duration={15000}
-                onComplete={() => setActiveIndex((activeIndex + 1) % 4)}
+                duration={numberOfArticles === 1 ? -1 : 15000}
+                onComplete={() =>
+                  setActiveIndex((activeIndex + 1) % numberOfArticles)
+                }
                 onClick={() => setActiveIndex(index)}
               />
             );
