@@ -1,13 +1,24 @@
-# Welcome to Remix + Vite!
-
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
-
 ## Development
+
+```sh
+cp .env.example .env
+```
+
+Update the environment variables with the correct values
+
+```sh
+createdb -O postgres portfolio
+```
+
+```sh
+pnpm db:migrate
+pnpm db:seed
+```
 
 Run the Vite dev server:
 
-```shellscript
-npm run dev
+```sh
+pnpm dev
 ```
 
 ## Deployment
@@ -15,22 +26,11 @@ npm run dev
 First, build your app for production:
 
 ```sh
-npm run build
+pnpm build
 ```
 
 Then run the app in production mode:
 
 ```sh
-npm start
+pnpm start
 ```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
