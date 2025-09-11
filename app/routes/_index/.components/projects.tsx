@@ -21,9 +21,9 @@ const Projects: React.FC<ProjectsProps> = ({ className }) => {
         <div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-end">
           <Header title="Projects" align="right" variant="cascade" />
         </div>
-        <div className="flex flex-row items-center w-full gap-6">
+        <div className="flex flex-row items-end w-full gap-6 -mt-28">
           <Project
-            className="h-[628px] -mt-32"
+            className="h-[628px]"
             index={1}
             category="library"
             repository="https://github.com/schinwald/express-otter"
