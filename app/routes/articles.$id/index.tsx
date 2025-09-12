@@ -56,7 +56,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
   return (
     <>
       {import.meta.env.DEV ? (
-        <div className="relative col-span-2 col-start-11 row-start-1 flex flex-col justify-end">
+        <div className="relative col-span-3 col-start-10 row-start-1 flex flex-col justify-end">
           {match(visibility)
             .with("hidden", () => (
               <p className="text-destructive flex flex-row items-center gap-2">
@@ -79,21 +79,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
             .exhaustive()}
         </div>
       ) : null}
-      <div className="relative col-span-2 flex flex-col gap-6 col-start-11 row-start-2 row-span-2">
+      <div className="relative col-span-3 flex flex-col gap-6 col-start-10 row-start-2 row-span-2">
         <div className="sticky top-10 flex flex-col gap-8">
-          <div className="flex gap-2">
-            {tags?.map((tag) => {
-              const key = `tag-${tag}`;
-              return (
-                <span
-                  key={key}
-                  className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
-                >
-                  {tag}
-                </span>
-              );
-            })}
-          </div>
           <div className="flex flex-col gap-4">
             <h6>On this page</h6>
             <ol className="list-none flex flex-col gap-2 border-l border-white/20">
@@ -101,9 +88,9 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                 <li
                   key={id}
                   className={cn("py-1 text-nowrap transition-all ease-in-out", {
-                    "pl-[1rem]": level === 3,
-                    "pl-[2rem]": level === 4,
-                    "pl-[3rem]": level === 5,
+                    "pl-[0.8rem]": level === 3,
+                    "pl-[1.6rem]": level === 4,
+                    "pl-[2.4rem]": level === 5,
                     "text-primary": false,
                   })}
                 >
@@ -158,8 +145,8 @@ export default function () {
           <NavigationBar />
           <Container variant="narrow">
             <div className="grid grid-cols-12 auto-rows-min gap-10">
-              <div className="grid grid-cols-subgrid grid-rows-subgrid col-span-10 row-span-3 text-foreground-overlay">
-                <div className="flex flex-col gap-14 col-span-10 row-start-1 row-end-2">
+              <div className="grid grid-cols-subgrid grid-rows-subgrid col-span-9 row-span-3 text-foreground-overlay">
+                <div className="flex flex-col gap-14 col-span-9 row-start-1 row-end-2">
                   <div className="flex flex-col items-center gap-3">
                     <time className="font-light inline-flex gap-2">
                       <span>🗓</span>
@@ -170,7 +157,7 @@ export default function () {
                     </h2>
                   </div>
                 </div>
-                <div className="col-span-10">
+                <div className="col-span-9">
                   <Card.Root size="xs" className="gap-1">
                     <Card.Header className="flex flex-col gap-4">
                       <img
@@ -180,10 +167,25 @@ export default function () {
                       />
                     </Card.Header>
                     <Card.Content className="flex flex-col p-8">
-                      <p className="flex items-center gap-2">
-                        <BookOpenIcon />
-                        <span>{frontmatter.meta.readingTime}</span>
-                      </p>
+                      <div className="flex flex-col gap-4">
+                        <p className="flex items-center gap-2">
+                          <BookOpenIcon />
+                          <span>{frontmatter.meta.readingTime}</span>
+                        </p>
+                        <div className="flex gap-2">
+                          {frontmatter?.meta?.tags?.map((tag) => {
+                            const key = `tag-${tag}`;
+                            return (
+                              <span
+                                key={key}
+                                className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+                              >
+                                {tag}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
                       <article className="flex flex-col gap-14 pt-14 col-span-9 row-start-3 row-end-3">
                         <MDXProvider
                           components={{
@@ -194,37 +196,31 @@ export default function () {
                             ),
                             h1: ({ children, ...props }) => (
                               <Header type="h1" {...props}>
-                                {" "}
                                 {children}
                               </Header>
                             ),
                             h2: ({ children, ...props }) => (
                               <Header type="h2" {...props}>
-                                {" "}
                                 {children}
                               </Header>
                             ),
                             h3: ({ children, ...props }) => (
                               <Header type="h3" {...props}>
-                                {" "}
                                 {children}
                               </Header>
                             ),
                             h4: ({ children, ...props }) => (
                               <Header type="h4" {...props}>
-                                {" "}
                                 {children}
                               </Header>
                             ),
                             h5: ({ children, ...props }) => (
                               <Header type="h5" {...props}>
-                                {" "}
                                 {children}
                               </Header>
                             ),
                             h6: ({ children, ...props }) => (
                               <Header type="h6" {...props}>
-                                {" "}
                                 {children}
                               </Header>
                             ),
@@ -239,7 +235,20 @@ export default function () {
                               </ul>
                             ),
                             li: ({ children }) => (
-                              <li className="space-y-4">{children}</li>
+                              <li className="inline-flex flex-col gap-4">
+                                {Children.map(children, (child, index) => {
+                                  if (index === 0) {
+                                    return (
+                                      <div className="flex flex-row items-center gap-2">
+                                        <CircleIcon className="text-tertiary size-[6px] -ml-4" />
+                                        {child}
+                                      </div>
+                                    );
+                                  }
+
+                                  return child;
+                                })}
+                              </li>
                             ),
                             img: ({ src, alt }) => (
                               <div className="rounded-sm overflow-clip shadow-lg shadow-black/20">
@@ -302,14 +311,14 @@ export default function () {
           </Container>
           <Container variant="narrow">
             <div className="flex flex-row justify-between items-end">
-              <div className="flex flex-col gap-4 max-w-[600px]">
+              <div className="flex flex-col gap-4">
                 <h3>Newsletter</h3>
                 <p>
                   Subscribe to this newsletter to receive notifications when new
                   articles are published
                 </p>
                 <div className="flex flex-row gap-4">
-                  <Input.Root>
+                  <Input.Root className="w-[400px]">
                     <Input.Field placeholder="Enter your email" />
                   </Input.Root>
                   <Button>Subscribe</Button>

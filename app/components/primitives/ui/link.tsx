@@ -5,19 +5,20 @@ import { useNavigationStore } from "~/components/navigation";
 import { cn } from "~/utils/classname";
 
 const linkVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap font-display ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200 transition-all",
+  "inline-flex items-center justify-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200 transition-all",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground rounded-md hover:bg-primary/90 uppercase rounded-md text-md md:text-xl",
+          "bg-primary text-primary-foreground rounded-md hover:bg-primary/90 uppercase font-display rounded-md text-md md:text-xl",
         destructive:
-          "bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90",
-        outline: "border border-primary font-bold rounded-md text-primary p-2",
+          "bg-destructive text-destructive-foreground rounded-md font-display hover:bg-destructive/90",
+        outline:
+          "border border-primary font-bold rounded-md text-primary font-display p-2",
         secondary:
-          "bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-secondary text-secondary-foreground rounded-md font-display hover:bg-secondary/80",
+        ghost: "hover:bg-accent font-display hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 font-display hover:underline",
         nostyle: "",
       },
       size: {

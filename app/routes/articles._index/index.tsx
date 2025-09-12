@@ -256,14 +256,14 @@ export default function () {
           <AllArticles />
           <Container variant="narrow">
             <div className="flex flex-row justify-between items-end">
-              <div className="flex flex-col gap-4 max-w-[600px]">
+              <div className="flex flex-col gap-4">
                 <h3>Newsletter</h3>
                 <p>
                   Subscribe to this newsletter to receive notifications when new
                   articles are published
                 </p>
                 <div className="flex flex-row gap-4">
-                  <Input.Root>
+                  <Input.Root className="w-[400px]">
                     <Input.Field placeholder="Enter your email" />
                   </Input.Root>
                   <Button>Subscribe</Button>
