@@ -24,21 +24,22 @@ export const loader = loaderHandler(async ({ params }) => {
   const { code, frontmatter, errors } = await getMDXBundle(
     `app/routes/articles.$id/.server/mdx/${id}/index.mdx`,
     (tree) => {
-      // TODO: remove foreach since it's slow
       // Generate the table of contents
-      for (const node of tree.children) {
+      for (let node of tree.children) {
+        if (node.type === "element" && node.tagName === "section") {
+          node = node.children[0];
+        }
+
         if (node.type === "element" && /^h[1-6]$/.test(node.tagName)) {
           const id = node.properties?.id;
           if (typeof id === "string") {
             toc.push({
               id,
               level: Number.parseInt(node.tagName[1], 10),
-              text: _.title(
-                node.children
-                  .filter((child) => child.type === "text")
-                  .map((child) => child.value)
-                  .join(""),
-              ),
+              text: node.children
+                .filter((child) => child.type === "text")
+                .map((child) => child.value)
+                .join(""),
             });
           }
         }

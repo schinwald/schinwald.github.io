@@ -100,7 +100,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
               {toc.map(({ id, level, text }, _index) => (
                 <li
                   key={id}
-                  className={cn("py-2 text-nowrap transition-all ease-in-out", {
+                  className={cn("py-1 text-nowrap transition-all ease-in-out", {
                     "pl-[1rem]": level === 3,
                     "pl-[2rem]": level === 4,
                     "pl-[3rem]": level === 5,
@@ -179,14 +179,19 @@ export default function () {
                         alt={frontmatter?.image?.alt}
                       />
                     </Card.Header>
-                    <Card.Content className="flex flex-col gap-10 p-8">
+                    <Card.Content className="flex flex-col p-8">
                       <p className="flex items-center gap-2">
                         <BookOpenIcon />
                         <span>{frontmatter.meta.readingTime}</span>
                       </p>
-                      <article className="flex flex-col gap-10 col-span-9 row-start-3 row-end-3">
+                      <article className="flex flex-col gap-14 pt-14 col-span-9 row-start-3 row-end-3">
                         <MDXProvider
                           components={{
+                            section: ({ children }) => (
+                              <section className="flex flex-col gap-8">
+                                {children}
+                              </section>
+                            ),
                             h1: ({ children, ...props }) => (
                               <Header type="h1" {...props}>
                                 {" "}

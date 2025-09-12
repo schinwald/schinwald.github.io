@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import rehypeSectionize from "@hbsnow/rehype-sectionize";
 import type { Message } from "esbuild";
 import matter from "gray-matter";
 import type { Root } from "hast";
@@ -40,6 +41,7 @@ export const getMDXBundle = async (file: string, callback: BundlerCallback) => {
         options.rehypePlugins = [
           ...(options.rehypePlugins || []),
           rehypeSlug,
+          rehypeSectionize,
           rehypeListItem,
           rehypeCode,
           rehypeCallouts,

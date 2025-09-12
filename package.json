@@ -17,6 +17,7 @@
     "@conform-to/react": "^1.8.2",
     "@conform-to/zod": "^1.8.2",
     "@emotion/css": "^11.13.5",
+    "@hbsnow/rehype-sectionize": "^1.0.7",
     "@mdx-js/react": "^3.1.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-portal": "^1.1.9",
