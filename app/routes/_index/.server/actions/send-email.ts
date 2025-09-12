@@ -7,14 +7,22 @@ export const action = actionHandler(
   {
     validators: {
       formData: z.object({
-        recaptchaResponse: z.string(),
+        recaptchaResponse: z
+          .string()
+          .optional()
+          .refine((value) => {
+            if (process.env.APP_ENVIRONMENT === "production") {
+              return Boolean(value);
+            }
+            return true;
+          }),
         email: z.email(),
         message: z.string(),
       }),
     },
   },
   async ({ formData }) => {
-    if (process.env.NODE_ENV === "production") {
+    if (formData.recaptchaResponse) {
       const google = new GoogleService();
 
       const recaptcha = await google.verifyReCAPTCHA(
@@ -27,20 +35,16 @@ export const action = actionHandler(
       }
     }
 
-    return {
-      data: [],
-    };
-
     const emailer = new EmailerService();
 
     try {
       await emailer.send({
-        from: "website@schinwald.dev",
-        to: "hi@schinwald.dev",
-        subject: `New message! ${formData.email}`,
+        from: formData.email,
+        to: process.env.GOOGLE_APP_USER,
+        subject: `New message from schinwald.dev! ${formData.email}`,
         text: formData.message,
       });
-    } catch (error) {
+    } catch {
       return {
         errors: ["There was an error sending the email"],
       };

@@ -1,6 +1,12 @@
-import sendgrid from "@sendgrid/mail";
+import nodemailer from "nodemailer/lib/nodemailer.js";
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GOOGLE_APP_USER,
+    pass: process.env.GOOGLE_APP_PASSWORD,
+  },
+});
 
 type SendData = {
   from: string;
@@ -11,6 +17,12 @@ type SendData = {
 
 export class EmailerService {
   public async send(data: SendData) {
-    await sendgrid.send(data);
+    await transporter.sendMail({
+      from: data.from,
+      to: data.to,
+      replyTo: data.from,
+      subject: data.subject,
+      text: data.text,
+    });
   }
 }

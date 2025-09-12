@@ -11,7 +11,7 @@ import type { LottieRefCurrentProps } from "lottie-react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { ReCAPTCHA } from "react-google-recaptcha";
-import { useActionData, useLoaderData } from "react-router";
+import { useLoaderData } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
 import { z } from "zod/v4";
 import paperAnimation from "~/assets/lotties/paper_airplane.json";
@@ -23,7 +23,6 @@ import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
-import type { action } from "../.server/actions";
 import type { Loader } from "../.server/loader";
 
 type Notification = {

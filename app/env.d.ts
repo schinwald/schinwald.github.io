@@ -7,10 +7,11 @@ interface Environments {
   readonly GOOGLE_CLIENT_SECRET: string;
   readonly GOOGLE_RECAPTCHA_SITE_KEY: string;
   readonly GOOGLE_RECAPTCHA_SECRET_KEY: string;
-  readonly SENDGRID_API_KEY: string;
   readonly DATABASE_URL: string;
   readonly SUPABASE_URL: string;
   readonly SUPABASE_KEY: string;
+  readonly GOOGLE_APP_USER: string;
+  readonly GOOGLE_APP_PASSWORD: string;
 }
 
 // Vite
