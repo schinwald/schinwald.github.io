@@ -1,25 +1,11 @@
-import { z } from "zod";
 import { actionHandler } from "~/utils/remix/action.server";
 import { EmailerService } from "~/utils/services/emailer.server";
 import { GoogleService } from "~/utils/services/google.server";
+import { validators } from "../../.schemas/actions/send-email";
 
 export const action = actionHandler(
   {
-    validators: {
-      formData: z.object({
-        recaptchaResponse: z
-          .string()
-          .optional()
-          .refine((value) => {
-            if (process.env.APP_ENVIRONMENT === "production") {
-              return Boolean(value);
-            }
-            return true;
-          }),
-        email: z.email(),
-        message: z.string(),
-      }),
-    },
+    validators,
   },
   async ({ formData }) => {
     if (formData.recaptchaResponse) {

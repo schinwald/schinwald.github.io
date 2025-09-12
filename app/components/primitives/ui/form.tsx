@@ -1,4 +1,9 @@
-import type { FormMetadata, SubmissionResult } from "@conform-to/react";
+import type {
+  FieldMetadata,
+  FormMetadata,
+  SubmissionResult,
+} from "@conform-to/react";
+import { Label as PrimitiveLabel } from "@radix-ui/react-label";
 import {
   createContext,
   useCallback,
@@ -7,6 +12,7 @@ import {
   useMemo,
   useRef,
 } from "react";
+import { CgSpinnerTwoAlt as SpinnerIcon } from "react-icons/cg";
 import {
   type FetcherFormProps,
   type FetcherWithComponents,
@@ -83,9 +89,7 @@ const useExtendedFetcher = () => {
     }
 
     if ("error" in payload) {
-      console.log(submitFailureCallbacks.current.values());
       for (const callback of submitFailureCallbacks.current.values()) {
-        console.log(callback);
         callback(payload);
       }
     }
@@ -95,26 +99,34 @@ const useExtendedFetcher = () => {
     }
   }, [fetcher.data, fetcher.state]);
 
+  const registerSubmitSuccess = useCallback((callback: OnSubmitSuccess) => {
+    const id = crypto.randomUUID();
+    submitSuccessCallbacks.current.set(id, callback);
+    return id;
+  }, []);
+
+  const registerSubmitFailure = useCallback((callback: OnSubmitFailure) => {
+    const id = crypto.randomUUID();
+    submitFailureCallbacks.current.set(id, callback);
+    return id;
+  }, []);
+
+  const unregisterSubmitSuccess = useCallback((id: string) => {
+    submitSuccessCallbacks.current.delete(id);
+  }, []);
+
+  const unregisterSubmitFailure = useCallback((id: string) => {
+    submitFailureCallbacks.current.delete(id);
+  }, []);
+
   return {
     ...fetcher,
     ref,
     submit,
-    registerSubmitSuccess: (callback: OnSubmitSuccess) => {
-      const id = crypto.randomUUID();
-      submitSuccessCallbacks.current.set(id, callback);
-      return id;
-    },
-    registerSubmitFailure: (callback: OnSubmitFailure) => {
-      const id = crypto.randomUUID();
-      submitFailureCallbacks.current.set(id, callback);
-      return id;
-    },
-    unregisterSubmitSuccess: (id: string) => {
-      submitSuccessCallbacks.current.delete(id);
-    },
-    unregisterSubmitFailure: (id: string) => {
-      submitFailureCallbacks.current.delete(id);
-    },
+    registerSubmitSuccess,
+    registerSubmitFailure,
+    unregisterSubmitSuccess,
+    unregisterSubmitFailure,
   };
 };
 
@@ -138,20 +150,26 @@ export const Root: React.FC<RootProps> = ({
   const fetcher = useExtendedFetcher();
 
   useEffect(() => {
-    console.log("registering", onSubmitSuccess);
     const successId = fetcher.registerSubmitSuccess(onSubmitSuccess);
-    const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
-
+    console.log("reg");
     return () => {
+      console.log("unreg");
       fetcher.unregisterSubmitSuccess(successId);
-      fetcher.unregisterSubmitFailure(failureId);
     };
   }, [
     fetcher.registerSubmitSuccess,
-    fetcher.registerSubmitFailure,
     fetcher.unregisterSubmitSuccess,
-    fetcher.unregisterSubmitFailure,
     onSubmitSuccess,
+  ]);
+
+  useEffect(() => {
+    const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
+    return () => {
+      fetcher.unregisterSubmitFailure(failureId);
+    };
+  }, [
+    fetcher.registerSubmitFailure,
+    fetcher.unregisterSubmitFailure,
     onSubmitFailure,
   ]);
 
@@ -186,6 +204,27 @@ const Field: React.FC<FieldProps> = ({ className, children }) => {
   return <div className={cn("flex flex-col gap-2", className)}>{children}</div>;
 };
 
+type LabelProps = {
+  field: FieldMetadata;
+  children: React.ReactNode;
+};
+
+const Label: React.FC<LabelProps> = ({ field, children }) => {
+  return (
+    <div className="flex flex-row gap-2">
+      <PrimitiveLabel className="m-0" htmlFor={field.id}>
+        {children}
+      </PrimitiveLabel>
+      <span
+        id={field.errorId}
+        className="text-destructive text-md leading-[22px]"
+      >
+        {field.errors}
+      </span>
+    </div>
+  );
+};
+
 interface SubmitProps extends ButtonProps {
   intent: string;
   onSubmitSuccess?: OnSubmitSuccess;
@@ -203,19 +242,24 @@ export const Submit: React.FC<SubmitProps> = ({
 
   useEffect(() => {
     const successId = fetcher.registerSubmitSuccess(onSubmitSuccess);
-    const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
-
     return () => {
       fetcher.unregisterSubmitSuccess(successId);
-      fetcher.unregisterSubmitFailure(failureId);
     };
   }, [
     fetcher.registerSubmitSuccess,
+    fetcher.unregisterSubmitSuccess,
+    onSubmitSuccess,
+  ]);
+
+  useEffect(() => {
+    const failureId = fetcher.registerSubmitFailure(onSubmitFailure);
+    return () => {
+      fetcher.unregisterSubmitFailure(failureId);
+    };
+  }, [
     fetcher.registerSubmitFailure,
     fetcher.unregisterSubmitFailure,
-    fetcher.unregisterSubmitSuccess,
     onSubmitFailure,
-    onSubmitSuccess,
   ]);
 
   return (
@@ -225,8 +269,25 @@ export const Submit: React.FC<SubmitProps> = ({
   );
 };
 
+const Spinner: React.FC = () => {
+  const { fetcher } = useForm();
+
+  return (
+    <SpinnerIcon
+      className={cn(
+        "size-8 animate-spin animate-grow scale-100 transition-all",
+        {
+          "scale-0": fetcher.state === "idle",
+        },
+      )}
+    />
+  );
+};
+
 export const Form = {
   Root,
   Field,
+  Label,
   Submit,
+  Spinner,
 };

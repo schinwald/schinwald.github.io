@@ -1,19 +1,11 @@
-import {
-  getInputProps,
-  getTextareaProps,
-  type SubmissionResult,
-  useForm,
-} from "@conform-to/react";
+import { getInputProps, getTextareaProps, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
-import { Label } from "@radix-ui/react-label";
 import { useAnimate, useInView } from "framer-motion";
 import type { LottieRefCurrentProps } from "lottie-react";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
-import { ReCAPTCHA } from "react-google-recaptcha";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
-import { z } from "zod/v4";
 import paperAnimation from "~/assets/lotties/paper_airplane.json";
 import { Header } from "~/components/header";
 import { LazyLottie } from "~/components/lottie.client";
@@ -23,17 +15,14 @@ import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
+import { validators } from "../.schemas/actions/send-email";
 import type { Loader } from "../.server/loader";
+import { BotChecker } from "./bot-checker";
 
 type Notification = {
   status?: "success" | "error";
   message?: string;
 };
-
-const schema = z.object({
-  email: z.email({ error: "(Must be a valid email)" }),
-  message: z.string().min(1, { error: "(Required)" }),
-});
 
 type ContactProps = {
   className?: string;
@@ -111,27 +100,30 @@ const useAirplaneAnimation = () => {
   const ref = useRef<LottieRefCurrentProps>(null);
   const containerRef = useRef(null);
 
-  const play = (animation: AirplaneAnimation, options?: AnimationOptions) => {
-    switch (animation) {
-      case "enter": {
-        ref.current?.playSegments([0, 96], true);
-        ref.current?.playSegments([97, 146]);
-        ref.current?.animationItem?.setLoop(true);
-        break;
+  const play = useCallback(
+    (animation: AirplaneAnimation, options?: AnimationOptions) => {
+      switch (animation) {
+        case "enter": {
+          ref.current?.playSegments([0, 96], true);
+          ref.current?.playSegments([97, 146]);
+          ref.current?.animationItem?.setLoop(true);
+          break;
+        }
+        case "exit": {
+          ref.current?.playSegments([147, 200]);
+          ref.current?.animationItem?.setLoop(false);
+        }
       }
-      case "exit": {
-        ref.current?.playSegments([147, 200]);
-        ref.current?.animationItem?.setLoop(false);
-      }
-    }
 
-    if (options?.onComplete) {
-      ref.current?.animationItem?.addEventListener("complete", () => {
-        ref.current?.animationItem?.removeEventListener("complete");
-        options?.onComplete?.();
-      });
-    }
-  };
+      if (options?.onComplete) {
+        ref.current?.animationItem?.addEventListener("complete", () => {
+          ref.current?.animationItem?.removeEventListener("complete");
+          options?.onComplete?.();
+        });
+      }
+    },
+    [],
+  );
 
   const isPaused = ref.current?.animationItem?.isPaused;
 
@@ -143,62 +135,33 @@ const useAirplaneAnimation = () => {
   };
 };
 
-type BotCheckerProps = {
-  googleReCAPTCHASiteKey: string;
-};
-
-const BotChecker: React.FC<BotCheckerProps> = ({ googleReCAPTCHASiteKey }) => {
-  const [recaptchaResponse, setReCAPTCHAResponse] = useState<string>("");
-
-  return (
-    <div
-      className={cn(
-        "absolute left-0 top-0 right-0 bottom-0 bg-background-overlay flex justify-center items-center hidden",
-      )}
-    >
-      <ReCAPTCHA
-        sitekey={googleReCAPTCHASiteKey}
-        onChange={(value) => {
-          if (value) {
-            setReCAPTCHAResponse(value);
-          }
-        }}
-      />
-      <input type="hidden" name="recaptchaResponse" value={recaptchaResponse} />
-    </div>
-  );
-};
-
 const Contact: React.FC<ContactProps> = ({ className }) => {
   const {
     data: { googleReCAPTCHASiteKey },
   } = useLoaderData<Loader>();
 
+  const [entered, setEntered] = useState(false);
   const airplaneAnimation = useAirplaneAnimation();
   const notificationAnimation = useNotificationAnimation();
+  const [lastResult, setLastResult] = useState();
 
   const isInView = useInView(airplaneAnimation.containerRef, {
     margin: "-200px 0px",
   });
 
-  const [lastResult, setLastResult] = useState<SubmissionResult>();
-
-  console.log(lastResult);
-
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema });
+      return parseWithZod(formData, { schema: validators.formData });
     },
   });
 
   useEffect(() => {
-    if (isInView) {
-      if (airplaneAnimation.isPaused) {
-        airplaneAnimation.play("enter");
-      }
+    if (isInView && !entered) {
+      airplaneAnimation.play("enter");
+      setEntered(true);
     }
-  }, [isInView, airplaneAnimation.play, airplaneAnimation.isPaused]);
+  }, [isInView, airplaneAnimation.play, entered]);
 
   const submitSuccessHandler = () => {
     airplaneAnimation.play("exit", {
@@ -211,6 +174,10 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
       },
     });
   };
+
+  const onSubmit = useCallback((data: any) => {
+    setLastResult(data);
+  }, []);
 
   return (
     <div
@@ -274,17 +241,12 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
               fields={fields}
               method="POST"
               className="p-8 md:p-12 flex flex-col gap-5 text-foreground"
-              onSubmitSuccess={(data) => console.log(data)}
-              onSubmitFailure={(data) => console.log(data)}
+              onSubmitSuccess={onSubmit}
+              onSubmitFailure={onSubmit}
             >
               <BotChecker googleReCAPTCHASiteKey={googleReCAPTCHASiteKey} />
               <Form.Field>
-                <div className="flex flex-row gap-2">
-                  <Label htmlFor={fields.email.id}>Email</Label>
-                  <span id={fields.email.errorId} className="text-destructive">
-                    {fields.email.errors}
-                  </span>
-                </div>
+                <Form.Label field={fields.email}>Email</Form.Label>
                 <Input.Root>
                   <Input.Field
                     {...getInputProps(fields.email, { type: "email" })}
@@ -292,15 +254,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                 </Input.Root>
               </Form.Field>
               <Form.Field>
-                <div className="flex flex-row gap-2">
-                  <Label htmlFor={fields.message.id}>Message</Label>
-                  <span
-                    id={fields.message.errorId}
-                    className="text-destructive"
-                  >
-                    {fields.message.errors}
-                  </span>
-                </div>
+                <Form.Label field={fields.message}>Message</Form.Label>
                 <Textarea.Root>
                   <Textarea.Field
                     rows={8}
@@ -308,7 +262,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                   />
                 </Textarea.Root>
               </Form.Field>
-              <Form.Field className="flex flex-row justify-center md:justify-start mt-5">
+              <Form.Field className="flex flex-row justify-center md:justify-between mt-5">
                 <Form.Submit
                   intent="sendEmail"
                   click="squish-normally"
@@ -316,6 +270,7 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
                 >
                   Submit
                 </Form.Submit>
+                <Form.Spinner />
               </Form.Field>
             </Form.Root>
           </div>
