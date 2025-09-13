@@ -73,10 +73,10 @@ const Collector: React.FC<StepCollectorProps> = ({
       exit={{ x: "0%" }}
       transition={{ duration: 0.3 }}
     >
-      <Card.Root>
+      <Card.Root size="xl">
         <Card.Content>
           <motion.div
-            className="p-6 w-full h-full flex flex-col justify-center gap-5"
+            className="w-full h-full flex flex-col justify-center gap-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 0.15 } }}
             exit={{ opacity: 0 }}

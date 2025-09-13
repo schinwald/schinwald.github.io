@@ -22,11 +22,11 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({ className }) => {
   return (
     <div className={className}>
       <section className="w-screen h-screen">
-        <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
+        <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
           <NavigationBar />
           <Container variant="narrow" className="gap-6">
             <Stepper.Root step={step} className="flex flex-col gap-4">
-              <div className="flex flex-col md:flex-row h-[620px]">
+              <div className="flex flex-col md:flex-row h-[590px]">
                 <div className="relative grid w-full h-full border border-[#fff2] bg-background rounded-md overflow-visible">
                   <div className="col-span-full row-span-full">
                     <Stepper.Collector onNext={onNext} onBack={onBack} />

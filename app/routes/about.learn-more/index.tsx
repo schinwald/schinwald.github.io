@@ -31,7 +31,7 @@ export default function () {
   return (
     <div>
       <section className="w-screen h-screen overflow-x-hidden">
-        <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
+        <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
           <NavigationBar />
           <Container variant="narrow">
             <Header

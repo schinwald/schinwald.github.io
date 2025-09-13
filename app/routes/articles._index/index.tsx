@@ -250,7 +250,7 @@ export default function () {
   return (
     <div>
       <section className="w-screen h-screen">
-        <div className="relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
+        <div className="relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
           <NavigationBar />
           {/* <FeaturedArticles /> */}
           <AllArticles />

@@ -27,30 +27,33 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col items-center gap-3">
-              <Form.Root method="POST">
-                <Form.Field>
-                  <Form.Submit
-                    intent="authenticateWithGoogle"
-                    className="group flex flex-row items-center gap-1 w-full"
-                    variant="outline"
-                    click="squish-lightly"
-                  >
-                    <GoogleIcon className="group-hover:animate-wiggle" />
-                    Google
-                  </Form.Submit>
-                  <Form.Submit
-                    intent="authenticateWithGithub"
-                    className="group flex flex-row items-center gap-1 w-full"
-                    variant="outline"
-                    click="squish-lightly"
-                  >
-                    <GitHubIcon className="group-hover:animate-wiggle" />
-                    GitHub
-                  </Form.Submit>
-                </Form.Field>
-              </Form.Root>
-            </div>
+            <Form.Root
+              method="POST"
+              className="flex flex-col items-center gap-3"
+            >
+              <Form.Field className="w-[200px]">
+                <Form.Submit
+                  intent="authenticateWithGoogle"
+                  className="group flex flex-row items-center gap-1 w-full"
+                  variant="outline"
+                  click="squish-lightly"
+                >
+                  <GoogleIcon className="group-hover:animate-wiggle" />
+                  Google
+                </Form.Submit>
+              </Form.Field>
+              <Form.Field className="w-[200px]">
+                <Form.Submit
+                  intent="authenticateWithGithub"
+                  className="group flex flex-row items-center gap-1 w-full"
+                  variant="outline"
+                  click="squish-lightly"
+                >
+                  <GitHubIcon className="group-hover:animate-wiggle" />
+                  GitHub
+                </Form.Submit>
+              </Form.Field>
+            </Form.Root>
           </BorderRotating>
         </div>
       </div>

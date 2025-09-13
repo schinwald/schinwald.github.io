@@ -1,3 +1,4 @@
+import type { Submission } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
 import type { ActionFunctionArgs } from "react-router";
 import { match } from "ts-pattern";
@@ -50,13 +51,14 @@ export const actionHandler = async <JSON, FormData, Params, Query, Result>(
         };
       }
 
-      const submission = parseWithZod(args.formData, {
-        schema: options.validators?.formData,
-      });
-      console.log(submission.reply());
-      // const formData = options.validators?.formData?.safeParse(args.formData);
-      if (submission.status === "error") {
-        return submission.reply();
+      let submission: Submission<unknown> | undefined;
+      if (options.validators?.formData) {
+        submission = parseWithZod(args.formData, {
+          schema: options.validators.formData,
+        });
+        if (submission.status === "error") {
+          return submission.reply();
+        }
       }
 
       const params = options.validators?.params?.safeParse(args.params);
@@ -77,7 +79,7 @@ export const actionHandler = async <JSON, FormData, Params, Query, Result>(
       return callback({
         ...args,
         json: json?.data as JSON,
-        formData: submission.payload as FormData,
+        formData: submission?.payload as FormData,
         params: params?.data as Params,
         query: query?.data as Query,
       });
