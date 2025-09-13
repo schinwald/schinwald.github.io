@@ -172,7 +172,9 @@ const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
                     <BookOpenIcon />
                     <span>{activeArticle.meta.readingTime}</span>
                   </p>
-                  <article>{activeArticle.excerpt}</article>
+                  <article className="line-clamp-4">
+                    {activeArticle.excerpt}
+                  </article>
                 </div>
                 <div>
                   <Link to={`/articles/${activeArticle.id}`}>Read More</Link>
