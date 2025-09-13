@@ -1,6 +1,18 @@
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
+import { useInView } from "framer-motion";
 import { getMDXComponent } from "mdx-bundler/client";
-import { Children, useMemo } from "react";
+import {
+  Children,
+  createContext,
+  type Dispatch,
+  memo,
+  type PropsWithChildren,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import {
   FaBookOpen as BookOpenIcon,
@@ -42,6 +54,58 @@ const MDX_GLOBAL_CONFIG = {
   },
 };
 
+type ProgressContextValues = {
+  visible: Record<string, boolean>;
+  setVisible: Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  progress: number;
+};
+
+const ProgressContext = createContext<ProgressContextValues>({
+  visible: {},
+  setVisible: () => {},
+  progress: 0,
+});
+
+const useProgress = () => {
+  const context = useContext(ProgressContext);
+  if (!context) {
+    throw Error("No progress context provider");
+  }
+  return context;
+};
+
+type ProgressProps = PropsWithChildren & {
+  toc: TOC[];
+};
+
+const ProgressProvider: React.FC<ProgressProps> = ({ children, toc }) => {
+  const mapping = toc.reduce(
+    (accumulator: Record<string, boolean>, element) => {
+      accumulator[element.id] = false;
+      return accumulator;
+    },
+    {},
+  );
+
+  const [visible, setVisible] = useState(mapping);
+
+  let progress = 0;
+  for (let i = 1; i <= toc.length; i++) {
+    const j = toc.length - i;
+    const id = toc[j].id;
+    if (visible && visible[id]) {
+      progress = j;
+      break;
+    }
+  }
+
+  return (
+    <ProgressContext.Provider value={{ visible, setVisible, progress }}>
+      {children}
+    </ProgressContext.Provider>
+  );
+};
+
 type TableOfContentsProps = {
   toc: TOC[];
   visibility: ReturnType<typeof getVisibiliy>;
@@ -51,6 +115,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
   toc,
   visibility,
 }) => {
+  const { progress } = useProgress();
+  console.log(progress);
   return (
     <>
       {import.meta.env.DEV ? (
@@ -81,23 +147,35 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
         <div className="sticky top-10 flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h6>On this page</h6>
-            <ol className="list-none flex flex-col gap-2 border-l border-white/20">
-              {toc.map(({ id, level, text }, _index) => (
-                <li
-                  key={id}
-                  className={cn("py-1 text-nowrap transition-all ease-in-out", {
-                    "pl-[0.8rem]": level === 3,
-                    "pl-[1.6rem]": level === 4,
-                    "pl-[2.4rem]": level === 5,
-                    "text-primary": false,
-                  })}
-                >
-                  <p className="text-sm font-medium">
-                    <a href={`#${id}`}>{text}</a>
-                  </p>
-                </li>
-              ))}
-            </ol>
+            <div className="flex flex-row">
+              <div className="w-[2px] h-full grid grid-rows-1 grid-cols-1">
+                <div
+                  className="row-span-full col-span-full w-full bg-white/40 transition-all"
+                  style={{ height: `${((progress + 1) / toc.length) * 100}%` }}
+                />
+                <div className="row-span-full col-span-full w-full h-full bg-white/20" />
+              </div>
+              <ol className="list-none flex flex-col gap-2 py-1">
+                {toc.map(({ id, level, text }, index) => (
+                  <li
+                    key={id}
+                    className={cn(
+                      "py-1 text-nowrap transition-all ease-in-out text-white/60 hover:text-primary",
+                      {
+                        "pl-[0.8rem]": level === 3,
+                        "pl-[1.6rem]": level === 4,
+                        "pl-[2.4rem]": level === 5,
+                        "text-white": index <= progress,
+                      },
+                    )}
+                  >
+                    <p className="text-sm font-medium">
+                      <a href={`#${id}`}>{text}</a>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
           <div className="flex flex-col items-start gap-3">
             <Link
@@ -142,166 +220,196 @@ export default function () {
         <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-28 pb-32">
           <NavigationBar />
           <Container variant="narrow">
-            <div className="grid grid-cols-12 auto-rows-min gap-10">
-              <div className="grid grid-cols-subgrid grid-rows-subgrid col-span-9 row-span-3 text-foreground-overlay">
-                <div className="flex flex-col gap-14 col-span-9 row-start-1 row-end-2">
-                  <div className="flex flex-col items-center gap-3">
-                    <time className="font-light inline-flex gap-2">
-                      <span>🗓</span>
-                      {safeFormat(publishedAt) ?? "TBD"}
-                    </time>
-                    <h2 className="text-center drop-shadow-lg">
-                      {frontmatter.title}
-                    </h2>
+            <ProgressProvider toc={toc}>
+              <div className="grid grid-cols-12 auto-rows-min gap-10">
+                <div className="grid grid-cols-subgrid grid-rows-subgrid col-span-9 row-span-3 text-foreground-overlay">
+                  <div className="flex flex-col gap-14 col-span-9 row-start-1 row-end-2">
+                    <div className="flex flex-col items-center gap-3">
+                      <time className="font-light inline-flex gap-2">
+                        <span>🗓</span>
+                        {safeFormat(publishedAt) ?? "TBD"}
+                      </time>
+                      <h2 className="text-center drop-shadow-lg">
+                        {frontmatter.title}
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="col-span-9">
+                    <Card.Root size="xs" className="gap-1">
+                      <Card.Header className="flex flex-col gap-4">
+                        <img
+                          className="object-cover object-center aspect-8/5 w-full"
+                          src={frontmatter?.image?.src ?? placeholderSVG}
+                          alt={frontmatter?.image?.alt}
+                        />
+                      </Card.Header>
+                      <Card.Content className="flex flex-col p-8">
+                        <div className="flex flex-col gap-4">
+                          <p className="flex items-center gap-2">
+                            <BookOpenIcon />
+                            <span>{frontmatter.meta.readingTime}</span>
+                          </p>
+                          <div className="flex gap-2">
+                            {frontmatter?.meta?.tags?.map((tag) => {
+                              const key = `tag-${tag}`;
+                              return (
+                                <span
+                                  key={key}
+                                  className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <article className="flex flex-col gap-14 pt-14 col-span-9 row-start-3 row-end-3">
+                          <MDXProvider
+                            components={{
+                              section: memo(({ children }) => {
+                                const ref = useRef(null);
+                                const isInView = useInView(ref, {
+                                  margin: "0px 0px -50% 0px",
+                                });
+                                const { setVisible } = useProgress();
+                                const id = children[0].props.id;
+
+                                useEffect(() => {
+                                  if (isInView) {
+                                    setVisible((visible) => {
+                                      const copy = { ...visible };
+                                      copy[id] = true;
+                                      return copy;
+                                    });
+                                  } else {
+                                    setVisible((visible) => {
+                                      const copy = { ...visible };
+                                      copy[id] = false;
+                                      return copy;
+                                    });
+                                  }
+                                }, [isInView]);
+
+                                return (
+                                  <section
+                                    ref={ref}
+                                    className="flex flex-col gap-8"
+                                  >
+                                    {children}
+                                  </section>
+                                );
+                              }),
+                              h1: ({ children, ...props }) => (
+                                <Header type="h1" {...props}>
+                                  {children}
+                                </Header>
+                              ),
+                              h2: ({ children, ...props }) => (
+                                <Header type="h2" {...props}>
+                                  {children}
+                                </Header>
+                              ),
+                              h3: ({ children, ...props }) => (
+                                <Header type="h3" {...props}>
+                                  {children}
+                                </Header>
+                              ),
+                              h4: ({ children, ...props }) => (
+                                <Header type="h4" {...props}>
+                                  {children}
+                                </Header>
+                              ),
+                              h5: ({ children, ...props }) => (
+                                <Header type="h5" {...props}>
+                                  {children}
+                                </Header>
+                              ),
+                              h6: ({ children, ...props }) => (
+                                <Header type="h6" {...props}>
+                                  {children}
+                                </Header>
+                              ),
+                              ol: ({ children }) => (
+                                <ol className="list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary">
+                                  {children}
+                                </ol>
+                              ),
+                              ul: ({ children }) => (
+                                <ul className="list-disc flex flex-col gap-4 ml-4 marker:text-tertiary">
+                                  {children}
+                                </ul>
+                              ),
+                              li: ({ children }) => (
+                                <li className="inline-flex flex-col gap-4">
+                                  {Children.map(children, (child, index) => {
+                                    if (index === 0) {
+                                      return (
+                                        <div className="flex flex-row items-center gap-2">
+                                          <CircleIcon className="text-tertiary size-[6px] -ml-4" />
+                                          {child}
+                                        </div>
+                                      );
+                                    }
+
+                                    return child;
+                                  })}
+                                </li>
+                              ),
+                              img: ({ src, alt }) => (
+                                <div className="rounded-sm overflow-clip shadow-lg shadow-black/20">
+                                  <img src={src} alt={alt} className="w-full" />
+                                </div>
+                              ),
+                              "arrow-item": ({ children }) => (
+                                <li className="list-none space-y-4">
+                                  {Children.map(children, (child, index) => {
+                                    if (index === 0) {
+                                      return (
+                                        <div className="flex flex-row items-center gap-2">
+                                          <RightArrowIcon className="text-tertiary size-3 -ml-5" />
+                                          {child}
+                                        </div>
+                                      );
+                                    }
+
+                                    return child;
+                                  })}
+                                </li>
+                              ),
+                              "checklist-item": ({ isChecked, children }) => (
+                                <li className="list-none space-y-4">
+                                  {Children.map(children, (child, index) => {
+                                    if (index === 0) {
+                                      return (
+                                        <div className="flex flex-row items-center gap-2">
+                                          <input
+                                            type="checkbox"
+                                            defaultChecked={isChecked}
+                                            className="-ml-5"
+                                          />
+                                          {child}
+                                        </div>
+                                      );
+                                    }
+
+                                    return child;
+                                  })}
+                                </li>
+                              ),
+                              callout: Callout,
+                              code: Code,
+                            }}
+                          >
+                            <Component />
+                          </MDXProvider>
+                        </article>
+                      </Card.Content>
+                    </Card.Root>
                   </div>
                 </div>
-                <div className="col-span-9">
-                  <Card.Root size="xs" className="gap-1">
-                    <Card.Header className="flex flex-col gap-4">
-                      <img
-                        className="object-cover object-center aspect-8/5 w-full"
-                        src={frontmatter?.image?.src ?? placeholderSVG}
-                        alt={frontmatter?.image?.alt}
-                      />
-                    </Card.Header>
-                    <Card.Content className="flex flex-col p-8">
-                      <div className="flex flex-col gap-4">
-                        <p className="flex items-center gap-2">
-                          <BookOpenIcon />
-                          <span>{frontmatter.meta.readingTime}</span>
-                        </p>
-                        <div className="flex gap-2">
-                          {frontmatter?.meta?.tags?.map((tag) => {
-                            const key = `tag-${tag}`;
-                            return (
-                              <span
-                                key={key}
-                                className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
-                              >
-                                {tag}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      <article className="flex flex-col gap-14 pt-14 col-span-9 row-start-3 row-end-3">
-                        <MDXProvider
-                          components={{
-                            section: ({ children }) => (
-                              <section className="flex flex-col gap-8">
-                                {children}
-                              </section>
-                            ),
-                            h1: ({ children, ...props }) => (
-                              <Header type="h1" {...props}>
-                                {children}
-                              </Header>
-                            ),
-                            h2: ({ children, ...props }) => (
-                              <Header type="h2" {...props}>
-                                {children}
-                              </Header>
-                            ),
-                            h3: ({ children, ...props }) => (
-                              <Header type="h3" {...props}>
-                                {children}
-                              </Header>
-                            ),
-                            h4: ({ children, ...props }) => (
-                              <Header type="h4" {...props}>
-                                {children}
-                              </Header>
-                            ),
-                            h5: ({ children, ...props }) => (
-                              <Header type="h5" {...props}>
-                                {children}
-                              </Header>
-                            ),
-                            h6: ({ children, ...props }) => (
-                              <Header type="h6" {...props}>
-                                {children}
-                              </Header>
-                            ),
-                            ol: ({ children }) => (
-                              <ol className="list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary">
-                                {children}
-                              </ol>
-                            ),
-                            ul: ({ children }) => (
-                              <ul className="list-disc flex flex-col gap-4 ml-4 marker:text-tertiary">
-                                {children}
-                              </ul>
-                            ),
-                            li: ({ children }) => (
-                              <li className="inline-flex flex-col gap-4">
-                                {Children.map(children, (child, index) => {
-                                  if (index === 0) {
-                                    return (
-                                      <div className="flex flex-row items-center gap-2">
-                                        <CircleIcon className="text-tertiary size-[6px] -ml-4" />
-                                        {child}
-                                      </div>
-                                    );
-                                  }
-
-                                  return child;
-                                })}
-                              </li>
-                            ),
-                            img: ({ src, alt }) => (
-                              <div className="rounded-sm overflow-clip shadow-lg shadow-black/20">
-                                <img src={src} alt={alt} className="w-full" />
-                              </div>
-                            ),
-                            "arrow-item": ({ children }) => (
-                              <li className="list-none space-y-4">
-                                {Children.map(children, (child, index) => {
-                                  if (index === 0) {
-                                    return (
-                                      <div className="flex flex-row items-center gap-2">
-                                        <RightArrowIcon className="text-tertiary size-3 -ml-5" />
-                                        {child}
-                                      </div>
-                                    );
-                                  }
-
-                                  return child;
-                                })}
-                              </li>
-                            ),
-                            "checklist-item": ({ isChecked, children }) => (
-                              <li className="list-none space-y-4">
-                                {Children.map(children, (child, index) => {
-                                  if (index === 0) {
-                                    return (
-                                      <div className="flex flex-row items-center gap-2">
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={isChecked}
-                                          className="-ml-5"
-                                        />
-                                        {child}
-                                      </div>
-                                    );
-                                  }
-
-                                  return child;
-                                })}
-                              </li>
-                            ),
-                            callout: Callout,
-                            code: Code,
-                          }}
-                        >
-                          <Component />
-                        </MDXProvider>
-                      </article>
-                    </Card.Content>
-                  </Card.Root>
-                </div>
+                <TableOfContents toc={toc} visibility={visibility} />
               </div>
-              <TableOfContents toc={toc} visibility={visibility} />
-            </div>
+            </ProgressProvider>
           </Container>
           <Container variant="narrow">
             <div className="flex flex-row justify-between items-end">
