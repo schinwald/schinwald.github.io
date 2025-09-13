@@ -44,13 +44,11 @@ const MDX_GLOBAL_CONFIG = {
 
 type TableOfContentsProps = {
   toc: TOC[];
-  tags?: string[];
   visibility: ReturnType<typeof getVisibiliy>;
 };
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({
   toc,
-  tags,
   visibility,
 }) => {
   return (
@@ -302,11 +300,7 @@ export default function () {
                   </Card.Root>
                 </div>
               </div>
-              <TableOfContents
-                toc={toc}
-                tags={frontmatter?.meta?.tags}
-                visibility={visibility}
-              />
+              <TableOfContents toc={toc} visibility={visibility} />
             </div>
           </Container>
           <Container variant="narrow">
