@@ -40,18 +40,30 @@ export class GoogleService {
 
   async verifyReCAPTCHA(recatpchaResponse: string) {
     const queryString = new URLSearchParams({
-      secret: import.meta.env.GOOGLE_RECAPTCHA_SECRET_KEY,
-      response: recatpchaResponse,
+      key: process.env.GOOGLE_API_KEY,
     }).toString();
 
     const response = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?${queryString}`,
-      { method: "POST" },
+      `https://recaptchaenterprise.googleapis.com/v1/projects/${process.env.GOOGLE_RECAPTCHA_PROJECT_ID}/assessments?${queryString}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          event: {
+            token: recatpchaResponse,
+            siteKey: process.env.GOOGLE_RECAPTCHA_SITE_KEY,
+          },
+        }),
+      },
     ).then((response) => response.json());
 
     return z
       .object({
-        success: z.boolean(),
+        tokenProperties: z.object({
+          valid: z.boolean(),
+        }),
       })
       .parse(response);
   }
