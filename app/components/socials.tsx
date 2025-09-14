@@ -1,0 +1,116 @@
+import React from "react";
+import {
+  AiOutlineGithub as GitHubIcon,
+  AiFillLinkedin as LinkedInIcon,
+  AiOutlineTwitter as TwitterIcon,
+} from "react-icons/ai";
+import { cn } from "~/utils/classname";
+import { Link } from "./primitives/ui/link";
+
+type SocialsProps = {
+  className?: string;
+  variant?: "default" | "minimal";
+};
+
+const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
+  ({ className, variant = "default" }, ref) => {
+    switch (variant) {
+      case "default":
+        return (
+          <ul
+            ref={ref}
+            className={cn(
+              className,
+              "flex flex-row gap-8 justify-center items-center text-foreground",
+            )}
+          >
+            <li>
+              <Link
+                className="flex flex-row gap-2"
+                to="https://www.github.com/schinwald"
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                size="minimal"
+              >
+                <GitHubIcon className="size-7" />
+                <h4 className="hidden sm:block mr-1">Github</h4>
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="flex flex-row gap-2"
+                to="https://www.linkedin.com/in/schinwald"
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                size="minimal"
+              >
+                <LinkedInIcon className="size-7" />
+                <h4 className="hidden sm:block mr-1">LinkedIn</h4>
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="flex flex-row gap-2 px-1"
+                to="https://www.twitter.com/schinwald"
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                size="minimal"
+              >
+                <TwitterIcon className="size-7" />
+                <h4 className="hidden sm:block mr-1">Twitter</h4>
+              </Link>
+            </li>
+          </ul>
+        );
+      case "minimal":
+        return (
+          <ul
+            ref={ref}
+            className={cn(
+              "flex flex-row gap-2 justify-center items-center text-foreground",
+              className,
+            )}
+          >
+            <li className="opacity-0">
+              <Link
+                to="https://www.github.com/schinwald"
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                size="minimal"
+              >
+                <GitHubIcon className="size-8" />
+              </Link>
+            </li>
+            <li className="opacity-0">
+              <Link
+                to="https://www.linkedin.com/in/schinwald"
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                size="minimal"
+              >
+                <LinkedInIcon className="size-8" />
+              </Link>
+            </li>
+            <li className="opacity-0">
+              <Link
+                to="https://www.twitter.com/schinwald"
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                size="minimal"
+              >
+                <TwitterIcon className="size-8" />
+              </Link>
+            </li>
+          </ul>
+        );
+    }
+  },
+);
+
+export { Socials };
