@@ -72,6 +72,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           content="Welcome to my portfolio! I'm James, a seasoned software engineer with expertise in full-stack development. Explore my projects and let's collaborate!"
         />
         <meta property="twitter:image" content="/metadata.png" />
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="123d936a-d024-4235-bdd2-3690842e117f"
+        ></script>
 
         <Meta />
         <Links />

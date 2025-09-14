@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { v4 as uuid } from "uuid";
+import { cn } from "~/utils/classname";
 
 type FloaterContext = {
   ref: React.RefObject<HTMLDivElement> | null;
@@ -29,14 +30,20 @@ export const Root: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <FloaterContext.Provider value={{ ref, spawner, setSpawner }}>
-      <div ref={ref}>{children}</div>
+      <div ref={ref} className="relative">
+        {children}
+      </div>
     </FloaterContext.Provider>
   );
 };
 
 type PortalProps = PrimitivePortal.PortalProps;
 
-export const Portal: React.FC<PortalProps> = ({ children, ...props }) => {
+export const Portal: React.FC<PortalProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   const { ref, spawner, setSpawner } = useContext(FloaterContext);
 
   return (
@@ -45,7 +52,10 @@ export const Portal: React.FC<PortalProps> = ({ children, ...props }) => {
         <PrimitivePortal.Root
           key={spawn}
           container={ref?.current}
-          className="absolute bottom-6 left-[50%] text-foreground p-3 rounded-md animate-float-away opacity-0"
+          className={cn(
+            "absolute bottom-6 left-[50%] text-foreground p-3 rounded-md animate-float-away opacity-0 pointer-events-none",
+            className,
+          )}
           onAnimationEnd={() =>
             setSpawner((spawner) => {
               spawner.delete(spawn);

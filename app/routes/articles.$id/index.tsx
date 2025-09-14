@@ -21,6 +21,7 @@ import {
 import { IoMdHeart as FullHeartIcon } from "react-icons/io";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { SiBuymeacoffee as BuyMeACoffeeIcon } from "react-icons/si";
+import { VscEye as EyeIcon } from "react-icons/vsc";
 import { useLoaderData } from "react-router";
 import { match } from "ts-pattern";
 import placeholderSVG from "~/assets/images/placeholder.svg";
@@ -28,6 +29,7 @@ import { BackgroundGradient } from "~/components/background-gradient";
 import { Callout } from "~/components/callout";
 import * as Card from "~/components/card";
 import { Code } from "~/components/code";
+import * as Floater from "~/components/floater";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import * as Input from "~/components/primitives/ui/input";
@@ -116,11 +118,11 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
   visibility,
 }) => {
   const { progress } = useProgress();
-  console.log(progress);
+
   return (
     <>
       {import.meta.env.DEV ? (
-        <div className="relative col-span-3 col-start-10 row-start-1 flex flex-col justify-end">
+        <div className="relative col-span-4 col-start-9 row-start-1 flex flex-col justify-end">
           {match(visibility)
             .with("hidden", () => (
               <p className="text-destructive flex flex-row items-center gap-2">
@@ -143,58 +145,82 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
             .exhaustive()}
         </div>
       ) : null}
-      <div className="relative col-span-3 flex flex-col gap-6 col-start-10 row-start-2 row-span-2">
+      <div className="relative flex flex-col gap-6 col-span-4 col-start-9 row-start-2 row-span-1">
         <div className="sticky top-10 flex flex-col gap-8">
           <div className="flex flex-col gap-4">
-            <h6>On this page</h6>
-            <div className="flex flex-row">
-              <div className="w-[2px] h-full grid grid-rows-1 grid-cols-1">
-                <div
-                  className="row-span-full col-span-full w-full bg-white/40 transition-all"
-                  style={{ height: `${((progress + 1) / toc.length) * 100}%` }}
-                />
-                <div className="row-span-full col-span-full w-full h-full bg-white/20" />
+            <Card.Root className="text-nowrap">
+              <h6>On this page</h6>
+              <div className="flex flex-row">
+                <div className="w-[2px] grid grid-rows-1 grid-cols-1">
+                  <div
+                    className="row-span-full col-span-full w-full bg-white/40 transition-all"
+                    style={{
+                      height: `${((progress + 1) / toc.length) * 100}%`,
+                    }}
+                  />
+                  <div className="row-span-full col-span-full w-full h-full bg-white/20" />
+                </div>
+                <ol className="list-none flex flex-col gap-2 py-1">
+                  {toc.map(({ id, level, text }, index) => (
+                    <li
+                      key={id}
+                      className={cn(
+                        "py-1 transition-all ease-in-out text-white/60 hover:text-primary",
+                        {
+                          "pl-[0.8rem]": level === 3,
+                          "pl-[1.6rem]": level === 4,
+                          "pl-[2.4rem]": level === 5,
+                          "text-white": index <= progress,
+                        },
+                      )}
+                    >
+                      <p className="text-sm font-medium">
+                        <a href={`#${id}`}>{text}</a>
+                      </p>
+                    </li>
+                  ))}
+                </ol>
               </div>
-              <ol className="list-none flex flex-col gap-2 py-1">
-                {toc.map(({ id, level, text }, index) => (
-                  <li
-                    key={id}
-                    className={cn(
-                      "py-1 text-nowrap transition-all ease-in-out text-white/60 hover:text-primary",
-                      {
-                        "pl-[0.8rem]": level === 3,
-                        "pl-[1.6rem]": level === 4,
-                        "pl-[2.4rem]": level === 5,
-                        "text-white": index <= progress,
-                      },
-                    )}
-                  >
-                    <p className="text-sm font-medium">
-                      <a href={`#${id}`}>{text}</a>
-                    </p>
-                  </li>
-                ))}
-              </ol>
+            </Card.Root>
+            <div className="flex flex-col items-start gap-3">
+              <div className="flex flex-row gap-2">
+                <EyeIcon className="text-white size-6" />
+                <span>12,000 views</span>
+              </div>
+              <div className="flex flex-row gap-2">
+                <Floater.Root>
+                  <Floater.Trigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="minimal"
+                      click="squish-normally"
+                      className="flex flex-row gap-2 text-lg"
+                    >
+                      <FullHeartIcon className="text-red-500 size-6" />
+                    </Button>
+                  </Floater.Trigger>
+                  <Floater.Portal className="bottom-0">
+                    <FullHeartIcon className="text-red-500 size-4 opacity-70" />
+                  </Floater.Portal>
+                </Floater.Root>
+                <span>1,000 likes</span>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col items-start gap-3">
-            <Link
-              to="https://buymeacoffee.com/schinwald"
-              variant="ghost"
-              size="minimal"
-              className="flex flex-row gap-2"
-            >
-              <BuyMeACoffeeIcon className="text-yellow-200 size-4" />
-              <span>Support</span>
-            </Link>
-            <Button
-              variant="ghost"
-              size="minimal"
-              className="flex flex-row gap-2"
-            >
-              <FullHeartIcon className="text-red-500 size-4" />
-              <span>Like</span>
-            </Button>
+            <div className="flex flex-col items-start gap-3">
+              <span className="text-white/60">
+                Did you learn something from this article? Consider buying me a
+                coffee!
+              </span>
+              <Link
+                to="https://buymeacoffee.com/schinwald"
+                variant="ghost"
+                size="minimal"
+                className="flex flex-row gap-2 text-lg"
+              >
+                <BuyMeACoffeeIcon className="text-yellow-200 size-4" />
+                <span>Buy Me A Coffee</span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -221,9 +247,9 @@ export default function () {
           <NavigationBar />
           <Container variant="narrow">
             <ProgressProvider toc={toc}>
-              <div className="grid grid-cols-12 auto-rows-min gap-10">
-                <div className="grid grid-cols-subgrid grid-rows-subgrid col-span-9 row-span-3 text-foreground-overlay">
-                  <div className="flex flex-col gap-14 col-span-9 row-start-1 row-end-2">
+              <div className="grid grid-cols-12 auto-rows-2 gap-10">
+                <div className="grid grid-cols-subgrid grid-rows-subgrid col-start-0 col-span-8 row-span-2 text-foreground-overlay">
+                  <div className="flex flex-col gap-14 col-start-0 col-span-8 row-start-1 row-end-2">
                     <div className="flex flex-col items-center gap-3">
                       <time className="font-light inline-flex gap-2">
                         <span>🗓</span>
@@ -234,7 +260,7 @@ export default function () {
                       </h2>
                     </div>
                   </div>
-                  <div className="col-span-9">
+                  <div className="col-start-0 col-span-8">
                     <Card.Root size="xs" className="gap-1">
                       <Card.Header className="flex flex-col gap-4">
                         <img
@@ -262,8 +288,9 @@ export default function () {
                               );
                             })}
                           </div>
+                          <hr className="opacity-20 border-dashed" />
                         </div>
-                        <article className="flex flex-col gap-14 pt-14 col-span-9 row-start-3 row-end-3">
+                        <article className="flex flex-col gap-14 pt-14">
                           <MDXProvider
                             components={{
                               section: memo(({ children }) => {
@@ -288,7 +315,7 @@ export default function () {
                                       return copy;
                                     });
                                   }
-                                }, [isInView]);
+                                }, [isInView, id, setVisible]);
 
                                 return (
                                   <section

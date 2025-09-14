@@ -152,6 +152,9 @@ importers:
       react-router:
         specifier: ^7.0.0
         version: 7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-scroll-percentage:
+        specifier: ^4.3.2
+        version: 4.3.2(react@19.1.1)
       react-transition-group:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -4272,6 +4275,11 @@ packages:
     peerDependencies:
       react: '*'
 
+  react-intersection-observer@8.34.0:
+    resolution: {integrity: sha512-TYKh52Zc0Uptp5/b4N91XydfSGKubEhgZRtcg1rhTKABXijc4Sdr1uTp5lJ8TN27jwUsdXxjHXtHa0kPj704sw==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -4301,6 +4309,11 @@ packages:
     peerDependenciesMeta:
       react-dom:
         optional: true
+
+  react-scroll-percentage@4.3.2:
+    resolution: {integrity: sha512-6uEumDSvfzdiI4mFAMp/GhXXztW9ImG2Jwk2frP/SXwn9rMBBmP6Ta/+ZaIetBLnz1bNQoEGjaV6YvRoqT8ThQ==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
@@ -9689,6 +9702,10 @@ snapshots:
     dependencies:
       react: 19.1.1
 
+  react-intersection-observer@8.34.0(react@19.1.1):
+    dependencies:
+      react: 19.1.1
+
   react-is@16.13.1: {}
 
   react-refresh@0.14.2: {}
@@ -9714,6 +9731,12 @@ snapshots:
       set-cookie-parser: 2.7.1
     optionalDependencies:
       react-dom: 19.1.1(react@19.1.1)
+
+  react-scroll-percentage@4.3.2(react@19.1.1):
+    dependencies:
+      '@babel/runtime': 7.27.6
+      react: 19.1.1
+      react-intersection-observer: 8.34.0(react@19.1.1)
 
   react-transition-group@4.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
