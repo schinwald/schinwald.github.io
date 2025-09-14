@@ -151,9 +151,7 @@ export const Root: React.FC<RootProps> = ({
 
   useEffect(() => {
     const successId = fetcher.registerSubmitSuccess(onSubmitSuccess);
-    console.log("reg");
     return () => {
-      console.log("unreg");
       fetcher.unregisterSubmitSuccess(successId);
     };
   }, [

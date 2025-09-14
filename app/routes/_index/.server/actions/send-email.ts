@@ -8,17 +8,14 @@ export const action = actionHandler(
     validators,
   },
   async ({ formData }) => {
-    if (formData.recaptchaResponse) {
-      const google = new GoogleService();
+    const google = new GoogleService();
 
-      const recaptcha = await google.verifyReCAPTCHA(
-        formData.recaptchaResponse,
-      );
-      if (!recaptcha.success) {
-        return {
-          errors: [],
-        };
-      }
+    const recaptcha = await google.verifyReCAPTCHA(formData.recaptchaResponse);
+
+    if (!recaptcha.tokenProperties.valid) {
+      return {
+        errors: ["Are you a bot?"],
+      };
     }
 
     const emailer = new EmailerService();
