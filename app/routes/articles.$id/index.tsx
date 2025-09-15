@@ -1,18 +1,7 @@
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { useInView } from "framer-motion";
 import { getMDXComponent } from "mdx-bundler/client";
-import {
-  Children,
-  createContext,
-  type Dispatch,
-  memo,
-  type PropsWithChildren,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Children, memo, useEffect, useMemo, useRef } from "react";
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import {
   FaBookOpen as BookOpenIcon,
@@ -34,6 +23,7 @@ import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import * as Input from "~/components/primitives/ui/input";
 import { Link } from "~/components/primitives/ui/link";
+import { ProgressProvider, useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 import {
@@ -54,58 +44,6 @@ const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
     useMDXComponents,
   },
-};
-
-type ProgressContextValues = {
-  visible: Record<string, boolean>;
-  setVisible: Dispatch<React.SetStateAction<Record<string, boolean>>>;
-  progress: number;
-};
-
-const ProgressContext = createContext<ProgressContextValues>({
-  visible: {},
-  setVisible: () => {},
-  progress: 0,
-});
-
-const useProgress = () => {
-  const context = useContext(ProgressContext);
-  if (!context) {
-    throw Error("No progress context provider");
-  }
-  return context;
-};
-
-type ProgressProps = PropsWithChildren & {
-  toc: TOC[];
-};
-
-const ProgressProvider: React.FC<ProgressProps> = ({ children, toc }) => {
-  const mapping = toc.reduce(
-    (accumulator: Record<string, boolean>, element) => {
-      accumulator[element.id] = false;
-      return accumulator;
-    },
-    {},
-  );
-
-  const [visible, setVisible] = useState(mapping);
-
-  let progress = 0;
-  for (let i = 1; i <= toc.length; i++) {
-    const j = toc.length - i;
-    const id = toc[j].id;
-    if (visible && visible[id]) {
-      progress = j;
-      break;
-    }
-  }
-
-  return (
-    <ProgressContext.Provider value={{ visible, setVisible, progress }}>
-      {children}
-    </ProgressContext.Provider>
-  );
 };
 
 type TableOfContentsProps = {
@@ -240,13 +178,15 @@ export default function () {
     [code],
   );
 
+  const steps = toc.map((element) => element.id);
+
   return (
     <div className="relative">
       <section className="w-screen h-screen">
         <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
           <NavigationBar />
           <Container variant="narrow">
-            <ProgressProvider toc={toc}>
+            <ProgressProvider steps={steps}>
               <div className="grid grid-cols-12 auto-rows-2 gap-10">
                 <div className="grid grid-cols-subgrid grid-rows-subgrid col-start-0 col-span-8 row-span-2 text-foreground-overlay">
                   <div className="flex flex-col gap-14 col-start-0 col-span-8 row-start-1 row-end-2">
