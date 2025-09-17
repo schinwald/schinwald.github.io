@@ -10,19 +10,28 @@ import profileImage from "~/assets/images/profile.webp";
 import { Header } from "~/components/header";
 import { Link } from "~/components/primitives/ui/link";
 import { Socials } from "~/components/socials";
+import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 
 type AboutProps = {
+  id: string;
   className?: string;
 };
 
-const About: React.FC<AboutProps> = ({ className }) => {
+const About: React.FC<AboutProps> = ({ id, className }) => {
   const [imageRef, animateImage] = useAnimate();
   const [socialsRef, animateSocials] = useAnimate();
+  const { setVisible } = useProgress();
+
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, {
-    margin: "-200px 0px",
+    margin: "0px 0px -500px 0px",
+  });
+
+  const profileContainerRef = useRef(null);
+  const isProfileInView = useInView(profileContainerRef, {
+    margin: "0px 0px -500px 0px",
     once: true,
   });
 
@@ -37,6 +46,22 @@ const About: React.FC<AboutProps> = ({ className }) => {
 
   useEffect(() => {
     if (isInView) {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = true;
+        return copy;
+      });
+    } else {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = false;
+        return copy;
+      });
+    }
+  }, [isInView, id, setVisible]);
+
+  useEffect(() => {
+    if (isProfileInView) {
       animateImage(
         imageRef.current,
         {
@@ -62,22 +87,26 @@ const About: React.FC<AboutProps> = ({ className }) => {
         },
       );
     }
-  }, [isInView, imageRef, animateImage, animateSocials]);
+  }, [isProfileInView, imageRef, animateImage, animateSocials]);
 
   return (
     <div
-      id="about"
+      id={id}
+      ref={containerRef}
       className={cn(
         "relative w-screen flex flex-col justify-center items-center py-56 -my-56",
         className,
       )}
     >
-      <Container ref={containerRef} variant="narrow">
+      <Container variant="narrow">
         <div className="flex flex-col sm:flex-row gap-10 z-30">
           <div className="flex flex-row justify-center">
             <div className="w-full px-16 sm:p-0 flex flex-row justify-center">
               <div className="relative z-30 w-full sm:w-[200px] md:w-[300px] max-w-[250px] sm:max-w-full aspect-square bg-tertiary rounded-full shadow-lg">
-                <div className="absolute w-full aspect-3/4 rounded-b-full overflow-clip bottom-[-1px]">
+                <div
+                  ref={profileContainerRef}
+                  className="absolute w-full aspect-3/4 rounded-b-full overflow-clip bottom-[-1px]"
+                >
                   <img
                     ref={imageRef}
                     className="absolute bottom-0 w-full aspect-300/360 object-cover rotate-6 opacity-0"

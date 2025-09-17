@@ -1,17 +1,44 @@
+import { useInView } from "framer-motion";
 import type React from "react";
+import { useEffect, useRef } from "react";
 import { Header } from "~/components/header";
 import { Project } from "~/components/project";
+import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 
 type ProjectsProps = {
+  id: string;
   className?: string;
 };
 
-const Projects: React.FC<ProjectsProps> = ({ className }) => {
+const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
+  const containerRef = useRef(null);
+  const { setVisible } = useProgress();
+  const isInView = useInView(containerRef, {
+    margin: "0px 0px -500px 0px",
+  });
+
+  useEffect(() => {
+    if (isInView) {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = true;
+        return copy;
+      });
+    } else {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = false;
+        return copy;
+      });
+    }
+  }, [id, isInView, setVisible]);
+
   return (
     <div
-      id="projects"
+      id={id}
+      ref={containerRef}
       className={cn(
         "relative w-screen flex flex-row justify-center py-28 -my-28",
         className,

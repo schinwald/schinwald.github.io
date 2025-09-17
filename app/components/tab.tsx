@@ -9,7 +9,7 @@ import {
 import * as Card from "~/components/card";
 import { cn } from "~/utils/classname";
 
-const useTabMotion = (defaultIndex: number | null = null) => {
+export const useTabMotion = (defaultIndex: number | null = null) => {
   const refs = useRef<(HTMLElement | null)[]>([]);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(defaultIndex);
@@ -23,15 +23,11 @@ const useTabMotion = (defaultIndex: number | null = null) => {
       return;
     }
 
-    const setPosition = () => {
-      const currentTab = refs.current[activeIndex] as HTMLElement;
-      setWidth(currentTab?.clientWidth ?? 0);
-      setHeight(currentTab?.clientHeight ?? 0);
-      setLeft(currentTab?.offsetLeft ?? 0);
-      setTop(currentTab?.offsetTop ?? 0);
-    };
-
-    setPosition();
+    const currentTab = refs.current[activeIndex] as HTMLElement;
+    setWidth(currentTab?.clientWidth ?? 0);
+    setHeight(currentTab?.clientHeight ?? 0);
+    setLeft(currentTab?.offsetLeft ?? 0);
+    setTop(currentTab?.offsetTop ?? 0);
   }, [activeIndex]);
 
   const registerRef = (element: HTMLElement | null, index: number) => {
@@ -51,18 +47,46 @@ const useTabMotion = (defaultIndex: number | null = null) => {
   };
 };
 
+type TabMotion = ReturnType<typeof useTabMotion>;
+
+interface ControllableTabMotionProps<T> {
+  defaultValue?: number;
+  tabMotion?: TabMotion;
+}
+
+function useControllableTabMotion<T>({
+  defaultValue,
+  tabMotion,
+}: ControllableTabMotionProps<T>) {
+  const uncontrolledTabMotion = useTabMotion(defaultValue);
+
+  return {
+    ...(tabMotion ? tabMotion : uncontrolledTabMotion),
+  } as const;
+}
+
 const TabContext = createContext<{
-  activeTabMotion?: ReturnType<typeof useTabMotion>;
-  hoverTabMotion?: ReturnType<typeof useTabMotion>;
+  activeTabMotion?: TabMotion;
+  hoverTabMotion?: TabMotion;
 }>({});
 
 type RootProps = {
   className?: string;
-};
+  defaultValue?: number;
+  tabMotion: TabMotion;
+} & PropsWithChildren;
 
-export const Root: React.FC<RootProps> = ({ className }) => {
+export const Root: React.FC<RootProps> = ({
+  className,
+  children,
+  defaultValue = 0,
+  tabMotion,
+}) => {
   const hoverTabMotion = useTabMotion();
-  const activeTabMotion = useTabMotion(0);
+  const activeTabMotion = useControllableTabMotion({
+    defaultValue,
+    tabMotion,
+  });
 
   return (
     <TabContext.Provider
@@ -89,81 +113,7 @@ export const Root: React.FC<RootProps> = ({ className }) => {
             <span className="h-full w-full rounded-sm bg-white/10" />
           </span>
           <nav className="flex py-2 divide-x-2 divide-white/10 backdrop-blur-sm">
-            <div className="pl-[3px] pr-2">
-              <Item index={0}>
-                <a
-                  className={cn(
-                    "font-display uppercase px-4 text-lg h-full flex",
-                  )}
-                  href="/"
-                  tabIndex={-1}
-                >
-                  Home
-                </a>
-              </Item>
-            </div>
-            <div className="pl-2 pr-[3px]">
-              <Item index={1}>
-                <a
-                  className={cn(
-                    "font-display uppercase px-3 text-lg h-full flex",
-                  )}
-                  href="#about"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                >
-                  About
-                </a>
-              </Item>
-              <Item index={3}>
-                <a
-                  className={cn(
-                    "font-display uppercase px-3 text-lg h-full flex",
-                  )}
-                  href="#projects"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                >
-                  Projects
-                </a>
-              </Item>
-              <Item index={4}>
-                <a
-                  className={cn(
-                    "font-display uppercase px-3 text-lg h-full flex",
-                  )}
-                  href="#articles"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                >
-                  Articles
-                </a>
-              </Item>
-              <Item index={5}>
-                <a
-                  className={cn(
-                    "font-display uppercase px-3 text-lg h-full flex",
-                  )}
-                  href="#testimonials"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                >
-                  Testimonials
-                </a>
-              </Item>
-              <Item index={6}>
-                <a
-                  className={cn(
-                    "font-display uppercase px-3 text-lg h-full flex",
-                  )}
-                  href="#contact"
-                  rel="noopener noreferrer"
-                  tabIndex={-1}
-                >
-                  Contact
-                </a>
-              </Item>
-            </div>
+            {children}
           </nav>
         </Card.Root>
         <span

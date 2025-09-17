@@ -13,6 +13,7 @@ import { Form } from "~/components/primitives/ui/form";
 import * as Input from "~/components/primitives/ui/input";
 import * as Textarea from "~/components/primitives/ui/textarea";
 import { Socials } from "~/components/socials";
+import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 import { validators } from "../.schemas/actions/send-email";
@@ -22,10 +23,6 @@ import { BotChecker } from "./bot-checker";
 type Notification = {
   status?: "success" | "error";
   message?: string;
-};
-
-type ContactProps = {
-  className?: string;
 };
 
 const useNotificationAnimation = () => {
@@ -135,7 +132,12 @@ const useAirplaneAnimation = () => {
   };
 };
 
-const Contact: React.FC<ContactProps> = ({ className }) => {
+type ContactProps = {
+  id: string;
+  className?: string;
+};
+
+const Contact: React.FC<ContactProps> = ({ id, className }) => {
   const {
     data: { googleReCAPTCHASiteKey },
   } = useLoaderData<Loader>();
@@ -144,9 +146,16 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
   const airplaneAnimation = useAirplaneAnimation();
   const notificationAnimation = useNotificationAnimation();
   const [lastResult, setLastResult] = useState();
+  const { setVisible } = useProgress();
+  const containerRef = useRef(null);
 
-  const isInView = useInView(airplaneAnimation.containerRef, {
-    margin: "-200px 0px",
+  const isInView = useInView(containerRef, {
+    margin: "0px 0px -500px 0px",
+  });
+
+  const isAirplaneInView = useInView(airplaneAnimation.containerRef, {
+    margin: "0px 0px -500px 0px",
+    once: true,
   });
 
   const [form, fields] = useForm({
@@ -157,11 +166,27 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
   });
 
   useEffect(() => {
-    if (isInView && !entered) {
+    if (isAirplaneInView && !entered) {
       airplaneAnimation.play("enter");
       setEntered(true);
     }
-  }, [isInView, airplaneAnimation.play, entered]);
+  }, [isAirplaneInView, airplaneAnimation.play, entered]);
+
+  useEffect(() => {
+    if (isInView) {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = true;
+        return copy;
+      });
+    } else {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = false;
+        return copy;
+      });
+    }
+  }, [id, isInView, setVisible]);
 
   const submitSuccessHandler = () => {
     airplaneAnimation.play("exit", {
@@ -181,7 +206,8 @@ const Contact: React.FC<ContactProps> = ({ className }) => {
 
   return (
     <div
-      id="contact"
+      id={id}
+      ref={containerRef}
       className={cn(
         "relative w-screen flex flex-col items-center gap-10 py-28 -my-28",
         className,

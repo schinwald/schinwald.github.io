@@ -1,3 +1,4 @@
+import { useInView } from "framer-motion";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { FaBookOpen as BookOpenIcon } from "react-icons/fa6";
@@ -6,6 +7,7 @@ import * as Card from "~/components/card";
 import { Header } from "~/components/header";
 import { Button } from "~/components/primitives/ui/button";
 import { Link } from "~/components/primitives/ui/link";
+import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 import { safeFormat, safeParseISO } from "~/utils/date";
@@ -106,25 +108,47 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
 };
 
 type ArticlesProps = {
+  id: string;
   className?: string;
   data: (Article | null)[];
 };
 
-const Articles: React.FC<ArticlesProps> = ({ className, data }) => {
+const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, {
+    margin: "0px 0px -500px 0px",
+  });
+  const { setVisible } = useProgress();
 
   const activeArticle = data[activeIndex];
   const numberOfArticles = data.filter((article) => article).length;
 
+  useEffect(() => {
+    if (isInView) {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = true;
+        return copy;
+      });
+    } else {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = false;
+        return copy;
+      });
+    }
+  }, [id, isInView, setVisible]);
+
   return (
     <div
-      id="articles"
+      id={id}
       className={cn(
         "relative w-screen flex flex-row justify-center py-28 -my-28",
         className,
       )}
     >
-      <Container variant="narrow">
+      <Container variant="narrow" ref={containerRef}>
         <div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-between items-end">
           <Header title="Articles" align="left" variant="cascade" />
           <Link click="squish-normally" to="/articles" from="left">

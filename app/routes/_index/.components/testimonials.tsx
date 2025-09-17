@@ -1,9 +1,14 @@
-import { type AnimationPlaybackControls, useAnimate } from "framer-motion";
+import {
+  type AnimationPlaybackControls,
+  useAnimate,
+  useInView,
+} from "framer-motion";
 import type React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Header } from "~/components/header";
 import { Button } from "~/components/primitives/ui/button";
 import { Testimonial } from "~/components/testimonial";
+import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 import { Link } from "../../../components/primitives/ui/link";
@@ -25,14 +30,36 @@ type Data = {
 };
 
 type TestimonialsProps = {
+  id: string;
   className?: string;
   data: (Data | null)[];
 };
 
-const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
+const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
   const [isCarouselPlaying, setCarouselPlaying] = useState(true);
   const [_isCarouselReady, setCarouselReady] = useState(false);
   const [testimonialContainerRef, animateTestimonialContainer] = useAnimate();
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, {
+    margin: "0px 0px -500px 0px",
+  });
+  const { setVisible } = useProgress();
+
+  useEffect(() => {
+    if (isInView) {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = true;
+        return copy;
+      });
+    } else {
+      setVisible((visible) => {
+        const copy = { ...visible };
+        copy[id] = false;
+        return copy;
+      });
+    }
+  }, [id, isInView, setVisible]);
 
   const testimonials = data.map((value, i) => {
     const animation = useAnimate();
@@ -110,7 +137,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className, data }) => {
 
   return (
     <div
-      id="testimonials"
+      id={id}
+      ref={containerRef}
       className={cn(
         "relative w-screen flex flex-col items-center gap-10 py-28 -my-28",
         className,

@@ -7,12 +7,14 @@ import {
 } from "react";
 
 type ProgressContextValues = {
+  steps: string[];
   visible: Record<string, boolean>;
   setVisible: Dispatch<React.SetStateAction<Record<string, boolean>>>;
   progress: number;
 };
 
 const ProgressContext = createContext<ProgressContextValues>({
+  steps: [],
   visible: {},
   setVisible: () => {},
   progress: 0,
@@ -52,7 +54,7 @@ export const ProgressProvider: React.FC<ProgressProps> = ({
   }
 
   return (
-    <ProgressContext.Provider value={{ visible, setVisible, progress }}>
+    <ProgressContext.Provider value={{ steps, visible, setVisible, progress }}>
       {children}
     </ProgressContext.Provider>
   );

@@ -1,6 +1,7 @@
+import { useId } from "react";
 import { useLoaderData } from "react-router";
 import { BackgroundGradient } from "~/components/background-gradient";
-import * as Tab from "~/components/tab";
+import { ProgressProvider } from "~/hooks/progress";
 import {
   About,
   Articles,
@@ -8,6 +9,7 @@ import {
   Contact,
   Footer,
   Jumbotron,
+  Navbar,
   Projects,
   Testimonials,
 } from "./.components";
@@ -25,26 +27,42 @@ export default function () {
     data: { articles, testimonials },
   } = useLoaderData<Loader>();
 
+  const homeId = useId();
+  const aboutId = useId();
+  const projectsId = useId();
+  const articlesId = useId();
+  const testimonialsId = useId();
+  const contactId = useId();
+
+  const steps = [
+    homeId,
+    aboutId,
+    projectsId,
+    articlesId,
+    testimonialsId,
+    contactId,
+  ];
+
   return (
     <div className="relative">
-      <section className="h-screen text-foreground">
-        <Jumbotron />
-      </section>
-      <main className="relative flex flex-col justify-center items-center overflow-x-clip pt-24 md:pt-20 border-t border-[#fff2]">
-        <section className="flex flex-col justify-center items-center gap-56 md:gap-48 w-full h-full">
-          <div className="sticky -mt-48 mb-32 top-10 z-40 flex flex-row justify-center">
-            <Tab.Root />
-          </div>
-          <About />
-          <Projects />
-          <Articles data={articles} />
-          <Testimonials data={testimonials} />
-          <Contact />
+      <ProgressProvider steps={steps}>
+        <section className="h-screen text-foreground">
+          <Jumbotron />
         </section>
-        <Footer />
-        <Background />
-      </main>
-      <BackgroundGradient />
+        <main className="relative flex flex-col justify-center items-center overflow-x-clip pt-24 md:pt-20 border-t border-[#fff2]">
+          <section className="flex flex-col justify-center items-center gap-56 md:gap-48 w-full h-full">
+            <Navbar />
+            <About id={aboutId} />
+            <Projects id={projectsId} />
+            <Articles id={articlesId} data={articles} />
+            <Testimonials id={testimonialsId} data={testimonials} />
+            <Contact id={contactId} />
+          </section>
+          <Footer />
+          <Background />
+        </main>
+        <BackgroundGradient />
+      </ProgressProvider>
     </div>
   );
 }
