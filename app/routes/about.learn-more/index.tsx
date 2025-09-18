@@ -1,8 +1,8 @@
 import { Howl } from "howler";
+import { useEffect, useState } from "react";
 import {
   FaBook as LearningIcon,
   FaCode as OpenSourceIcon,
-  // FaStreetView as OriginIcon,
   FaTree as OutdoorsIcon,
   FaWrench as TinkeringIcon,
   FaHammer as WoodworkingIcon,
@@ -21,6 +21,7 @@ import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Container } from "~/layouts/container";
 import { Education, Experience } from "./.components";
+import { Mapbox, MapboxDetails, MapboxProvider } from "./.components/map";
 import { meta as actualMeta } from "./.meta";
 import { loader as actualLoader } from "./.server/loader";
 
@@ -29,6 +30,19 @@ export const meta = actualMeta;
 
 export default function () {
   const pronunciationSound = new Howl({ src: pronunciation });
+
+  // const source = [-79.3832, 43.6532];
+  // const source = [-70.3832, 40.6532];
+  const source: [number, number] = [-75.7003, 45.4201];
+  const [destination, setDestination] = useState<
+    [number, number] | undefined
+  >();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setDestination([position.coords.longitude, position.coords.latitude]);
+    });
+  }, []);
 
   return (
     <div>
@@ -45,6 +59,41 @@ export default function () {
             <div className="w-full h-full flex flex-col justify-center items-center gap-6">
               <div className="grid grid-cols-6 gap-5">
                 <div className="grid grid-cols-subgrid col-span-4 gap-5">
+                  <div className="col-span-full">
+                    <Card.Root>
+                      {destination ? (
+                        <MapboxProvider
+                          source={source}
+                          destination={destination}
+                        >
+                          <Mapbox className="w-full h-[300px] p-4 rounded-sm" />
+                          <MapboxDetails>
+                            {({ distance }) => {
+                              const conclusion =
+                                distance < 1000
+                                  ? "Woah! That's really close! Kinda creepy..."
+                                  : "Woah! That's so far away! Hello stranger!";
+                              return (
+                                <p>
+                                  I'm based in Toronto, ON, which is{" "}
+                                  <span className="italic">approximately</span>{" "}
+                                  <span className="text-secondary">
+                                    {Math.round(distance)} kms
+                                  </span>{" "}
+                                  away from your current location. {conclusion}
+                                </p>
+                              );
+                            }}
+                          </MapboxDetails>
+                        </MapboxProvider>
+                      ) : (
+                        <>
+                          <div className="w-full h-[300px] bg-white/10 rounded-sm"></div>
+                          <p className="">I'm based in Toronto, ON</p>
+                        </>
+                      )}
+                    </Card.Root>
+                  </div>
                   <div className="col-span-2">
                     <Card.Root>
                       <div className="flex flex-col gap-6">
