@@ -31,9 +31,7 @@ export const meta = actualMeta;
 export default function () {
   const pronunciationSound = new Howl({ src: pronunciation });
 
-  // const source = [-79.3832, 43.6532];
-  // const source = [-70.3832, 40.6532];
-  const source: [number, number] = [-75.7003, 45.4201];
+  const source: [number, number] = [-79.3832, 43.6532];
   const [destination, setDestination] = useState<
     [number, number] | undefined
   >();
@@ -69,10 +67,18 @@ export default function () {
                           <Mapbox className="w-full h-[300px] p-4 rounded-sm" />
                           <MapboxDetails>
                             {({ distance }) => {
-                              const conclusion =
-                                distance < 1000
-                                  ? "Woah! That's really close! Kinda creepy..."
-                                  : "Woah! That's so far away! Hello stranger!";
+                              const conclusion = (() => {
+                                if (distance < 5) {
+                                  return "Woah! We're practically neighbours!";
+                                }
+                                if (distance < 1000) {
+                                  return "Woah! That's really close!";
+                                }
+                                if (distance > 3000) {
+                                  return "Woah! That's so far away!";
+                                }
+                              })();
+
                               return (
                                 <p>
                                   I'm based in Toronto, ON, which is{" "}
