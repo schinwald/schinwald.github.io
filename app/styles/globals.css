@@ -165,10 +165,14 @@
 	--radius-md: 8px;
 	--radius-sm: 6px;
 
-	--animate-accordion-down: accordion-down 0.2s ease-out;
-	--animate-accordion-up: accordion-up 0.2s ease-out;
-	--animate-fade-in: fade-in 0.2s ease-in;
-	--animate-fade-out: fade-out 0.2s ease-out;
+  --animate-pop-in-from-bottom: pop-in-from-bottom 400ms linear;
+  --animate-pop-in-from-top: pop-in-from-top 400ms linear;
+  --animate-pop-in-from-left: pop-in-from-left 400ms linear;
+  --animate-pop-in-from-right: pop-in-from-right 400ms linear;
+	--animate-accordion-down: accordion-down 200ms ease-out;
+	--animate-accordion-up: accordion-up 200ms ease-out;
+	--animate-fade-in: fade-in 200ms ease-in;
+	--animate-fade-out: fade-out 200ms ease-out;
 	--animate-spin-slow: spin 6s linear infinite;
 	--animate-wiggle: wiggle 1s ease-in-out infinite;
 	--animate-heart-beat: heartBeat 1s infinite;
@@ -180,7 +184,99 @@
 	--animate-head-shake: headShake 2s infinite;
 	--animate-wobble: wobble 1s infinite;
 	--animate-jello: jello 2s infinite;
-	--animate-float-away: floatAway 0.7s linear;
+	--animate-float-away: floatAway 700ms linear;
+
+  @keyframes pop-in-from-left {
+    0% {
+      opacity: 0;
+      transform: scale(0.1, 0.1) translateX(150%);
+      pointer-events: none;
+    }
+    30% {
+      opacity: 1;
+      transform: scale(0.9, 0.1) translateX(0%);
+      pointer-events: none;
+    }
+    50% {
+      transform: scale(1) translateX(0%);
+    }
+    75% {
+      transform: scale(1, 0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pop-in-from-right {
+    0% {
+      opacity: 0;
+      transform: scale(0.1, 0.1) translateX(-150%);
+      pointer-events: none;
+    }
+    30% {
+      opacity: 1;
+      transform: scale(0.9, 0.1) translateX(0%);
+      pointer-events: none;
+    }
+    50% {
+      transform: scale(1) translateX(0%);
+    }
+    75% {
+      transform: scale(1, 0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pop-in-from-bottom {
+    0% {
+      opacity: 0;
+      transform: scale(0.1, 0.1) translateY(-150%);
+      pointer-events: none;
+    }
+    30% {
+      opacity: 1;
+      transform: scale(0.1, 0.9) translateY(0%);
+      pointer-events: none;
+    }
+    50% {
+      transform: scale(1) translateY(0%);
+    }
+    75% {
+      transform: scale(0.95, 1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pop-in-from-top {
+    0% {
+      opacity: 0;
+      transform: scale(0.1, 0.1) translateY(150%);
+      pointer-events: none;
+    }
+    30% {
+      opacity: 1;
+      transform: scale(0.1, 0.9) translateY(0%);
+      pointer-events: none;
+    }
+    50% {
+      transform: scale(1) translateY(0%);
+    }
+    75% {
+      transform: scale(0.95, 1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 
 	@keyframes accordion-down {
 		from {

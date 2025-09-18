@@ -35,7 +35,7 @@ export const OverlayProvider: React.FC<PropsWithChildren> = ({ children }) => {
           "z-20 transition-all duration-300 pointer-events-none bg-black",
           {
             "opacity-0": !isOpen,
-            "opacity-40": isOpen,
+            "opacity-70": isOpen,
           },
         )}
         position="fixed"
