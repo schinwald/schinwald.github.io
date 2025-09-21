@@ -4,7 +4,14 @@ import {
   useInView,
 } from "framer-motion";
 import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { Header } from "~/components/header";
 
 import { Testimonial } from "~/components/testimonial";
@@ -40,6 +47,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
   const [_isCarouselReady, setCarouselReady] = useState(false);
   const [testimonialContainerRef, animateTestimonialContainer] = useAnimate();
   const containerRef = useRef(null);
+  const testimonialRefs = useRef<(AnimationPlaybackControls | null)[]>([]);
   const isInView = useInView(containerRef, {
     margin: "0px 0px -500px 0px",
   });
@@ -61,47 +69,6 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
     }
   }, [id, isInView, setVisible]);
 
-  const testimonials = data.map((value, i) => {
-    const animation = useAnimate();
-    const [testimonialRef, animateTestimonial] = animation;
-    const [controls, setControls] = useState<AnimationPlaybackControls>();
-
-    useEffect(() => {
-      if (controls) return;
-
-      const newControls = animateTestimonial(
-        testimonialRef.current,
-        {
-          translateY: ["-105%", "-105%", "0%", "0%", "105%", "105%"],
-          translateX: ["-120%", "120%", "120%", "-120%", "-120%", "120%"],
-          x: [
-            `-${distance}px`,
-            `${distance}px`,
-            `${distance}px`,
-            `-${distance}px`,
-            `-${distance}px`,
-            `${distance}px`,
-          ],
-        },
-        {
-          duration,
-          times: [0, 1 / 3, 1 / 3, 2 / 3, 2 / 3, 1],
-          ease: "linear",
-          repeat: Number.POSITIVE_INFINITY,
-          repeatDelay,
-          startTime: -i * delay * 1000,
-        },
-      );
-      setControls(newControls);
-    }, [testimonialRef, i, controls, animateTestimonial]);
-
-    return {
-      data: value,
-      animation,
-      controls,
-    };
-  });
-
   useEffect(() => {
     animateTestimonialContainer(
       testimonialContainerRef.current,
@@ -117,23 +84,16 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
   }, [testimonialContainerRef, animateTestimonialContainer]);
 
   const toggleCarouselPlay = useCallback(() => {
-    for (let i = 0; i < testimonials.length; i++) {
-      const testimonial = testimonials[i];
-      const controls = testimonial.controls;
-
-      if (!controls) continue;
-
+    for (let i = 0; i < testimonialRefs.current.length; i++) {
+      const controller = testimonialRefs.current[i];
       if (isCarouselPlaying) {
-        const temp = controls.time;
-        controls.pause();
-        controls.time = temp;
+        controller?.pause();
       } else {
-        controls.play();
+        controller?.play();
       }
     }
-
     setCarouselPlaying(!isCarouselPlaying);
-  }, [testimonials, isCarouselPlaying]);
+  }, [isCarouselPlaying]);
 
   return (
     <div
@@ -166,46 +126,21 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
             ref={testimonialContainerRef}
             className="w-full flex flex-row justify-center items-center rotate-6 opacity-0"
           >
-            {testimonials.map((value, index) => {
-              const key = `testimonial-${index}`;
-              const { data, animation } = value;
-              const [ref, _] = animation;
-
-              if (!data) {
-                return (
-                  <div ref={ref} key={key} className="absolute">
-                    <div className="relative h-[400px] aspect-3/4 bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
-                  </div>
-                );
-              }
-
-              return (
-                <button
-                  ref={ref}
-                  tabIndex={-1}
-                  key={key}
-                  type="button"
-                  className="absolute"
-                  onClick={() => {
-                    toggleCarouselPlay();
-                  }}
-                  onKeyUp={(event) => {
-                    if (event.key === "Enter") {
-                      toggleCarouselPlay();
-                    }
-                  }}
-                >
-                  <Testimonial
-                    avatar={data.avatar ?? undefined}
-                    rating={data.rating ?? undefined}
-                    fullname={data.fullName ?? undefined}
-                    occupation={data.occupation ?? undefined}
-                    company={data.company ?? undefined}
-                    review={data.review ?? undefined}
-                  />
-                </button>
-              );
-            })}
+            {data.map((value, index) => (
+              <MovingTestimonial
+                key={`testimonial-${value?.fullName || index}`}
+                ref={(el) => {
+                  testimonialRefs.current[index] = el;
+                }}
+                data={value}
+                distance={distance}
+                duration={duration}
+                delay={delay}
+                repeatDelay={repeatDelay}
+                index={index}
+                onClick={toggleCarouselPlay}
+              />
+            ))}
           </div>
         </div>
       </Container>
@@ -224,5 +159,93 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
     </div>
   );
 };
+
+type MovingTestimonialProps = {
+  data: Data | null;
+  distance: string;
+  duration: number;
+  delay: number;
+  repeatDelay: number;
+  index: number;
+  onClick?: () => void;
+};
+
+const MovingTestimonial = forwardRef<
+  AnimationPlaybackControls,
+  MovingTestimonialProps
+>(({ data, distance, duration, delay, repeatDelay, index, onClick }, ref) => {
+  const [testimonialRef, animateTestimonial] = useAnimate();
+  const controlsRef = useRef<AnimationPlaybackControls | null>(null);
+
+  useEffect(() => {
+    controlsRef.current = animateTestimonial(
+      testimonialRef.current,
+      {
+        translateY: ["-105%", "-105%", "0%", "0%", "105%", "105%"],
+        translateX: ["-120%", "120%", "120%", "-120%", "-120%", "120%"],
+        x: [
+          `-${distance}px`,
+          `${distance}px`,
+          `${distance}px`,
+          `-${distance}px`,
+          `-${distance}px`,
+          `${distance}px`,
+        ],
+      },
+      {
+        duration,
+        times: [0, 1 / 3, 1 / 3, 2 / 3, 2 / 3, 1],
+        ease: "linear",
+        repeat: Number.POSITIVE_INFINITY,
+        repeatDelay,
+        delay: 0,
+        startTime: -index * delay * 1000,
+      },
+    );
+  }, [
+    testimonialRef,
+    animateTestimonial,
+    distance,
+    duration,
+    delay,
+    repeatDelay,
+    index,
+  ]);
+
+  useImperativeHandle(
+    ref,
+    () => controlsRef.current as AnimationPlaybackControls,
+    [],
+  );
+
+  if (!data) {
+    return (
+      <div ref={testimonialRef} className="absolute">
+        <div className="relative h-[400px] aspect-3/4 bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      ref={testimonialRef}
+      tabIndex={-1}
+      type="button"
+      className="absolute"
+      onClick={onClick}
+    >
+      <Testimonial
+        avatar={data.avatar ?? undefined}
+        rating={data.rating ?? undefined}
+        fullname={data.fullName ?? undefined}
+        occupation={data.occupation ?? undefined}
+        company={data.company ?? undefined}
+        review={data.review ?? undefined}
+      />
+    </button>
+  );
+});
+
+MovingTestimonial.displayName = "MovingTestimonial";
 
 export { Testimonials };
