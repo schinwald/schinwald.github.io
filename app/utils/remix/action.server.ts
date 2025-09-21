@@ -116,7 +116,8 @@ export const actionHandlers = async <
   actions: Actions,
 ) => {
   return async (args: ActionFunctionArgs) => {
-    const input = await getInput(args.request);
+    const request = args.request.clone();
+    const input = await getInput(request);
     const intent = input.formData?.get("intent");
 
     if (!intent) throw new Error("No intent found in form data");
