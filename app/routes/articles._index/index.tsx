@@ -267,7 +267,7 @@ export default function () {
                   <Input.Root className="w-[400px]">
                     <Input.Field placeholder="Enter your email" />
                   </Input.Root>
-                  <Button>Subscribe</Button>
+                  <Button click="squish-normally">Subscribe</Button>
                 </div>
               </div>
               <span className="text-[5rem]">🚀</span>

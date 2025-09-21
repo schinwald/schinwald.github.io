@@ -151,7 +151,7 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
       <Container variant="narrow" ref={containerRef}>
         <div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-between items-end">
           <Header title="Articles" align="left" variant="cascade" />
-          <Link click="squish-normally" to="/articles" from="left">
+          <Link click="squish-lightly" to="/articles" from="left">
             See More
             <LinkArrow />
           </Link>
@@ -202,7 +202,11 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
                   </article>
                 </div>
                 <div>
-                  <Link to={`/articles/${activeArticle.id}`} from="left">
+                  <Link
+                    to={`/articles/${activeArticle.id}`}
+                    from="left"
+                    click="squish-lightly"
+                  >
                     Read More <LinkArrow />
                   </Link>
                 </div>
