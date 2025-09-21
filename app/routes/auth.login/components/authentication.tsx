@@ -1,4 +1,5 @@
-import type React from "react";
+import { motion } from "framer-motion";
+import React from "react";
 import {
   AiOutlineGithub as GitHubIcon,
   AiOutlineGoogle as GoogleIcon,
@@ -7,11 +8,56 @@ import { BorderRotating } from "~/components/border-rotating";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Form } from "~/components/primitives/ui/form";
 
+const ButtonContext = React.createContext<{ isHovered: boolean } | null>(null);
+
+const useButtonContext = () => {
+  const context = React.useContext(ButtonContext);
+  if (!context) {
+    throw new Error(
+      "useButtonContext must be used within a ButtonContext.Provider",
+    );
+  }
+  return context;
+};
+
+type ButtonTextProps = {
+  original: React.ReactNode;
+  alternate: React.ReactNode;
+};
+
+const ButtonText: React.FC<ButtonTextProps> = ({ original, alternate }) => {
+  const context = useButtonContext();
+  const isHovered = context?.isHovered ?? false;
+
+  return (
+    <div className="relative overflow-hidden w-full">
+      <motion.div
+        className="relative w-full flex flex-row items-center justify-center"
+        animate={isHovered ? { y: -20, opacity: 0 } : { y: 0, opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {original}
+      </motion.div>
+      <motion.div
+        className="absolute inset-0 flex flex-row items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={isHovered ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {alternate}
+      </motion.div>
+    </div>
+  );
+};
+
 type AuthenticationProps = {
   className?: string;
 };
 
 const Authentication: React.FC<AuthenticationProps> = () => {
+  const [googleHovered, setGoogleHovered] = React.useState(false);
+  const [githubHovered, setGithubHovered] = React.useState(false);
+
   return (
     <div className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
       <NavigationBar />
@@ -32,26 +78,58 @@ const Authentication: React.FC<AuthenticationProps> = () => {
               className="flex flex-col items-center gap-3"
             >
               <Form.Field className="w-[200px]">
-                <Form.Submit
-                  intent="authenticateWithGoogle"
-                  className="group flex flex-row items-center gap-1 w-full"
-                  variant="outline"
-                  click="squish-lightly"
-                >
-                  <GoogleIcon className="group-hover:animate-wiggle" />
-                  Google
-                </Form.Submit>
+                <ButtonContext.Provider value={{ isHovered: googleHovered }}>
+                  <Form.Submit
+                    intent="authenticateWithGoogle"
+                    className="group flex flex-row items-center gap-1 w-full"
+                    variant="outline"
+                    click="squish-lightly"
+                    onMouseEnter={() => setGoogleHovered(true)}
+                    onMouseLeave={() => setGoogleHovered(false)}
+                  >
+                    <ButtonText
+                      original={
+                        <div className="flex flex-row items-center gap-2">
+                          <GoogleIcon className="group-hover:animate-wiggle" />
+                          Google
+                        </div>
+                      }
+                      alternate={
+                        <div className="flex flex-row items-center gap-2">
+                          <GoogleIcon className="group-hover:animate-wiggle" />
+                          Connect
+                        </div>
+                      }
+                    />
+                  </Form.Submit>
+                </ButtonContext.Provider>
               </Form.Field>
               <Form.Field className="w-[200px]">
-                <Form.Submit
-                  intent="authenticateWithGithub"
-                  className="group flex flex-row items-center gap-1 w-full"
-                  variant="outline"
-                  click="squish-lightly"
-                >
-                  <GitHubIcon className="group-hover:animate-wiggle" />
-                  GitHub
-                </Form.Submit>
+                <ButtonContext.Provider value={{ isHovered: githubHovered }}>
+                  <Form.Submit
+                    intent="authenticateWithGithub"
+                    className="group flex flex-row items-center gap-1 w-full"
+                    variant="outline"
+                    click="squish-lightly"
+                    onMouseEnter={() => setGithubHovered(true)}
+                    onMouseLeave={() => setGithubHovered(false)}
+                  >
+                    <ButtonText
+                      original={
+                        <div className="flex flex-row items-center gap-2">
+                          <GitHubIcon className="group-hover:animate-wiggle" />
+                          GitHub
+                        </div>
+                      }
+                      alternate={
+                        <div className="flex flex-row items-center gap-2">
+                          <GitHubIcon className="group-hover:animate-wiggle" />
+                          Connect
+                        </div>
+                      }
+                    />
+                  </Form.Submit>
+                </ButtonContext.Provider>
               </Form.Field>
             </Form.Root>
           </BorderRotating>
