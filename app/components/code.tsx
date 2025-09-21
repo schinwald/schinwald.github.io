@@ -1,4 +1,4 @@
-import { Highlight, type PrismTheme, themes } from "prism-react-renderer";
+import { Highlight, type PrismTheme } from "prism-react-renderer";
 import type React from "react";
 import type { PropsWithChildren } from "react";
 import { Copy } from "~/components/copy";
@@ -8,23 +8,6 @@ type CodeProps = {
   className?: string;
   filename?: string;
   language?: string;
-};
-
-// TODO: make this a little cleaner
-const theme: PrismTheme = {
-  styles: [],
-  plain: {
-    color: "#ef4444",
-    cursor: "",
-    background: "",
-    backgroundImage: "",
-    backgroundColor: "",
-    textShadow: "",
-    fontStyle: "normal",
-    fontWeight: "bold",
-    textDecorationLine: "none",
-    opacity: 1,
-  },
 };
 
 const eldritchTheme: PrismTheme = {

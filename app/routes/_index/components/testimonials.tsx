@@ -6,7 +6,7 @@ import {
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Header } from "~/components/header";
-import { Button } from "~/components/primitives/ui/button";
+
 import { Testimonial } from "~/components/testimonial";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";

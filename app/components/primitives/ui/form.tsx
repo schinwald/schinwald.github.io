@@ -21,10 +21,10 @@ import {
 import { cn } from "~/utils/classname";
 import { Button, type ButtonProps } from "./button";
 
-type FormContextValue<T extends Record<string, any>> = {
+type FormContextValue<T extends Record<string, unknown>> = {
   form?: FormMetadata<T, string[]>;
   fields?: ReturnType<FormMetadata<T, string[]>["getFieldset"]>;
-  fetcher: Omit<FetcherWithComponents<any>, "submit"> & {
+  fetcher: Omit<FetcherWithComponents<unknown>, "submit"> & {
     ref: React.RefObject<HTMLFormElement | null>;
     submit: () => void;
     registerSubmitSuccess: (callback: OnSubmitSuccess) => string;
@@ -34,10 +34,14 @@ type FormContextValue<T extends Record<string, any>> = {
   };
 };
 
-const FormContext = createContext<FormContextValue<any> | null>(null);
+const FormContext = createContext<FormContextValue<
+  Record<string, unknown>
+> | null>(null);
 
-export const useForm = <T extends Record<string, any>>() => {
-  const context = useContext<FormContextValue<T> | null>(FormContext);
+export const useForm = () => {
+  const context = useContext<FormContextValue<Record<string, unknown>> | null>(
+    FormContext,
+  );
 
   if (!context) {
     throw new Error("useForm must be used within a FormProvider");
@@ -52,7 +56,7 @@ type OnSubmitFailure = (data: SubmissionResult) => void;
 const useExtendedFetcher = () => {
   const ref = useRef<HTMLFormElement>(null);
   const fetcher = useFetcher();
-  const previousState = useRef<FetcherWithComponents<any>["state"]>("idle");
+  const previousState = useRef<FetcherWithComponents<unknown>["state"]>("idle");
   const submitSuccessCallbacks = useRef<Map<string, OnSubmitSuccess>>(
     new Map(),
   );
@@ -131,8 +135,10 @@ const useExtendedFetcher = () => {
 };
 
 export type RootProps = React.RefAttributes<HTMLFormElement> & {
-  form?: FormMetadata<any, string[]>;
-  fields?: ReturnType<FormMetadata<any, string[]>["getFieldset"]>;
+  form?: FormMetadata<Record<string, unknown>, string[]>;
+  fields?: ReturnType<
+    FormMetadata<Record<string, unknown>, string[]>["getFieldset"]
+  >;
   onSubmitSuccess?: OnSubmitSuccess;
   onSubmitFailure?: OnSubmitFailure;
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";

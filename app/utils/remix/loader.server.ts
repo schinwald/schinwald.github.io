@@ -13,7 +13,7 @@ export type LoaderData<T extends LoaderFunction> = InferLoaderData<
 >;
 
 export const loaderHandler = async <Result>(
-  callback: (args: any) => Promise<Result>,
+  callback: (args: LoaderFunctionArgs) => Promise<Result>,
 ) => {
   return async (args: LoaderFunctionArgs) => {
     return await createContext(async () => {

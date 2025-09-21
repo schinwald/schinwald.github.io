@@ -49,15 +49,15 @@ export const useTabMotion = (defaultIndex: number | null = null) => {
 
 type TabMotion = ReturnType<typeof useTabMotion>;
 
-interface ControllableTabMotionProps<T> {
+type ControllableTabMotionProps = {
   defaultValue?: number;
   tabMotion?: TabMotion;
-}
+};
 
-function useControllableTabMotion<T>({
+function useControllableTabMotion({
   defaultValue,
   tabMotion,
-}: ControllableTabMotionProps<T>) {
+}: ControllableTabMotionProps) {
   const uncontrolledTabMotion = useTabMotion(defaultValue);
 
   return {

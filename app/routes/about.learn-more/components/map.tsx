@@ -1,4 +1,4 @@
-import mapboxgl, { type Map } from "mapbox-gl";
+import mapboxgl, { type Map as MapboxMap } from "mapbox-gl";
 import {
   createContext,
   type Dispatch,
@@ -76,7 +76,7 @@ type MapboxProps = {
 
 export const Mapbox: React.FC<MapboxProps> = ({ className }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<Map>(null);
+  const mapRef = useRef<MapboxMap>(null);
   const hasEnteredRef = useRef<boolean>(null);
   const { source, destination, setDistance } = useMapbox();
 
@@ -189,7 +189,7 @@ export const Mapbox: React.FC<MapboxProps> = ({ className }) => {
         },
       });
     });
-  }, []);
+  }, [source, destination, setDistance]);
 
   return <div className={cn(className)} ref={mapContainerRef}></div>;
 };

@@ -1,3 +1,4 @@
+import type { SubmissionResult } from "@conform-to/react";
 import { getInputProps, getTextareaProps, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
 import { useAnimate, useInView } from "framer-motion";
@@ -145,7 +146,7 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
   const [entered, setEntered] = useState(false);
   const airplaneAnimation = useAirplaneAnimation();
   const notificationAnimation = useNotificationAnimation();
-  const [lastResult, setLastResult] = useState();
+  const [lastResult, setLastResult] = useState<SubmissionResult | undefined>();
   const { setVisible } = useProgress();
   const containerRef = useRef(null);
 
@@ -200,7 +201,7 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
     });
   };
 
-  const onSubmit = useCallback((data: any) => {
+  const onSubmit = useCallback((data: SubmissionResult) => {
     setLastResult(data);
   }, []);
 

@@ -19,6 +19,7 @@ interface Environments {
 // Vite
 declare namespace JSX {
   interface IntrinsicElements {
+    // biome-ignore lint/suspicious/noExplicitAny: Custom web component
     "dotlottie-player": any;
   }
 }
