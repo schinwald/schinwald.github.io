@@ -89,7 +89,7 @@ authenticator.use(
       scopes: ["openid", "profile", "email"],
       authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
       tokenEndpoint: "https://oauth2.googleapis.com/token",
-      redirectURI: "http://localhost:5173/auth/callback/google",
+      redirectURI: `${process.env.ORIGIN}/auth/callback/google`,
       codeChallengeMethod: CodeChallengeMethod.S256,
     },
     async ({ tokens }) => {
@@ -118,7 +118,7 @@ authenticator.use(
       scopes: ["user:email", "read:user"],
       authorizationEndpoint: "https://github.com/login/oauth/authorize",
       tokenEndpoint: "https://github.com/login/oauth/access_token",
-      redirectURI: "http://localhost:5173/auth/callback/github",
+      redirectURI: `${process.env.ORIGIN}/auth/callback/github`,
       codeChallengeMethod: CodeChallengeMethod.S256,
     },
     async (data) => {

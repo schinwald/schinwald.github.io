@@ -1,4 +1,5 @@
 interface Environments {
+  readonly ORIGIN: string;
   readonly APP_ENVIRONMENT: "development" | "production";
   readonly COOKIE_SESSION_SECRET: string;
   readonly GITHUB_CLIENT_ID: string;
