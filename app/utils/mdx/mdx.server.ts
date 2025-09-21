@@ -12,15 +12,6 @@ import { rehypeCallouts } from "./rehype-callouts.server";
 import { rehypeCode } from "./rehype-code.server";
 import { rehypeListItem } from "./rehype-listitems.server";
 
-// Check if the error is from an "error no entity"
-const _isEONET = (error: unknown): error is NodeJS.ErrnoException => {
-  if (typeof error !== "object") return false;
-  if (error === null) return false;
-  if (!("code" in error)) return false;
-  if (error.code !== "ENOENT") return false;
-  return true;
-};
-
 const globals = {
   "@mdx-js/react": {
     varName: "MdxJsReact",
@@ -102,8 +93,9 @@ export const valiateArticles = async () => {
   await Promise.all(validations);
 };
 
-const excerptHandler = (file: Buffer<ArrayBufferLike>, options: any) => {
-  file.excerpt = file.content.split("\n").slice(0, 4).join(" ");
+const excerptHandler = (file: Buffer<ArrayBufferLike>) => {
+  const content = file.toString();
+  return content.split("\n").slice(0, 4).join(" ");
 };
 
 export const getArticles = async () => {

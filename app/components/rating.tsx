@@ -6,7 +6,7 @@ import { useControllableState } from "~/hooks/controllable-state";
 import { cn } from "~/utils/classname";
 
 const Rating = React.forwardRef<
-  typeof SliderPrimitive.Root,
+  HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
 >(
   (
@@ -28,7 +28,7 @@ const Rating = React.forwardRef<
     });
 
     return (
-      <div className="relative flex flex-row cursor-pointer my-3">
+      <div ref={ref} className="relative flex flex-row cursor-pointer my-3">
         <div className="relative flex flex-row gap-2">
           {Array.from({ length: rating[0] }).map((_, index) => {
             const key = `filled-star-${index}`;
@@ -56,7 +56,6 @@ const Rating = React.forwardRef<
           })}
           <div className="absolute -ml-8 pr-3 w-[calc(100%+35px)]">
             <SliderPrimitive.Root
-              ref={ref}
               className={cn(
                 "relative flex w-full touch-none select-none items-center mt-1",
                 className,
@@ -81,6 +80,6 @@ const Rating = React.forwardRef<
   },
 );
 
-Rating.displayName = SliderPrimitive.Root.displayName;
+Rating.displayName = "Rating";
 
 export { Rating };

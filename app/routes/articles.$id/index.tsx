@@ -216,7 +216,7 @@ export default function () {
                             <span>{frontmatter.meta.readingTime}</span>
                           </p>
                           <div className="flex gap-2">
-                            {frontmatter?.meta?.tags?.map((tag) => {
+                            {frontmatter?.meta?.tags?.map((tag: string) => {
                               const key = `tag-${tag}`;
                               return (
                                 <span

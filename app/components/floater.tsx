@@ -13,13 +13,13 @@ import { v4 as uuid } from "uuid";
 import { cn } from "~/utils/classname";
 
 type FloaterContext = {
-  ref: React.RefObject<HTMLDivElement> | null;
+  ref: React.RefObject<HTMLDivElement | null>;
   spawner: Set<string>;
   setSpawner: Dispatch<SetStateAction<Set<string>>>;
 };
 
 const FloaterContext = createContext<FloaterContext>({
-  ref: null,
+  ref: { current: null },
   spawner: new Set<string>(),
   setSpawner: () => {},
 });

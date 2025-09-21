@@ -27,6 +27,7 @@ export function rehypeListItem() {
               newChildren.push({
                 type: "element",
                 tagName: "p",
+                properties: {},
                 children: [
                   {
                     type: "text",
@@ -45,6 +46,7 @@ export function rehypeListItem() {
             newChildren.push({
               type: "element",
               tagName: "p",
+              properties: {},
               children: [child],
             } satisfies ElementContent);
             continue;
@@ -57,6 +59,7 @@ export function rehypeListItem() {
             newChildren.push({
               type: "element",
               tagName: "p",
+              properties: {},
               children: child.children,
             } satisfies ElementContent);
             node.tagName = "arrow-item";

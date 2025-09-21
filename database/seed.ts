@@ -1,5 +1,5 @@
 import { reset, seed } from 'drizzle-seed'
-import * as schema from '../../../database/schema'
+import * as schema from './schema'
 import { db } from '~/utils/database'
 
 await reset(db, schema);

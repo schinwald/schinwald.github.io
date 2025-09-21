@@ -7,7 +7,7 @@ import { createContext } from "./utils.server";
 
 type ExtendedActionFunctionArgs = ActionFunctionArgs & {
   json: unknown;
-  formData: unknown;
+  formData: FormData | undefined;
 };
 
 type ActionOptions<JSON, FormData, Params, Query> = {
@@ -52,7 +52,7 @@ export const actionHandler = async <JSON, FormData, Params, Query, Result>(
       }
 
       let submission: Submission<unknown> | undefined;
-      if (options.validators?.formData) {
+      if (options.validators?.formData && args.formData) {
         submission = parseWithZod(args.formData, {
           schema: options.validators.formData,
         });
