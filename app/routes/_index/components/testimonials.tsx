@@ -18,7 +18,7 @@ import { Testimonial } from "~/components/testimonial";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
-import { Link } from "../../../components/primitives/ui/link";
+import { Link, LinkArrow } from "../../../components/primitives/ui/link";
 
 const count = 30;
 const duration = 120.0;
@@ -153,6 +153,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
             click="squish-lightly"
           >
             Write a review
+            <LinkArrow />
           </Link>
         </div>
       </Container>

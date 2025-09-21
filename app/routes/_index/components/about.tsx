@@ -8,7 +8,7 @@ import {
 import { RxCross2 as CrossIcon } from "react-icons/rx";
 import profileImage from "~/assets/images/profile.webp";
 import { Header } from "~/components/header";
-import { Link } from "~/components/primitives/ui/link";
+import { Link, LinkArrow } from "~/components/primitives/ui/link";
 import { Socials } from "~/components/socials";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
@@ -141,6 +141,7 @@ const About: React.FC<AboutProps> = ({ id, className }) => {
                 click="squish-lightly"
               >
                 Learn more
+                <LinkArrow />
               </Link>
               <Socials ref={socialsRef} variant="minimal" />
             </div>

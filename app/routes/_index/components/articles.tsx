@@ -6,7 +6,7 @@ import placeholderSVG from "~/assets/images/placeholder.svg";
 import * as Card from "~/components/card";
 import { Header } from "~/components/header";
 import { Button } from "~/components/primitives/ui/button";
-import { Link } from "~/components/primitives/ui/link";
+import { Link, LinkArrow } from "~/components/primitives/ui/link";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
@@ -153,6 +153,7 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
           <Header title="Articles" align="left" variant="cascade" />
           <Link click="squish-normally" to="/articles" from="left">
             See More
+            <LinkArrow />
           </Link>
         </div>
         <div className="grid grid-rows-4 grid-cols-12 items-center w-full gap-6 h-[650px]">
@@ -201,7 +202,9 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
                   </article>
                 </div>
                 <div>
-                  <Link to={`/articles/${activeArticle.id}`}>Read More</Link>
+                  <Link to={`/articles/${activeArticle.id}`} from="left">
+                    Read More <LinkArrow />
+                  </Link>
                 </div>
               </div>
             </div>

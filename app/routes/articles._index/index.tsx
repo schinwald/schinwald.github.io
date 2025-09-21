@@ -10,7 +10,7 @@ import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import * as Input from "~/components/primitives/ui/input";
-import { Link } from "~/components/primitives/ui/link";
+import { Link, LinkArrow } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
 import type { Article as ArticleItem } from "~/utils/mdx/mdx.server";
@@ -114,6 +114,7 @@ export const ArticleSide: React.FC<ArticleSideProps> = ({
               size="minimal"
             >
               Read More
+              <LinkArrow />
             </Link>
           </div>
         </div>

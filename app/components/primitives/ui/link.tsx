@@ -1,8 +1,20 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useAnimate } from "framer-motion";
 import * as React from "react";
+import { createContext, useContext, useState } from "react";
+import { LuArrowUpRight as Arrow } from "react-icons/lu";
 import { useNavigationStore } from "~/components/navigation";
 import { cn } from "~/utils/classname";
+
+const LinkContext = createContext<{ isHovered: boolean } | null>(null);
+
+const useLinkContext = () => {
+  const context = useContext(LinkContext);
+  if (!context) {
+    throw new Error("useLinkContext must be used within a LinkContextProvider");
+  }
+  return context;
+};
 
 const linkVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-transform duration-200 transition-all",
@@ -70,73 +82,129 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ) => {
     const [backgroundRef, animateBackground] = useAnimate();
     const navigate = useNavigationStore((state) => state.startNavigationExit);
-    const [isPressed, setIsPressed] = React.useState(false);
+    const [isPressed, setIsPressed] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
-      <a
-        ref={ref}
-        href={to}
-        className={cn(
-          "relative overflow-hidden",
-          linkVariants({
-            variant,
-            size,
-            click: isPressed ? click : "default",
-            className,
-          }),
-        )}
-        onKeyDown={(event) => {
-          setIsPressed(true);
-          onKeyDown(event);
-        }}
-        onKeyUp={(event) => {
-          setIsPressed(false);
-          onKeyUp(event);
-        }}
-        onMouseDown={(event) => {
-          setIsPressed(true);
-          onMouseDown(event);
-        }}
-        onMouseUp={(event) => {
-          setIsPressed(false);
-          onMouseUp(event);
-        }}
-        onMouseLeave={(event) => {
-          setIsPressed(false);
-          onMouseLeave(event);
-        }}
-        onClick={(event) => {
-          event.preventDefault();
+      <LinkContext.Provider value={{ isHovered }}>
+        <a
+          ref={ref}
+          href={to}
+          className={cn(
+            "relative overflow-hidden",
+            linkVariants({
+              variant,
+              size,
+              click: isPressed ? click : "default",
+              className,
+            }),
+          )}
+          onKeyDown={(event) => {
+            setIsPressed(true);
+            onKeyDown(event);
+          }}
+          onKeyUp={(event) => {
+            setIsPressed(false);
+            onKeyUp(event);
+          }}
+          onMouseDown={(event) => {
+            setIsPressed(true);
+            onMouseDown(event);
+          }}
+          onMouseUp={(event) => {
+            setIsPressed(false);
+            onMouseUp(event);
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={(event) => {
+            setIsPressed(false);
+            setIsHovered(false);
+            onMouseLeave(event);
+          }}
+          onClick={(event) => {
+            event.preventDefault();
 
-          if (to) {
-            navigate({ type: from ?? "left", location: to });
+            if (to) {
+              navigate({ type: from ?? "left", location: to });
 
-            if (from) {
-              animateBackground(
-                backgroundRef.current,
-                {
-                  width: ["0%", "200%"],
-                },
-                {
-                  duration: 0.4,
-                },
-              );
+              if (from) {
+                animateBackground(
+                  backgroundRef.current,
+                  {
+                    width: ["0%", "200%"],
+                  },
+                  {
+                    duration: 0.4,
+                  },
+                );
+              }
             }
-          }
 
-          onClick(event);
-        }}
-        {...props}
-      >
-        <motion.div
-          ref={backgroundRef}
-          className="absolute right-0 bg-background h-full -skew-x-6 translate-x-[100px] border-l-[80px] border-l-white"
-        />
-        {children}
-      </a>
+            onClick(event);
+          }}
+          {...props}
+        >
+          <motion.div
+            ref={backgroundRef}
+            className="absolute right-0 bg-background h-full -skew-x-6 translate-x-[100px] border-l-[80px] border-l-white z-10"
+          />
+          {children}
+        </a>
+      </LinkContext.Provider>
     );
   },
 );
 Link.displayName = "Link";
 
-export { Link, linkVariants };
+type LinkArrowProps = {
+  className?: string;
+};
+
+const LinkArrow: React.FC<LinkArrowProps> = ({ className }) => {
+  const { isHovered } = useLinkContext();
+
+  return (
+    <div className="relative overflow-hidden ml-2 -mr-3">
+      <motion.div
+        className="relative"
+        animate={
+          isHovered
+            ? {
+                x: 20,
+                y: -20,
+                opacity: 0,
+              }
+            : {
+                x: 0,
+                y: 0,
+                opacity: 1,
+              }
+        }
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <Arrow className={cn(className)} />
+      </motion.div>
+      <motion.div
+        className="absolute inset-0 opacity-0"
+        animate={
+          isHovered
+            ? {
+                x: 0,
+                y: 0,
+                opacity: 1,
+              }
+            : {
+                x: -20,
+                y: 20,
+                opacity: 0,
+              }
+        }
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <Arrow className={cn(className)} />
+      </motion.div>
+    </div>
+  );
+};
+
+export { Link, LinkArrow, linkVariants, useLinkContext };
