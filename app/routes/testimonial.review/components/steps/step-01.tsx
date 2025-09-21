@@ -18,7 +18,7 @@ import {
 import * as Input from "~/components/primitives/ui/input";
 import { Label } from "~/components/primitives/ui/label";
 import { Testimonial } from "~/components/testimonial";
-import type { Loader } from "../../.server/loader";
+import type { Loader } from "../../server/loader";
 import {
   ArrowRightIcon,
   type StepCollectorProps,

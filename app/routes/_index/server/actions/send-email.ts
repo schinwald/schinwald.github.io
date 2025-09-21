@@ -1,7 +1,7 @@
 import { actionHandler } from "~/utils/remix/action.server";
 import { EmailerService } from "~/utils/services/emailer.server";
 import { GoogleService } from "~/utils/services/google.server";
-import { validators } from "../../.schemas/actions/send-email";
+import { validators } from "../../schemas/actions/send-email";
 
 export const action = actionHandler(
   {

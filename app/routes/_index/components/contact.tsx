@@ -16,8 +16,8 @@ import { Socials } from "~/components/socials";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
-import { validators } from "../.schemas/actions/send-email";
-import type { Loader } from "../.server/loader";
+import { validators } from "../schemas/actions/send-email";
+import type { Loader } from "../server/loader";
 import { BotChecker } from "./bot-checker";
 
 type Notification = {

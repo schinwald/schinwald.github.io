@@ -4,7 +4,7 @@ import * as Card from "~/components/card";
 import { useNavigationStore } from "~/components/navigation";
 import { Testimonial } from "~/components/testimonial";
 import { useCountdown } from "~/hooks/coundown";
-import type { Loader } from "../../.server/loader";
+import type { Loader } from "../../server/loader";
 import type { StepCollectorProps, StepRootProps } from "./helper";
 
 const Root: React.FC<StepRootProps> = ({ className, children }) => {

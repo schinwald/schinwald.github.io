@@ -17,7 +17,7 @@ import {
 import * as Textarea from "~/components/primitives/ui/textarea";
 import { Rating } from "~/components/rating";
 import { Testimonial } from "~/components/testimonial";
-import type { Loader } from "../../.server/loader";
+import type { Loader } from "../../server/loader";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,

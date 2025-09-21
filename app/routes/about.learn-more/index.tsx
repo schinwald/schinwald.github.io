@@ -20,10 +20,10 @@ import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Button } from "~/components/primitives/ui/button";
 import { Container } from "~/layouts/container";
-import { Education, Experience } from "./.components";
-import { Mapbox, MapboxDetails, MapboxProvider } from "./.components/map";
-import { meta as actualMeta } from "./.meta";
-import { loader as actualLoader } from "./.server/loader";
+import { Education, Experience } from "./components";
+import { Mapbox, MapboxDetails, MapboxProvider } from "./components/map";
+import { meta as actualMeta } from "./meta";
+import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
 export const meta = actualMeta;

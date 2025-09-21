@@ -1,3 +1,3 @@
-import { loader as actualLoader } from "./.server/loader";
+import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;

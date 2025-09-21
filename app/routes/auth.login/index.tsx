@@ -1,8 +1,8 @@
 import { BackgroundGradient } from "~/components/background-gradient";
-import { Authentication } from "./.components";
-import { meta as actualMeta } from "./.meta";
-import { action as actualAction } from "./.server/actions/authenticate-with-github";
-import { loader as actualLoader } from "./.server/loader";
+import { Authentication } from "./components";
+import { meta as actualMeta } from "./meta";
+import { action as actualAction } from "./server/actions/authenticate-with-github";
+import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
 export const action = await actualAction;

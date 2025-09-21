@@ -12,11 +12,11 @@ import {
   Navbar,
   Projects,
   Testimonials,
-} from "./.components";
-import { meta as actualMeta } from "./.meta";
-import { action as actualAction } from "./.server/actions";
-import type { Loader } from "./.server/loader";
-import { loader as actualLoader } from "./.server/loader";
+} from "./components";
+import { meta as actualMeta } from "./meta";
+import { action as actualAction } from "./server/actions";
+import type { Loader } from "./server/loader";
+import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
 export const action = await actualAction;

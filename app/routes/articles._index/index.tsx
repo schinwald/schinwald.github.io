@@ -14,9 +14,9 @@ import { Link } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
 import type { Article as ArticleItem } from "~/utils/mdx/mdx.server";
-import { meta as actualMeta } from "./.meta";
-import type { Loader } from "./.server/loader";
-import { loader as actualLoader } from "./.server/loader";
+import { meta as actualMeta } from "./meta";
+import type { Loader } from "./server/loader";
+import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
 export const meta = actualMeta;

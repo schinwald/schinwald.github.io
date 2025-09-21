@@ -32,10 +32,10 @@ import {
   safeFormat,
   safeParseISO,
 } from "~/utils/date";
-import { Header } from "./.components/header";
-import { meta as actualMeta } from "./.meta";
-import type { Loader, TableOfContents as TOC } from "./.server/loader";
-import { loader as actualLoader } from "./.server/loader";
+import { Header } from "./components/header";
+import { meta as actualMeta } from "./meta";
+import type { Loader, TableOfContents as TOC } from "./server/loader";
+import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
 export const meta = actualMeta;

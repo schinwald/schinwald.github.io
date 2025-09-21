@@ -21,7 +21,7 @@ export const loader = loaderHandler(async ({ params }) => {
   const toc: TableOfContents[] = [];
 
   const { code, frontmatter, errors } = await getMDXBundle(
-    `app/routes/articles.$id/.server/mdx/${id}/index.mdx`,
+    `app/routes/articles.$id/server/mdx/${id}/index.mdx`,
     (tree) => {
       // Generate the table of contents
       for (let node of tree.children) {
