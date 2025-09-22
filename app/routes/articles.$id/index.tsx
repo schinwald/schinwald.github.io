@@ -7,10 +7,7 @@ import {
   FaBookOpen as BookOpenIcon,
   FaArrowRightLong as RightArrowIcon,
 } from "react-icons/fa6";
-import {
-  IoMdHeartEmpty as EmptyHeartIcon,
-  IoMdHeart as FullHeartIcon,
-} from "react-icons/io";
+import { IoMdHeart as FullHeartIcon } from "react-icons/io";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { SiBuymeacoffee as BuyMeACoffeeIcon } from "react-icons/si";
 import { VscEye as EyeIcon } from "react-icons/vsc";
@@ -24,7 +21,7 @@ import { Code } from "~/components/code";
 import * as Floater from "~/components/floater";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Newsletter } from "~/components/newsletter";
-import { Button } from "~/components/primitives/ui/button";
+
 import { Form } from "~/components/primitives/ui/form";
 import { Link } from "~/components/primitives/ui/link";
 import { ProgressProvider, useProgress } from "~/hooks/progress";

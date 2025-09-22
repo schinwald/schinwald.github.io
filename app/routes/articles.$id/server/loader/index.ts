@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "~/utils/database";
 import { articles } from "~/utils/database/schema";
 import { increment } from "~/utils/database/utils";
