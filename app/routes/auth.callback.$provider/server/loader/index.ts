@@ -1,10 +1,7 @@
 import { z } from "zod";
-import {
-  authenticator,
-  getRedirectURL,
-  setUser,
-} from "~/utils/authentication/authentication.server";
+import { authenticator } from "~/utils/authentication/authentication.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
+import { getRedirectURL, setUser } from "~/utils/remix/sessions.server";
 import { redirect } from "~/utils/remix/utils.server";
 
 const paramschema = z.object({

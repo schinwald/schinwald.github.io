@@ -1,13 +1,27 @@
+import type { SubmissionResult } from "@conform-to/react";
+import { getInputProps, useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod/v4";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { useInView } from "framer-motion";
 import { getMDXComponent } from "mdx-bundler/client";
-import { Children, memo, useEffect, useMemo, useRef } from "react";
+import {
+  Children,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import {
   FaBookOpen as BookOpenIcon,
   FaArrowRightLong as RightArrowIcon,
 } from "react-icons/fa6";
-import { IoMdHeart as FullHeartIcon } from "react-icons/io";
+import {
+  IoIosCheckmark as CheckmarkIcon,
+  IoMdHeart as FullHeartIcon,
+} from "react-icons/io";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
 import { SiBuymeacoffee as BuyMeACoffeeIcon } from "react-icons/si";
 import { VscEye as EyeIcon } from "react-icons/vsc";
@@ -20,7 +34,9 @@ import * as Card from "~/components/card";
 import { Code } from "~/components/code";
 import * as Floater from "~/components/floater";
 import { NavigationBar } from "~/components/navigation-bar";
+import { Newsletter } from "~/components/newsletter";
 import { Button } from "~/components/primitives/ui/button";
+import { Form } from "~/components/primitives/ui/form";
 import * as Input from "~/components/primitives/ui/input";
 import { Link } from "~/components/primitives/ui/link";
 import { ProgressProvider, useProgress } from "~/hooks/progress";
@@ -34,10 +50,13 @@ import {
 } from "~/utils/date";
 import { Header } from "./components/header";
 import { meta as actualMeta } from "./meta";
+import { validators } from "./schemas/actions/subscribe-to-newsletter";
+import { action as actualAction } from "./server/actions";
 import type { Loader, TableOfContents as TOC } from "./server/loader";
 import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
+export const action = await actualAction;
 export const meta = actualMeta;
 
 const MDX_GLOBAL_CONFIG = {
@@ -167,7 +186,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
 };
 
 export default function () {
-  const { code, frontmatter, toc } = useLoaderData<Loader>();
+  const { code, frontmatter, toc, newsletterSubscriber } =
+    useLoaderData<Loader>();
   const publishedAt = safeParseISO(frontmatter.meta.publishedAt);
   const publicationStatus = getPublicationStatus(publishedAt);
   const isHidden = Boolean(frontmatter.meta.isHidden);
@@ -379,22 +399,10 @@ export default function () {
             </ProgressProvider>
           </Container>
           <Container variant="narrow">
-            <div className="flex flex-row justify-between items-end">
-              <div className="flex flex-col gap-4">
-                <h3>Newsletter</h3>
-                <p>
-                  Subscribe to this newsletter to receive notifications when new
-                  articles are published
-                </p>
-                <div className="flex flex-row gap-4">
-                  <Input.Root className="w-[400px]">
-                    <Input.Field placeholder="Enter your email" />
-                  </Input.Root>
-                  <Button click="squish-normally">Subscribe</Button>
-                </div>
-              </div>
-              <span className="text-[5rem]">🚀</span>
-            </div>
+            <Newsletter
+              validators={validators}
+              isSubscribed={Boolean(newsletterSubscriber)}
+            />
           </Container>
         </div>
         <BackgroundGradient />

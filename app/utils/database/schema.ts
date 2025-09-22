@@ -29,6 +29,18 @@ export const testimonials = pgTable(
   (table) => [unique("testimonials_email_key").on(table.email)],
 );
 
+export const newsletterSubscribers = pgTable(
+  "newsletter_subscribers",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "string" })
+      .defaultNow()
+      .notNull(),
+    email: text().notNull(),
+  },
+  (table) => [unique("newsletter_subscribers_email_key").on(table.email)],
+);
+
 // export const users = pgTable(
 // 	"users",
 // 	{

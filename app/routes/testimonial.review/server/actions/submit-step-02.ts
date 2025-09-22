@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { getUser } from "~/utils/authentication/authentication.server";
 import { db } from "~/utils/database";
 import { testimonials } from "~/utils/database/schema";
 import { actionHandler } from "~/utils/remix/action.server";
+import { getUser } from "~/utils/remix/sessions.server";
 
 export const action = actionHandler(
   {

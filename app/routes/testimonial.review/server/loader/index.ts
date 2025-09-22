@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
-import { requireAuthentication } from "~/utils/authentication/authentication.server";
 import { db } from "~/utils/database";
 import { testimonials } from "~/utils/database/schema";
 import { loaderHandler } from "~/utils/remix/loader.server";
+import { requireAuthentication } from "~/utils/remix/sessions.server";
 import { success } from "~/utils/remix/utils.server";
 
 export const loader = loaderHandler(async ({ request }) => {

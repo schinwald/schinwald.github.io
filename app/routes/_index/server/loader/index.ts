@@ -1,5 +1,5 @@
-import { testimonials as testimonialModel } from "database/schema";
 import { db } from "~/utils/database/index";
+import { testimonials as testimonialModel } from "~/utils/database/schema";
 import {
   getPublicationStatus,
   getVisibiliy,

@@ -1,6 +1,7 @@
 import { getPublicationStatus, getVisibiliy } from "~/utils/date";
 import { getMDXBundle } from "~/utils/mdx/mdx.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
+import { getNewsletterSubscriber } from "~/utils/remix/sessions.server";
 import { success } from "~/utils/remix/utils.server";
 
 export type TableOfContents = {
@@ -9,7 +10,7 @@ export type TableOfContents = {
   text: string;
 };
 
-export const loader = loaderHandler(async ({ params }) => {
+export const loader = loaderHandler(async ({ params, request }) => {
   const { id } = params;
   if (!id) {
     throw new Response(null, {
@@ -65,7 +66,9 @@ export const loader = loaderHandler(async ({ params }) => {
     });
   }
 
-  return success({ code, frontmatter, toc, id });
+  const newsletterSubscriber = await getNewsletterSubscriber(request);
+
+  return success({ code, frontmatter, toc, id, newsletterSubscriber });
 });
 
 export type Loader = Awaited<typeof loader>;

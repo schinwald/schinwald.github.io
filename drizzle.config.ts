@@ -5,9 +5,9 @@ config({ path: ".env" });
 
 export default defineConfig({
 	schema: "./app/utils/database/schema.ts",
-	out: "./app/utils/database/migrations",
+	out: "./supabase/migrations",
 	dialect: "postgresql",
 	dbCredentials: {
-		url: process.env.DATABASE_URL as string,
+		url: process.env.DATABASE_URL,
 	},
 });

@@ -1,5 +1,8 @@
+import type { SubmissionResult } from "@conform-to/react";
+import { getInputProps, useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod/v4";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaSearch as SearchIcon } from "react-icons/fa";
 import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
 import { useLoaderData } from "react-router";
@@ -8,17 +11,21 @@ import { BackgroundGradient } from "~/components/background-gradient";
 import * as Card from "~/components/card";
 import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
-import { Button } from "~/components/primitives/ui/button";
+import { Newsletter } from "~/components/newsletter";
+import { Form } from "~/components/primitives/ui/form";
 import * as Input from "~/components/primitives/ui/input";
 import { Link, LinkArrow } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
 import type { Article as ArticleItem } from "~/utils/mdx/mdx.server";
 import { meta as actualMeta } from "./meta";
+import { validators } from "./schemas/actions/subscribe-to-newsletter";
+import { action as actualAction } from "./server/actions";
 import type { Loader } from "./server/loader";
 import { loader as actualLoader } from "./server/loader";
 
 export const loader = await actualLoader;
+export const action = await actualAction;
 export const meta = actualMeta;
 
 type ArticleProps = {
@@ -248,6 +255,8 @@ export const AllArticles: React.FC = () => {
 };
 
 export default function () {
+  const { newsletterSubscriber } = useLoaderData<Loader>();
+
   return (
     <div>
       <section className="w-screen h-screen">
@@ -256,22 +265,10 @@ export default function () {
           {/* <FeaturedArticles /> */}
           <AllArticles />
           <Container variant="narrow">
-            <div className="flex flex-row justify-between items-end">
-              <div className="flex flex-col gap-4">
-                <h3>Newsletter</h3>
-                <p>
-                  Subscribe to this newsletter to receive notifications when new
-                  articles are published
-                </p>
-                <div className="flex flex-row gap-4">
-                  <Input.Root className="w-[400px]">
-                    <Input.Field placeholder="Enter your email" />
-                  </Input.Root>
-                  <Button click="squish-normally">Subscribe</Button>
-                </div>
-              </div>
-              <span className="text-[5rem]">🚀</span>
-            </div>
+            <Newsletter
+              validators={validators}
+              isSubscribed={Boolean(newsletterSubscriber)}
+            />
           </Container>
         </div>
         <BackgroundGradient />

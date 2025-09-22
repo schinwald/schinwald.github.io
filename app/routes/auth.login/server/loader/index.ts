@@ -1,9 +1,9 @@
+import { loaderHandler } from "~/utils/remix/loader.server";
 import {
   getRedirectURL,
   getUser,
   setRedirectURL,
-} from "~/utils/authentication/authentication.server";
-import { loaderHandler } from "~/utils/remix/loader.server";
+} from "~/utils/remix/sessions.server";
 import { redirect, success } from "~/utils/remix/utils.server";
 
 export const loader = loaderHandler(async ({ request }) => {

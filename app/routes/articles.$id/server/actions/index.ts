@@ -1,10 +1,6 @@
-import { actionHandler, actionHandlers } from "~/utils/remix/action.server";
-
-const test = actionHandler({}, async () => {
-  // TODO: add some actions
-  return {};
-});
+import { actionHandlers } from "~/utils/remix/action.server";
+import { action as subscribeToNewsletter } from "./subscribe-to-newsletter";
 
 export const action = actionHandlers({
-  test,
+  subscribeToNewsletter,
 });

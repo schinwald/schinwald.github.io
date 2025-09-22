@@ -1,10 +1,10 @@
 import sharp from "sharp";
 import { v4 as uuid } from "uuid";
 import { z } from "zod";
-import { getUser } from "~/utils/authentication/authentication.server";
 import { db } from "~/utils/database";
 import { testimonials } from "~/utils/database/schema";
 import { actionHandler } from "~/utils/remix/action.server";
+import { getUser } from "~/utils/remix/sessions.server";
 import { supabase } from "~/utils/storage";
 
 export const action = actionHandler(

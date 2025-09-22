@@ -1,85 +1,17 @@
 import type { Simplify } from "drizzle-orm";
-import { createCookieSessionStorage } from "react-router";
 import { Authenticator } from "remix-auth";
 import { CodeChallengeMethod, OAuth2Strategy } from "remix-auth-oauth2";
-import { addCommitSession, redirect } from "~/utils/remix/utils.server";
 import { GithubService } from "~/utils/services/github.server";
 import { GoogleService } from "~/utils/services/google.server";
 
-type User = {
+export type User = Simplify<{
   id: string;
   email: string;
   fullName: string;
   avatarURL: string;
-};
-
-export const redirectSessionStorage = createCookieSessionStorage({
-  cookie: {
-    name: "__redirect",
-    httpOnly: true,
-    path: "/",
-    sameSite: "none",
-    secrets: [process.env.COOKIE_SESSION_SECRET],
-    secure: process.env.NODE_ENV === "production",
-  },
-});
-
-export const authSessionStorage = createCookieSessionStorage({
-  cookie: {
-    name: "__auth",
-    httpOnly: true,
-    path: "/",
-    sameSite: "strict",
-    secrets: [process.env.COOKIE_SESSION_SECRET],
-    secure: process.env.NODE_ENV === "production",
-  },
-});
+}>;
 
 export const authenticator = new Authenticator<User>();
-
-export const setRedirectURL = async (request: Request, redirectTo: string) => {
-  const cookies = request.headers.get("cookie");
-  const session = await redirectSessionStorage.getSession(cookies);
-  session.set("redirectTo", redirectTo);
-  addCommitSession(await redirectSessionStorage.commitSession(session));
-};
-
-export const getRedirectURL = async (request: Request) => {
-  const cookies = request.headers.get("cookie");
-  const session = await redirectSessionStorage.getSession(cookies);
-  return session.get("redirectTo") as string;
-};
-
-export const setUser = async (request: Request, user: User) => {
-  const cookies = request.headers.get("cookie");
-  const session = await authSessionStorage.getSession(cookies);
-  session.set("user", user);
-  addCommitSession(await authSessionStorage.commitSession(session));
-};
-
-export const getUser = async (request: Request) => {
-  const cookies = request.headers.get("cookie");
-  const session = await authSessionStorage.getSession(cookies);
-  return session.get("user") as Simplify<User>;
-};
-
-export const requireAuthentication = async (request: Request) => {
-  const user = await getUser(request);
-
-  if (!user) {
-    const url = new URL(request.url);
-    const navigating = url.searchParams.get("navigating");
-    url.searchParams.delete("navigating");
-    const query = new URLSearchParams({
-      redirectTo: url.toString(),
-      ...(navigating ? { navigating } : {}),
-    });
-    const queryString = query.toString();
-    redirect(`/auth/login?${queryString}`);
-  }
-
-  return user;
-};
 
 authenticator.use(
   new OAuth2Strategy(

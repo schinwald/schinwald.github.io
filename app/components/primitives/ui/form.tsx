@@ -21,7 +21,10 @@ import {
 import { cn } from "~/utils/classname";
 import { Button, type ButtonProps } from "./button";
 
-type FormContextValue<T extends Record<string, unknown>> = {
+// biome-ignore lint/suspicious/noExplicitAny: this is how conform works
+type Schema = Record<string, any>;
+
+type FormContextValue<T extends Schema> = {
   form?: FormMetadata<T, string[]>;
   fields?: ReturnType<FormMetadata<T, string[]>["getFieldset"]>;
   fetcher: Omit<FetcherWithComponents<unknown>, "submit"> & {
@@ -34,14 +37,10 @@ type FormContextValue<T extends Record<string, unknown>> = {
   };
 };
 
-const FormContext = createContext<FormContextValue<
-  Record<string, unknown>
-> | null>(null);
+const FormContext = createContext<FormContextValue<Schema> | null>(null);
 
 export const useForm = () => {
-  const context = useContext<FormContextValue<Record<string, unknown>> | null>(
-    FormContext,
-  );
+  const context = useContext<FormContextValue<Schema> | null>(FormContext);
 
   if (!context) {
     throw new Error("useForm must be used within a FormProvider");
@@ -134,17 +133,16 @@ const useExtendedFetcher = () => {
   };
 };
 
-export type RootProps = React.RefAttributes<HTMLFormElement> & {
-  form?: FormMetadata<Record<string, unknown>, string[]>;
-  fields?: ReturnType<
-    FormMetadata<Record<string, unknown>, string[]>["getFieldset"]
-  >;
-  onSubmitSuccess?: OnSubmitSuccess;
-  onSubmitFailure?: OnSubmitFailure;
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-} & FetcherFormProps;
+export type RootProps<T extends Schema> =
+  React.RefAttributes<HTMLFormElement> & {
+    form?: FormMetadata<T>;
+    fields?: ReturnType<FormMetadata<T, string[]>["getFieldset"]>;
+    onSubmitSuccess?: OnSubmitSuccess;
+    onSubmitFailure?: OnSubmitFailure;
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  } & FetcherFormProps;
 
-export const Root: React.FC<RootProps> = ({
+export const Root = <T extends Schema>({
   form,
   fields,
   children,
@@ -152,7 +150,7 @@ export const Root: React.FC<RootProps> = ({
   onSubmitSuccess = () => {},
   onSubmitFailure = () => {},
   ...props
-}) => {
+}: RootProps<T>) => {
   const fetcher = useExtendedFetcher();
 
   useEffect(() => {
@@ -219,13 +217,24 @@ const Label: React.FC<LabelProps> = ({ field, children }) => {
       <PrimitiveLabel className="m-0" htmlFor={field.id}>
         {children}
       </PrimitiveLabel>
-      <span
-        id={field.errorId}
-        className="text-destructive text-md leading-[22px]"
-      >
-        {field.errors}
-      </span>
+      <Errors className="leading-[22px]" field={field} />
     </div>
+  );
+};
+
+type ErrorProps = {
+  field: FieldMetadata;
+  className?: string;
+};
+
+const Errors: React.FC<ErrorProps> = ({ field, className }) => {
+  return (
+    <span
+      id={field.errorId}
+      className={cn("text-destructive text-md", className)}
+    >
+      {field.errors}
+    </span>
   );
 };
 
@@ -292,6 +301,7 @@ export const Form = {
   Root,
   Field,
   Label,
+  Errors,
   Submit,
   Spinner,
 };

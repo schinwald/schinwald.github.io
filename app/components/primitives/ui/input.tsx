@@ -9,7 +9,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
     return (
       <div
         className={cn(
-          "flex flex-row px-3 bg-white rounded-md border border-[#fff2] has-focus-visible:outline-hidden has-focus-visible:ring-2 has-focus-visible:ring-white has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background transition-all",
+          "flex flex-row px-3 bg-white rounded-md has-focus-visible:outline-hidden has-focus-visible:ring-2 has-focus-visible:ring-white has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background transition-all",
           className,
         )}
         ref={ref}
