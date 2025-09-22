@@ -45,7 +45,7 @@
     "drizzle-seed": "^0.3.1",
     "embla-carousel-react": "^8.6.0",
     "esbuild": "^0.25.6",
-    "framer-motion": "~12.7.5",
+    "framer-motion": "~12.23.18",
     "gray-matter": "^4.0.3",
     "howler": "^2.2.4",
     "isbot": "^5.1.28",
