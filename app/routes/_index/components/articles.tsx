@@ -11,11 +11,11 @@ import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
 import { safeFormat, safeParseISO } from "~/utils/date";
-import type { Article } from "~/utils/mdx/mdx.server";
+import type { Frontmatter } from "~/utils/mdx/mdx.server";
 
 type ArticleItemProps = {
   className?: string;
-  data: Article;
+  data: Frontmatter;
   active: boolean;
   duration: number;
   onComplete: () => void;
@@ -110,7 +110,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
 type ArticlesProps = {
   id: string;
   className?: string;
-  data: (Article | null)[];
+  data: (Frontmatter | null)[];
 };
 
 const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
@@ -198,12 +198,12 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
                     <span>{activeArticle.meta.readingTime}</span>
                   </p>
                   <article className="line-clamp-4">
-                    {activeArticle.excerpt}
+                    {activeArticle.description}
                   </article>
                 </div>
                 <div>
                   <Link
-                    to={`/articles/${activeArticle.id}`}
+                    to={`/articles/${activeArticle.slug}`}
                     from="left"
                     click="squish-lightly"
                   >

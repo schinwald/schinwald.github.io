@@ -1,3 +1,7 @@
+import { eq, sql } from "drizzle-orm";
+import { db } from "~/utils/database";
+import { articles } from "~/utils/database/schema";
+import { increment } from "~/utils/database/utils";
 import { getPublicationStatus, getVisibiliy } from "~/utils/date";
 import { getMDXBundle } from "~/utils/mdx/mdx.server";
 import { loaderHandler } from "~/utils/remix/loader.server";
@@ -54,6 +58,20 @@ export const loader = loaderHandler(async ({ params, request }) => {
     });
   }
 
+  const { views, likes } = (
+    await db
+      .update(articles)
+      .set({ views: increment(articles.views) })
+      .where(eq(articles.articleId, frontmatter.id))
+      .returning({ views: articles.views, likes: articles.likes })
+      .catch(() => {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Not Found",
+        });
+      })
+  )[0];
+
   const visibility = getVisibiliy({
     isHidden: Boolean(frontmatter.meta.isHidden),
     publicationStatus: getPublicationStatus(frontmatter.meta.publishedAt),
@@ -68,7 +86,15 @@ export const loader = loaderHandler(async ({ params, request }) => {
 
   const newsletterSubscriber = await getNewsletterSubscriber(request);
 
-  return success({ code, frontmatter, toc, id, newsletterSubscriber });
+  return success({
+    code,
+    frontmatter,
+    toc,
+    newsletterSubscriber,
+    id: frontmatter.id,
+    views,
+    likes,
+  });
 });
 
 export type Loader = Awaited<typeof loader>;

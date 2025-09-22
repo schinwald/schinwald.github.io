@@ -1,25 +1,14 @@
-import type { SubmissionResult } from "@conform-to/react";
-import { getInputProps, useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod/v4";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { useInView } from "framer-motion";
 import { getMDXComponent } from "mdx-bundler/client";
-import {
-  Children,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Children, memo, useEffect, useMemo, useRef } from "react";
 import { BiSolidCircle as CircleIcon } from "react-icons/bi";
 import {
   FaBookOpen as BookOpenIcon,
   FaArrowRightLong as RightArrowIcon,
 } from "react-icons/fa6";
 import {
-  IoIosCheckmark as CheckmarkIcon,
+  IoMdHeartEmpty as EmptyHeartIcon,
   IoMdHeart as FullHeartIcon,
 } from "react-icons/io";
 import { IoEyeOffOutline as EyeOffIcon } from "react-icons/io5";
@@ -37,7 +26,6 @@ import { NavigationBar } from "~/components/navigation-bar";
 import { Newsletter } from "~/components/newsletter";
 import { Button } from "~/components/primitives/ui/button";
 import { Form } from "~/components/primitives/ui/form";
-import * as Input from "~/components/primitives/ui/input";
 import { Link } from "~/components/primitives/ui/link";
 import { ProgressProvider, useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
@@ -74,6 +62,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
   toc,
   visibility,
 }) => {
+  const { id, views, likes } = useLoaderData<Loader>();
   const { progress } = useProgress();
 
   return (
@@ -142,26 +131,28 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
             <div className="flex flex-col items-start gap-3">
               <div className="flex flex-row gap-2">
                 <EyeIcon className="text-white size-6" />
-                <span>12,000 views</span>
+                <span>{views} views</span>
               </div>
-              <div className="flex flex-row gap-2">
+              <Form.Root method="POST" className="flex flex-row gap-2">
+                <input type="hidden" name="id" value={id} />
                 <Floater.Root>
                   <Floater.Trigger asChild>
-                    <Button
+                    <Form.Submit
+                      intent="likeArticle"
                       variant="ghost"
                       size="minimal"
                       click="squish-normally"
                       className="flex flex-row gap-2 text-lg"
                     >
                       <FullHeartIcon className="text-red-500 size-6" />
-                    </Button>
+                    </Form.Submit>
                   </Floater.Trigger>
                   <Floater.Portal className="bottom-0">
                     <FullHeartIcon className="text-red-500 size-4 opacity-70" />
                   </Floater.Portal>
                 </Floater.Root>
-                <span>1,000 likes</span>
-              </div>
+                <span>{likes} likes</span>
+              </Form.Root>
             </div>
             <div className="flex flex-col items-start gap-3">
               <span className="text-white/60">

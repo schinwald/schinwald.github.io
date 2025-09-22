@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  bigint,
   boolean,
   pgTable,
   smallint,
@@ -39,6 +40,20 @@ export const newsletterSubscribers = pgTable(
     email: text().notNull(),
   },
   (table) => [unique("newsletter_subscribers_email_key").on(table.email)],
+);
+
+export const articles = pgTable(
+  "articles",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "string" })
+      .defaultNow()
+      .notNull(),
+    articleId: uuid("article_id").notNull(),
+    likes: bigint({ mode: "bigint" }),
+    views: bigint({ mode: "bigint" }),
+  },
+  (table) => [unique("articles_article_id_key").on(table.articleId)],
 );
 
 // export const users = pgTable(

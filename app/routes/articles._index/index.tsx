@@ -1,8 +1,5 @@
-import type { SubmissionResult } from "@conform-to/react";
-import { getInputProps, useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod/v4";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FaSearch as SearchIcon } from "react-icons/fa";
 import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
 import { useLoaderData } from "react-router";
@@ -12,12 +9,11 @@ import * as Card from "~/components/card";
 import { Header } from "~/components/header";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Newsletter } from "~/components/newsletter";
-import { Form } from "~/components/primitives/ui/form";
 import * as Input from "~/components/primitives/ui/input";
 import { Link, LinkArrow } from "~/components/primitives/ui/link";
 import { Container } from "~/layouts/container";
 import { safeFormat, safeParseISO } from "~/utils/date";
-import type { Article as ArticleItem } from "~/utils/mdx/mdx.server";
+import type { Frontmatter as ArticleItem } from "~/utils/mdx/mdx.server";
 import { meta as actualMeta } from "./meta";
 import { validators } from "./schemas/actions/subscribe-to-newsletter";
 import { action as actualAction } from "./server/actions";
@@ -33,7 +29,7 @@ type ArticleProps = {
 };
 
 export const Article: React.FC<ArticleProps> = ({
-  article: { id, title, image, meta },
+  article: { slug, title, image, meta },
 }) => {
   const publishedAt = safeParseISO(meta.publishedAt);
 
@@ -42,7 +38,7 @@ export const Article: React.FC<ArticleProps> = ({
       <Card.Root size="xs">
         <Card.Header>
           <Link
-            to={`/articles/${id}`}
+            to={`/articles/${slug}`}
             variant="ghost"
             size="minimal"
             className="aspect-8/5 bg-[#fff8] overflow-hidden"
@@ -79,14 +75,14 @@ type ArticleSideProps = {
 };
 
 export const ArticleSide: React.FC<ArticleSideProps> = ({
-  article: { id, title, description, image, meta },
+  article: { slug, title, description, image, meta },
 }) => {
   const publishedAt = safeParseISO(meta.publishedAt);
 
   return (
     <li className=" text-foreground-overlay flex flex-row gap-4 opacity-0">
       <Link
-        to={`/articles/${id}`}
+        to={`/articles/${slug}`}
         variant="ghost"
         size="minimal"
         className="aspect-8/5 bg-[#fff8] rounded-sm overflow-hidden"
@@ -116,7 +112,7 @@ export const ArticleSide: React.FC<ArticleSideProps> = ({
           <div>
             <Link
               from="left"
-              to={`/articles/${id}`}
+              to={`/articles/${slug}`}
               variant="link"
               size="minimal"
             >
@@ -262,7 +258,6 @@ export default function () {
       <section className="w-screen h-screen">
         <div className="relative overflow-hidden w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
           <NavigationBar />
-          {/* <FeaturedArticles /> */}
           <AllArticles />
           <Container variant="narrow">
             <Newsletter
