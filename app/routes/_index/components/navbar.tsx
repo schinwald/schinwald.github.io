@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Tab } from "~/components/tab";
-import { useTabMotion } from "~/components/tab";
+import { Tab, useTabMotion } from "~/components/tab";
 import { useProgress } from "~/hooks/progress";
 import { cn } from "~/utils/classname";
 
