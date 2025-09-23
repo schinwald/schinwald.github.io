@@ -94,22 +94,22 @@ const About: React.FC<AboutProps> = ({ id, className }) => {
       id={id}
       ref={containerRef}
       className={cn(
-        "relative w-screen flex flex-col justify-center items-center py-56 -my-56",
+        "-my-56 relative flex w-screen flex-col items-center justify-center py-56",
         className,
       )}
     >
       <Container variant="narrow">
-        <div className="flex flex-col sm:flex-row gap-10 z-30">
+        <div className="z-30 flex flex-col gap-10 sm:flex-row">
           <div className="flex flex-row justify-center">
-            <div className="w-full px-16 sm:p-0 flex flex-row justify-center">
-              <div className="relative z-30 w-full sm:w-[200px] md:w-[300px] max-w-[250px] sm:max-w-full aspect-square bg-tertiary rounded-full shadow-lg">
+            <div className="flex w-full flex-row justify-center px-16 sm:p-0">
+              <div className="relative z-30 aspect-square w-full max-w-[250px] rounded-full bg-tertiary shadow-lg sm:w-[200px] sm:max-w-full md:w-[300px]">
                 <div
                   ref={profileContainerRef}
-                  className="absolute w-full aspect-3/4 rounded-b-full overflow-clip bottom-[-1px]"
+                  className="absolute bottom-[-1px] aspect-3/4 w-full overflow-clip rounded-b-full"
                 >
                   <img
                     ref={imageRef}
-                    className="absolute bottom-0 w-full aspect-300/360 object-cover rotate-6 opacity-0"
+                    className="absolute bottom-0 aspect-300/360 w-full rotate-6 object-cover opacity-0"
                     src={profileImage}
                     alt="James Schinwald"
                   />
@@ -133,7 +133,7 @@ const About: React.FC<AboutProps> = ({ id, className }) => {
                 `}
               </p>
             </div>
-            <div className="flex flex-row gap-6 items-start">
+            <div className="flex flex-row items-start gap-6">
               <Link
                 from="left"
                 to="/about/learn-more"
@@ -145,14 +145,14 @@ const About: React.FC<AboutProps> = ({ id, className }) => {
               </Link>
               <Socials ref={socialsRef} variant="minimal" />
             </div>
-            <div className="absolute right-10 -top-2 h-[60px] w-[60px] pointer-events-none">
-              <CrossIcon className="w-full h-full text-secondary opacity-40 animate-spin-slow" />
+            <div className="-top-2 pointer-events-none absolute right-10 h-[60px] w-[60px]">
+              <CrossIcon className="h-full w-full animate-spin-slow text-secondary opacity-40" />
             </div>
-            <div className="absolute -top-48 left-10 sm:hidden md:block sm:left-auto sm:top-auto sm:right-28 sm:-bottom-6 md:left-auto md:top-auto md:right-28 md:-bottom-6 h-[60px] w-[60px] pointer-events-none">
-              <SquareIcon className="w-full h-full text-secondary opacity-30 animate-spin direction-reverse" />
+            <div className="-top-48 sm:-bottom-6 md:-bottom-6 pointer-events-none absolute left-10 h-[60px] w-[60px] sm:top-auto sm:right-28 sm:left-auto sm:hidden md:top-auto md:right-28 md:left-auto md:block">
+              <SquareIcon className="direction-reverse h-full w-full animate-spin text-secondary opacity-30" />
             </div>
-            <div className="absolute -top-64 right-10 sm:hidden md:block sm:top-auto sm:-right-10 sm:left-auto sm:-bottom-24 md:top-auto md:-right-10 md:left-auto md:-bottom-24 h-[150px] w-[150px] pointer-events-none">
-              <TriangleIcon className="w-full h-full text-secondary opacity-50 animate-spin-slow" />
+            <div className="-top-64 sm:-right-10 sm:-bottom-24 md:-right-10 md:-bottom-24 pointer-events-none absolute right-10 h-[150px] w-[150px] sm:top-auto sm:left-auto sm:hidden md:top-auto md:left-auto md:block">
+              <TriangleIcon className="h-full w-full animate-spin-slow text-secondary opacity-50" />
             </div>
           </div>
         </div>

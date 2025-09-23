@@ -71,7 +71,7 @@ const Collector: React.FC<StepCollectorProps> = ({ onNext = () => {} }) => {
 
   return (
     <motion.div
-      className="w-[50%] h-full"
+      className="h-full w-[50%]"
       initial={{ x: "100%" }}
       animate={{ x: "0%" }}
       exit={{ x: "100%" }}
@@ -80,7 +80,7 @@ const Collector: React.FC<StepCollectorProps> = ({ onNext = () => {} }) => {
       <Card.Root size="xl">
         <Card.Content>
           <motion.div
-            className="w-full h-full flex flex-col justify-center gap-5"
+            className="flex h-full w-full flex-col justify-center gap-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 0.15 } }}
             exit={{ opacity: 0 }}
@@ -94,7 +94,7 @@ const Collector: React.FC<StepCollectorProps> = ({ onNext = () => {} }) => {
                 onDrop={handleUpload}
                 onError={console.error}
                 src={files}
-                className="bg-white/10 border-dashed border-white/70"
+                className="border-white/70 border-dashed bg-white/10"
               >
                 <DropzoneEmptyState>
                   <div className="flex flex-col items-center gap-4 text-foreground">
@@ -150,14 +150,14 @@ const Collector: React.FC<StepCollectorProps> = ({ onNext = () => {} }) => {
                 />
               </Input.Root>
             </Form.Field>
-            <Form.Field className="flex flex-row justify-end mt-5">
+            <Form.Field className="mt-5 flex flex-row justify-end">
               <Form.Submit
                 click="squish-normally"
                 intent="submitStepOne"
                 onSubmitSuccess={() => onNext()}
               >
                 <span>Next</span>
-                <ArrowRightIcon className="ml-2 -mr-1" />
+                <ArrowRightIcon className="-mr-1 ml-2" />
               </Form.Submit>
             </Form.Field>
           </motion.div>
@@ -177,7 +177,7 @@ const Preview: React.FC = () => {
 
   return (
     <motion.div
-      className="w-[50%] h-full flex flex-col justify-center items-center"
+      className="flex h-full w-[50%] flex-col items-center justify-center"
       initial={{ x: "0%" }}
       animate={{ x: "100%" }}
       exit={{ x: "0%" }}

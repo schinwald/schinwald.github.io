@@ -32,7 +32,7 @@ export const OverlayProvider: React.FC<PropsWithChildren> = ({ children }) => {
     <OverlayContext.Provider value={value}>
       <Overlay
         className={cn(
-          "z-20 transition-all duration-300 pointer-events-none bg-black",
+          "pointer-events-none z-20 bg-black transition-all duration-300",
           {
             "opacity-0": !isOpen,
             "opacity-70": isOpen,

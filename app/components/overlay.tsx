@@ -12,7 +12,7 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps & PropsWithChildren>(
     return (
       <motion.div
         ref={ref}
-        className={cn("z-20 w-full h-full", position, className)}
+        className={cn("z-20 h-full w-full", position, className)}
       >
         {children}
       </motion.div>

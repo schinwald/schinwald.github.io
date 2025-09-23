@@ -32,7 +32,7 @@ const Timeline: React.FC<TimelineProps> = ({ className }) => {
   return (
     <div
       className={cn(
-        "w-screen h-screen bg-background text-foreground",
+        "h-screen w-screen bg-background text-foreground",
         className,
       )}
     >

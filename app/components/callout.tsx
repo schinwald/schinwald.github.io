@@ -24,12 +24,12 @@ const Callout: React.FC<PropsWithChildren<CalloutProps>> = ({
   return (
     <div
       className={cn(
-        "rounded-md bg-background-overlay px-6 py-5 border-2 border-opacity-30 shadow-lg shadow-black/20",
+        "rounded-md border-2 border-opacity-30 bg-background-overlay px-6 py-5 shadow-black/20 shadow-lg",
         {
           "border-blue-300": type === "info",
           "border-green-400": type === "note",
           "border-purple-300": type === "tip",
-          "border-red-500 border-double border-4": type === "danger",
+          "border-4 border-red-500 border-double": type === "danger",
           "border-yellow-300 border-dashed": type === "warning",
         },
       )}
@@ -38,19 +38,19 @@ const Callout: React.FC<PropsWithChildren<CalloutProps>> = ({
         <div className="flex flex-row items-center gap-1">
           {match(type)
             .with("info", () => (
-              <InfoIcon className="size-6 -my-2 -ml-1 p-[0.1rem] opacity-50 text-blue-300" />
+              <InfoIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-blue-300 opacity-50" />
             ))
             .with("note", () => (
-              <NoteIcon className="size-6 -my-2 -ml-1 p-[0.2rem] opacity-50 text-green-400" />
+              <NoteIcon className="-my-2 -ml-1 size-6 p-[0.2rem] text-green-400 opacity-50" />
             ))
             .with("tip", () => (
-              <TipIcon className="size-6 -my-2 -ml-1 opacity-50 text-purple-300" />
+              <TipIcon className="-my-2 -ml-1 size-6 text-purple-300 opacity-50" />
             ))
             .with("danger", () => (
-              <DangerIcon className="size-6 -my-2 -ml-1 p-[0.1rem] opacity-50 text-red-500" />
+              <DangerIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-red-500 opacity-50" />
             ))
             .with("warning", () => (
-              <WarningIcon className="size-6 -my-2 -ml-1 p-[0.1rem] opacity-50 text-yellow-300" />
+              <WarningIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-yellow-300 opacity-50" />
             ))
             .exhaustive()}
           <h5 className="drop-shadow-lg">{title}</h5>

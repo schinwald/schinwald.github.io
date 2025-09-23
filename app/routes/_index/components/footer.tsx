@@ -42,7 +42,7 @@ export const Footer = () => {
   return (
     <footer
       ref={footerAnimation.ref}
-      className="flex flex-col gap-6 items-center pt-40 pb-20 text-foreground"
+      className="flex flex-col items-center gap-6 pt-40 pb-20 text-foreground"
     >
       <p className="opacity-0">Thanks for stopping by :)</p>
       <p className="text-white/40 opacity-0">

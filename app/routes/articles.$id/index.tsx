@@ -68,47 +68,47 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
         <div className="relative col-span-4 col-start-9 row-start-1 flex flex-col justify-end">
           {match(visibility)
             .with("hidden", () => (
-              <p className="text-destructive flex flex-row items-center gap-2">
+              <p className="flex flex-row items-center gap-2 text-destructive">
                 <EyeOffIcon />
                 Hidden
               </p>
             ))
             .with("live", () => (
-              <p className="text-success flex flex-row items-center gap-2">
-                <CircleIcon className="animate-pulse size-2" />
+              <p className="flex flex-row items-center gap-2 text-success">
+                <CircleIcon className="size-2 animate-pulse" />
                 Live
               </p>
             ))
             .with("scheduled", () => (
-              <p className="text-orange-300 flex flex-row items-center gap-2">
-                <CircleIcon className="animate-pulse size-2" />
+              <p className="flex flex-row items-center gap-2 text-orange-300">
+                <CircleIcon className="size-2 animate-pulse" />
                 Scheduled
               </p>
             ))
             .exhaustive()}
         </div>
       ) : null}
-      <div className="relative flex flex-col gap-6 col-span-4 col-start-9 row-start-2 row-span-1">
+      <div className="relative col-span-4 col-start-9 row-span-1 row-start-2 flex flex-col gap-6">
         <div className="sticky top-10 flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <Card.Root className="text-nowrap">
               <h6>On this page</h6>
               <div className="flex flex-row">
-                <div className="w-[2px] grid grid-rows-1 grid-cols-1">
+                <div className="grid w-[2px] grid-cols-1 grid-rows-1">
                   <div
-                    className="row-span-full col-span-full w-full bg-white/40 transition-all"
+                    className="col-span-full row-span-full w-full bg-white/40 transition-all"
                     style={{
                       height: `${((progress + 1) / toc.length) * 100}%`,
                     }}
                   />
-                  <div className="row-span-full col-span-full w-full h-full bg-white/20" />
+                  <div className="col-span-full row-span-full h-full w-full bg-white/20" />
                 </div>
-                <ol className="list-none flex flex-col gap-2 py-1">
+                <ol className="flex list-none flex-col gap-2 py-1">
                   {toc.map(({ id, level, text }, index) => (
                     <li
                       key={id}
                       className={cn(
-                        "py-1 transition-all ease-in-out text-white/60 hover:text-primary",
+                        "py-1 text-white/60 transition-all ease-in-out hover:text-primary",
                         {
                           "pl-[0.8rem]": level === 3,
                           "pl-[1.6rem]": level === 4,
@@ -117,7 +117,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                         },
                       )}
                     >
-                      <p className="text-sm font-medium">
+                      <p className="font-medium text-sm">
                         <a href={`#${id}`}>{text}</a>
                       </p>
                     </li>
@@ -127,7 +127,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
             </Card.Root>
             <div className="flex flex-col items-start gap-3">
               <div className="flex flex-row gap-2">
-                <EyeIcon className="text-white size-6" />
+                <EyeIcon className="size-6 text-white" />
                 <span>{views} views</span>
               </div>
               <Form.Root method="POST" className="flex flex-row gap-2">
@@ -141,11 +141,11 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                       click="squish-normally"
                       className="flex flex-row gap-2 text-lg"
                     >
-                      <FullHeartIcon className="text-red-500 size-6" />
+                      <FullHeartIcon className="size-6 text-red-500" />
                     </Form.Submit>
                   </Floater.Trigger>
                   <Floater.Portal className="bottom-0">
-                    <FullHeartIcon className="text-red-500 size-4 opacity-70" />
+                    <FullHeartIcon className="size-4 text-red-500 opacity-70" />
                   </Floater.Portal>
                 </Floater.Root>
                 <span>{likes} likes</span>
@@ -162,7 +162,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                 size="minimal"
                 className="flex flex-row gap-2 text-lg"
               >
-                <BuyMeACoffeeIcon className="text-yellow-200 size-4" />
+                <BuyMeACoffeeIcon className="size-4 text-yellow-200" />
                 <span>Buy Me A Coffee</span>
               </Link>
             </div>
@@ -190,16 +190,16 @@ export default function () {
 
   return (
     <div className="relative">
-      <section className="w-screen h-screen">
-        <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
+      <section className="h-screen w-screen">
+        <div className="relative flex w-screen flex-col items-center justify-center gap-20 pb-32 text-foreground">
           <NavigationBar />
           <Container variant="narrow">
             <ProgressProvider steps={steps}>
-              <div className="grid grid-cols-12 auto-rows-2 gap-10">
-                <div className="grid grid-cols-subgrid grid-rows-subgrid col-start-0 col-span-8 row-span-2 text-foreground-overlay">
-                  <div className="flex flex-col gap-14 col-start-0 col-span-8 row-start-1 row-end-2">
+              <div className="grid auto-rows-2 grid-cols-12 gap-10">
+                <div className="col-span-8 col-start-0 row-span-2 grid grid-cols-subgrid grid-rows-subgrid text-foreground-overlay">
+                  <div className="col-span-8 col-start-0 row-start-1 row-end-2 flex flex-col gap-14">
                     <div className="flex flex-col items-center gap-3">
-                      <time className="font-light inline-flex gap-2">
+                      <time className="inline-flex gap-2 font-light">
                         <span>🗓</span>
                         {safeFormat(publishedAt) ?? "TBD"}
                       </time>
@@ -208,11 +208,11 @@ export default function () {
                       </h2>
                     </div>
                   </div>
-                  <div className="col-start-0 col-span-8">
+                  <div className="col-span-8 col-start-0">
                     <Card.Root size="xs" className="gap-1">
                       <Card.Header className="flex flex-col gap-4">
                         <img
-                          className="object-cover object-center aspect-8/5 w-full"
+                          className="aspect-8/5 w-full object-cover object-center"
                           src={frontmatter?.image?.src ?? placeholderSVG}
                           alt={frontmatter?.image?.alt}
                         />
@@ -229,14 +229,14 @@ export default function () {
                               return (
                                 <span
                                   key={key}
-                                  className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+                                  className="rounded-full bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
                                 >
                                   {tag}
                                 </span>
                               );
                             })}
                           </div>
-                          <hr className="opacity-20 border-dashed" />
+                          <hr className="border-dashed opacity-20" />
                         </div>
                         <article className="flex flex-col gap-14 pt-14">
                           <MDXProvider
@@ -305,12 +305,12 @@ export default function () {
                                 </Header>
                               ),
                               ol: ({ children }) => (
-                                <ol className="list-decimal flex flex-col gap-4 ml-4 marker:text-tertiary">
+                                <ol className="ml-4 flex list-decimal flex-col gap-4 marker:text-tertiary">
                                   {children}
                                 </ol>
                               ),
                               ul: ({ children }) => (
-                                <ul className="list-disc flex flex-col gap-4 ml-4 marker:text-tertiary">
+                                <ul className="ml-4 flex list-disc flex-col gap-4 marker:text-tertiary">
                                   {children}
                                 </ul>
                               ),
@@ -320,7 +320,7 @@ export default function () {
                                     if (index === 0) {
                                       return (
                                         <div className="flex flex-row items-center gap-2">
-                                          <CircleIcon className="text-tertiary size-[6px] -ml-4" />
+                                          <CircleIcon className="-ml-4 size-[6px] text-tertiary" />
                                           {child}
                                         </div>
                                       );
@@ -331,7 +331,7 @@ export default function () {
                                 </li>
                               ),
                               img: ({ src, alt }) => (
-                                <div className="rounded-sm overflow-clip shadow-lg shadow-black/20">
+                                <div className="overflow-clip rounded-sm shadow-black/20 shadow-lg">
                                   <img src={src} alt={alt} className="w-full" />
                                 </div>
                               ),
@@ -341,7 +341,7 @@ export default function () {
                                     if (index === 0) {
                                       return (
                                         <div className="flex flex-row items-center gap-2">
-                                          <RightArrowIcon className="text-tertiary size-3 -ml-5" />
+                                          <RightArrowIcon className="-ml-5 size-3 text-tertiary" />
                                           {child}
                                         </div>
                                       );

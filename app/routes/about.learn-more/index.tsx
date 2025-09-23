@@ -44,8 +44,8 @@ export default function () {
 
   return (
     <div>
-      <section className="w-screen h-screen overflow-x-hidden">
-        <div className="relative w-screen flex flex-col justify-center items-center text-foreground gap-20 pb-32">
+      <section className="h-screen w-screen overflow-x-hidden">
+        <div className="relative flex w-screen flex-col items-center justify-center gap-20 pb-32 text-foreground">
           <NavigationBar />
           <Container variant="narrow">
             <Header
@@ -54,9 +54,9 @@ export default function () {
               align="left"
               variant="typist"
             />
-            <div className="w-full h-full flex flex-col justify-center items-center gap-6">
+            <div className="flex h-full w-full flex-col items-center justify-center gap-6">
               <div className="grid grid-cols-6 gap-5">
-                <div className="grid grid-cols-subgrid col-span-4 gap-5">
+                <div className="col-span-4 grid grid-cols-subgrid gap-5">
                   <div className="col-span-full">
                     <Card.Root>
                       {destination ? (
@@ -64,7 +64,7 @@ export default function () {
                           source={source}
                           destination={destination}
                         >
-                          <Mapbox className="w-full h-[300px] p-4 rounded-sm" />
+                          <Mapbox className="h-[300px] w-full rounded-sm p-4" />
                           <MapboxDetails>
                             {({ distance }) => {
                               const conclusion = (() => {
@@ -94,7 +94,7 @@ export default function () {
                         </MapboxProvider>
                       ) : (
                         <>
-                          <div className="w-full h-[300px] bg-white/10 rounded-sm"></div>
+                          <div className="h-[300px] w-full rounded-sm bg-white/10"></div>
                           <p className="">I'm based in Toronto, ON</p>
                         </>
                       )}
@@ -105,7 +105,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Learning</h3>
-                          <LearningIcon className="w-5 h-5 text-violet-400" />
+                          <LearningIcon className="h-5 w-5 text-violet-400" />
                         </div>
                         <p>Estoy aprendiendo español.</p>
                       </div>
@@ -116,7 +116,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Tinkering</h3>
-                          <TinkeringIcon className="w-5 h-5 text-yellow-300" />
+                          <TinkeringIcon className="h-5 w-5 text-yellow-300" />
                         </div>
                         <p>
                           I still have a lot to learn when it comes to
@@ -124,7 +124,7 @@ export default function () {
                           <Dictionary.Root>
                             <Dictionary.Word>TS100</Dictionary.Word>
                             <Dictionary.Explanation>
-                              <p className="text-white text-sm">
+                              <p className="text-sm text-white">
                                 A soldering iron tip that can be powered by a DC
                                 input voltage between 12V-24V, via a 5.5mm
                                 barrel connector.
@@ -141,7 +141,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Woodworking</h3>
-                          <WoodworkingIcon className="w-5 h-5 text-yellow-600" />
+                          <WoodworkingIcon className="h-5 w-5 text-yellow-600" />
                         </div>
                         <p>
                           I think this stems from my love for making stuff, but
@@ -161,7 +161,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Outdoors</h3>
-                          <OutdoorsIcon className="w-5 h-5 text-green-600" />
+                          <OutdoorsIcon className="h-5 w-5 text-green-600" />
                         </div>
                         <p>
                           In another life I was a camp counsellor with
@@ -177,7 +177,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Animation</h3>
-                          <AnimationIcon className="w-5 h-5 text-blue-500" />
+                          <AnimationIcon className="h-5 w-5 text-blue-500" />
                         </div>
                         <p>
                           As a kid, I would make stick figure animations with{" "}
@@ -217,7 +217,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Dotfiles</h3>
-                          <DotfilesIcon className="w-5 h-5 text-blue-500" />
+                          <DotfilesIcon className="h-5 w-5 text-blue-500" />
                         </div>
                         <p>
                           I have been maintaining my{" "}
@@ -237,7 +237,7 @@ export default function () {
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
                           <h3>Open Source</h3>
-                          <OpenSourceIcon className="w-5 h-5 text-red-500" />
+                          <OpenSourceIcon className="h-5 w-5 text-red-500" />
                         </div>
                         <p>
                           I strive to make open source contributions to projects
@@ -297,7 +297,7 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-1">
-                          <h3 className="font-math mb-[0.1rem]">
+                          <h3 className="mb-[0.1rem] font-math">
                             /ˈʃɪnˌwɔːld/
                           </h3>
                           <div className="text-primary">
@@ -307,7 +307,7 @@ export default function () {
                               click="squish-normally"
                               onClick={() => pronunciationSound.play()}
                             >
-                              <Volume2 className="w-5 h-5" />
+                              <Volume2 className="h-5 w-5" />
                             </Button>
                           </div>
                         </div>

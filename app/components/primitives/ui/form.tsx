@@ -288,7 +288,7 @@ const Spinner: React.FC = () => {
   return (
     <SpinnerIcon
       className={cn(
-        "size-8 animate-spin animate-grow scale-100 transition-all",
+        "size-8 scale-100 animate-grow animate-spin transition-all",
         {
           "scale-0": fetcher.state === "idle",
         },

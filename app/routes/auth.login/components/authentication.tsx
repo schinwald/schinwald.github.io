@@ -30,9 +30,9 @@ const ButtonText: React.FC<ButtonTextProps> = ({ original, alternate }) => {
   const isHovered = context?.isHovered ?? false;
 
   return (
-    <div className="relative overflow-hidden w-full">
+    <div className="relative w-full overflow-hidden">
       <motion.div
-        className="relative w-full flex flex-row items-center justify-center"
+        className="relative flex w-full flex-row items-center justify-center"
         animate={isHovered ? { y: -20, opacity: 0 } : { y: 0, opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
@@ -59,14 +59,14 @@ const Authentication: React.FC<AuthenticationProps> = () => {
   const [githubHovered, setGithubHovered] = React.useState(false);
 
   return (
-    <div className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-center text-foreground">
       <NavigationBar />
-      <div className="h-full w-full flex flex-col justify-center items-center gap-6">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-6">
         <div>
           <BorderRotating className="w-full gap-6">
             <h2 className="text-center">Login</h2>
             <div className="flex flex-row justify-center">
-              <div className="text-center w-full max-w-[350px]">
+              <div className="w-full max-w-[350px] text-center">
                 <p>
                   Authenticate with one of the providers below to ensure the
                   integrity of your testimonial.
@@ -81,7 +81,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                 <ButtonContext.Provider value={{ isHovered: googleHovered }}>
                   <Form.Submit
                     intent="authenticateWithGoogle"
-                    className="group flex flex-row items-center gap-1 w-full"
+                    className="group flex w-full flex-row items-center gap-1"
                     variant="outline"
                     click="squish-lightly"
                     onMouseEnter={() => setGoogleHovered(true)}
@@ -108,7 +108,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                 <ButtonContext.Provider value={{ isHovered: githubHovered }}>
                   <Form.Submit
                     intent="authenticateWithGithub"
-                    className="group flex flex-row items-center gap-1 w-full"
+                    className="group flex w-full flex-row items-center gap-1"
                     variant="outline"
                     click="squish-lightly"
                     onMouseEnter={() => setGithubHovered(true)}

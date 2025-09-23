@@ -33,7 +33,7 @@ export const Typewriter = ({
                   <span
                     key={key}
                     className={cn(
-                      "dark:text-white text-black ",
+                      "text-black dark:text-white ",
                       word.className,
                     )}
                   >

@@ -100,7 +100,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
       id={id}
       ref={containerRef}
       className={cn(
-        "relative w-screen flex flex-col items-center gap-10 py-28 -my-28",
+        "-my-28 relative flex w-screen flex-col items-center gap-10 py-28",
         className,
       )}
     >
@@ -110,21 +110,21 @@ const Testimonials: React.FC<TestimonialsProps> = ({ id, className, data }) => {
         </div>
       </Container>
       <Container
-        className="h-[400px] md:h-[500px] items-center bg-background overflow-clip relative border border-[#fff2]"
+        className="relative h-[400px] items-center overflow-clip border border-[#fff2] bg-background md:h-[500px]"
         variant="wide"
       >
-        <div className="w-full max-w-[2400px] h-full absolute pointer-events-none">
+        <div className="pointer-events-none absolute h-full w-full max-w-[2400px]">
           {/* Hiding the overflow of the testimonials */}
-          <div className="absolute right-[100%] w-full h-full bg-background z-20" />
-          <div className="absolute left-[100%] w-full h-full bg-background z-20" />
+          <div className="absolute right-[100%] z-20 h-full w-full bg-background" />
+          <div className="absolute left-[100%] z-20 h-full w-full bg-background" />
           {/* Adding shadows to the edges */}
-          <div className="absolute left-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-linear-to-r from-background to-transparent z-20 pointer-events-none" />
-          <div className="absolute right-0 w-[100px] sm:w-[200px] md:w-[500px] h-full bg-linear-to-r to-background from-transparent z-20 pointer-events-none" />
+          <div className="pointer-events-none absolute left-0 z-20 h-full w-[100px] bg-linear-to-r from-background to-transparent sm:w-[200px] md:w-[500px]" />
+          <div className="pointer-events-none absolute right-0 z-20 h-full w-[100px] bg-linear-to-r from-transparent to-background sm:w-[200px] md:w-[500px]" />
         </div>
-        <div className="w-full max-w-[2400px] h-full relative flex flex-row justify-center items-center scale-[60%] md:scale-100 select-none">
+        <div className="relative flex h-full w-full max-w-[2400px] scale-[60%] select-none flex-row items-center justify-center md:scale-100">
           <div
             ref={testimonialContainerRef}
-            className="w-full flex flex-row justify-center items-center rotate-6 opacity-0"
+            className="flex w-full rotate-6 flex-row items-center justify-center opacity-0"
           >
             {data.map((value, index) => (
               <MovingTestimonial
@@ -222,7 +222,7 @@ const MovingTestimonial = forwardRef<
   if (!data) {
     return (
       <div ref={testimonialRef} className="absolute">
-        <div className="relative h-[400px] aspect-3/4 bg-background-overlay/40 opacity-50 text-foreground-overlay rounded-md overflow-hidden" />
+        <div className="relative aspect-3/4 h-[400px] overflow-hidden rounded-md bg-background-overlay/40 text-foreground-overlay opacity-50" />
       </div>
     );
   }

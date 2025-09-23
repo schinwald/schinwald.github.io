@@ -28,16 +28,16 @@ const Rating = React.forwardRef<
     });
 
     return (
-      <div ref={ref} className="relative flex flex-row cursor-pointer my-3">
+      <div ref={ref} className="relative my-3 flex cursor-pointer flex-row">
         <div className="relative flex flex-row gap-2">
           {Array.from({ length: rating[0] }).map((_, index) => {
             const key = `filled-star-${index}`;
             return (
-              <div key={key} className="w-10 h-10">
+              <div key={key} className="h-10 w-10">
                 <img
                   src={imageStar}
                   alt="Filled star icon"
-                  className="w-full h-full"
+                  className="h-full w-full"
                 />
               </div>
             );
@@ -45,19 +45,19 @@ const Rating = React.forwardRef<
           {Array.from({ length: max - rating[0] }).map((_, index) => {
             const key = `empty-star-${index}`;
             return (
-              <div key={key} className="w-10 h-10">
+              <div key={key} className="h-10 w-10">
                 <img
                   src={imageStar}
                   alt="Empty star icon"
-                  className="w-full h-full opacity-10"
+                  className="h-full w-full opacity-10"
                 />
               </div>
             );
           })}
-          <div className="absolute -ml-8 pr-3 w-[calc(100%+35px)]">
+          <div className="-ml-8 absolute w-[calc(100%+35px)] pr-3">
             <SliderPrimitive.Root
               className={cn(
-                "relative flex w-full touch-none select-none items-center mt-1",
+                "relative mt-1 flex w-full touch-none select-none items-center",
                 className,
               )}
               max={max}

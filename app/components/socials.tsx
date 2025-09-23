@@ -21,7 +21,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             ref={ref}
             className={cn(
               className,
-              "flex flex-row gap-8 justify-center items-center text-foreground",
+              "flex flex-row items-center justify-center gap-8 text-foreground",
             )}
           >
             <li>
@@ -34,7 +34,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 size="minimal"
               >
                 <GitHubIcon className="size-7" />
-                <h4 className="hidden sm:block mr-1">Github</h4>
+                <h4 className="mr-1 hidden sm:block">Github</h4>
               </Link>
             </li>
             <li>
@@ -47,7 +47,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 size="minimal"
               >
                 <LinkedInIcon className="size-7" />
-                <h4 className="hidden sm:block mr-1">LinkedIn</h4>
+                <h4 className="mr-1 hidden sm:block">LinkedIn</h4>
               </Link>
             </li>
             <li>
@@ -60,7 +60,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 size="minimal"
               >
                 <TwitterIcon className="size-7" />
-                <h4 className="hidden sm:block mr-1">Twitter</h4>
+                <h4 className="mr-1 hidden sm:block">Twitter</h4>
               </Link>
             </li>
           </ul>
@@ -70,7 +70,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
           <ul
             ref={ref}
             className={cn(
-              "flex flex-row gap-2 justify-center items-center text-foreground",
+              "flex flex-row items-center justify-center gap-2 text-foreground",
               className,
             )}
           >

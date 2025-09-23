@@ -53,7 +53,7 @@ export const Portal: React.FC<PortalProps> = ({
           key={spawn}
           container={ref?.current}
           className={cn(
-            "absolute bottom-6 left-[50%] text-foreground p-3 rounded-md animate-float-away opacity-0 pointer-events-none",
+            "pointer-events-none absolute bottom-6 left-[50%] animate-float-away rounded-md p-3 text-foreground opacity-0",
             className,
           )}
           onAnimationEnd={() =>

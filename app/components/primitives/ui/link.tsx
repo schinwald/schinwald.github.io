@@ -146,7 +146,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         >
           <motion.div
             ref={backgroundRef}
-            className="absolute right-0 bg-background h-full -skew-x-6 translate-x-[100px] border-l-[80px] border-l-white z-10"
+            className="-skew-x-6 absolute right-0 z-10 h-full translate-x-[100px] border-l-[80px] border-l-white bg-background"
           />
           {children}
         </a>
@@ -164,7 +164,7 @@ const LinkArrow: React.FC<LinkArrowProps> = ({ className }) => {
   const { isHovered } = useLinkContext();
 
   return (
-    <div className="relative overflow-hidden ml-2 -mr-3">
+    <div className="-mr-3 relative ml-2 overflow-hidden">
       <motion.div
         className="relative"
         animate={

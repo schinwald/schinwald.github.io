@@ -38,17 +38,17 @@ export const AllArticles: React.FC = () => {
     <Container variant="narrow">
       <div className="flex flex-row items-end justify-between text-foreground">
         <Header title="Articles" align="left" variant="typist" />
-        <Input.Root className="w-[400px] flex gap-2">
+        <Input.Root className="flex w-[400px] gap-2">
           <div className="flex flex-row items-center">
             <SearchIcon className="text-black" />
           </div>
           <Input.Field
             placeholder="Search..."
-            className="bg-none border-none w-full"
+            className="w-full border-none bg-none"
           />
           <p className="flex flex-row items-center gap-1 text-black">
             <CommandIcon />+
-            <div className="ml-[0.2rem] rounded size-6 flex justify-center bg-black text-white text-[0.5rem]">
+            <div className="ml-[0.2rem] flex size-6 justify-center rounded bg-black text-[0.5rem] text-white">
               K
             </div>
           </p>
@@ -56,7 +56,7 @@ export const AllArticles: React.FC = () => {
       </div>
       <motion.ol
         ref={allArticlesRef}
-        className="grid grid-rows-3 grid-cols-3 gap-6"
+        className="grid grid-cols-3 grid-rows-3 gap-6"
       >
         {articles.length > 0 ? (
           articles.map((article, index) => {

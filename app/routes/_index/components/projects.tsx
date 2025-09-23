@@ -40,15 +40,15 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       id={id}
       ref={containerRef}
       className={cn(
-        "relative w-screen flex flex-row justify-center py-28 -my-28",
+        "-my-28 relative flex w-screen flex-row justify-center py-28",
         className,
       )}
     >
       <Container variant="narrow">
-        <div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-end">
+        <div className="relative flex w-full max-w-(--breakpoint-md) flex-row justify-end">
           <Header title="Projects" align="right" variant="cascade" />
         </div>
-        <div className="flex flex-row items-end w-full gap-6 -mt-28">
+        <div className="-mt-28 flex w-full flex-row items-end gap-6">
           <Project
             className="h-[628px]"
             index={1}

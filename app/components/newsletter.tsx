@@ -37,7 +37,7 @@ const Newsletter: React.FC<NewsletterProps> = ({
   }, []);
 
   return (
-    <div className={cn("flex flex-row justify-between items-end", className)}>
+    <div className={cn("flex flex-row items-end justify-between", className)}>
       <div className="flex flex-col gap-4">
         <h3>Newsletter</h3>
         <p>

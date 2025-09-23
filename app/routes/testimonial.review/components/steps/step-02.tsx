@@ -62,7 +62,7 @@ const Collector: React.FC<StepCollectorProps> = ({
 
   return (
     <motion.div
-      className="w-[50%] h-full"
+      className="h-full w-[50%]"
       initial={{ x: "0%" }}
       animate={{ x: "100%" }}
       exit={{ x: "0%" }}
@@ -71,7 +71,7 @@ const Collector: React.FC<StepCollectorProps> = ({
       <Card.Root size="xl">
         <Card.Content>
           <motion.div
-            className="w-full h-full flex flex-col justify-center gap-5"
+            className="flex h-full w-full flex-col justify-center gap-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 0.15 } }}
             exit={{ opacity: 0 }}
@@ -87,7 +87,7 @@ const Collector: React.FC<StepCollectorProps> = ({
                 name={fields.rating.name}
                 defaultValue={[coerceToInt(fields.rating.defaultValue)]}
               />
-              <div className="flex flex-row justify-center items-center text-foreground">
+              <div className="flex flex-row items-center justify-center text-foreground">
                 <h2 className="m-0">{coerceToInt(fields.rating.value)}/5</h2>
               </div>
             </Form.Field>
@@ -100,13 +100,13 @@ const Collector: React.FC<StepCollectorProps> = ({
                 />
               </Textarea.Root>
             </Form.Field>
-            <Form.Field className="flex flex-row justify-between mt-5">
+            <Form.Field className="mt-5 flex flex-row justify-between">
               <Button
                 variant="outline"
                 click="squish-normally"
                 onClick={() => onBack()}
               >
-                <ArrowLeftIcon className="mr-2 -ml-1" />
+                <ArrowLeftIcon className="-ml-1 mr-2" />
                 <span>Back</span>
               </Button>
               <Form.Submit
@@ -115,7 +115,7 @@ const Collector: React.FC<StepCollectorProps> = ({
                 onSubmitSuccess={() => onNext()}
               >
                 <span>Next</span>
-                <ArrowRightIcon className="ml-2 -mr-1" />
+                <ArrowRightIcon className="-mr-1 ml-2" />
               </Form.Submit>
             </Form.Field>
           </motion.div>
@@ -135,7 +135,7 @@ const Preview = () => {
 
   return (
     <motion.div
-      className="w-[50%] h-full flex flex-col justify-center items-center"
+      className="flex h-full w-[50%] flex-col items-center justify-center"
       initial={{ x: "100%" }}
       animate={{ x: "0%" }}
       exit={{ x: "100%" }}

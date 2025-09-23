@@ -123,13 +123,13 @@ const NavigationOverlay: React.FC<NavigationProps> = () => {
         .with({ state: P.union("exiting", "exited"), type: "left" }, () => (
           <motion.div
             ref={backgroundRef}
-            className="absolute h-full opacity-0 bg-background w-[100%] "
+            className="absolute h-full w-[100%] bg-background opacity-0 "
           />
         ))
         .with({ state: P.union("entering", "entered"), type: "left" }, () => (
           <motion.div
             ref={backgroundRef}
-            className="absolute h-full opacity-100 bg-background w-[100%] "
+            className="absolute h-full w-[100%] bg-background opacity-100 "
           />
         ))
         .otherwise(() => (

@@ -10,26 +10,26 @@ export const meta = actualMeta;
 export default function () {
   return (
     <div>
-      <section className="w-screen h-screen flex flex-col items-center text-white py-28">
+      <section className="flex h-screen w-screen flex-col items-center py-28 text-white">
         <Container variant="narrow">
           <h1>Style Guide</h1>
           <Card.Root>
             <Card.Content>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <h1>Header 1</h1>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <h2>Header 2</h2>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <h3>Header 3</h3>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <h4>Header 4</h4>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <h5>Header 5</h5>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <h6>Header 6</h6>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
               <p>Paragraph</p>
-              <div className="border-y-primary/30 border-y-2 h-6" />
+              <div className="h-6 border-y-2 border-y-primary/30" />
             </Card.Content>
           </Card.Root>
         </Container>

@@ -95,8 +95,8 @@ export function ErrorBoundary() {
 
   if (isRouteErrorResponse(error) && error.status === 404) {
     return (
-      <main className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center gap-2">
+      <main className="flex h-screen w-screen flex-col items-center justify-center text-foreground">
+        <div className="flex flex-col items-center justify-center gap-2">
           <h2>Page Not Found</h2>
           <p>Are you lost?</p>
         </div>
@@ -107,10 +107,10 @@ export function ErrorBoundary() {
 
   if (process.env.NODE_ENV === "development" && error instanceof Error) {
     return (
-      <main className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center gap-2 p-10">
+      <main className="flex h-screen w-screen flex-col items-center justify-center text-foreground">
+        <div className="flex flex-col items-center justify-center gap-2 p-10">
           <Container variant="narrow">
-            <Code className="overflow-scroll w-full h-[600px] outline outline-destructive">
+            <Code className="h-[600px] w-full overflow-scroll outline outline-destructive">
               {error.stack}
             </Code>
           </Container>
@@ -121,8 +121,8 @@ export function ErrorBoundary() {
   }
 
   return (
-    <main className="w-screen h-screen text-foreground flex flex-col justify-center items-center">
-      <div className="flex flex-col justify-center items-center gap-2">
+    <main className="flex h-screen w-screen flex-col items-center justify-center text-foreground">
+      <div className="flex flex-col items-center justify-center gap-2">
         <h2>Oh no!</h2>
         <p>Something went wrong.</p>
       </div>

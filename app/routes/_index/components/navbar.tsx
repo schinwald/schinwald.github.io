@@ -15,12 +15,12 @@ export const Navbar = () => {
   const [aboutId, projectsId, articlesId, testimonialsId, contactId] = steps;
 
   return (
-    <div className="sticky -mt-48 mb-32 top-10 z-40 flex flex-row justify-center">
+    <div className="-mt-48 sticky top-10 z-40 mb-32 flex flex-row justify-center">
       <Tab.Root tabMotion={tabMotion}>
-        <div className="pl-[3px] pr-2">
+        <div className="pr-2 pl-[3px]">
           <Tab.Item index={0}>
             <a
-              className={cn("font-display uppercase px-4 text-lg h-full flex")}
+              className={cn("flex h-full px-4 font-display text-lg uppercase")}
               href="/"
               tabIndex={-1}
             >
@@ -28,10 +28,10 @@ export const Navbar = () => {
             </a>
           </Tab.Item>
         </div>
-        <div className="pl-2 pr-[3px]">
+        <div className="pr-[3px] pl-2">
           <Tab.Item index={1}>
             <a
-              className={cn("font-display uppercase px-3 text-lg h-full flex")}
+              className={cn("flex h-full px-3 font-display text-lg uppercase")}
               href={`#${aboutId}`}
               rel="noopener noreferrer"
               tabIndex={-1}
@@ -41,7 +41,7 @@ export const Navbar = () => {
           </Tab.Item>
           <Tab.Item index={2}>
             <a
-              className={cn("font-display uppercase px-3 text-lg h-full flex")}
+              className={cn("flex h-full px-3 font-display text-lg uppercase")}
               href={`#${projectsId}`}
               rel="noopener noreferrer"
               tabIndex={-1}
@@ -51,7 +51,7 @@ export const Navbar = () => {
           </Tab.Item>
           <Tab.Item index={3}>
             <a
-              className={cn("font-display uppercase px-3 text-lg h-full flex")}
+              className={cn("flex h-full px-3 font-display text-lg uppercase")}
               href={`#${articlesId}`}
               rel="noopener noreferrer"
               tabIndex={-1}
@@ -61,7 +61,7 @@ export const Navbar = () => {
           </Tab.Item>
           <Tab.Item index={4}>
             <a
-              className={cn("font-display uppercase px-3 text-lg h-full flex")}
+              className={cn("flex h-full px-3 font-display text-lg uppercase")}
               href={`#${testimonialsId}`}
               rel="noopener noreferrer"
               tabIndex={-1}
@@ -71,7 +71,7 @@ export const Navbar = () => {
           </Tab.Item>
           <Tab.Item index={5}>
             <a
-              className={cn("font-display uppercase px-3 text-lg h-full flex")}
+              className={cn("flex h-full px-3 font-display text-lg uppercase")}
               href={`#${contactId}`}
               rel="noopener noreferrer"
               tabIndex={-1}

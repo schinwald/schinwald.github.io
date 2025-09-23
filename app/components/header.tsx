@@ -110,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
         >
           <div className="flex flex-row items-center gap-1">
-            <h1 className="text-foreground whitespace-nowrap">{title}</h1>
+            <h1 className="whitespace-nowrap text-foreground">{title}</h1>
           </div>
         </div>
       );
@@ -127,13 +127,13 @@ const Header: React.FC<HeaderProps> = ({
               left: leftPadding,
               right: rightPadding,
             }),
-            "uppercase overflow-hidden flex flex-col gap-1 pt-2",
+            "flex flex-col gap-1 overflow-hidden pt-2 uppercase",
           )}
         >
           <motion.h1
             custom={2}
             variants={textVariant}
-            className="text-background-soft whitespace-nowrap z-0 relative"
+            className="relative z-0 whitespace-nowrap text-background-soft"
             style={{
               textShadow:
                 "1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff9, -1px 1px 0 #fff",
@@ -144,7 +144,7 @@ const Header: React.FC<HeaderProps> = ({
           <motion.h1
             custom={1}
             variants={textVariant}
-            className="text-background-soft whitespace-nowrap z-10 relative"
+            className="relative z-10 whitespace-nowrap text-background-soft"
             style={{
               textShadow:
                 "1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
@@ -152,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({
           >
             {title}
           </motion.h1>
-          <h1 className="text-foreground z-20 relative">{title}</h1>
+          <h1 className="relative z-20 text-foreground">{title}</h1>
         </motion.div>
       );
       break;
@@ -168,7 +168,7 @@ const Header: React.FC<HeaderProps> = ({
         initial="hidden"
         animate={isInView && "slide_right"}
         variants={lineVariant}
-        className="border-[2px] border-secondary mt-1"
+        className="mt-1 border-[2px] border-secondary"
       />
     </div>
   );

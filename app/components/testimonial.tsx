@@ -54,22 +54,22 @@ const Testimonial: React.FC<TestimonialProps> = ({
   return (
     <div
       className={cn(
-        "relative h-[400px] aspect-3/4 border border-[#fff2] bg-background-overlay text-foreground-overlay rounded-md overflow-hidden cursor-pointer",
+        "relative aspect-3/4 h-[400px] cursor-pointer overflow-hidden rounded-md border border-[#fff2] bg-background-overlay text-foreground-overlay",
         className,
       )}
     >
-      <div className="absolute flex flex-col gap-4 items-center justify-between h-full p-8 z-20">
+      <div className="absolute z-20 flex h-full flex-col items-center justify-between gap-4 p-8">
         <div className="flex flex-col gap-4">
           <div className="flex flex-row justify-center gap-2">
             {/* TODO: replace this with rating component */}
             {Array.from({ length: rating }).map((_, index) => {
               const key = `filled-star-${index}`;
               return (
-                <div key={key} className="w-10 h-10">
+                <div key={key} className="h-10 w-10">
                   <img
                     src={imageStar}
                     alt="Filled star icon"
-                    className="w-full h-full"
+                    className="h-full w-full"
                   />
                 </div>
               );
@@ -77,11 +77,11 @@ const Testimonial: React.FC<TestimonialProps> = ({
             {Array.from({ length: 5 - rating }).map((_, index) => {
               const key = `empty-star-${index}`;
               return (
-                <div key={key} className="w-10 h-10">
+                <div key={key} className="h-10 w-10">
                   <img
                     src={imageStar}
                     alt="Empty star icon"
-                    className="w-full h-full opacity-10"
+                    className="h-full w-full opacity-10"
                   />
                 </div>
               );
@@ -90,15 +90,15 @@ const Testimonial: React.FC<TestimonialProps> = ({
           <p className="line-clamp-5">{review}</p>
         </div>
         <div className="flex flex-col items-center gap-4">
-          <div className="w-24 h-24 rounded-full bg-white outline-4 outline-white/70 overflow-hidden">
+          <div className="h-24 w-24 overflow-hidden rounded-full bg-white outline-4 outline-white/70">
             <img
               src={avatar ?? imageDefaultAvatar}
               alt="Avatar of the user"
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </div>
           <div className="flex flex-col items-center gap-3">
-            <h5 className="text-tertiary-foreground/80 capitalize font-bold">
+            <h5 className="font-bold text-tertiary-foreground/80 capitalize">
               {fullname}
             </h5>
             {title}
@@ -108,7 +108,7 @@ const Testimonial: React.FC<TestimonialProps> = ({
       <ClientOnly>
         {() => (
           <LazyLottie
-            className="absolute w-full pointer-events-none"
+            className="pointer-events-none absolute w-full"
             style={{
               bottom: "-80px",
             }}

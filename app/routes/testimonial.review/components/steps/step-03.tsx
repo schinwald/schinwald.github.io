@@ -24,7 +24,7 @@ const Collector: React.FC<StepCollectorProps> = () => {
 
   return (
     <motion.div
-      className="w-[50%] h-full"
+      className="h-full w-[50%]"
       initial={{ x: "100%" }}
       animate={{ x: "0%" }}
       exit={{ x: "100%" }}
@@ -33,7 +33,7 @@ const Collector: React.FC<StepCollectorProps> = () => {
       <Card.Root size="xl">
         <Card.Content className="h-full">
           <motion.div
-            className="w-full h-full flex flex-col justify-center gap-5"
+            className="flex h-full w-full flex-col justify-center gap-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 0.15 } }}
             exit={{ opacity: 0 }}
@@ -41,7 +41,7 @@ const Collector: React.FC<StepCollectorProps> = () => {
               duration: 0.15,
             }}
           >
-            <div className="flex flex-col justify-between h-full">
+            <div className="flex h-full flex-col justify-between">
               <div className="flex flex-col gap-8">
                 <h1 className="leading-16">Thank you!</h1>
                 {/* <h2>{data.fullName?.split(" ")[0]},</h2> */}
@@ -51,7 +51,7 @@ const Collector: React.FC<StepCollectorProps> = () => {
                 </p>
               </div>
               <div>
-                <p className="inline-flex justify-between w-full">
+                <p className="inline-flex w-full justify-between">
                   <span>Redirecting...</span>
                   <span>{counter / 1000}</span>
                 </p>
@@ -69,7 +69,7 @@ const Preview = () => {
 
   return (
     <motion.div
-      className="w-[50%] h-full flex flex-col justify-center items-center"
+      className="flex h-full w-[50%] flex-col items-center justify-center"
       initial={{ x: "0%" }}
       animate={{ x: "100%" }}
       exit={{ x: "0%" }}

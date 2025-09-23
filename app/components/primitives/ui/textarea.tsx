@@ -9,7 +9,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
     return (
       <div
         className={cn(
-          "flex flex-row px-3 bg-white rounded-md border border-[#fff2] has-focus-visible:outline-hidden has-focus-visible:ring-2 has-focus-visible:ring-white has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
+          "flex flex-row rounded-md border border-[#fff2] bg-white px-3 has-focus-visible:outline-hidden has-focus-visible:ring-2 has-focus-visible:ring-white has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
           className,
         )}
         ref={ref}
@@ -28,7 +28,7 @@ const Field = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <textarea
         className={cn(
-          "flex min-h-[80px] bg-transparent text-black w-full py-2 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          "flex min-h-[80px] w-full bg-transparent py-2 text-black placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
         ref={ref}

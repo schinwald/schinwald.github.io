@@ -49,8 +49,8 @@ export default function () {
         <section className="h-screen text-foreground">
           <Jumbotron />
         </section>
-        <main className="relative flex flex-col justify-center items-center overflow-x-clip pt-24 md:pt-20 border-t border-[#fff2]">
-          <section className="flex flex-col justify-center items-center gap-56 md:gap-48 w-full h-full">
+        <main className="relative flex flex-col items-center justify-center overflow-x-clip border-[#fff2] border-t pt-24 md:pt-20">
+          <section className="flex h-full w-full flex-col items-center justify-center gap-56 md:gap-48">
             <Navbar />
             <About id={aboutId} />
             <Projects id={projectsId} />

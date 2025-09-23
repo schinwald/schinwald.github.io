@@ -49,7 +49,7 @@ const Collector: React.FC<StepperCollectorProps> = (props) => {
 
   return (
     <AnimatePresence initial={false} mode="popLayout" propagate>
-      <div className="w-full h-full absolute z-10" key={`collector-${step}`}>
+      <div className="absolute z-10 h-full w-full" key={`collector-${step}`}>
         <Step.Collector {...props} />
       </div>
     </AnimatePresence>
@@ -63,7 +63,7 @@ const Preview: React.FC = () => {
 
   return (
     <AnimatePresence initial={false} mode="popLayout" propagate>
-      <div className="w-full h-full absolute z-0" key={`preview-${step}`}>
+      <div className="absolute z-0 h-full w-full" key={`preview-${step}`}>
         <Step.Preview />
       </div>
     </AnimatePresence>
@@ -84,7 +84,7 @@ const Progress: React.FC<ProgressProps> = ({ step }) => {
           <div
             key={key}
             className={cn(
-              "transition-all duration-300 h-1 rounded-full w-3 bg-white/30",
+              "h-1 w-3 rounded-full bg-white/30 transition-all duration-300",
               {
                 "w-8 bg-white": active,
               },

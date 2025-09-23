@@ -14,21 +14,21 @@ export const Article: React.FC<ArticleProps> = ({
   const publishedAt = safeParseISO(meta.publishedAt);
 
   return (
-    <li className=" text-foreground-overlay flex flex-col gap-6 opacity-0">
+    <li className=" flex flex-col gap-6 text-foreground-overlay opacity-0">
       <Card.Root size="xs">
         <Card.Header>
           <Link
             to={`/articles/${slug}`}
             variant="ghost"
             size="minimal"
-            className="aspect-8/5 bg-[#fff8] overflow-hidden"
+            className="aspect-8/5 overflow-hidden bg-[#fff8]"
           >
             <img src={image?.src ?? placeholderSVG} alt={image?.alt} />
           </Link>
         </Card.Header>
         <Card.Content className="p-4 pt-0">
           <div className="flex flex-col gap-3">
-            <time className="font-light inline-flex gap-2">
+            <time className="inline-flex gap-2 font-light">
               <span>🗓</span>
               {safeFormat(publishedAt) ?? "TBD"}
             </time>
@@ -37,7 +37,7 @@ export const Article: React.FC<ArticleProps> = ({
               {meta.tags?.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+                  className="rounded-full bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
                 >
                   {tag}
                 </span>

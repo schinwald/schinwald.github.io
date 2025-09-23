@@ -210,7 +210,7 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
       id={id}
       ref={containerRef}
       className={cn(
-        "relative w-screen flex flex-col items-center gap-10 py-28 -my-28",
+        "-my-28 relative flex w-screen flex-col items-center gap-10 py-28",
         className,
       )}
     >
@@ -221,20 +221,20 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
       </Container>
       <Container variant="hybrid">
         <div className="flex flex-col md:flex-row">
-          <div className="relative border-l border-t border-b border-[#fff2] flex flex-row md:flex-col justify-between p-8 md:p-12 bg-background rounded-t-md md:rounded-none md:rounded-l-md w-full h-[130px] md:h-auto md:w-[40%] overflow-hidden">
+          <div className="relative flex h-[130px] w-full flex-row justify-between overflow-hidden rounded-t-md border-[#fff2] border-t border-b border-l bg-background p-8 md:h-auto md:w-[40%] md:flex-col md:rounded-none md:rounded-l-md md:p-12">
             <div className="relative">
-              <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-row justify-start items-start z-20">
-                <h2 className="leading-10 text-foreground -rotate-6">
+              <div className="absolute top-0 right-0 bottom-0 left-0 z-20 flex flex-row items-start justify-start">
+                <h2 className="-rotate-6 text-foreground leading-10">
                   <span className="text-3xl">Let's</span>
                   <br />
                   <span>Connect!</span>
                 </h2>
               </div>
             </div>
-            <div className="relative mb-2 mr-16 md:m-0 md:ml-0 md:mb-60 lg:m-0 lg:ml-10 lg:mb-60">
+            <div className="relative mr-16 mb-2 md:m-0 md:mb-60 md:ml-0 lg:m-0 lg:mb-60 lg:ml-10">
               <div
                 ref={airplaneAnimation.containerRef}
-                className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[300px] md:w-[600px] lg:w-[600px] pointer-events-none"
+                className="-translate-y-1/2 -translate-x-1/2 pointer-events-none absolute top-1/2 left-1/2 w-[300px] md:w-[600px] lg:w-[600px]"
               >
                 <ClientOnly>
                   {() => (
@@ -247,11 +247,11 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
                 </ClientOnly>
               </div>
             </div>
-            <div className="absolute bottom-0 right-0 -translate-y-full -translate-x-1/2 mt-2">
+            <div className="-translate-y-full -translate-x-1/2 absolute right-0 bottom-0 mt-2">
               <h2
                 ref={notificationAnimation.ref}
                 className={cn(
-                  "w-full hidden",
+                  "hidden w-full",
                   notificationAnimation.value.status === "success" &&
                     "text-success",
                   notificationAnimation.value.status === "error" &&
@@ -262,12 +262,12 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
               </h2>
             </div>
           </div>
-          <div className="bg-background-overlay overflow-hidden rounded-b-md md:rounded-none md:rounded-r-md w-full md:w-[60%] relative border-r border-t border-b border-[#fff2]">
+          <div className="relative w-full overflow-hidden rounded-b-md border-[#fff2] border-t border-r border-b bg-background-overlay md:w-[60%] md:rounded-none md:rounded-r-md">
             <Form.Root
               form={form}
               fields={fields}
               method="POST"
-              className="p-8 md:p-12 flex flex-col gap-5 text-foreground"
+              className="flex flex-col gap-5 p-8 text-foreground md:p-12"
               onSubmitSuccess={onSubmit}
               onSubmitFailure={onSubmit}
             >
@@ -289,7 +289,7 @@ const Contact: React.FC<ContactProps> = ({ id, className }) => {
                   />
                 </Textarea.Root>
               </Form.Field>
-              <Form.Field className="flex flex-row justify-center md:justify-between mt-5">
+              <Form.Field className="mt-5 flex flex-row justify-center md:justify-between">
                 <Form.Submit
                   intent="sendEmail"
                   click="squish-normally"

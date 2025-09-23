@@ -31,15 +31,15 @@ const BorderRotating: React.FC<PropsWithChildren<BorderRotatingProps>> = ({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg shadow-white/10 shadow-lg",
-        "before:block before:rounded-lg before:aspect-square before:absolute before:min-w-full before:min-h-full before:z-0",
+        "relative overflow-hidden rounded-lg shadow-lg shadow-white/10",
+        "before:absolute before:z-0 before:block before:aspect-square before:min-h-full before:min-w-full before:rounded-lg",
         "before:bg-conic before:from-primary before:via-tertiary before:to-secondary before:blur-xs",
-        "after:block after:rounded-[8px] after:absolute after:bg-background-soft after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-[calc(100%-6px)] after:h-[calc(100%-6px)] after:z-0",
+        "after:-translate-x-1/2 after:-translate-y-1/2 after:absolute after:top-1/2 after:left-1/2 after:z-0 after:block after:h-[calc(100%-6px)] after:w-[calc(100%-6px)] after:rounded-[8px] after:bg-background-soft",
         spinCSS,
         className,
       )}
     >
-      <div className="flex flex-col gap-6 p-10 relative z-1">{children}</div>
+      <div className="relative z-1 flex flex-col gap-6 p-10">{children}</div>
     </div>
   );
 };

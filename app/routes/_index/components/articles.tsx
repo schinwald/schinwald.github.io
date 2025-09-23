@@ -69,19 +69,19 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
 
   return (
     <Button
-      className="row-span-1 col-span-4 h-full"
+      className="col-span-4 row-span-1 h-full"
       variant="unstyled"
       size="unstyled"
       onClick={() => onClick()}
     >
       <Card.Root
         className={cn(
-          { "outline-4 outline-white/70 bg-background-overlay/90": active },
+          { "bg-background-overlay/90 outline-4 outline-white/70": active },
           className,
         )}
         size="md"
       >
-        <time className="font-light inline-flex gap-2">
+        <time className="inline-flex gap-2 font-light">
           <span>🗓</span>
           {safeFormat(publishedAt) ?? "TBD"}
         </time>
@@ -90,7 +90,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
           {data.meta.tags?.map((tag) => (
             <span
               key={tag}
-              className="bg-tertiary text-tertiary-foreground rounded-full text-sm px-2 py-0"
+              className="rounded-full bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
             >
               {tag}
             </span>
@@ -144,19 +144,19 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
     <div
       id={id}
       className={cn(
-        "relative w-screen flex flex-row justify-center py-28 -my-28",
+        "-my-28 relative flex w-screen flex-row justify-center py-28",
         className,
       )}
     >
       <Container variant="narrow" ref={containerRef}>
-        <div className="relative w-full max-w-(--breakpoint-md) flex flex-row justify-between items-end">
+        <div className="relative flex w-full max-w-(--breakpoint-md) flex-row items-end justify-between">
           <Header title="Articles" align="left" variant="cascade" />
           <Link click="squish-lightly" to="/articles" from="left">
             See More
             <LinkArrow />
           </Link>
         </div>
-        <div className="grid grid-rows-4 grid-cols-12 items-center w-full gap-6 h-[650px]">
+        <div className="grid h-[650px] w-full grid-cols-12 grid-rows-4 items-center gap-6">
           {data.map((article, index) => {
             const key = `article-${index}`;
 
@@ -164,7 +164,7 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
               return (
                 <div
                   key={key}
-                  className="row-span-1 col-span-4 h-full bg-background-overlay/20 border border-[#fff2] rounded-md"
+                  className="col-span-4 row-span-1 h-full rounded-md border border-[#fff2] bg-background-overlay/20"
                 />
               );
             }
@@ -183,16 +183,16 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
             );
           })}
           {activeArticle ? (
-            <div className="row-span-full col-start-5 col-span-8 relative h-full bg-background-overlay rounded-md w-full flex flex-col text-white">
-              <div className="relative bg-background-overlay border border-[#fff2] rounded-t-md w-full aspect-8/5 overflow-hidden">
+            <div className="relative col-span-8 col-start-5 row-span-full flex h-full w-full flex-col rounded-md bg-background-overlay text-white">
+              <div className="relative aspect-8/5 w-full overflow-hidden rounded-t-md border border-[#fff2] bg-background-overlay">
                 <img
-                  className="object-cover w-full h-full"
+                  className="h-full w-full object-cover"
                   src={activeArticle?.image?.src ?? placeholderSVG}
                   alt={activeArticle?.image?.alt}
                 />
               </div>
-              <div className="grow p-8 border-b border-x border-[#fff2] rounded-b-md flex flex-col justify-between">
-                <div className="grow flex flex-col gap-4">
+              <div className="flex grow flex-col justify-between rounded-b-md border-[#fff2] border-x border-b p-8">
+                <div className="flex grow flex-col gap-4">
                   <p className="flex items-center gap-2">
                     <BookOpenIcon />
                     <span>{activeArticle.meta.readingTime}</span>
@@ -213,9 +213,9 @@ const Articles: React.FC<ArticlesProps> = ({ id, className, data }) => {
               </div>
             </div>
           ) : (
-            <div className="col-start-5 col-span-8 row-span-full h-full">
+            <div className="col-span-8 col-start-5 row-span-full h-full">
               <Card.Root>
-                <Card.Content className="flex flex-row justify-center items-center h-full">
+                <Card.Content className="flex h-full flex-row items-center justify-center">
                   <h3>No articles found.</h3>
                 </Card.Content>
               </Card.Root>

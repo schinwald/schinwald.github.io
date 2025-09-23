@@ -4,12 +4,12 @@ import { Link } from "./primitives/ui/link";
 
 export const NavigationBar = () => (
   <Container variant="wide">
-    <div className="h-20 px-10 py-4 overflow-visible">
+    <div className="h-20 overflow-visible px-10 py-4">
       <Link to="/" variant="ghost" size="minimal">
         <img
           src={svg}
           alt="Portfolio logo"
-          className="h-14 mb-5 object-cover"
+          className="mb-5 h-14 object-cover"
         />
       </Link>
     </div>

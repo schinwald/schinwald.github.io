@@ -24,10 +24,10 @@ type RootProps = PropsWithChildren &
 
 export const Root: React.FC<RootProps> = ({ children, className, size }) => {
   return (
-    <div className="w-full h-full grid">
+    <div className="grid h-full w-full">
       <div
         className={cn(
-          "overflow-clip outline outline-[#fff2] text-foreground-overlay rounded-md row-span-full col-span-full flex flex-col relative gap-4 bg-background-overlay",
+          "relative col-span-full row-span-full flex flex-col gap-4 overflow-clip rounded-md bg-background-overlay text-foreground-overlay outline outline-[#fff2]",
           rootStyles({ size }),
           className,
         )}

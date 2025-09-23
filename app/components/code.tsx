@@ -55,14 +55,14 @@ const Code: React.FC<PropsWithChildren<CodeProps>> = ({
     <Highlight theme={eldritchTheme} code={code} language={language ?? ""}>
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <div className="grid">
-          <div className="col-span-full row-span-full px-5 py-4 flex items-start justify-end">
+          <div className="col-span-full row-span-full flex items-start justify-end px-5 py-4">
             <div className="sticky top-4">
               <Copy clipboard={code} />
             </div>
           </div>
           <pre
             className={cn(
-              "col-span-full row-span-full border-white rounded-md px-5 py-4 text-md shadow-lg shadow-black/20",
+              "col-span-full row-span-full rounded-md border-white px-5 py-4 text-md shadow-black/20 shadow-lg",
               className,
             )}
             style={style}

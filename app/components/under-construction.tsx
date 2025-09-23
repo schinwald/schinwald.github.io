@@ -9,7 +9,7 @@ const UnderConstruction: React.FC<UnderConstructionProps> = ({ className }) => {
   return (
     <div
       className={cn(
-        "text-foreground flex flex-col w-full h-full justify-center items-center gap-2",
+        "flex h-full w-full flex-col items-center justify-center gap-2 text-foreground",
         className,
       )}
     >

@@ -102,7 +102,7 @@ export const Root: React.FC<RootProps> = ({
         >
           <span
             className={cn(
-              "absolute bottom-0 top-0 z-20 flex overflow-hidden p-1 transition-all duration-300 opacity-100 pointer-events-none",
+              "pointer-events-none absolute top-0 bottom-0 z-20 flex overflow-hidden p-1 opacity-100 transition-all duration-300",
               { "opacity-0": hoverTabMotion.activeIndex === null },
             )}
             style={{
@@ -112,18 +112,18 @@ export const Root: React.FC<RootProps> = ({
           >
             <span className="h-full w-full rounded-sm bg-white/10" />
           </span>
-          <nav className="flex py-2 divide-x-2 divide-white/10 backdrop-blur-sm">
+          <nav className="flex divide-x-2 divide-white/10 py-2 backdrop-blur-sm">
             {children}
           </nav>
         </Card.Root>
         <span
-          className="absolute -bottom-[2px] rounded-lg z-20 flex overflow-x-clip h-[2px] transition-all duration-300"
+          className="-bottom-[2px] absolute z-20 flex h-[2px] overflow-x-clip rounded-lg transition-all duration-300"
           style={{
             width: activeTabMotion.style.width - 16,
             left: activeTabMotion.style.left + 8,
           }}
         >
-          <span className="w-full h-full bg-linear-to-r from-transparent via-secondary/80 to-transparent" />
+          <span className="h-full w-full bg-linear-to-r from-transparent via-secondary/80 to-transparent" />
         </span>
       </div>
     </TabContext.Provider>

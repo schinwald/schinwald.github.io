@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ children, type, ...props }) => {
       {children}
       <a
         href={`#${props.id}`}
-        className="ml-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+        className="ml-2 text-primary opacity-0 transition-opacity group-hover:opacity-100"
       >
         #
       </a>
