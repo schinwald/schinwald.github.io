@@ -1,5 +1,5 @@
 import placeholderSVG from "~/assets/images/placeholder.svg";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import { Link } from "~/components/primitives/ui/link";
 import { safeFormat, safeParseISO } from "~/utils/date";
 import type { Frontmatter } from "~/utils/mdx/mdx.server";

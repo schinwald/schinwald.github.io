@@ -22,7 +22,7 @@ type RootProps = PropsWithChildren &
     className?: string;
   };
 
-export const Root: React.FC<RootProps> = ({ children, className, size }) => {
+const Root: React.FC<RootProps> = ({ children, className, size }) => {
   return (
     <div className="grid h-full w-full">
       <div
@@ -40,7 +40,7 @@ export const Root: React.FC<RootProps> = ({ children, className, size }) => {
 
 type HeaderProps = PropsWithChildren & { className?: string };
 
-export const Header: React.FC<HeaderProps> = ({ children, className }) => {
+const Header: React.FC<HeaderProps> = ({ children, className }) => {
   return (
     <div className={cn("flex flex-row items-center gap-2", className)}>
       {children}
@@ -50,6 +50,12 @@ export const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
 type ContentProps = PropsWithChildren & { className?: string };
 
-export const Content: React.FC<ContentProps> = ({ children, className }) => {
+const Content: React.FC<ContentProps> = ({ children, className }) => {
   return <div className={className}>{children}</div>;
+};
+
+export const Card = {
+  Root,
+  Header,
+  Content,
 };

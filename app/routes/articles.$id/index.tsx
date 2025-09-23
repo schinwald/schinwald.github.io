@@ -16,9 +16,9 @@ import { match } from "ts-pattern";
 import placeholderSVG from "~/assets/images/placeholder.svg";
 import { BackgroundGradient } from "~/components/background-gradient";
 import { Callout } from "~/components/callout";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import { Code } from "~/components/code";
-import * as Floater from "~/components/floater";
+import { Floater } from "~/components/floater";
 import { NavigationBar } from "~/components/navigation-bar";
 import { Newsletter } from "~/components/newsletter";
 

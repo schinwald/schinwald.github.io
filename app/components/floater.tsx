@@ -89,3 +89,9 @@ export const Trigger: React.FC<TriggerProps> = ({ asChild, ...props }) => {
     />
   );
 };
+
+export const Floater = {
+  Root,
+  Portal,
+  Trigger,
+};

@@ -1,7 +1,12 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useAnimate } from "framer-motion";
-import * as React from "react";
-import { createContext, useContext, useState } from "react";
+import {
+  type AnchorHTMLAttributes,
+  createContext,
+  forwardRef,
+  useContext,
+  useState,
+} from "react";
 import { LuArrowUpRight as Arrow } from "react-icons/lu";
 import { useNavigationStore } from "~/components/navigation";
 import { cn } from "~/utils/classname";
@@ -54,13 +59,13 @@ const linkVariants = cva(
 );
 
 export interface LinkProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
+  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
     VariantProps<typeof linkVariants> {
   from?: "left" | "right";
   to: string;
 }
 
-const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
       className,

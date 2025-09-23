@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MdUploadFile as UploadIcon } from "react-icons/md";
 import { useLoaderData } from "react-router";
 import z from "zod/v4";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import {
   Dropzone,
   DropzoneContent,
@@ -15,7 +15,7 @@ import {
   Form,
   useForm as useFormContext,
 } from "~/components/primitives/ui/form";
-import * as Input from "~/components/primitives/ui/input";
+import { Input } from "~/components/primitives/ui/input";
 import { Label } from "~/components/primitives/ui/label";
 import { Testimonial } from "~/components/testimonial";
 import type { Loader } from "../../server/loader";

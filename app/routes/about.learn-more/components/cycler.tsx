@@ -6,7 +6,7 @@ import {
   CarouselItem,
 } from "~/components/primitives/ui/carousel";
 
-export const Root: React.FC<PropsWithChildren> = ({ children }) => {
+const Root: React.FC<PropsWithChildren> = ({ children }) => {
   const [api, setApi] = useState<CarouselApi>();
 
   useEffect(() => {
@@ -24,6 +24,8 @@ export const Root: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export const Item: React.FC<PropsWithChildren> = ({ children }) => {
+const Item: React.FC<PropsWithChildren> = ({ children }) => {
   return <CarouselItem>{children}</CarouselItem>;
 };
+
+export const Cycler = { Root, Item };

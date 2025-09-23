@@ -4,7 +4,7 @@ import { FaSearch as SearchIcon } from "react-icons/fa";
 import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
 import { useLoaderData } from "react-router";
 import { Header } from "~/components/header";
-import * as Input from "~/components/primitives/ui/input";
+import { Input } from "~/components/primitives/ui/input";
 import { Container } from "~/layouts/container";
 import type { Loader } from "../server/loader";
 import { Article } from "./article";

@@ -3,13 +3,13 @@ import { parseWithZod } from "@conform-to/zod/v4";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router";
 import z from "zod/v4";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import { Button } from "~/components/primitives/ui/button";
 import {
   Form,
   useForm as useFormContext,
 } from "~/components/primitives/ui/form";
-import * as Textarea from "~/components/primitives/ui/textarea";
+import { Textarea } from "~/components/primitives/ui/textarea";
 import { Rating } from "~/components/rating";
 import { Testimonial } from "~/components/testimonial";
 import type { Loader } from "../../server/loader";

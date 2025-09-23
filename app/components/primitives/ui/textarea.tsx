@@ -1,10 +1,13 @@
-import * as React from "react";
-
+import {
+  forwardRef,
+  type HTMLAttributes,
+  type TextareaHTMLAttributes,
+} from "react";
 import { cn } from "~/utils/classname";
 
-type RootProps = React.HTMLAttributes<HTMLDivElement>;
+type RootProps = HTMLAttributes<HTMLDivElement>;
 
-const Root = React.forwardRef<HTMLDivElement, RootProps>(
+const Root = forwardRef<HTMLDivElement, RootProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -21,9 +24,9 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 Root.displayName = "Root";
 
 export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
-const Field = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Field = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
     return (
       <textarea
@@ -39,4 +42,4 @@ const Field = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 Field.displayName = "Field";
 
-export { Root, Field };
+export const Textarea = { Root, Field };

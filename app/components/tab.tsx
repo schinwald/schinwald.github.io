@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import { cn } from "~/utils/classname";
 
 export const useTabMotion = (defaultIndex: number | null = null) => {
@@ -76,7 +76,7 @@ type RootProps = {
   tabMotion: TabMotion;
 } & PropsWithChildren;
 
-export const Root: React.FC<RootProps> = ({
+const Root: React.FC<RootProps> = ({
   className,
   children,
   defaultValue = 0,
@@ -135,7 +135,7 @@ type ItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     index: number;
   }>;
 
-export const Item: React.FC<ItemProps> = ({ index, children, ...props }) => {
+const Item: React.FC<ItemProps> = ({ index, children, ...props }) => {
   const { activeTabMotion, hoverTabMotion } = useContext(TabContext);
 
   if (!activeTabMotion || !hoverTabMotion) {
@@ -168,3 +168,5 @@ export const Item: React.FC<ItemProps> = ({ index, children, ...props }) => {
     </button>
   );
 };
+
+export const Tab = { Root, Item };

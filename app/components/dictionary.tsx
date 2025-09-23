@@ -9,7 +9,7 @@ import {
 } from "~/components/primitives/ui/tooltip";
 import { useOverlay } from "~/hooks/overlay";
 
-export const Root: React.FC<PropsWithChildren> = ({ children }) => {
+const Root: React.FC<PropsWithChildren> = ({ children }) => {
   const { setIsOpen } = useOverlay();
   return (
     <TooltipProvider>
@@ -20,7 +20,7 @@ export const Root: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export const Word: React.FC<PropsWithChildren> = ({ children }) => {
+const Word: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <TooltipTrigger asChild>
       <span className="cursor-help italic underline decoration-tertiary decoration-wavy">
@@ -30,7 +30,7 @@ export const Word: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export const Explanation: React.FC<PropsWithChildren> = ({ children }) => {
+const Explanation: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <TooltipPortal>
       <TooltipContent
@@ -48,3 +48,5 @@ export const Explanation: React.FC<PropsWithChildren> = ({ children }) => {
     </TooltipPortal>
   );
 };
+
+export const Dictionary = { Root, Word, Explanation };

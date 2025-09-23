@@ -1,4 +1,4 @@
-import * as Cycler from "./cycler";
+import { Cycler } from "./cycler";
 
 type ExperienceProps = {
   logo: {

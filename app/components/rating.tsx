@@ -1,13 +1,13 @@
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import * as React from "react";
+import { type ComponentPropsWithoutRef, forwardRef } from "react";
 import imageStar from "~/assets/images/star.svg";
 import { useControllableState } from "~/hooks/controllable-state";
 
 import { cn } from "~/utils/classname";
 
-const Rating = React.forwardRef<
+const Rating = forwardRef<
   HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+  ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
 >(
   (
     {

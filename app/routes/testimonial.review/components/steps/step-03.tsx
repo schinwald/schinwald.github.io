@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import { useNavigationStore } from "~/components/navigation";
 import { Testimonial } from "~/components/testimonial";
 import { useCountdown } from "~/hooks/coundown";

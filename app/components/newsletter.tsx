@@ -8,7 +8,7 @@ import { useCallback, useState } from "react";
 import type { ZodType } from "zod";
 import { cn } from "~/utils/classname";
 import { Form } from "./primitives/ui/form";
-import * as Input from "./primitives/ui/input";
+import { Input } from "./primitives/ui/input";
 
 type NewsletterProps = {
   className?: string;

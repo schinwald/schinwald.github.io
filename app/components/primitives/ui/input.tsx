@@ -1,10 +1,14 @@
-import * as React from "react";
+import {
+  forwardRef,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
+} from "react";
 
 import { cn } from "~/utils/classname";
 
-type RootProps = React.HTMLAttributes<HTMLDivElement>;
+type RootProps = HTMLAttributes<HTMLDivElement>;
 
-const Root = React.forwardRef<HTMLDivElement, RootProps>(
+const Root = forwardRef<HTMLDivElement, RootProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -20,10 +24,9 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 );
 Root.displayName = "Root";
 
-export interface FieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Field = React.forwardRef<HTMLInputElement, FieldProps>(
+const Field = forwardRef<HTMLInputElement, FieldProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <input
@@ -40,4 +43,4 @@ const Field = React.forwardRef<HTMLInputElement, FieldProps>(
 );
 Field.displayName = "Field";
 
-export { Root, Field };
+export const Input = { Root, Field };

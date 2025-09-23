@@ -1,5 +1,5 @@
 import { MdCopyAll as CopyIcon } from "react-icons/md";
-import * as Floater from "./floater";
+import { Floater } from "./floater";
 import { Button } from "./primitives/ui/button";
 
 type CopyProps = {

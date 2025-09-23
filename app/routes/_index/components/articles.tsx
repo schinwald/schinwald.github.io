@@ -3,7 +3,7 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { FaBookOpen as BookOpenIcon } from "react-icons/fa6";
 import placeholderSVG from "~/assets/images/placeholder.svg";
-import * as Card from "~/components/card";
+import { Card } from "~/components/card";
 import { Header } from "~/components/header";
 import { Button } from "~/components/primitives/ui/button";
 import { Link, LinkArrow } from "~/components/primitives/ui/link";
