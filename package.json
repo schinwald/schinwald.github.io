@@ -79,7 +79,7 @@
     "zustand": "^5.0.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.2",
+    "@biomejs/biome": "2.2.4",
     "@react-router/dev": "^7.0.0",
     "@react-router/fs-routes": "^7.0.0",
     "@react-router/remix-routes-option-adapter": "^7.0.0",
