@@ -135,8 +135,8 @@ importers:
         specifier: ^2.4.1
         version: 2.4.1(react@19.1.1)
       radashi:
-        specifier: ^12.6.0
-        version: 12.6.0
+        specifier: ^12.6.2
+        version: 12.6.2
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -4321,8 +4321,8 @@ packages:
   quickselect@3.0.0:
     resolution: {integrity: sha512-XdjUArbK4Bm5fLLvlm5KpTFOiOThgfWWI4axAZDWg4E/0mKdZyI9tNEfds27qCi1ze/vwTR16kvmmGhRra3c2g==}
 
-  radashi@12.6.0:
-    resolution: {integrity: sha512-nJcpgS3La+yRlxm4bLjCcjsi1G5VeOycSo8nt5BzSEDWqSY0XNAUAwckvCa8uMHXtZqCK8fntJPXPlLve+vKhA==}
+  radashi@12.6.2:
+    resolution: {integrity: sha512-43uD9P3oZ1nT9lgHr2P34K7aEIQh6ku2FDQsDhjaUpaj2sb3il6Xe8s8MS31uJmcbYl0v2Ul35V7OjMG8yrcDw==}
     engines: {node: '>=16.0.0'}
 
   range-parser@1.2.1:
@@ -9863,7 +9863,7 @@ snapshots:
 
   quickselect@3.0.0: {}
 
-  radashi@12.6.0: {}
+  radashi@12.6.2: {}
 
   range-parser@1.2.1: {}
 
