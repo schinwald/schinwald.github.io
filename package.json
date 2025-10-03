@@ -11,7 +11,8 @@
     "typecheck": "react-router typegen && tsc",
     "db:seed": "tsx --env-file .env ./app/utils/database/seed.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "supabase db push"
   },
   "dependencies": {
     "@conform-to/react": "^1.8.2",
