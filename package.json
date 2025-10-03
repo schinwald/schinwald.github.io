@@ -51,7 +51,7 @@
     "howler": "^2.2.4",
     "isbot": "^5.1.28",
     "lottie-react": "^2.4.1",
-    "lucide-react": "^0.501.0",
+    "lucide-react": "^0.544.0",
     "mapbox-gl": "^3.15.0",
     "mdx-bundler": "^10.1.1",
     "nodemailer": "^7.0.6",
