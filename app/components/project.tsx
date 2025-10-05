@@ -1,3 +1,4 @@
+import { type MotionValue, motion, useTransform } from "framer-motion";
 import type React from "react";
 import { FaGlobeAmericas as GlobeIcon } from "react-icons/fa";
 import { IoMdArrowDroprightCircle as PlayIcon } from "react-icons/io";
@@ -8,13 +9,14 @@ type ProjectProps = {
   className?: string;
   index: number;
   repository: string;
-  category: "library" | "game" | "finance";
+  category: "library" | "game" | "website" | "cli";
   title: string;
   description?: string;
   image: {
     url: string;
     alt: string;
   };
+  scrollProgress: MotionValue<number>;
 };
 
 const Project: React.FC<ProjectProps> = ({
@@ -25,13 +27,21 @@ const Project: React.FC<ProjectProps> = ({
   title,
   description,
   image,
+  scrollProgress,
 }) => {
+  const height = useTransform(scrollProgress, [0, 1], ["520px", "632px"]);
+  const opacity = useTransform(scrollProgress, (value) =>
+    value >= 0.8 ? 1 : 0,
+  );
+
   return (
-    <div
+    <motion.div
       className={cn(
-        "relative flex h-[520px] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white",
+        "relative flex shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white",
         className,
       )}
+      style={{ height }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex h-full flex-col justify-around">
@@ -49,9 +59,14 @@ const Project: React.FC<ProjectProps> = ({
           alt={image.alt}
         />
       </div>
-      <header className="flex h-full flex-col gap-4">
+      <header className="flex h-full flex-col gap-4 overflow-hidden">
         <h2>{title}</h2>
-        <p className="line-clamp-3 text-sm">{description}</p>
+        <motion.p
+          className="line-clamp-5 text-sm transition-opacity duration-500"
+          style={{ opacity }}
+        >
+          {description}
+        </motion.p>
       </header>
       <div className="absolute bottom-0">
         <Link
@@ -64,7 +79,7 @@ const Project: React.FC<ProjectProps> = ({
           <span>Preview</span>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
