@@ -1,6 +1,7 @@
 import placeholderSVG from "~/assets/images/placeholder.svg";
 import { Card } from "~/components/card";
 import { Link } from "~/components/primitives/ui/link";
+import { Tags } from "~/components/tags";
 import { safeFormat, safeParseISO } from "~/utils/date";
 import type { Frontmatter } from "~/utils/mdx/mdx.server";
 
@@ -33,16 +34,7 @@ export const Article: React.FC<ArticleProps> = ({
               {safeFormat(publishedAt) ?? "TBD"}
             </time>
             <h3>{title}</h3>
-            <div className="inline-flex gap-1 overflow-hidden">
-              {meta.tags?.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <Tags tags={meta.tags} />
           </div>
         </Card.Content>
       </Card.Root>

@@ -7,6 +7,7 @@ import { Card } from "~/components/card";
 import { Header } from "~/components/header";
 import { Button } from "~/components/primitives/ui/button";
 import { Link, LinkArrow } from "~/components/primitives/ui/link";
+import { Tags } from "~/components/tags";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
@@ -86,16 +87,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
           {safeFormat(publishedAt) ?? "TBD"}
         </time>
         <h3>{data.title}</h3>
-        <div className="inline-flex gap-1 overflow-hidden">
-          {data.meta.tags?.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        <Tags tags={data.meta.tags} />
         <div
           className={cn("absolute inset-0 opacity-10", {
             "bg-white": active,

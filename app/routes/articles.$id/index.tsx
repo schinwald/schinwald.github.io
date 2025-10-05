@@ -24,6 +24,7 @@ import { Newsletter } from "~/components/newsletter";
 
 import { Form } from "~/components/primitives/ui/form";
 import { Link } from "~/components/primitives/ui/link";
+import { Tags } from "~/components/tags";
 import { ProgressProvider, useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
 import { cn } from "~/utils/classname";
@@ -223,19 +224,7 @@ export default function () {
                             <BookOpenIcon />
                             <span>{frontmatter.meta.readingTime}</span>
                           </p>
-                          <div className="flex gap-2">
-                            {frontmatter?.meta?.tags?.map((tag: string) => {
-                              const key = `tag-${tag}`;
-                              return (
-                                <span
-                                  key={key}
-                                  className="rounded-full bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
-                                >
-                                  {tag}
-                                </span>
-                              );
-                            })}
-                          </div>
+                          <Tags tags={frontmatter?.meta?.tags} />
                           <hr className="border-dashed opacity-20" />
                         </div>
                         <article className="flex flex-col gap-14 pt-14">
