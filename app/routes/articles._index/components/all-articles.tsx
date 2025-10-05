@@ -1,7 +1,6 @@
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { FaSearch as SearchIcon } from "react-icons/fa";
-import { MdKeyboardCommandKey as CommandIcon } from "react-icons/md";
 import { useLoaderData } from "react-router";
 import { Header } from "~/components/header";
 import { Input } from "~/components/primitives/ui/input";
@@ -11,6 +10,7 @@ import { Article } from "./article";
 
 export const AllArticles: React.FC = () => {
   const { articles } = useLoaderData<Loader>();
+  const searchRef = useRef<HTMLInputElement | null>(null);
   const [allArticlesRef, animateAllArticles] = useAnimate();
   const isInView = useInView(allArticlesRef, {
     margin: "-200px 0px",
@@ -34,6 +34,17 @@ export const AllArticles: React.FC = () => {
     );
   }, [isInView, articles, animateAllArticles]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "/") {
+        e.preventDefault(); // Prevent the "/" character from being entered into the input field
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <Container variant="narrow">
       <div className="flex flex-row items-end justify-between text-foreground">
@@ -43,14 +54,14 @@ export const AllArticles: React.FC = () => {
             <SearchIcon className="text-black" />
           </div>
           <Input.Field
+            ref={searchRef}
             placeholder="Search..."
             className="w-full border-none bg-none"
           />
           <p className="flex flex-row items-center gap-1 text-black">
-            <CommandIcon />+
-            <div className="ml-[0.2rem] flex size-6 justify-center rounded bg-black text-[0.5rem] text-white">
-              K
-            </div>
+            <span className="ml-[0.2rem] flex size-6 justify-center rounded bg-black text-[0.5rem] text-white">
+              /
+            </span>
           </p>
         </Input.Root>
       </div>
