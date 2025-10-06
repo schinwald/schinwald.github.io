@@ -34,7 +34,7 @@ const linkVariants = cva(
           "border border-primary font-bold rounded-md text-primary font-display p-2",
         secondary:
           "bg-secondary text-secondary-foreground rounded-md font-display hover:bg-secondary/80",
-        ghost: "hover:opacity-50 font-display",
+        ghost: "hover:opacity-50 font-display text-white",
         link: "text-primary underline-offset-4 font-display hover:underline",
         nostyle: "",
       },

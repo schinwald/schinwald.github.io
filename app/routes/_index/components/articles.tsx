@@ -70,14 +70,14 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
 
   return (
     <Button
-      className="col-span-4 row-span-1 h-full"
+      className="col-span-4 row-span-1 h-full rounded-md"
       variant="unstyled"
       size="unstyled"
       onClick={() => onClick()}
     >
       <Card.Root
         className={cn(
-          { "bg-background-overlay/90 outline-4 outline-white/70": active },
+          { "bg-background-overlay/90 outline-2 outline-white/70": active },
           className,
         )}
         size="md"

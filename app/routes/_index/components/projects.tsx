@@ -124,6 +124,23 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
           <Header title="Projects" align="right" variant="cascade" />
         </div>
         <div className="relative">
+          <Button
+            className="absolute right-[100%] top-[50%] translate-y-[-50%] rounded-full mr-3"
+            variant="ghost"
+            size="unstyled"
+            onClick={() => {
+              const section =
+                (projectContainerRef.current?.scrollWidth ?? 0) /
+                (projects.length + 2);
+
+              projectContainerRef.current?.scrollTo({
+                left: projectContainerRef.current?.scrollLeft - section,
+                behavior: "smooth",
+              });
+            }}
+          >
+            <ArrowLeftIcon className="size-8 text-white" />
+          </Button>
           <div
             ref={projectContainerRef}
             className="flex w-full flex-row items-end gap-6 overflow-x-auto -mt-28 -mb-12 snap-x snap-mandatory"
@@ -144,24 +161,9 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
             <div className="mb-12 opacity-20 relative flex h-[520px] shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white"></div>
           </div>
           <Button
-            className="absolute right-[100%] top-[50%] translate-y-[-50%] rounded-full"
+            className="absolute left-[100%] top-[50%] translate-y-[-50%] rounded-full ml-3"
             variant="ghost"
-            onClick={() => {
-              const section =
-                (projectContainerRef.current?.scrollWidth ?? 0) /
-                (projects.length + 2);
-
-              projectContainerRef.current?.scrollTo({
-                left: projectContainerRef.current?.scrollLeft - section,
-                behavior: "smooth",
-              });
-            }}
-          >
-            <ArrowLeftIcon className="size-8 text-white" />
-          </Button>
-          <Button
-            className="absolute left-[100%] top-[50%] translate-y-[-50%] rounded-full"
-            variant="ghost"
+            size="unstyled"
             onClick={() => {
               const section =
                 (projectContainerRef.current?.scrollWidth ?? 0) /
