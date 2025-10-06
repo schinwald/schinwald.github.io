@@ -44,7 +44,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
 
   const projects = [
     {
-      index: 1,
       category: "library" as const,
       repository: "https://github.com/schinwald/express-otter",
       title: "Express Otter",
@@ -56,7 +55,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       },
     },
     {
-      index: 2,
       category: "website" as const,
       repository: "https://github.com/schinwald/cartera",
       title: "Cartera",
@@ -68,7 +66,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       },
     },
     {
-      index: 3,
       category: "game" as const,
       repository: "https://github.com/schinwald/pets",
       title: "Pets",
@@ -80,7 +77,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       },
     },
     {
-      index: 4,
       category: "website" as const,
       repository: "https://github.com/schinwald/weather-or-not",
       title: "Weather or Not",
@@ -91,7 +87,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       },
     },
     {
-      index: 5,
       category: "website" as const,
       repository: "https://github.com/schinwald/calculato",
       title: "Calculato",
@@ -102,7 +97,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       },
     },
     {
-      index: 6,
       category: "cli" as const,
       repository: "https://github.com/schinwald/easel",
       title: "Easel",
@@ -133,19 +127,13 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
           className="flex w-full flex-row items-end gap-6 overflow-x-auto -mt-28 -mb-12 snap-x snap-mandatory"
         >
           {projects.map((project, index) => {
-            const n = projects.length - 1;
-            const start = (index - 1) / n;
-            const end = index / n;
-            const scrollProgress = useTransform(
-              scrollXProgress,
-              [start, end],
-              [0, 1],
-            );
             return (
               <Project
-                key={project.index}
+                key={project.title}
+                index={index}
+                length={projects.length}
                 className="mb-12 snap-start"
-                scrollProgress={scrollProgress}
+                scrollProgress={scrollXProgress}
                 {...project}
               />
             );

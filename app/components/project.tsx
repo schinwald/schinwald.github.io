@@ -1,4 +1,4 @@
-import { type MotionValue, motion, useTransform } from "framer-motion";
+import { clamp, type MotionValue, motion, useTransform } from "framer-motion";
 import type React from "react";
 import { FaGlobeAmericas as GlobeIcon } from "react-icons/fa";
 import { IoMdArrowDroprightCircle as PlayIcon } from "react-icons/io";
@@ -8,6 +8,7 @@ import { Link } from "./primitives/ui/link";
 type ProjectProps = {
   className?: string;
   index: number;
+  length: number;
   repository: string;
   category: "library" | "game" | "website" | "cli";
   title: string;
@@ -22,6 +23,7 @@ type ProjectProps = {
 const Project: React.FC<ProjectProps> = ({
   className,
   index,
+  length,
   repository,
   category,
   title,
@@ -29,10 +31,36 @@ const Project: React.FC<ProjectProps> = ({
   image,
   scrollProgress,
 }) => {
-  const height = useTransform(scrollProgress, [0, 1], ["520px", "632px"]);
-  const opacity = useTransform(scrollProgress, (value) =>
+  const n = length - 1;
+  const start = (index - 1) / n;
+  const end = index / n;
+  const scrollSectionProgress = useTransform(
+    scrollProgress,
+    [start, end],
+    [0, 1],
+  );
+  const height = useTransform(
+    scrollSectionProgress,
+    [0, 1],
+    ["520px", "632px"],
+  );
+  const descriptionOpacity = useTransform(scrollSectionProgress, (value) =>
     value >= 0.8 ? 1 : 0,
   );
+  const opacity = useTransform(scrollProgress, (value) => {
+    let left, right;
+
+    left = (index - 3) / n;
+    right = (index - 2) / n;
+    if (left <= value && value <= right)
+      return clamp(0, (value - left) / (right - left), 1);
+
+    left = index / n;
+    right = (index + 1) / n;
+    if (left <= value && value <= right)
+      return clamp(0, -((value - left) / (right - left) - 1), 1);
+    return 1;
+  });
 
   return (
     <motion.div
@@ -40,7 +68,7 @@ const Project: React.FC<ProjectProps> = ({
         "relative flex shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white",
         className,
       )}
-      style={{ height }}
+      style={{ height, opacity }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <div className="flex flex-row items-center justify-between gap-2">
@@ -63,7 +91,7 @@ const Project: React.FC<ProjectProps> = ({
         <h2>{title}</h2>
         <motion.p
           className="line-clamp-5 text-sm transition-opacity duration-500"
-          style={{ opacity }}
+          style={{ opacity: descriptionOpacity }}
         >
           {description}
         </motion.p>
