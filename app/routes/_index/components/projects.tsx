@@ -1,7 +1,12 @@
-import { useInView, useScroll, useTransform } from "framer-motion";
+import { useInView, useScroll } from "framer-motion";
 import type React from "react";
 import { useEffect, useRef } from "react";
+import {
+  FaArrowAltCircleLeft as ArrowLeftIcon,
+  FaArrowAltCircleRight as ArrowRightIcon,
+} from "react-icons/fa";
 import { Header } from "~/components/header";
+import { Button } from "~/components/primitives/ui/button";
 import { Project } from "~/components/project";
 import { useProgress } from "~/hooks/progress";
 import { Container } from "~/layouts/container";
@@ -10,10 +15,6 @@ import { cn } from "~/utils/classname";
 type ProjectsProps = {
   id: string;
   className?: string;
-};
-
-const clamp = (minimum: number, value: number, maximum: number) => {
-  return Math.max(Math.min(maximum, value), minimum);
 };
 
 const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
@@ -122,24 +123,58 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
         <div className="relative flex w-full max-w-(--breakpoint-md) flex-row justify-end">
           <Header title="Projects" align="right" variant="cascade" />
         </div>
-        <div
-          ref={projectContainerRef}
-          className="flex w-full flex-row items-end gap-6 overflow-x-auto -mt-28 -mb-12 snap-x snap-mandatory"
-        >
-          {projects.map((project, index) => {
-            return (
-              <Project
-                key={project.title}
-                index={index}
-                length={projects.length}
-                className="mb-12 snap-start"
-                scrollProgress={scrollXProgress}
-                {...project}
-              />
-            );
-          })}
-          <div className="mb-12 opacity-20 relative flex h-[520px] shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white"></div>
-          <div className="mb-12 opacity-20 relative flex h-[520px] shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white"></div>
+        <div className="relative">
+          <div
+            ref={projectContainerRef}
+            className="flex w-full flex-row items-end gap-6 overflow-x-auto -mt-28 -mb-12 snap-x snap-mandatory"
+          >
+            {projects.map((project, index) => {
+              return (
+                <Project
+                  key={project.title}
+                  index={index}
+                  length={projects.length}
+                  className="mb-12 snap-start"
+                  scrollProgress={scrollXProgress}
+                  {...project}
+                />
+              );
+            })}
+            <div className="mb-12 opacity-20 relative flex h-[520px] shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white"></div>
+            <div className="mb-12 opacity-20 relative flex h-[520px] shrink-0 grow-0 basis-[calc(33.333%-16px)] w-full flex-col justify-between gap-6 rounded-md border border-[#fff2] bg-background-overlay p-8 text-white"></div>
+          </div>
+          <Button
+            className="absolute right-[100%] top-[50%] translate-y-[-50%] rounded-full"
+            variant="ghost"
+            onClick={() => {
+              const section =
+                (projectContainerRef.current?.scrollWidth ?? 0) /
+                (projects.length + 2);
+
+              projectContainerRef.current?.scrollTo({
+                left: projectContainerRef.current?.scrollLeft - section,
+                behavior: "smooth",
+              });
+            }}
+          >
+            <ArrowLeftIcon className="size-8 text-white" />
+          </Button>
+          <Button
+            className="absolute left-[100%] top-[50%] translate-y-[-50%] rounded-full"
+            variant="ghost"
+            onClick={() => {
+              const section =
+                (projectContainerRef.current?.scrollWidth ?? 0) /
+                (projects.length + 2);
+
+              projectContainerRef.current?.scrollTo({
+                left: projectContainerRef.current?.scrollLeft + section,
+                behavior: "smooth",
+              });
+            }}
+          >
+            <ArrowRightIcon className="size-8 text-white" />
+          </Button>
         </div>
       </Container>
     </div>
