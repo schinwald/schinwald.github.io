@@ -52,7 +52,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
             </li>
             <li>
               <Link
-                className="flex flex-row gap-2 px-1"
+                className="flex flex-row gap-2"
                 to="https://www.twitter.com/schinwald"
                 target="_blank"
                 rel="noreferrer"
