@@ -81,7 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="scrollbar scrollbar-thin scrollbar-thumb-white scrollbar-thumb-rounded-full scrollbar-track-black">
         {children}
         <ScrollRestoration />
         <Scripts />

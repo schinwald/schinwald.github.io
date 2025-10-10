@@ -1,6 +1,12 @@
-import { useInView, useScroll } from "framer-motion";
+import {
+  type MotionValue,
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import type React from "react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   FaArrowAltCircleLeft as ArrowLeftIcon,
   FaArrowAltCircleRight as ArrowRightIcon,
@@ -110,6 +116,16 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
     },
   ];
 
+  const sectionWidth =
+    (projectContainerRef.current?.scrollWidth ?? 0) / (projects.length + 2);
+
+  const scrollTo = useCallback((index: number) => {
+    projectContainerRef.current?.scrollTo({
+      left: sectionWidth * index,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <div
       id={id}
@@ -129,12 +145,8 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
             variant="ghost"
             size="unstyled"
             onClick={() => {
-              const section =
-                (projectContainerRef.current?.scrollWidth ?? 0) /
-                (projects.length + 2);
-
               projectContainerRef.current?.scrollTo({
-                left: projectContainerRef.current?.scrollLeft - section,
+                left: projectContainerRef.current?.scrollLeft - sectionWidth,
                 behavior: "smooth",
               });
             }}
@@ -143,15 +155,15 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
           </Button>
           <div
             ref={projectContainerRef}
-            className="flex w-full flex-row items-end gap-6 overflow-x-auto -mt-28 -mb-12 snap-x snap-mandatory"
+            className="flex w-full flex-row items-end gap-6 overflow-x-auto -mt-28 -mb-12 snap-x snap-mandatory scrollbar-none"
           >
             {projects.map((project, index) => {
               return (
                 <Project
+                  className="mb-12 snap-start"
                   key={project.title}
                   index={index}
                   length={projects.length}
-                  className="mb-12 snap-start"
                   scrollProgress={scrollXProgress}
                   {...project}
                 />
@@ -165,12 +177,8 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
             variant="ghost"
             size="unstyled"
             onClick={() => {
-              const section =
-                (projectContainerRef.current?.scrollWidth ?? 0) /
-                (projects.length + 2);
-
               projectContainerRef.current?.scrollTo({
-                left: projectContainerRef.current?.scrollLeft + section,
+                left: projectContainerRef.current?.scrollLeft + sectionWidth,
                 behavior: "smooth",
               });
             }}
@@ -178,8 +186,48 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
             <ArrowRightIcon className="size-8 text-white" />
           </Button>
         </div>
+        <div className="flex justify-center gap-2 mt-8">
+          {projects.map((_project, index) => {
+            return (
+              <ScrollItem
+                key={`scroll-item-${index}`}
+                index={index}
+                length={projects.length}
+                scrollProgress={scrollXProgress}
+                onClick={() => {
+                  scrollTo(index);
+                }}
+              />
+            );
+          })}
+        </div>
       </Container>
     </div>
+  );
+};
+
+type ScrollItemProps = {
+  index: number;
+  length: number;
+  scrollProgress: MotionValue<number>;
+  onClick: () => void;
+};
+
+const ScrollItem: React.FC<ScrollItemProps> = ({
+  index,
+  length,
+  scrollProgress,
+  onClick,
+}) => {
+  const n = length - 1;
+  const start = (index - 1) / n;
+  const end = index / n;
+  const opacity = useTransform(scrollProgress, [start, end], [0.2, 1]);
+
+  return (
+    <Button variant="ghost" size="minimal" onClick={onClick}>
+      <motion.div className="bg-white p-1 rounded-full" style={{ opacity }} />
+    </Button>
   );
 };
 
