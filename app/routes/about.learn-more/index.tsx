@@ -302,12 +302,12 @@ export default function () {
                           </h3>
                           <div className="text-primary">
                             <Button
-                              variant="ghost"
+                              variant="unstyled"
                               size="minimal"
                               click="squish-normally"
                               onClick={() => pronunciationSound.play()}
                             >
-                              <Volume2 className="h-5 w-5" />
+                              <Volume2 className="text-primary h-5 w-5" />
                             </Button>
                           </div>
                         </div>
