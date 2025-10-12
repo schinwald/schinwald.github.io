@@ -79,7 +79,7 @@ const Collector: React.FC<StepCollectorProps> = ({
               duration: 0.15,
             }}
           >
-            <Form.Field className="flex-row justify-between">
+            <Form.Field className="flex-row justify-between mb-3">
               <Rating
                 step={1}
                 min={0}

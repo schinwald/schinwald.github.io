@@ -86,7 +86,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
           <span>🗓</span>
           {safeFormat(publishedAt) ?? "TBD"}
         </time>
-        <h3>{data.title}</h3>
+        <h3 className="min-h-10 line-clamp-2">{data.title}</h3>
         <Tags tags={data.meta.tags} />
         <div
           className={cn("absolute inset-0 opacity-10", {

@@ -28,7 +28,7 @@ const Rating = forwardRef<
     });
 
     return (
-      <div ref={ref} className="relative my-3 flex cursor-pointer flex-row">
+      <div ref={ref} className="relative flex cursor-pointer flex-row">
         <div className="relative flex flex-row gap-2">
           {Array.from({ length: rating[0] }).map((_, index) => {
             const key = `filled-star-${index}`;

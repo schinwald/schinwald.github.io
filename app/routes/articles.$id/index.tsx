@@ -127,11 +127,17 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
               </div>
             </Card.Root>
             <div className="flex flex-col items-start gap-3">
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row items-center gap-2">
                 <EyeIcon className="size-6 text-white" />
-                <span>{views} views</span>
+                <p>
+                  <span className="tabular-nums">{views}</span>
+                  <span> views</span>
+                </p>
               </div>
-              <Form.Root method="POST" className="flex flex-row gap-2">
+              <Form.Root
+                method="POST"
+                className="flex flex-row items-center gap-2"
+              >
                 <input type="hidden" name="id" value={id} />
                 <Floater.Root>
                   <Floater.Trigger asChild>
@@ -149,7 +155,10 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                     <FullHeartIcon className="size-4 text-red-500 opacity-70" />
                   </Floater.Portal>
                 </Floater.Root>
-                <span>{likes} likes</span>
+                <p>
+                  <span className="tabular-nums">{likes}</span>
+                  <span> likes</span>
+                </p>
               </Form.Root>
             </div>
             <div className="flex flex-col items-start gap-3">
