@@ -119,12 +119,15 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
   const sectionWidth =
     (projectContainerRef.current?.scrollWidth ?? 0) / (projects.length + 2);
 
-  const scrollTo = useCallback((index: number) => {
-    projectContainerRef.current?.scrollTo({
-      left: sectionWidth * index,
-      behavior: "smooth",
-    });
-  }, []);
+  const scrollTo = useCallback(
+    (index: number) => {
+      projectContainerRef.current?.scrollTo({
+        left: sectionWidth * index,
+        behavior: "smooth",
+      });
+    },
+    [sectionWidth],
+  );
 
   return (
     <div
