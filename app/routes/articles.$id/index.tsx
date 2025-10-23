@@ -126,10 +126,10 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                 </ol>
               </div>
             </Card.Root>
-            <div className="flex flex-col items-start gap-3">
+            <div className="flex flex-col items-start gap-1">
               <div className="flex flex-row items-center gap-2">
                 <EyeIcon className="size-6 text-white" />
-                <p>
+                <p className="font-bold">
                   <span className="tabular-nums">{views}</span>
                   <span> views</span>
                 </p>
@@ -155,7 +155,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                     <FullHeartIcon className="size-4 text-red-500 opacity-70" />
                   </Floater.Portal>
                 </Floater.Root>
-                <p>
+                <p className="font-bold">
                   <span className="tabular-nums">{likes}</span>
                   <span> likes</span>
                 </p>
