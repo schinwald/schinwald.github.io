@@ -34,7 +34,7 @@ const ButtonText: React.FC<ButtonTextProps> = ({ original, alternate }) => {
       <motion.div
         className="relative flex w-full flex-row items-center justify-center"
         animate={isHovered ? { y: -20, opacity: 0 } : { y: 0, opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
       >
         {original}
       </motion.div>
@@ -42,7 +42,7 @@ const ButtonText: React.FC<ButtonTextProps> = ({ original, alternate }) => {
         className="absolute inset-0 flex flex-row items-center justify-center"
         initial={{ opacity: 0 }}
         animate={isHovered ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
       >
         {alternate}
       </motion.div>
@@ -81,7 +81,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                 <ButtonContext.Provider value={{ isHovered: googleHovered }}>
                   <Form.Submit
                     intent="authenticateWithGoogle"
-                    className="group flex w-full flex-row items-center gap-1"
+                    className="group flex w-full flex-row items-center gap-1 hover:bg-primary hover:border-primary"
                     variant="outline"
                     click="squish-lightly"
                     onMouseEnter={() => setGoogleHovered(true)}
@@ -89,13 +89,13 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                   >
                     <ButtonText
                       original={
-                        <div className="flex flex-row items-center gap-2">
+                        <div className="flex flex-row items-center gap-1">
                           <GoogleIcon className="group-hover:animate-wiggle" />
                           Google
                         </div>
                       }
                       alternate={
-                        <div className="flex flex-row items-center gap-2">
+                        <div className="flex flex-row items-center gap-1">
                           <GoogleIcon className="group-hover:animate-wiggle" />
                           Connect
                         </div>
@@ -108,7 +108,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                 <ButtonContext.Provider value={{ isHovered: githubHovered }}>
                   <Form.Submit
                     intent="authenticateWithGithub"
-                    className="group flex w-full flex-row items-center gap-1"
+                    className="group flex w-full flex-row items-center gap-1 hover:bg-primary hover:border-primary"
                     variant="outline"
                     click="squish-lightly"
                     onMouseEnter={() => setGithubHovered(true)}
@@ -116,13 +116,13 @@ const Authentication: React.FC<AuthenticationProps> = () => {
                   >
                     <ButtonText
                       original={
-                        <div className="flex flex-row items-center gap-2">
+                        <div className="flex flex-row items-center gap-1">
                           <GitHubIcon className="group-hover:animate-wiggle" />
                           GitHub
                         </div>
                       }
                       alternate={
-                        <div className="flex flex-row items-center gap-2">
+                        <div className="flex flex-row items-center gap-1">
                           <GitHubIcon className="group-hover:animate-wiggle" />
                           Connect
                         </div>
