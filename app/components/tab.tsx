@@ -102,7 +102,7 @@ const Root: React.FC<RootProps> = ({
         >
           <span
             className={cn(
-              "pointer-events-none absolute top-0 bottom-0 z-20 flex overflow-hidden p-1 opacity-100 transition-all duration-300",
+              "pointer-events-none absolute top-0 bottom-0 z-20 flex overflow-hidden p-1 opacity-100 transition-all duration-150",
               { "opacity-0": hoverTabMotion.activeIndex === null },
             )}
             style={{
@@ -117,7 +117,7 @@ const Root: React.FC<RootProps> = ({
           </nav>
         </Card.Root>
         <span
-          className="-bottom-[2px] absolute z-20 flex h-[2px] overflow-x-clip rounded-lg transition-all duration-300"
+          className="-bottom-[2px] absolute z-20 flex h-[2px] overflow-x-clip rounded-lg transition-all duration-150"
           style={{
             width: activeTabMotion.style.width - 16,
             left: activeTabMotion.style.left + 8,
