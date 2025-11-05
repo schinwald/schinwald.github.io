@@ -51,6 +51,17 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
 
   const projects = [
     {
+      category: "cli" as const,
+      repository: "https://github.com/schinwald/easel",
+      title: "Easel",
+      description:
+        "An easy to use terminal colorizer with support for streamed input.",
+      image: {
+        url: "https://raw.githubusercontent.com/schinwald/easel/refs/heads/development/logo.svg",
+        alt: "Easel",
+      },
+    },
+    {
       category: "library" as const,
       repository: "https://github.com/schinwald/express-otter",
       title: "Express Otter",
@@ -101,17 +112,6 @@ const Projects: React.FC<ProjectsProps> = ({ id, className }) => {
       image: {
         url: "https://github.com/schinwald/calculato/blob/main/preview.png?raw=true",
         alt: "Calculato logo",
-      },
-    },
-    {
-      category: "cli" as const,
-      repository: "https://github.com/schinwald/easel",
-      title: "Easel",
-      description:
-        "An easy to use terminal colorizer with support streamed input.",
-      image: {
-        url: "https://raw.githubusercontent.com/schinwald/easel/refs/heads/development/logo.svg",
-        alt: "Easel",
       },
     },
   ];

@@ -326,6 +326,13 @@ export default function () {
                         </div>
                         <div className="flex flex-col gap-4">
                           <Experience
+                            logo={experience.relayFinancialLogo}
+                            company="Relay"
+                            occupation="Software Engineer II"
+                            dates={["2025", "Present"]}
+                            location="Toronto, ON"
+                          />
+                          <Experience
                             logo={experience.nauticalCommerceLogo}
                             company="Nautical Commerce"
                             occupation="Software Engineer"
