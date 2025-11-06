@@ -10,7 +10,7 @@ export const Header: React.FC<HeaderProps> = ({ children, type, ...props }) => {
   return createElement(
     type,
     {
-      className: "group inline-flex items-center",
+      className: "group inline-flex items-center text-shadow-lg",
       ...props,
     },
     <>

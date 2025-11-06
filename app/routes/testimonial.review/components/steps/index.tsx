@@ -84,9 +84,9 @@ const Progress: React.FC<ProgressProps> = ({ step }) => {
           <div
             key={key}
             className={cn(
-              "h-2 w-3 rounded-full bg-white/30 transition-all duration-300",
+              "h-2 w-2 rounded-full bg-white/30 transition-all duration-300",
               {
-                "w-8 bg-white": active,
+                "w-4 bg-white": active,
               },
             )}
           />

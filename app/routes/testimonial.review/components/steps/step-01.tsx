@@ -152,12 +152,13 @@ const Collector: React.FC<StepCollectorProps> = ({ onNext = () => {} }) => {
             </Form.Field>
             <Form.Field className="mt-5 flex flex-row justify-end">
               <Form.Submit
+                className="group"
                 click="squish-normally"
                 intent="submitStepOne"
                 onSubmitSuccess={() => onNext()}
               >
                 <span>Next</span>
-                <ArrowRightIcon className="-mr-1 ml-2" />
+                <ArrowRightIcon className="-mr-1 ml-2 group-hover:translate-x-[4px] transition-transform drop-shadow-lg" />
               </Form.Submit>
             </Form.Field>
           </motion.div>

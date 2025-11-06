@@ -38,19 +38,19 @@ const Callout: React.FC<PropsWithChildren<CalloutProps>> = ({
         <div className="flex flex-row items-center gap-1">
           {match(type)
             .with("info", () => (
-              <InfoIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-blue-300 opacity-50" />
+              <InfoIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-blue-300 opacity-50 drop-shadow-lg" />
             ))
             .with("note", () => (
-              <NoteIcon className="-my-2 -ml-1 size-6 p-[0.2rem] text-green-400 opacity-50" />
+              <NoteIcon className="-my-2 -ml-1 size-6 p-[0.2rem] text-green-400 opacity-50 drop-shadow-lg" />
             ))
             .with("tip", () => (
-              <TipIcon className="-my-2 -ml-1 size-6 text-purple-300 opacity-50" />
+              <TipIcon className="-my-2 -ml-1 size-6 text-purple-300 opacity-50 drop-shadow-lg" />
             ))
             .with("danger", () => (
-              <DangerIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-red-500 opacity-50" />
+              <DangerIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-red-500 opacity-50 drop-shadow-lg" />
             ))
             .with("warning", () => (
-              <WarningIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-yellow-300 opacity-50" />
+              <WarningIcon className="-my-2 -ml-1 size-6 p-[0.1rem] text-yellow-300 opacity-50 drop-shadow-lg" />
             ))
             .exhaustive()}
           <h5 className="drop-shadow-lg">{title}</h5>

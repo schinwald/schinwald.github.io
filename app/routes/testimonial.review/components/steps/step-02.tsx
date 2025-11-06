@@ -102,20 +102,22 @@ const Collector: React.FC<StepCollectorProps> = ({
             </Form.Field>
             <Form.Field className="mt-5 flex flex-row justify-between">
               <Button
+                className="group"
                 variant="outline"
                 click="squish-normally"
                 onClick={() => onBack()}
               >
-                <ArrowLeftIcon className="-ml-1 mr-2" />
+                <ArrowLeftIcon className="-ml-1 mr-2 group-hover:translate-x-[-4px] transition-transform drop-shadow-lg" />
                 <span>Back</span>
               </Button>
               <Form.Submit
+                className="group"
                 click="squish-normally"
                 intent="submitStepTwo"
                 onSubmitSuccess={() => onNext()}
               >
                 <span>Next</span>
-                <ArrowRightIcon className="-mr-1 ml-2" />
+                <ArrowRightIcon className="-mr-1 ml-2 group-hover:translate-x-[4px] transition-transform drop-shadow-lg" />
               </Form.Submit>
             </Form.Field>
           </motion.div>

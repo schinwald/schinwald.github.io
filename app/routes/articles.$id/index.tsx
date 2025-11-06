@@ -93,7 +93,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
         <div className="sticky top-10 flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <Card.Root className="text-nowrap">
-              <h6>On this page</h6>
+              <h6 className="text-shadow-lg">On this page</h6>
               <div className="flex flex-row">
                 <div className="grid w-[2px] grid-cols-1 grid-rows-1">
                   <div
@@ -200,8 +200,8 @@ export default function () {
 
   return (
     <div className="relative">
-      <section className="h-screen w-screen">
-        <div className="relative flex w-screen flex-col items-center justify-center gap-20 pb-32 text-foreground">
+      <section className="h-screen">
+        <div className="relative flex flex-col items-center justify-center gap-20 pb-32 text-foreground">
           <NavigationBar />
           <Container variant="narrow">
             <ProgressProvider steps={steps}>
