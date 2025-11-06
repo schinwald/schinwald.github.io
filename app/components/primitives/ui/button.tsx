@@ -9,14 +9,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 uppercase rounded-md text-md md:text-xl font-display text-center whitespace-nowrap",
+          "bg-primary text-primary-foreground hover:bg-primary/90 uppercase rounded-md text-md md:text-xl font-display text-center whitespace-nowrap text-shadow-lg",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md focus-visible:outline font-display text-center whitespace-nowrap",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md focus-visible:outline font-display text-center whitespace-nowrap text-shadow-lg",
         outline:
-          "border border-input hover:bg-accent hover:text-accent-foreground rounded-md focus-visible:outline font-display text-center whitespace-nowrap",
+          "border border-input hover:bg-accent hover:text-accent-foreground rounded-md focus-visible:outline font-display text-center whitespace-nowrap text-shadow-lg",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md focus-visible:outline font-display text-center whitespace-nowrap",
-        ghost: "hover:opacity-50 font-display text-white",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md focus-visible:outline font-display text-center whitespace-nowrap text-shadow-lg",
+        ghost: "hover:opacity-50 font-display text-white text-shadow-lg",
         link: "text-primary underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-hidden font-display",
         unstyled: "text-white",
       },

@@ -11,7 +11,7 @@ const Tags: React.FC<TagProps> = ({ className, tags }) => {
       {tags?.map((tag) => (
         <span
           key={tag}
-          className="rounded-sm bg-tertiary px-2 py-0 text-sm text-tertiary-foreground"
+          className="rounded-sm bg-tertiary px-2 py-0 text-sm text-tertiary-foreground shadow-lg"
         >
           {tag}
         </span>

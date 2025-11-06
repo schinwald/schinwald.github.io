@@ -39,7 +39,7 @@ const Newsletter: React.FC<NewsletterProps> = ({
   return (
     <div className={cn("flex flex-row items-end justify-between", className)}>
       <div className="flex flex-col gap-4">
-        <h3>Newsletter</h3>
+        <h3 className="text-shadow-lg">Newsletter</h3>
         <p>
           Subscribe to this newsletter to receive notifications when new
           articles are published

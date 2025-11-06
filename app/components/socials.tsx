@@ -33,8 +33,8 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 variant="ghost"
                 size="minimal"
               >
-                <GitHubIcon className="size-7" />
-                <h4 className="mr-1 hidden sm:block">Github</h4>
+                <GitHubIcon className="size-7 drop-shadow-lg" />
+                <h4 className="mr-1 hidden sm:block text-shadow-lg">Github</h4>
               </Link>
             </li>
             <li>
@@ -46,8 +46,10 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 variant="ghost"
                 size="minimal"
               >
-                <LinkedInIcon className="size-7" />
-                <h4 className="mr-1 hidden sm:block">LinkedIn</h4>
+                <LinkedInIcon className="size-7 drop-shadow-lg" />
+                <h4 className="mr-1 hidden sm:block text-shadow-lg">
+                  LinkedIn
+                </h4>
               </Link>
             </li>
             <li>
@@ -59,8 +61,8 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 variant="ghost"
                 size="minimal"
               >
-                <TwitterIcon className="size-7" />
-                <h4 className="mr-1 hidden sm:block">Twitter</h4>
+                <TwitterIcon className="size-7 drop-shadow-lg" />
+                <h4 className="mr-1 hidden sm:block text-shadow-lg">Twitter</h4>
               </Link>
             </li>
           </ul>
@@ -82,7 +84,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 variant="ghost"
                 size="minimal"
               >
-                <GitHubIcon className="size-8" />
+                <GitHubIcon className="size-8 drop-shadow-lg" />
               </Link>
             </li>
             <li className="opacity-0">
@@ -93,7 +95,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 variant="ghost"
                 size="minimal"
               >
-                <LinkedInIcon className="size-8" />
+                <LinkedInIcon className="size-8 drop-shadow-lg" />
               </Link>
             </li>
             <li className="opacity-0">
@@ -104,7 +106,7 @@ const Socials = React.forwardRef<HTMLUListElement, SocialsProps>(
                 variant="ghost"
                 size="minimal"
               >
-                <TwitterIcon className="size-8" />
+                <TwitterIcon className="size-8 drop-shadow-lg" />
               </Link>
             </li>
           </ul>

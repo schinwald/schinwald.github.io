@@ -152,7 +152,7 @@ const Item: React.FC<ItemProps> = ({ index, children, ...props }) => {
         activeTabMotion.registerRef(element, index);
       }}
       className={cn(
-        "cursor-pointer text-center text-white/50 focus-visible:outline-none",
+        "cursor-pointer text-center text-white/50 focus-visible:outline-none text-shadow-lg",
         {
           "text-white": isActive || isHovering,
         },

@@ -73,8 +73,10 @@ const Project: React.FC<ProjectProps> = ({
     >
       <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex h-full flex-col justify-around">
-          <h3>{index.toString().padStart(2, "0")}</h3>
-          <h4 className="text-secondary">{category}</h4>
+          <h3 className="text-shadow-lg">
+            {index.toString().padStart(2, "0")}
+          </h3>
+          <h4 className="text-shadow-lg text-secondary">{category}</h4>
         </div>
         <div className="flex size-11 flex-row items-center justify-center rounded-sm border-2 border-[#fff2] p-1">
           <GlobeIcon className="h-full w-full text-white" />
@@ -88,7 +90,7 @@ const Project: React.FC<ProjectProps> = ({
         />
       </div>
       <header className="flex h-full flex-col gap-4 overflow-hidden">
-        <h2>{title}</h2>
+        <h2 className="text-shadow-lg">{title}</h2>
         <motion.p
           className="line-clamp-5 text-sm transition-opacity duration-500"
           style={{ opacity: descriptionOpacity }}

@@ -33,7 +33,7 @@ export const Article: React.FC<ArticleProps> = ({
               <span>🗓</span>
               {safeFormat(publishedAt) ?? "TBD"}
             </time>
-            <h3 className="min-h-10 line-clamp-2">{title}</h3>
+            <h3 className="min-h-10 line-clamp-2 text-shadow-lg">{title}</h3>
             <Tags tags={meta.tags} />
           </div>
         </Card.Content>

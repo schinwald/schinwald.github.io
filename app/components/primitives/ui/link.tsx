@@ -27,13 +27,13 @@ const linkVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground rounded-md hover:bg-primary/90 uppercase font-display rounded-md text-md md:text-xl",
+          "bg-primary text-primary-foreground rounded-md hover:bg-primary/90 uppercase font-display rounded-md text-md md:text-xl text-shadow-lg",
         destructive:
-          "bg-destructive text-destructive-foreground rounded-md font-display hover:bg-destructive/90",
+          "bg-destructive text-destructive-foreground rounded-md font-display hover:bg-destructive/90 text-shadow-lg",
         outline:
-          "border border-primary font-bold rounded-md text-primary font-display p-2",
+          "border border-primary font-bold rounded-md text-primary font-display p-2 text-shadow-lg",
         secondary:
-          "bg-secondary text-secondary-foreground rounded-md font-display hover:bg-secondary/80",
+          "bg-secondary text-secondary-foreground rounded-md font-display hover:bg-secondary/80 text-shadow-lg",
         ghost: "hover:opacity-50 font-display text-white",
         link: "text-primary underline-offset-4 font-display hover:underline",
         nostyle: "",
@@ -187,7 +187,7 @@ const LinkArrow: React.FC<LinkArrowProps> = ({ className }) => {
         }
         transition={{ duration: 0.15, ease: "easeOut" }}
       >
-        <Arrow className={cn(className)} />
+        <Arrow className={cn(className, "size-6 drop-shadow-lg")} />
       </motion.div>
       <motion.div
         className="absolute inset-0 opacity-0"
@@ -206,7 +206,7 @@ const LinkArrow: React.FC<LinkArrowProps> = ({ className }) => {
         }
         transition={{ duration: 0.15, ease: "easeOut" }}
       >
-        <Arrow className={cn(className)} />
+        <Arrow className={cn(className, "size-6 drop-shadow-lg")} />
       </motion.div>
     </div>
   );

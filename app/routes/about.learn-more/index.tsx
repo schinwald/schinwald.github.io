@@ -104,8 +104,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Learning</h3>
-                          <LearningIcon className="h-5 w-5 text-violet-400" />
+                          <h3 className="text-shadow-lg">Learning</h3>
+                          <LearningIcon className="size-5 text-violet-400" />
                         </div>
                         <p>Estoy aprendiendo español.</p>
                       </div>
@@ -115,8 +115,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Tinkering</h3>
-                          <TinkeringIcon className="h-5 w-5 text-yellow-300" />
+                          <h3 className="text-shadow-lg">Tinkering</h3>
+                          <TinkeringIcon className="size-5 text-yellow-300" />
                         </div>
                         <p>
                           I still have a lot to learn when it comes to
@@ -140,8 +140,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Woodworking</h3>
-                          <WoodworkingIcon className="h-5 w-5 text-yellow-600" />
+                          <h3 className="text-shadow-lg">Woodworking</h3>
+                          <WoodworkingIcon className="size-5 text-yellow-600" />
                         </div>
                         <p>
                           I think this stems from my love for making stuff, but
@@ -160,8 +160,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Outdoors</h3>
-                          <OutdoorsIcon className="h-5 w-5 text-green-600" />
+                          <h3 className="text-shadow-lg">Outdoors</h3>
+                          <OutdoorsIcon className="size-5 text-green-600" />
                         </div>
                         <p>
                           In another life I was a camp counsellor with
@@ -176,8 +176,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Animation</h3>
-                          <AnimationIcon className="h-5 w-5 text-blue-500" />
+                          <h3 className="text-shadow-lg">Animation</h3>
+                          <AnimationIcon className="size-5 text-blue-500" />
                         </div>
                         <p>
                           As a kid, I would make stick figure animations with{" "}
@@ -216,8 +216,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Dotfiles</h3>
-                          <DotfilesIcon className="h-5 w-5 text-blue-500" />
+                          <h3 className="text-shadow-lg">Dotfiles</h3>
+                          <DotfilesIcon className="size-5 text-blue-500" />
                         </div>
                         <p>
                           I have been maintaining my{" "}
@@ -236,8 +236,8 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-2">
-                          <h3>Open Source</h3>
-                          <OpenSourceIcon className="h-5 w-5 text-red-500" />
+                          <h3 className="text-shadow-lg">Open Source</h3>
+                          <OpenSourceIcon className="size-5 text-red-500" />
                         </div>
                         <p>
                           I strive to make open source contributions to projects
@@ -250,7 +250,7 @@ export default function () {
                   <div className="col-span-2 row-span-2">
                     <Card.Root>
                       <div className="flex flex-col gap-6">
-                        <h3>Keyboard</h3>
+                        <h3 className="text-shadow-lg">Keyboard</h3>
                         <p>
                           I'm currently rocking the{" "}
                           <a
@@ -270,7 +270,7 @@ export default function () {
                   <div className="col-span-2">
                     <Card.Root>
                       <div className="flex flex-col gap-6">
-                        <h3>Neovim</h3>
+                        <h3 className="text-shadow-lg">Neovim</h3>
                         <p>
                           My editor of choice is Neovim. I've been using it for
                           a while now, and I'm really loving it. It's fast, it's
@@ -283,7 +283,7 @@ export default function () {
                   <div className="col-span-2 row-span-2">
                     <Card.Root>
                       <div className="flex flex-col gap-6">
-                        <h3>Obsidian</h3>
+                        <h3 className="text-shadow-lg">Obsidian</h3>
                         <p>
                           I never really grew up taking notes, but Obsidian has
                           made note-taking a breeze.
@@ -297,7 +297,7 @@ export default function () {
                     <Card.Root>
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-row items-center gap-1">
-                          <h3 className="mb-[0.1rem] font-math">
+                          <h3 className="mb-[0.1rem] font-math text-shadow-lg">
                             /ˈʃɪnˌwɔːld/
                           </h3>
                           <div className="text-primary">
@@ -307,7 +307,7 @@ export default function () {
                               click="squish-normally"
                               onClick={() => pronunciationSound.play()}
                             >
-                              <Volume2 className="text-primary h-5 w-5" />
+                              <Volume2 className="text-primary size-5" />
                             </Button>
                           </div>
                         </div>
@@ -321,9 +321,7 @@ export default function () {
                     </Card.Root>
                     <Card.Root>
                       <div className="flex flex-col gap-6">
-                        <div className="flex flex-row items-center gap-2">
-                          <h3>Experience</h3>
-                        </div>
+                        <h3 className="text-shadow-lg">Experience</h3>
                         <div className="flex flex-col gap-4">
                           <Experience
                             logo={experience.relayFinancialLogo}
@@ -351,9 +349,7 @@ export default function () {
                     </Card.Root>
                     <Card.Root>
                       <div className="flex flex-col gap-6">
-                        <div className="flex flex-row items-center gap-2">
-                          <h3>Education</h3>
-                        </div>
+                        <h3 className="text-shadow-lg">Education</h3>
                         <div className="flex flex-col gap-4">
                           <Education
                             logo={education.universityOfGuelphLogo}
