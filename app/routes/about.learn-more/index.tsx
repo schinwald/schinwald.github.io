@@ -102,10 +102,10 @@ export default function () {
                   </div>
                   <div className="col-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Learning</h3>
-                          <LearningIcon className="size-5 text-violet-400" />
+                          <LearningIcon className="size-5 text-violet-400 drop-shadow-lg" />
                         </div>
                         <p>Estoy aprendiendo español.</p>
                       </div>
@@ -113,10 +113,10 @@ export default function () {
                   </div>
                   <div className="col-span-2 row-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Tinkering</h3>
-                          <TinkeringIcon className="size-5 text-yellow-300" />
+                          <TinkeringIcon className="size-5 text-yellow-300 drop-shadow-lg" />
                         </div>
                         <p>
                           I still have a lot to learn when it comes to
@@ -138,10 +138,10 @@ export default function () {
                   </div>
                   <div className="col-span-2 row-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Woodworking</h3>
-                          <WoodworkingIcon className="size-5 text-yellow-600" />
+                          <WoodworkingIcon className="size-5 text-yellow-600 drop-shadow-lg" />
                         </div>
                         <p>
                           I think this stems from my love for making stuff, but
@@ -158,10 +158,10 @@ export default function () {
                   </div>
                   <div className="col-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Outdoors</h3>
-                          <OutdoorsIcon className="size-5 text-green-600" />
+                          <OutdoorsIcon className="size-5 text-green-600 drop-shadow-lg" />
                         </div>
                         <p>
                           In another life I was a camp counsellor with
@@ -174,10 +174,10 @@ export default function () {
                   </div>
                   <div className="col-span-4">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Animation</h3>
-                          <AnimationIcon className="size-5 text-blue-500" />
+                          <AnimationIcon className="size-5 text-blue-500 drop-shadow-lg" />
                         </div>
                         <p>
                           As a kid, I would make stick figure animations with{" "}
@@ -214,10 +214,10 @@ export default function () {
                   </div>
                   <div className="col-span-2 row-span-1">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Dotfiles</h3>
-                          <DotfilesIcon className="size-5 text-blue-500" />
+                          <DotfilesIcon className="size-5 text-blue-500 drop-shadow-lg" />
                         </div>
                         <p>
                           I have been maintaining my{" "}
@@ -234,10 +234,10 @@ export default function () {
                   </div>
                   <div className="col-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center gap-2">
                           <h3 className="text-shadow-lg">Open Source</h3>
-                          <OpenSourceIcon className="size-5 text-red-500" />
+                          <OpenSourceIcon className="size-5 text-red-500 drop-shadow-lg" />
                         </div>
                         <p>
                           I strive to make open source contributions to projects
@@ -249,7 +249,7 @@ export default function () {
                   </div>
                   <div className="col-span-2 row-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <h3 className="text-shadow-lg">Keyboard</h3>
                         <p>
                           I'm currently rocking the{" "}
@@ -269,7 +269,7 @@ export default function () {
                   </div>
                   <div className="col-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <h3 className="text-shadow-lg">Neovim</h3>
                         <p>
                           My editor of choice is Neovim. I've been using it for
@@ -282,7 +282,7 @@ export default function () {
                   </div>
                   <div className="col-span-2 row-span-2">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <h3 className="text-shadow-lg">Obsidian</h3>
                         <p>
                           I never really grew up taking notes, but Obsidian has
@@ -295,24 +295,28 @@ export default function () {
                 <div className="col-span-2 row-span-2">
                   <div className="flex flex-col gap-5">
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
-                        <div className="flex flex-row items-center gap-1">
-                          <h3 className="mb-[0.1rem] font-math text-shadow-lg">
-                            /ˈʃɪnˌwɔːld/
-                          </h3>
-                          <div className="text-primary">
-                            <Button
-                              variant="unstyled"
-                              size="minimal"
-                              click="squish-normally"
-                              onClick={() => pronunciationSound.play()}
-                            >
-                              <Volume2 className="text-primary size-5" />
-                            </Button>
+                      <div className="flex flex-col gap-4">
+                        <div>
+                          <div className="flex flex-row items-center gap-1">
+                            <h3 className="mb-[0.1rem] font-math text-shadow-lg">
+                              /ˈʃɪnˌwɔːld/
+                            </h3>
+                            <div className="text-primary">
+                              <Button
+                                variant="unstyled"
+                                size="minimal"
+                                click="squish-normally"
+                                onClick={() => pronunciationSound.play()}
+                              >
+                                <Volume2 className="text-primary size-5 drop-shadow-lg" />
+                              </Button>
+                            </div>
                           </div>
+                          <hr className="border-[#fff2]" />
+                          <span className="italic opacity-50">
+                            sh•in•wahl•d
+                          </span>
                         </div>
-                        <hr className="-my-6 border-[#fff2]" />
-                        <span className="italic opacity-50">sh•in•wahl•d</span>
                         <p className="text-foreground">
                           Try to say it with your heaviest Austrian accent. It
                           makes it funnier :)
@@ -320,7 +324,7 @@ export default function () {
                       </div>
                     </Card.Root>
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <h3 className="text-shadow-lg">Experience</h3>
                         <div className="flex flex-col gap-4">
                           <Experience
@@ -348,7 +352,7 @@ export default function () {
                       </div>
                     </Card.Root>
                     <Card.Root>
-                      <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
                         <h3 className="text-shadow-lg">Education</h3>
                         <div className="flex flex-col gap-4">
                           <Education

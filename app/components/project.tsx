@@ -105,7 +105,7 @@ const Project: React.FC<ProjectProps> = ({
           from="left"
           to={repository}
         >
-          <PlayIcon className="-ml-2" />
+          <PlayIcon className="-ml-2 drop-shadow-lg" />
           <span>Preview</span>
         </Link>
       </div>

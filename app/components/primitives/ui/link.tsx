@@ -169,7 +169,7 @@ const LinkArrow: React.FC<LinkArrowProps> = ({ className }) => {
   const { isHovered } = useLinkContext();
 
   return (
-    <div className="-mr-3 relative ml-2 overflow-hidden">
+    <div className="-mr-2 relative ml-1 overflow-hidden">
       <motion.div
         className="relative"
         animate={
