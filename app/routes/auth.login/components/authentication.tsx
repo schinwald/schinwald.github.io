@@ -59,7 +59,7 @@ const Authentication: React.FC<AuthenticationProps> = () => {
   const [githubHovered, setGithubHovered] = React.useState(false);
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center text-foreground">
+    <div className="flex h-screen flex-col items-center justify-center text-foreground">
       <NavigationBar />
       <div className="flex h-full w-full flex-col items-center justify-center gap-6">
         <div>

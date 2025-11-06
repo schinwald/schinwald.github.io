@@ -19,8 +19,8 @@ export default function () {
 
   return (
     <div>
-      <section className="h-screen w-screen">
-        <div className="relative flex w-screen flex-col items-center justify-center gap-20 overflow-hidden pb-32 text-foreground">
+      <section className="h-screen">
+        <div className="relative flex flex-col items-center justify-center gap-20 overflow-hidden pb-32 text-foreground">
           <NavigationBar />
           <AllArticles />
           <Container variant="narrow">

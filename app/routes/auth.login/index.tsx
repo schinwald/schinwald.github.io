@@ -11,7 +11,7 @@ export const meta = actualMeta;
 export default function () {
   return (
     <div>
-      <section className="h-screen w-screen">
+      <section className="h-screen">
         <Authentication />
         <BackgroundGradient />
       </section>

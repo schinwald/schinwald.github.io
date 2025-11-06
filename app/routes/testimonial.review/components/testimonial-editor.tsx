@@ -21,8 +21,8 @@ const TestimonialEditor: React.FC<TestimonialEditorProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <section className="h-screen w-screen">
-        <div className="relative flex w-screen flex-col items-center justify-center gap-20 pb-32 text-foreground">
+      <section className="h-screen">
+        <div className="relative flex flex-col items-center justify-center gap-20 pb-32 text-foreground">
           <NavigationBar />
           <Container variant="narrow" className="gap-6">
             <Stepper.Root step={step} className="flex flex-col gap-4">
